@@ -11,11 +11,11 @@ public class EmailController {
 
 	private final EmailService emailService;
 
-	@RequestMapping("emp/sendMail")
-	public String sendMail() {
-		emailService.sendMailTest();
-		
-		return "emp/sendMail";
-	}
+//	@RequestMapping("emp/sendMail")
+//	public String sendMail() {
+//		emailService.sendMailTest();
+//		
+//		return "emp/sendMail";
+//	}
 	
 }
