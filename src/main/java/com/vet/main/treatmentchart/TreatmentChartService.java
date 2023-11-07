@@ -95,7 +95,10 @@ public class TreatmentChartService {
 	public int setFileDelete(TreatmentChartFileVO treatmentChartFileVO) throws Exception {	
 		//폴더파일삭제
 		treatmentChartFileVO = treatmentChartDAO.getFileDetail(treatmentChartFileVO);
-		boolean flag = fileManager.fileDelete(treatmentChartFileVO, uploadPath);
+		boolean flag = fileManager.fileDelete(treatmentChartFileVO, this.uploadPath + this.contents);
+		
+		log.info("파일이름 : {} ", treatmentChartFileVO.getFileName());
+		log.info("파일번호 : {} ", treatmentChartFileVO.getFileNo());
 		
 		if(flag) {
 			//DB삭제

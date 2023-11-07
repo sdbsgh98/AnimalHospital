@@ -104,7 +104,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											<div class="mb-3">
 											  <label for="pic" class="form-label">사진첨부 (최대 5개)</label>
 											  <div id="fileUploadContainer">
-											    동적으로 추가될 파일 업로드 필드와 삭제 버튼이 들어갈 곳입니다.
+											    <!-- 동적으로 추가될 파일 업로드 필드와 삭제 버튼이 들어갈 곳입니다. -->
 											  <br>
 											  </div>
 											  <br>
@@ -144,7 +144,8 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											
 											<!-- 약물추가 -->
 											<h3>약물추가</h3>
-
+											
+											
 										</div>
 										<button type="submit" class="btn btn-primary" style="float:right">진료차트등록</button>
 									</div>

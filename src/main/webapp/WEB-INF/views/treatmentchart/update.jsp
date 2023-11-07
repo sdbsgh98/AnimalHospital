@@ -110,6 +110,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 													</div>
 													<div>
 													<button class="deletes btn btn-danger" data-delete-num="${f.fileNo}">삭제</button>
+													<%-- <span class="x2" data-file="${f.fileName}" data-num="${f.fileNo}">x</span> --%>
 													</div>
 												</c:forEach>													
 											</div>

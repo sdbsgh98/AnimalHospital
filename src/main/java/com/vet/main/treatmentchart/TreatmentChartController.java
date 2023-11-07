@@ -105,9 +105,14 @@ public class TreatmentChartController {
 	@GetMapping("fileDelete")
 	public String setFileDelete(TreatmentChartFileVO treatmentChartFileVO, Model model) throws Exception {
 		int result = treatmentChartService.setFileDelete(treatmentChartFileVO);
-		model.addAttribute("result", result);
 		
-		//log.info("#######treatmentChartFileVO : {} ######### ", treatmentChartFileVO);
+		if(result > 0) {
+			log.info("파일삭제 성공");
+		}else {
+			log.info("파일삭제 실패");
+		}
+		
+		model.addAttribute("result", result);
 		
 		return "commons/ajaxResult";
 	}
