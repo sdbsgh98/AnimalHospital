@@ -17,6 +17,7 @@ import com.vet.main.customer.CustomerService;
 import com.vet.main.customer.CustomerVO;
 import com.vet.main.emp.EmpService;
 import com.vet.main.emp.EmpVO;
+import com.vet.main.medicine.MedicineService;
 import com.vet.main.medicine.MedicineVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,9 @@ public class TreatmentChartController {
 	@Autowired
 	private EmpService empService;
 	
+	@Autowired
+	private MedicineService medicineService;
+	
 	//진료차트목록
 	@GetMapping("list")
 	public String getList(Pager pager, Model model, CustomerVO customerVO, EmpVO empVO) throws Exception {
@@ -51,9 +55,12 @@ public class TreatmentChartController {
 	
 	//진료차트추가
 	@GetMapping("add")
-	public String setAdd(CustomerVO customerVO, EmpVO empVO, Model model) throws Exception {
+	public String setAdd(CustomerVO customerVO, EmpVO empVO, MedicineVO medicineVO, Model model) throws Exception {
+		List<MedicineVO> ar = treatmentChartService.getMedicineList();
 		customerVO = customerService.getDetail(customerVO);
 		empVO = empService.empDetail(empVO);
+		
+		model.addAttribute("med", ar);
 		model.addAttribute("emp", empVO);
 		model.addAttribute("vo", customerVO);
 		return "treatmentchart/add";
@@ -68,11 +75,12 @@ public class TreatmentChartController {
 	
 	//진료차트상세
 	@GetMapping("detail")
-	public String getDetail(TreatmentChartVO treatmentChartVO, CustomerVO customerVO, EmpVO empVO, Model model) throws Exception {
+	public String getDetail(TreatmentChartVO treatmentChartVO, CustomerVO customerVO, EmpVO empVO, MedicineVO medicineVO, Model model) throws Exception {
 		treatmentChartVO = treatmentChartService.getDetail(treatmentChartVO);
 		customerVO = customerService.getDetail(customerVO);
 		empVO = empService.empDetail(empVO);
 		
+		model.addAttribute("med", medicineVO);
 		model.addAttribute("cus", customerVO);
 		model.addAttribute("emp", empVO);
 		model.addAttribute("vo", treatmentChartVO);
@@ -118,11 +126,11 @@ public class TreatmentChartController {
 	}
 	
 	@GetMapping("medicineList")
-	public String getMedicineList(Model model) throws Exception {
+	public String getMedicineList(MedicineVO medicineVO, Model model) throws Exception {
 		List<MedicineVO> list = treatmentChartService.getMedicineList();
 		model.addAttribute("list", list);
 		
-		return "treatmentchart/empList";
+		return "treatmentchart/medicineList";
 	}
 	
 }

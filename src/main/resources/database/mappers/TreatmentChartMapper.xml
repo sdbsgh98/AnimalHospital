@@ -6,7 +6,7 @@
 	<mapper namespace="com.vet.main.treatmentchart.TreatmentChartDAO">
 	
 		<select id="getTotal" parameterType="Pager" resultType="Long">
-	  		SELECT COUNT(CHARTNO) FROM TREATMENTCHART
+	  		SELECT COUNT(CHARTNO) FROM TREATMENTCHART 
 	  	</select>
 		
 		<!-- 진료차트목록 -->
@@ -17,14 +17,15 @@
 				LIMIT #{startRow}, #{perPage}
 		</select>
 		
-		<select id="getMedicineList" parameterType="MedicineVO">
+		<!-- 약품조회 -->
+		<select id="getMedicineList" resultType="MedicineVO">
 			SELECT * FROM MEDICINE;
 		</select>
 		
 		<!-- 진료차트추가 -->
 		<insert id="setAdd" parameterType="TreatmentChartVO"  useGeneratedKeys="true" keyProperty="chartNo">
 			INSERT INTO TREATMENTCHART (CHARTNO, CONTENTS, DISEASE, DATE, CUSTOMERNO, USERNAME, MEDICINENO)
-				VALUES (NULL, #{contents}, #{disease}, #{date}, #{customerNo}, #{username}, 1)
+				VALUES (NULL, #{contents}, #{disease}, #{date}, #{customerNo}, #{username}, #{medicineNo})
 		</insert>
 		
 		<!-- 사진첨부 -->

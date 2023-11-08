@@ -37,5 +37,6 @@ public interface TreatmentChartDAO {
 	//파일삭제
 	public int setFileDelete(TreatmentChartFileVO treatmentChartFileVO) throws Exception;
 	
-	public List<MedicineVO> getMedicienList() throws Exception;
+	//약품조회
+	public List<MedicineVO> getMedicineList() throws Exception;
 }

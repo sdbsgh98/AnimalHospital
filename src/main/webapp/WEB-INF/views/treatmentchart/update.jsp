@@ -59,7 +59,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 													<td rowspan="2" style="font-size: xx-large; font-weight: bolder;">진료차트수정</td>
 													<!-- <td></td> -->
 													<td>작성자</td>
-													<td>${emp.empName}</td>
+													<td>${user.empName}</td>
 												</tr>
 												<tr>
 													<!-- <td></td> -->
@@ -114,6 +114,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 													</div>
 												</c:forEach>													
 											</div>
+											
 
 										</div>
 										<button class="btn btn-primary" style="float:right">진료차트수정</button>
@@ -195,8 +196,6 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	let idx = 0;
 
 	$("#fileList").on("click", ".df", function(){
-	    // let deleteId=$(this).attr("data-id")
-	    // $("#"+deleteId).remove();
 	    $(this).parent().remove();
 	    count--;
 	})

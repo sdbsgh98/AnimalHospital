@@ -87,8 +87,9 @@ public class TreatmentChartService {
 		return result;
 	}
 	
+	//약품조회
 	public List<MedicineVO> getMedicineList() throws Exception {
-		return treatmentChartDAO.getMedicienList();
+		return treatmentChartDAO.getMedicineList();
 	}
 	
 	//파일삭제
@@ -107,19 +108,5 @@ public class TreatmentChartService {
 		
 		return 0;
 	}
-	
-//	//썸머노트 사진등록
-//	public String contentsImgInsert(MultipartFile files, HttpSession session) throws Exception {
-//		String fileName = fileManager.save(this.uploadPath + this.contents, files);
-//		
-//		return this.uploadPath + this.contents;
-//	}
-//	
-//	//썸머노트 사진삭제
-//	public boolean contentsImgDelete(TreatmentChartFileVO treatmentChartFileVO, HttpSession session) throws Exception {
-//		treatmentChartFileVO.setFileName(this.contents.substring(this.contents.lastIndexOf("/") + 1));
-//		
-//		return fileManager.fileDelete(treatmentChartFileVO, uploadPath, session);	
-//	}
 
 }
