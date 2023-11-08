@@ -13,7 +13,7 @@
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 	<!-- Layout wrapper -->
@@ -34,35 +34,37 @@
 					<form>
 					<h3>${user.empName}의 마이페이지</h3>
 													
-					<div class="card shadow mb-4" style="align-items: center; width: 68%; float: left;">
-							<div>
-								<div style="width: 300px; float: left;">
-									<c:if test="${vo.originalFileName == null }">
-										<img alt="" src="/resources/images/default.jpeg" style="width: 250px; height: 250px; margin: 30px;">
-									</c:if>
-									<c:if test="${vo.originalFileName != null }">		
-										<img alt="" src="../files/emp/${vo.fileName}" style="width: 250px; height: 250px; margin: 30px;">
-									</c:if>
-								</div>
+					<div class="card shadow mb-4" style="align-items: center;">
+							<div style="width:900px; margin-bottom: 30px;">
+                                <div style="width: 300px; float: left;">
+                                    <c:choose>
+                                        <c:when test="${empty vo.originalFileName}">
+                                            <img alt="" src="/resources/images/default.jpeg" style="width: 250px; height: 250px; margin: 30px;">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img alt="" src="../files/emp/${vo.fileName}" style="width: 250px; height: 250px; margin: 30px;">
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
 							<div style="width: 550px; margin-top: 20px; margin-bottom: 20px; float: left;">
 								
 								<table class="table" style="margin-top: 40px;">
 
 									<tr>
 										<td>사번</td>
-										<td>${user.username}</td>
+										<td>${vo.username}</td>
 									</tr>
 									<tr>
 										<td>이름</td>
-										<td>${user.empName}</td>
+										<td>${vo.empName}</td>
 									</tr>
 									<tr>
 										<td>부서</td>
-										<td>${user.deptName}</td>
+										<td>${vo.deptName}</td>
 									</tr>
 									<tr>
 										<td>직급</td>
-										<td>${user.positionName}</td>
+										<td>${vo.positionName}</td>
 									</tr>
 
 								</table>							
@@ -72,35 +74,57 @@
 								<table class="table">
 									<tr>
 										<td>입사일</td>
-										<td>${user.hireDate}</td>
+										<td>${vo.hireDate}</td>
 									</tr>
 									<tr>
 										<td>이메일</td>
-										<td>${user.email}</td>
+										<td>${vo.email}</td>
 									</tr>
 									<tr>
 										<td>연락처</td>
-										<td>${user.phone}</td>
+										<td>${vo.phone}</td>
 									</tr>
 									<tr>
 										<td>생년월일</td>
-										<td>${user.birth}</td>
+										<td>${vo.birth}</td>
 									</tr>
 									<tr>
 										
 									</tr>
 								</table>
 							</div>
+								<p>내 전자서명 관리</p>
+							<div>
+								<a href="/emp/signAdd">+</a>
+								<table class="table">
+									<tr>
+										<td>사인이름</td>
+										<td>${sign.signName}</td>
+									</tr>
+<%-- 									<tr>
+										<td>이메일</td>
+										<td>${vo.email}</td>
+									</tr>
+									<tr>
+										<td>연락처</td>
+										<td>${vo.phone}</td>
+									</tr>
+									<tr>
+										<td>생년월일</td>
+										<td>${vo.birth}</td>
+									</tr>
+									<tr>
+										
+									</tr> --%>
+								</table>								
+							</div>
 							<br>
 							<a href="/emp/mypageUpdate?username=${user.username}" class="btn btn-danger">수정</a>
 							<a href="/emp/pwUpdate?username=${user.username}" class="btn btn-danger">비밀번호 변경</a>
 						</div>
 				</div>
-				<!-- Content wrapper -->
-				<div class="card shadow mb-4" style="width:30%; height: 500px; float: right;">	
-					<h3>도장관리</h3>
-				</div>			
-					</form>
+				</form>
+				<!-- Content wrapper -->		
 			</div>
 			<!-- / Layout page -->
 		</div>

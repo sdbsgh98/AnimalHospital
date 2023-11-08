@@ -44,5 +44,10 @@ public interface EmpDAO {
 	
 	public EmpVO findUsername(EmpVO empVO)throws Exception;
 	
+	// sign
+	public EmpVO signList(EmpVO empVO)throws Exception;
+	
+	public int signAdd(EmpVO empVO) throws Exception;
+	
 	
 }

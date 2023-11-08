@@ -190,4 +190,22 @@
 		FROM DEPARTMENT D INNER JOIN POSITION P
 		ON D.DEPTNO = P.DEPTNO	
 	</select>
+	
+	<!-- SIGN -->
+	
+	<select id="signList" parameterType="com.vet.main.emp.EmpVO">
+		SELECT E.*, P.*, D.* ,SF.*
+		FROM EMP E INNER JOIN POSITION P 
+		ON E.POSITIONNO=P.POSITIONNO 
+		INNER JOIN DEPARTMENT D 
+		ON E.DEPTNO=D.DEPTNO
+		INNER JOIN SIGNFILE SF
+		ON E.USERNAME = SF.USERNAME
+		WHERE E.USERNAME=#{username}
+	</select>
+	
+	<insert id="signAdd" parameterType="com.vet.main.emp.EmpVO">
+		INSERT INTO SIGNFILE VALUES (NULL, #{signName}, #{uploadName}, #{originalSignName}, NOW(), #{username}, 0)
+	</insert>
+	
 </mapper>
