@@ -176,8 +176,8 @@ public class EmpService implements UserDetailsService{
 		
 	}
 	
-	public List<DeptVO> getPositionNo(DeptVO deptVO)throws Exception{
-		return empDAO.getPositionNo();
+	public List<DeptVO> getPositionNo(String deptNo)throws Exception{
+		return empDAO.getPositionNo(deptNo);
 	}
 	
 	public List<DeptVO> getDeptNo(DeptVO deptVO)throws Exception{

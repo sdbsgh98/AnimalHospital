@@ -135,11 +135,6 @@ public class EmpController {
 	
 	// 신규직원 추가 페이지
 	
-//	@GetMapping("empAdd2")
-//	public void empAdd(@ModelAttribute EmpVO empVO)throws Exception{
-//
-//	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/empList/empAdd", method = RequestMethod.POST)
 	public String empAdd(@Valid EmpVO empVO, BindingResult bindingResult) throws Exception{
@@ -166,10 +161,8 @@ public class EmpController {
 	@GetMapping("empUpdate")
 	public String empUpdate(EmpVO empVO, DeptVO deptVO, Model model) throws Exception{
 		List<DeptVO> ar = empService.getDeptNo(deptVO);
-		List<DeptVO> po = empService.getPositionNo(deptVO);
 		empVO = empService.empDetail(empVO);
 		
-		model.addAttribute("po", po);
 		model.addAttribute("dept", ar);
 		model.addAttribute("vo", empVO);
 		return "emp/empUpdate";
@@ -181,7 +174,12 @@ public class EmpController {
 		return "redirect:./empList";
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "/emp/getPositionsByDept", method = RequestMethod.GET)
+	public List<DeptVO> getPositionsByDept(@RequestParam("deptNo") String deptNo) throws Exception {
+	    List<DeptVO> positions = empService.getPositionNo(deptNo);
+	    return positions;
+	}
 	// 비밀번호 찾기
 	@GetMapping("findPw")
 	public String findPw(EmpVO empVO, Model model) throws Exception{

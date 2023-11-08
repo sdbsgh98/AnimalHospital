@@ -56,4 +56,10 @@ public class DeptService {
 	public List<DeptVO> selectApLineDept() throws Exception{
 		return deptDAO.selectApLineDept();
 	}
+	
+	public DeptVO deptDetail(DeptVO deptVO)throws Exception{
+		return deptDAO.deptDetail(deptVO);
+	}
+	
+	
 }

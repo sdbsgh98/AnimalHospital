@@ -185,10 +185,11 @@
 		WHERE PARENTNO != 0	|| DEPTNO = 999
 	</select>
 	
-  	 <select id="getPositionNo" parameterType="com.vet.main.emp.EmpVO">
-		SELECT *
+  	 <select id="getPositionNo" parameterType="java.lang.String">
+		SELECT P.*
 		FROM DEPARTMENT D INNER JOIN POSITION P
-		ON D.DEPTNO = P.DEPTNO	
+		ON D.DEPTNO = P.DEPTNO
+		WHERE D.DEPTNO=#{deptNo}	
 	</select>
 	
 	<!-- SIGN -->

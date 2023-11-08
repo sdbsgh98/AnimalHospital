@@ -127,4 +127,14 @@
 		WHERE PARENTNO=0 and DEPTNO != 999 and DEPTNO != 100
 	</select>
 
+	<select id="deptDetail" parameterType="com.vet.main.dept.DeptVO">
+		SELECT * FROM DEPARTMENT D 
+		INNER JOIN POSITION P 
+		ON D.DEPTNO = P.DEPTNO 
+		INNER JOIN EMP E 
+		ON P.POSITIONNO = E.POSITIONNO 
+		WHERE D.DEPTNO = #{deptNo}
+	</select>
+
+
 </mapper>

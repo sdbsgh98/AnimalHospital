@@ -27,4 +27,8 @@ public interface DeptDAO {
 	public List<DeptVO> getApLineDept() throws Exception;
 	
 	public List<DeptVO> selectApLineDept() throws Exception;
+	
+	public DeptVO deptDetail(DeptVO deptVO)throws Exception;
+	
+	public List<DeptVO> getPositionNo(int deptNo)throws Exception;
 }

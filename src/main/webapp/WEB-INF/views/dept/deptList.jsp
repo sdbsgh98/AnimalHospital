@@ -39,7 +39,6 @@
 					<form>
 					<div class="card shadow mb-4" style="width: 20%; float: left; height: 650px;">	
 					<div>
-						<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 30px;">+</button>
 						<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#updateModal" style="width: 100px; margin-right: 20px;">수정</button>
 					</div>
 						<div id="jstree">
@@ -47,19 +46,19 @@
 						        <c:forEach items="${list}" var="vo">
 						            <c:if test="${vo.deptNo == 0}">
 						                <li id="rootNode${vo.deptNo}">
-						                	<span onclick="deptList(1)">${vo.deptName}</span>
+						                	<span>${vo.deptName}</span>
 						                    <ul>
 						                        <c:forEach items="${list}" var="childVo">
 						                            <c:if test="${childVo.parentNo == vo.deptNo}">
 						                                <li id="childNode${childVo.deptNo}">
-						                                	<span onclick="deptList(2)">
+						                                	<span>
 						                                		${childVo.deptName}
 						                                	</span>					                                    					                                    
 						                                    <ul>
 						                                        <c:forEach items="${list}" var="child2">
 						                                            <c:if test="${child2.parentNo == childVo.deptNo}">
 						                                                <li id="child2Node${child2.deptNo}">
-						                                                	<span onclick="deptList(3)">${child2.deptName}</span>
+						                                                	<span>${child2.deptName}</span>
 						                                                    <ul>
 						                                                        <%-- <c:forEach items="${posi}" var="posi">
 						                                                            <c:if test="${posi.deptNo == childVo.deptNo}">
@@ -83,42 +82,9 @@
 						    </ul>
 						</div>
 					</div>
-					<!-- 부서등록 modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					  <div class="modal-dialog">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <h1 class="modal-title fs-5" id="exampleModalLabel">부서 등록</h1>
-					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					      </div>
-					      <div class="modal-body">
 
-					        <input type="hidden" id="deptNoAdd" name="deptNo">
-					          <div class="mb-3">
-					            <label for="deptName" class="col-form-label">부서명:</label>
-					            <input type="text" class="form-control" id="deptNameAdd" name="deptName">
-					          </div>
-					          <div class="mb-3">
-					            <label for="parentNo" class="col-form-label">상위부서:</label>
-									<select class="form-control" name='parentNo' id="parentNoAdd" style="height: 35px;">										
-											<c:forEach items="${dept}" var="dept">
-												<option value="${dept.deptNo}">${dept.deptName}</option>
-											</c:forEach>
-											<option value=0>없음</option>
-									</select>
-					          </div>
-					          
-							      <div class="modal-footer">
-							        <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-							        <button class="btn btn-primary" id="addBtn">추가</button>
-							      </div>
-
-					      </div>
-					    </div>
-					  </div>
-					</div>
 					<!-- 부서수정 modal -->
-					<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+<%-- 					<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
 					    <div class="modal-dialog">
 					        <div class="modal-content">
 					            <div class="modal-header">
@@ -171,7 +137,7 @@
 					            </div>
 					        </div>
 					    </div>
-					</div>
+					</div> --%>
 					<div class="card shadow mb-4" style="width:78%; float: right; height: 650px;">			
 							<!-- Content -->
 							
@@ -281,40 +247,9 @@
 	<!-- Place this tag in your head or just before your close body tag. -->
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
 
-	<script type="text/javascript">
-	$('#addBtn').on("click", function(){
-
-		let deptName = $("#deptNameAdd").val();
-		let parentNo = $("#parentNoAdd").val();
 
 	
-		let data = {deptName:deptName, parentNo:parentNo};
-		
-	    if(deptName == ""){
-	        alert("부서이름을 입력해주세요.");
-	        deptName.focus();
-	        return;
-	    }
-
-		$.ajax({
-			url:"/dept/deptList/deptAdd",
-            data: data,
-			method:"post",												
-			success : function(){
-				console.log(data);
-				alert("등록이 완료되었습니다!");
-				location.href="/dept/deptList";		
-			},
-			error : function(data){
-				console.log(data);
-				alert("관리자에게 문의해주세요.");
-			}
-		})
-
-	});
-	</script>
-	
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript">
 	    $(document).ready(function () {
 	        $('#updateBtn').on("click", function () {
 	            let deptNo0 = $("#deptNo0").val();
@@ -355,8 +290,8 @@
 	            });
 	        });
 	    });
-	</script>	
-		<script type="text/javascript">
+	</script> -->	
+<!-- 		<script type="text/javascript">
 	    $(document).ready(function () {
 	        $('#delBtn').on("click", function () {
 	        	$("#jstree").jstree().delete_node( $("#"+ nodeId) );
@@ -377,7 +312,7 @@
 	    		})
 	        });
 	    });
-	</script>
+	</script> -->
     <script>
         $(document).ready(function () {
             $('#jstree').jstree();       

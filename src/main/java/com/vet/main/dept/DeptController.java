@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vet.main.commons.Pager;
+import com.vet.main.emp.EmpService;
 
 @Controller
 @RequestMapping("/dept/*")
@@ -21,6 +23,9 @@ public class DeptController {
 
 	@Autowired
 	private DeptService deptService;
+	
+	@Autowired
+	private EmpService empService;
 	
 	@GetMapping("deptList")
 	public String deptList(Model model, Pager pager)throws Exception{
@@ -36,18 +41,6 @@ public class DeptController {
 		return "dept/deptList";
 	} 
 	
-//	@GetMapping("deptList")
-//	public ModelAndView deptList(ModelAndView mv) {
-//		mv.setViewName("dept/deptList");
-//		return mv;
-//	}
-//	
-//	@RequestMapping(value = "/dept/deptList", method = RequestMethod.POST)
-//	@ResponseBody
-//	public List<DeptVO> deptList(DeptVO deptVO, Model model)throws Exception{
-//		List<DeptVO> ar = deptService.deptList();
-//		return ar;
-//	}
 	
 	//부서 등록 (modal)
 	
@@ -75,4 +68,36 @@ public class DeptController {
 		int result = deptService.deptDelete(deptVO);
 		return "redirect: ./deptList";
 	}
+	
+	//부서 관리 페이지
+	
+	@GetMapping("deptManage")
+	public String deptManage(DeptVO deptVO, Model model, Pager pager) throws Exception{
+		List<DeptVO> ar = empService.getDeptNo(deptVO);
+		List<DeptVO> emp = deptService.getEmpList(pager);
+		deptVO = deptService.deptDetail(deptVO);
+		model.addAttribute("dept", ar);
+		model.addAttribute("emp", emp);
+		model.addAttribute("vo", deptVO);
+		
+		return "dept/deptManage";
+	}
+	
+//	@ResponseBody
+//    @RequestMapping(value = "/getPositionNo", method = RequestMethod.GET)
+//    public List<DeptVO> getPositionNo(@RequestParam("deptNo") int deptNo) throws Exception{
+//
+//        List<DeptVO> positions = deptService.getPositionNo(deptNo);
+//        
+//        return positions;
+//	}
+	// 부서 상세
+//	@GetMapping("deptDetail")
+//	public String deptDetail(DeptVO deptVO, Model model)throws Exception{
+//		deptVO = deptService.deptDetail(deptVO);
+//		model.addAttribute("vo", deptVO);
+//		
+//		return "dept/deptDetail";
+//	}
+	
 }
