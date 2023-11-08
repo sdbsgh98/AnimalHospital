@@ -15,6 +15,7 @@
 
 		<typeAlias type="com.vet.main.approval.ApprovalFileVO" alias="ApprovalFileVO"/>
 		<typeAlias type="com.vet.main.approval.ApprovalExpenseVO" alias="ApprovalExpenseVO"/>
+		<typeAlias type="com.vet.main.approval.ApprovalLineVO" alias="ApprovalLineVO"/>
 		
 		<typeAlias type="com.vet.main.workSchedule.WorkScheduleVO" alias="WorkScheduleVO"/>
 

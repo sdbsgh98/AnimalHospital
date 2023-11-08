@@ -1,13 +1,10 @@
 package com.vet.main.approval;
 
-
-
 import java.sql.Date;
 import java.util.List;
 
 import com.vet.main.emp.EmpVO;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -40,4 +37,5 @@ public class ApprovalVO {
 	private List<EmpVO> getApUserList;
 	private List<ApprovalFileVO> fileList;
 	private List<ApprovalExpenseVO> expenseList;
+	private List<ApprovalLineVO> apLineList;
 }

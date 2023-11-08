@@ -7,6 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+
 <c:set var="dayoffStartDate" value="${approvalVO.dayoffStartDate}"/>
 <c:set var="dayoffEndDate" value="${approvalVO.dayoffEndDate}"/>
 <c:set var="dayoffKind" value="${approvalVO.dayoffKind}"/>
@@ -17,7 +18,9 @@
 	data-template="vertical-menu-template-free">
 <head>
 <c:import url="/WEB-INF/views/layout/headCSS.jsp"></c:import>
+
 </head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -56,7 +59,9 @@
 					
 					<input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
 					<input type="hidden" id="apKind" name="apKind" value="${approvalVO.apKind}">
+					<input type="hidden" name="writeUsername" id="writeUsername" value="${approvalVO.username}">
 					<input type="hidden" name="username" id="username" value="${user.username}">
+					
 					
 					<p align="center" style="margin: 0px 0px 10px;line-height: 107%;font-size:10pt;font-family:맑은 고딕;text-align:center">
 						<span style="font-family:나눔고딕">&nbsp;</span>
@@ -360,14 +365,30 @@
 					</div>
 					</div>
 					</div>
-						<div class="row" style="float:right;">
-							<div class="demo-inline-spacing">
-								<button type="button" class="btn btn-primary submitBtn" id="updateBtn" data-url="update">수정</button>
-								<button type="button" class="btn btn-danger submitBtn" id="deleteBtn" data-url="delete">회수</button>
-								<button type="button" class="btn btn-primary" id="listBtn">목록</button>
-							</div>
-                           </div>
+						<c:choose>
+							<c:when test="${user.username eq approvalVO.username}">
+								<div class="row" style="float:right;">
+									<div class="demo-inline-spacing">
+										<button type="button" class="btn btn-primary submitBtn" id="updateBtn" data-url="update">수정</button>
+										<button type="button" class="btn btn-danger submitBtn" id="deleteBtn" data-url="delete">삭제</button>
+										<button type="button" class="btn btn-primary" id="draftListBtn">목록</button>
+									</div>
+	                        	</div>
+	                       	</c:when>
+							<c:otherwise>
+								<div class="row" style="float:right;">
+									<div class="demo-inline-spacing">
+										<button type="button" class="btn btn-primary" id="approveBtn" data-url="update">결재</button>
+										<button type="button" class="btn btn-warning" id="rejectBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">반려</button>
+										<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+									</div>
+	                        	</div>
+	                       	</c:otherwise>
+                       	</c:choose>
 					</div>
+					
+					<jsp:include page="/WEB-INF/views/approval/rejectModal.jsp"></jsp:include>
+					
 					<!-- / Content -->
 					<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
 					<div class="content-backdrop fade"></div>
@@ -382,8 +403,35 @@
 	</div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-	<script src="/js/approval/detail.js"></script>
-	<script src="/js/approval/dateFormat.js"></script>
 	
+
+
+	
+	<script type="text/javascript">
+		function convertDate(inputDate) {
+		    const dateParts = inputDate.split('/');
+		    const year = dateParts[0];
+		    const month = dateParts[1];
+		    const day = dateParts[2];
+		    return year + "년 " + month + "월 " + day + "일";
+		}
+	
+	
+		$(document).ready(function () {
+			var startDateStr = $('#dayoffStartDate').val();
+			var endDateStr = $('#dayoffEndDate').val();
+			
+			var startDate = new Date(startDateStr);
+			var endDate = new Date(endDateStr);
+			
+			var timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+			var dayDifference = Math.ceil(timeDiff / (1000 * 3600 * 24));
+			$('#result').html('(총 ' + dayDifference + '일)');
+		});
+	</script>
+	
+	<script src="/js/approval/detail.js"></script>
+
 </body>
+
 </html>

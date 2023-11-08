@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.vet.main.commons.FileManager;
 import com.vet.main.commons.Pager;
+import com.vet.main.dept.DeptVO;
 import com.vet.main.emp.EmpVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -94,10 +95,18 @@ public class ApprovalService {
 
 	// 기안함 리스트
 	public List<ApprovalVO> getDraftList(Pager pager) throws Exception {
-		Long totalCount = approvalDAO.getTotal(pager);
+		Long totalCount = approvalDAO.getDraftTotal(pager);
 		pager.makeNum(totalCount);
 		pager.makeStartRow();
 		return approvalDAO.getDraftList(pager);
+	}
+	
+	// 결재함 리스트
+	public List<ApprovalVO> getApproverList(Pager pager) throws Exception {
+		Long totalCount = approvalDAO.getApproverTotal(pager);
+		pager.makeNum(totalCount);
+		pager.makeStartRow();
+		return approvalDAO.getApproverList(pager);
 	}
 	
 	// 기안 내용 상세
@@ -109,5 +118,16 @@ public class ApprovalService {
 	public ApprovalVO getApExpenseDetail(ApprovalVO approvalVO) throws Exception {
 		return approvalDAO.getApExpenseDetail(approvalVO);
 	}
+	
+	// 상세페이지에 결재자 출력
+	public List<ApprovalLineVO> getApLinePerson(Long apNo) throws Exception {
+		return approvalDAO.getApLinePerson(apNo);
+	}
+	
+	// 반려
+	public int rejectApprove(ApprovalVO approvalVO) throws Exception {
+		return approvalDAO.rejectApprove(approvalVO);
+	}
+
 	
 }

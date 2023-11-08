@@ -7,17 +7,100 @@
 
 	<sql id="forPager">
 		<choose>
-			<when test="kind='apKind'">
-				APKIND
-			</when>
 			<when test="kind=='apTitle'">
 				APTITLE
 			</when>
-			<otherwise>
+			<when test="kind=='apContents'">
 				APCONTENTS
+			</when>
+			<otherwise>
+				APKIND
 			</otherwise>
 		</choose>
 	</sql>
+	
+	<!-- emp resultMap -->
+	<resultMap type="com.vet.main.emp.EmpVO" id="userMap">
+		<id column="USERNAME" property="username"/>
+			<result column="PASSWORD" property="password"/>
+			<result column="EMPNAME" property="empName"/>
+			<result column="EMAIL" property="email"/>
+			<result column="PHONE" property="phone"/>
+			<result column="HIREDATE" property="hireDate"/>
+			<result column="RANDOMPW" property="randomPw"/>
+			<result column="FILENAME" property="fileName"/>
+			<result column="ORIGINALFILENAME" property="originalFileName"/>
+			<result column="STATE" property="state"/>
+			<result column="POSITIONNO" property="positionNo"/>
+			<result column="DEPTNO" property="deptNo"/>
+			<result column="BIRTH" property="birth"/>
+			<result column="RANDOMPW" property="randomPw"/>
+	</resultMap>
+
+	<!-- 결재선 -->
+	<resultMap type="ApprovalLineVO" id="apLineMap">
+		<id column="APNO" property="apNo"/>
+			<result column="USERNAME" property="userName"/>
+			<result column="EMPNAME" property="empName"/>
+			<result column="APCONFIRMSTATE" property="apConfimeState"/>
+			<result column="APCONFIRMDATE" property="apConfimeDate"/>
+	</resultMap>
+
+	
+	<!-- 지출결의서 상세페이지 -->
+	<resultMap type="ApprovalVO" id="getExpenseResult">
+		<id column="APNO" property="apNo"/>
+			<result column="USERNAME" property="username"/>
+			<result column="APFORMATNO" property="apFormatNo"/>
+			<result column="APTITLE" property="apTitle"/>
+			<result column="APCDATE" property="apCDate"/>
+			<result column="APUDATE" property="apUDate"/>
+			<result column="APSTATE" property="apState"/>
+			<result column="APREJECTION" property="apRejection"/>
+			<result column="APKIND" property="apKind"/>
+			<result column="EMPNAME" property="empName"/>
+			<result column="POSITIONNAME" property="positionName"/>
+			<result column="DEPTNAME" property="deptName"/>
+			<result column="PRICESUM" property="priceSum"/>
+		<collection property="expenseList" javaType="List" ofType="ApprovalExpenseVO">
+			<result column="EXPENSENAME" property="expenseName"/>
+			<result column="EXPENSEPRICE" property="expensePrice"/>
+			<result column="EXPENSEAMOUNT" property="expenseAmount"/>
+			<result column="EXPENSEBIGO" property="expenseBigo"/>
+		</collection>
+	</resultMap>
+	
+	<!-- 기안 상세페이지 -->
+	<resultMap type="ApprovalVO" id="getApDetailResult">
+		<id column="APNO" property="apNo"/>
+			<result column="USERNAME" property="username"/>
+			<result column="APFORMATNO" property="apFormatNo"/>
+			<result column="APTITLE" property="apTitle"/>
+			<result column="APCDATE" property="apCDate"/>
+			<result column="APUDATE" property="apUDate"/>
+			<result column="DAYOFFSTARTDATE" property="dayoffStartDate"/>
+			<result column="DAYOFFENDDATE" property="dayoffEndDate"/>
+			<result column="APCONTENTS" property="apContents"/>
+			<result column="APSTATE" property="apState"/>
+			<result column="APREJECTION" property="apRejection"/>
+			<result column="DAYOFFKIND" property="dayoffKind"/>
+			<result column="DAYOFFTIME" property="dayoffTime"/>
+			<result column="DAYOFFSELECTTIME" property="dayoffSelectTime"/>
+			<result column="APKIND" property="apKind"/>
+			<result column="EMPNAME" property="empName"/>
+			<result column="POSITIONNAME" property="positionName"/>
+			<result column="DEPTNAME" property="deptName"/>
+		<collection property="apLineList" resultMap="apLineMap" />
+	</resultMap>
+	
+  	<select id="getApUser" parameterType="com.vet.main.emp.EmpVO" resultMap="userMap">
+  		SELECT E.*, P.*, D.* 
+		FROM EMP E INNER JOIN POSITION P 
+			ON E.POSITIONNO=P.POSITIONNO 
+			INNER JOIN DEPARTMENT D 
+			ON E.DEPTNO=D.DEPTNO
+		WHERE E.USERNAME=#{username}
+  	</select>
 
 	<!-- 품의서 작성 -->
 	<insert id="setApPoomAdd" parameterType="ApprovalVO">
@@ -93,12 +176,6 @@
 	
 	<!-- 지출결의서 상세 -->
 	<select id="getApExpenseDetail" parameterType="ApprovalVO" resultMap="getExpenseResult">
-		<!-- SELECT A.*, AE.*
-		FROM
-			APPROVAL A LEFT OUTER JOIN APEXPENSE AE
-			ON A.APNO = AE.APNO
-		WHERE A.APNO = #{apNo} -->
-		
 		SELECT A.*, AE.*,
 				(SELECT SUM(EXPENSEPRICE) FROM APEXPENSE
 				 WHERE APNO = A.APNO) AS PRICESUM
@@ -108,53 +185,15 @@
 		WHERE A.APNO = #{apNo};
 	</select>
 	
-
-  	<select id="getApUser" parameterType="com.vet.main.emp.EmpVO" resultMap="getUserResult">
+	<!-- 부서명으로 사원조회 -->
+  	<select id="getDeptEmp" parameterType="String" resultMap="userMap">
   		SELECT E.*, P.*, D.* 
 		FROM EMP E INNER JOIN POSITION P 
 			ON E.POSITIONNO=P.POSITIONNO 
 			INNER JOIN DEPARTMENT D 
 			ON E.DEPTNO=D.DEPTNO
-		WHERE E.USERNAME=#{username}
+		WHERE P.DEPTNAME = #{deptName}
   	</select>
-  	
-	<resultMap type="com.vet.main.emp.EmpVO" id="getUserResult">
-		<id column="USERNAME" property="username"/>
-			<result column="PASSWORD" property="password"/>
-			<result column="EMPNAME" property="empName"/>
-			<result column="EMAIL" property="email"/>
-			<result column="PHONE" property="phone"/>
-			<result column="ADDRESS" property="address"/>
-			<result column="HIREDATE" property="hireDate"/>
-			<result column="RANDOMPW" property="randomPw"/>
-			<result column="FILENAME" property="fileName"/>
-			<result column="ORIGINALFILENAME" property="originalFileName"/>
-			<result column="STATE" property="state"/>
-			<result column="POSITIONNO" property="positionNo"/>
-			<result column="DEPTNO" property="deptNo"/>
-	</resultMap>
-	
-	<resultMap type="ApprovalVO" id="getExpenseResult">
-		<id column="APNO" property="apNo"/>
-			<result column="USERNAME" property="username"/>
-			<result column="APFORMATNO" property="apFormatNo"/>
-			<result column="APTITLE" property="apTitle"/>
-			<result column="APCDATE" property="apCDate"/>
-			<result column="APUDATE" property="apUDate"/>
-			<result column="APSTATE" property="apState"/>
-			<result column="APREJECTION" property="apRejection"/>
-			<result column="APKIND" property="apKind"/>
-			<result column="EMPNAME" property="empName"/>
-			<result column="POSITIONNAME" property="positionName"/>
-			<result column="DEPTNAME" property="deptName"/>
-			<result column="PRICESUM" property="priceSum"/>
-		<collection property="expenseList" javaType="List" ofType="ApprovalExpenseVO">
-			<result column="EXPENSENAME" property="expenseName"/>
-			<result column="EXPENSEPRICE" property="expensePrice"/>
-			<result column="EXPENSEAMOUNT" property="expenseAmount"/>
-			<result column="EXPENSEBIGO" property="expenseBigo"/>
-		</collection>
-	</resultMap>
 
 
 	<!-- 기안함 -->
@@ -171,43 +210,42 @@
 		LIMIT #{startRow}, #{perPage}
 	</select>
 	
-
-	<select id="getTotal" parameterType="Pager" resultType="Long">
+	<!-- 결재함  -->
+	<select id="getApproverList" parameterType="Pager" resultType="ApprovalVO">
+		SELECT A.*, E.USERNAME, E.EMPNAME, D.DEPTNAME
+			FROM APPROVAL A INNER JOIN EMP E
+			ON A.USERNAME = E.USERNAME
+			INNER JOIN DEPARTMENT D
+			ON E.DEPTNO = D.DEPTNO
+			INNER JOIN APLINE APL
+			ON A.APNO = APL.APNO
+		WHERE APL.USERNAME = #{username}
+		  AND <include refid="forPager"></include>
+		 LIKE CONCAT('%', #{search}, '%')
+		ORDER BY A.APNO DESC
+		LIMIT #{startRow}, #{perPage}
+	</select>
+	
+	<!-- pager 관련 (해당 유저 기안함의 총 게시글 수를 구하기 위함) -->
+	<select id="getDraftTotal" parameterType="Pager" resultType="Long">
 		<bind name="pattern" value="'%' +_parameter.getSearch() + '%'"/>
 		SELECT COUNT(APNO) FROM APPROVAL
 		WHERE USERNAME = #{username}
 		  AND <include refid="forPager"></include>
 		 LIKE #{pattern}
 	</select>
+	
+	<!-- pager 관련 (해당 유저에게 전달된 결재의 총 수를 구하기 위함) -->
+	<select id="getApproverTotal" parameterType="Pager" resultType="Long">
+		<bind name="pattern" value="'%' +_parameter.getSearch() + '%'"/>
+		SELECT COUNT(A.APNO)
+		FROM APPROVAL A INNER JOIN APLINE APL
+		  ON A.APNO = APL.APNO
+		WHERE APL.USERNAME = #{username}
+		  AND <include refid="forPager"></include>
+		 LIKE #{pattern}
+	</select>
 
-	
-	<resultMap type="ApprovalVO" id="getApDetailResult">
-		<id column="APNO" property="apNo"/>
-			<result column="USERNAME" property="username"/>
-			<result column="APFORMATNO" property="apFormatNo"/>
-			<result column="APTITLE" property="apTitle"/>
-			<result column="APCDATE" property="apCDate"/>
-			<result column="APUDATE" property="apUDate"/>
-			<result column="DAYOFFSTARTDATE" property="dayoffStartDate"/>
-			<result column="DAYOFFENDDATE" property="dayoffEndDate"/>
-			<result column="APCONTENTS" property="apContents"/>
-			<result column="APSTATE" property="apState"/>
-			<result column="APREJECTION" property="apRejection"/>
-			<result column="DAYOFFKIND" property="dayoffKind"/>
-			<result column="DAYOFFTIME" property="dayoffTime"/>
-			<result column="DAYOFFSELECTTIME" property="dayoffSelectTime"/>
-			<result column="APKIND" property="apKind"/>
-			<result column="EMPNAME" property="empName"/>
-			<result column="POSITIONNAME" property="positionName"/>
-			<result column="DEPTNAME" property="deptName"/>
-<!-- 		<collection property="fileList" javaType="List" ofType="ApprovalFileVO">
-			<id column="FILENO" property="fileNo"/>
-				<result column="FILENAME" property="fileName"/>
-				<result column="ORIGINALFILENAME" property="originalFileName"/>
-		</collection> -->
-	</resultMap>
-	
-	
 	<select id="getApDetail" parameterType="ApprovalVO" resultMap="getApDetailResult">
 		SELECT *
 		FROM APPROVAL
@@ -219,7 +257,7 @@
 		WHERE APNO = #{apNo}
 	</delete>
 	
-	<update id="setApPoomUpdate" parameterType="ApprovalVO">
+	<update id="setApUpdate" parameterType="ApprovalVO">
 		UPDATE APPROVAL
 		SET APTITLE = #{apTitle},
 			APCONTETNTS = #{apContents}
@@ -237,5 +275,33 @@
 		SELECT * FROM APFILE
 		WHERE FILENO = #{fileNo}
 	</select>
+	
+	
+	<!-- 모든 부서 -->
+	<select id="selectDept" resultType="EmpVO">
+		SELECT E.*, D.DEPTNAME
+		FROM DEPARTMENT D INNER JOIN EMP E
+		ON D.DEPTNO = E.DEPTNO
+	</select>
+	
+	
+	<!-- 상세페이지에 결재선 직원 출력-->
+	<select id="getApLinePerson" parameterType="Long" resultType="ApprovalLineVO">
+		SELECT APL.*, E.POSITIONNO, P.POSITIONNAME
+		FROM APLINE APL INNER JOIN EMP E
+			ON APL.USERNAME = E.USERNAME
+			INNER JOIN POSITION P
+			ON P.POSITIONNO = E.POSITIONNO
+		WHERE APL.APNO = #{apNo};
+	</select>
+	
+	<!-- 반려 -->
+	<update id="rejectApprove" parameterType="ApprovalVO">
+		UPDATE APPROVAL
+		SET
+		APSTATE = #{apState},
+		APREJECTION = #{apRejection}
+		WHERE APNO = #{apNo}
+	</update>
 	
 </mapper>
