@@ -62,13 +62,11 @@ public class EmpVO implements UserDetails{
 	public List<EmpVO> fileVO;
 	
 	//sign
-	private Long signNo;
 	private String signName;
 	private String uploadName;
 	private String originalSignName;
 	private Date addDate;
-	private Long mainSign;
-	
+
 	public List<EmpVO> fileVO2;
 	
 	@Override

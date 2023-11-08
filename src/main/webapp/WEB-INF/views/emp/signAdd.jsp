@@ -43,8 +43,8 @@
 														<td><input type="text" class="form-control" name="username" id="username" value="${user.username}" readonly="readonly"></td>
 													</tr>
 													<tr>
-														<td>서명 이름</td>
-														<td><input type="text" class="form-control" name="signName" id="signName"></td>
+														<td>별칭</td>
+														<td><input type="text" class="form-control" name="signName" id="signName" placeholder="별칭을 입력해주세요."></td>
 													</tr>
 													<tr>
 														<td>파일</td>
@@ -52,7 +52,7 @@
 													</tr>
 																						
 												</table>
-												<button class="btn btn-primary" id="addBtn">추가</button>
+												<button class="btn btn-primary" id="addBtn">등록</button>
 											</form>	
 							        		
 										</div>

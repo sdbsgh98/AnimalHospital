@@ -205,7 +205,16 @@
 	</select>
 	
 	<insert id="signAdd" parameterType="com.vet.main.emp.EmpVO">
-		INSERT INTO SIGNFILE VALUES (NULL, #{signName}, #{uploadName}, #{originalSignName}, NOW(), #{username}, 0)
+		INSERT INTO SIGNFILE SET 
+			USERNAME = #{username}, 
+			SIGNNAME = #{signName}, 
+			UPLOADNAME = #{uploadName}, 
+			ORIGINALSIGNNAME = #{originalSignName}, 
+			ADDDATE = NOW()
+			ON DUPLICATE KEY UPDATE
+			SIGNNAME = #{signName}, 
+			UPLOADNAME = #{uploadName}, 
+			ORIGINALSIGNNAME = #{originalSignName}	
 	</insert>
 	
 </mapper>
