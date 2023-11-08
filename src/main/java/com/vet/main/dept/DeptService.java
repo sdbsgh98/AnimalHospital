@@ -47,4 +47,13 @@ public class DeptService {
 		
 		return result;
 	}
+	
+	// 결재선
+	public List<DeptVO> getApLineDept() throws Exception {
+		return deptDAO.getApLineDept();
+	}
+	
+	public List<DeptVO> selectApLineDept() throws Exception{
+		return deptDAO.selectApLineDept();
+	}
 }

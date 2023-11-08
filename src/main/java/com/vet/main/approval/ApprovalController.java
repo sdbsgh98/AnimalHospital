@@ -28,6 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import com.vet.main.commons.Pager;
+import com.vet.main.dept.DeptService;
+import com.vet.main.dept.DeptVO;
 import com.vet.main.emp.EmpVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,19 +42,29 @@ public class ApprovalController {
 	@Autowired
 	private ApprovalService approvalService;
 	
+	@Autowired
+	private DeptService deptService;
+	
 	
 	@GetMapping("add/{apKind}")
 	public String setApAdd(@PathVariable String apKind, ApprovalVO approvalVO, Model model, EmpVO empVO) throws Exception {
-		empVO = approvalService.getApUser(empVO);
+		approvalService.getApUser(empVO);
 		
 		log.info("====== empVO : {} ======", empVO);
 				
 		LocalDate now = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd");
 		String date = now.format(formatter);
+		
+		List<DeptVO> ar = deptService.getApLineDept();
+		List<DeptVO> dept = deptService.selectApLineDept();
+		
+		model.addAttribute("dept", dept);
+		model.addAttribute("list", ar);
 
 		model.addAttribute("emp", empVO);
 		model.addAttribute("date", date);
+
 		
 		log.info("================= empVO : {} ====================", empVO);
 		
@@ -150,7 +162,6 @@ public class ApprovalController {
 	@GetMapping("draftList/{username}")
 	public String getDraftList(@PathVariable String username, Pager pager, Model model) throws Exception {
 		List<ApprovalVO> ar = approvalService.getDraftList(pager);
-		username = pager.getUsername();
 		model.addAttribute("list", ar);
 		model.addAttribute("pager", pager);
 		
@@ -159,10 +170,25 @@ public class ApprovalController {
 		return "approval/draftList";
 	}
 	
+	// 결재함 리스트
+	@GetMapping("approverList/{username}")
+	public String getApproverList(@PathVariable String username, Pager pager, Model model) throws Exception {
+		List<ApprovalVO> ar = approvalService.getApproverList(pager);
+		model.addAttribute("list", ar);
+		model.addAttribute("pager", pager);
+		
+		log.info("=========== getApproverList : {} ===========", ar);
+		
+		return "approval/approverList";
+	}
+	
 	@GetMapping("detail")
 	public String getApDetail(ApprovalVO approvalVO, Model model) throws Exception {
 
 		approvalVO = approvalService.getApDetail(approvalVO);
+		Long apNo = approvalVO.getApNo();
+		List<ApprovalLineVO> line = approvalService.getApLinePerson(apNo);
+		model.addAttribute("line", line);
 		
 		log.info("=============== detail 정보 : {} ================", approvalVO);
 		
@@ -204,6 +230,38 @@ public class ApprovalController {
 		}
 		
 		return null;	
+	}
+	
+
+	@PostMapping("selectDept") // 결재선에서 부서클릭시 맞는 부서들 출력
+	@ResponseBody
+	public List<EmpVO> selectDept(String deptName) throws Exception { // 선택한 부서에 맞는 사원들 리스트로 반환
+//		List<EmpVO> m = approvalService.selectDept(deptName);
+//		return m;
+		return null;
+	}
+	
+	@GetMapping("apLineSelect")
+	public String getDeptList(Model model)throws Exception {
+		List<DeptVO> ar = deptService.deptList();
+		List<DeptVO> dept = deptService.selectDept();
+		
+		model.addAttribute("dept", dept);
+		model.addAttribute("list", ar);
+		
+		return "approval/apLineSelect";
+	} 
+	
+	@PostMapping("reject")
+	public String rejectApprove(ApprovalVO approvalVO, Model model) throws Exception {
+		
+		approvalVO.setApState("반려");
+		
+		log.info("===================== 반려 : {} ======================", approvalVO);
+		
+		approvalService.rejectApprove(approvalVO);
+		Long apNo = approvalVO.getApNo();
+		return "redirect:./detail?apNo=" + apNo;
 	}
 		
 }

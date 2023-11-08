@@ -83,6 +83,13 @@
 							    });
 							    
 							    $("#exampleModal").modal("hide");
+	                        	let username = $("#username").val("");
+	                        	let deptName = $("#deptName").val("");
+	                        	let positionName = $("#positionName").val("");
+	                        	let empName = $("#empName").val("");
+	                            let workDate = $("#workDate").val("");
+	                            let workTime = $("#workTime").val("");
+	                            let homeTime = $("#homeTime").val("");
                             }
                         });
                     }
