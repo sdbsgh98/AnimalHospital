@@ -95,16 +95,16 @@
 							</div>
 							<a href="/emp/mypageUpdate?username=${user.username}" class="btn btn-secondary" style=" margin-top: 10px; margin-left: 10px; float: right;">내 정보수정</a>
 							<a href="/emp/pwUpdate?username=${user.username}" class="btn btn-danger" style=" margin-top: 10px; float: right;">비밀번호 변경</a>
-						<div style="margin-top: 50px;">	
+							<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">추가</button>   -->
+						<div style="margin-top: 70px;">	
 								<p style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;내 전자서명 관리</p>
-							<!-- <ul>
-								<li> -->
 								<c:if test="${empty sign.uploadName}">
-									<a href="/emp/signAdd" style="float: right">+</a>
+									<a href="/emp/signAdd" style="float: right">등록</a>
 								</c:if>
+
 								<c:if test="${not empty sign.uploadName}">
 								<div style="width: 200px; float: left;">
-									<img alt="" src="../files/sign/${sign.uploadName}" style="width: 100px; height: 100px; margin: 30px;">
+									<img alt="" src="../files/sign/${sign.uploadName}" style="width: 120px; height: 120px; margin: 30px;">
 								</div>
 								<div style="width:700px; margin-top: 50px; float: left;">
 									<span style="text-align: center;">${sign.signName}</span><br>
@@ -112,10 +112,45 @@
 									<a href="/emp/signAdd" style="float: right">수정</a>
 								</div>
 								</c:if>
-								<!-- </li>
-							</ul> -->
+
 						</div>	
 							<br>
+<%-- 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h1 class="modal-title fs-5" id="exampleModalLabel">사원 등록</h1>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+
+								 <form action="/emp/signAdd" method="post" enctype="multipart/form-data" id="signAdd">
+										<table style="margin: auto;">
+											<tr>
+												<td>사원번호</td>
+												<td><input type="text" class="form-control" name="username" id="username" value="${user.username}" readonly="readonly"></td>
+											</tr>
+											<tr>
+												<td>별칭</td>
+												<td><input type="text" class="form-control" name="signName" id="signName" placeholder="별칭을 입력해주세요."></td>
+											</tr>
+											<tr>
+												<td>파일</td>
+												<td><input type="file" class="form-control" name="files" id="files"></td>
+											</tr>
+																						
+											</table>
+									</form>	
+					          		<br>
+							      <div class="modal-footer">
+							        <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+									<button class="btn btn-primary" id="addBtn">등록</button>
+							      </div>
+								</div>
+							  </div>
+							</div>
+						</div> --%>
+							
 						</div>
 					</div>						
 				</form>
@@ -130,6 +165,40 @@
 </div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+<!-- 	<script type="text/javascript">
+	
+	$('#addBtn').on("click", function(){
+		let username = $("#username").val();
+		let signName = $("#signName").val();
+		let files = $("#files").val();
 
+		
+		let data = {signName:signName, files:files};
+		
+		if(signName == ""){
+	        alert("이름은 필수입력사항입니다.");
+	        empName.focus();
+	        return;
+	    }
+
+	    
+	    $.ajax({
+			url:"/emp/signAdd",
+            data: data,
+			method:"post",	
+			success : function(){
+				console.log(data);
+				alert("등록이 완료되었습니다!");
+				location.href="/emp/mypage?username="+username;
+			},
+			error : function(data){
+				console.log(data);
+				alert("관리자에게 문의해주세요.");
+			}
+		});
+	 
+		
+	});
+	</script> -->
 </body>
 </html>

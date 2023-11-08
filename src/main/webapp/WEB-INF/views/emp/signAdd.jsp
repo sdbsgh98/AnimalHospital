@@ -52,6 +52,8 @@
 													</tr>
 																						
 												</table>
+												<br>
+												<a class="btn btn-primary" href="../emp/mypage?username=${user.username}">이전</a>
 												<button class="btn btn-primary" id="addBtn">등록</button>
 											</form>	
 							        		

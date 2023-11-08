@@ -212,19 +212,11 @@ public class EmpController {
 		return "redirect: ./login";
 	}
 
-	// sign 추가
-
-//	@GetMapping("signList")
-//	public String signList(Model model)throws Exception{
-//	    List<EmpVO> sign = empService.signList();
-//	    model.addAttribute("sign", sign);
-//	    
-//	    return "emp/signList";
-//	}
-	
+	// sign
 	
 	@GetMapping("signAdd")
-	public String signAdd(EmpVO empVO)throws Exception{
+	public String signAdd(EmpVO empVO, Model model)throws Exception{
+		
 		return "emp/signAdd";
 	}
 	
@@ -236,9 +228,9 @@ public class EmpController {
 	}
 
 //	@ResponseBody
-//	@RequestMapping(value = "/emp/mypage/signAdd", method = RequestMethod.POST)
-//	public String signAdd(SignVO signVO, EmpVO empVO, MultipartFile[] files) throws Exception{
-//		int result = empService.singAdd(signVO, files);
+//	@RequestMapping(value = "/emp/signAdd", method = RequestMethod.POST)
+//	public String signAdd(EmpVO empVO, MultipartFile[] files) throws Exception{
+//		int result = empService.signAdd(empVO, files);
 //		
 //		return "redirect:./mypage?username="+empVO.getUsername();
 //	}
