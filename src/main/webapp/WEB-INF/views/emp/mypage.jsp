@@ -93,36 +93,31 @@
 									</tr>
 								</table>
 							</div>
-								<p>내 전자서명 관리</p>
-							<div>
-								<a href="/emp/signAdd">+</a>
-								<table class="table">
-									<tr>
-										<td>사인이름</td>
-										<td>${sign.signName}</td>
-									</tr>
-<%-- 									<tr>
-										<td>이메일</td>
-										<td>${vo.email}</td>
-									</tr>
-									<tr>
-										<td>연락처</td>
-										<td>${vo.phone}</td>
-									</tr>
-									<tr>
-										<td>생년월일</td>
-										<td>${vo.birth}</td>
-									</tr>
-									<tr>
-										
-									</tr> --%>
-								</table>								
-							</div>
+							<a href="/emp/mypageUpdate?username=${user.username}" class="btn btn-secondary" style=" margin-top: 10px; margin-left: 10px; float: right;">내 정보수정</a>
+							<a href="/emp/pwUpdate?username=${user.username}" class="btn btn-danger" style=" margin-top: 10px; float: right;">비밀번호 변경</a>
+						<div style="margin-top: 50px;">	
+								<p style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;내 전자서명 관리</p>
+							<!-- <ul>
+								<li> -->
+								<c:if test="${empty sign.uploadName}">
+									<a href="/emp/signAdd" style="float: right">+</a>
+								</c:if>
+								<c:if test="${not empty sign.uploadName}">
+								<div style="width: 200px; float: left;">
+									<img alt="" src="../files/sign/${sign.uploadName}" style="width: 100px; height: 100px; margin: 30px;">
+								</div>
+								<div style="width:700px; margin-top: 50px; float: left;">
+									<span style="text-align: center;">${sign.signName}</span><br>
+									<span style="text-align: center;">등록일 : ${sign.addDate}</span>
+									<a href="/emp/signAdd" style="float: right">수정</a>
+								</div>
+								</c:if>
+								<!-- </li>
+							</ul> -->
+						</div>	
 							<br>
-							<a href="/emp/mypageUpdate?username=${user.username}" class="btn btn-danger">수정</a>
-							<a href="/emp/pwUpdate?username=${user.username}" class="btn btn-danger">비밀번호 변경</a>
 						</div>
-				</div>
+					</div>						
 				</form>
 				<!-- Content wrapper -->		
 			</div>
