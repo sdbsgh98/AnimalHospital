@@ -51,6 +51,7 @@
 					
 					<input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
 					<input type="hidden" id="apKind" name="apKind" value="${approvalVO.apKind}">
+					<input type="hidden" name="writeUsername" id="writeUsername" value="${approvalVO.username}">
 					<input type="hidden" name="username" id="username" value="${user.username}">
 					
 					<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: none; width: 618px; height: 849px;" class="">
@@ -98,12 +99,13 @@
 													</p>
 												</td>
 												<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 101px;">
-													<p align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+													<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
 														<span style="font-family:나눔고딕">&nbsp;</span>
+													
 													</p>
 												</td>
 												<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 97px;">
-													<p align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+													<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
 														<span style="font-family:나눔고딕">&nbsp;</span>
 													</p>
 												</td>
@@ -117,12 +119,12 @@
 													</p>
 												</td>
 												<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 80px; width: 101px;">
-													<p align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+													<p class="signStamp" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
 														<span style="font-family:나눔고딕">&nbsp;</span>
 													</p>
 												</td>
 												<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 80px; width: 97px;">
-													<p align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+													<p class="signStamp" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
 														<span style="font-family:나눔고딕">&nbsp;</span>
 													</p>
 												</td>
@@ -137,12 +139,12 @@
 													</p>
 												</td>
 												<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 26px; width: 101px;">
-													<p align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+													<p class="createDate" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
 														<span style="font-family:나눔고딕">&nbsp;</span>
 													</p>
 												</td>
 												<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 26px; width: 97px;">
-													<p align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+													<p class="createDate" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
 														<span style="font-family:나눔고딕">&nbsp;</span>
 													</p>
 												</td>
@@ -319,14 +321,30 @@
 					</div>
 					</div>
 					</div>					
-						<div class="row" style="float:right;">
-							<div class="demo-inline-spacing">
-								<button type="button" class="btn btn-primary submitBtn" id="updateBtn" data-url="update">수정</button>
-								<button type="button" class="btn btn-danger submitBtn" id="deleteBtn" data-url="delete">회수</button>
-								<button type="button" class="btn btn-primary" id="listBtn">목록</button>
-							</div>
-                           </div>
+						<c:choose>
+							<c:when test="${user.username eq approvalVO.username}">
+								<div class="row" style="float:right;">
+									<div class="demo-inline-spacing">
+										<button type="button" class="btn btn-primary submitBtn" id="updateBtn" data-url="update">수정</button>
+										<button type="button" class="btn btn-danger submitBtn" id="deleteBtn" data-url="delete">삭제</button>
+										<button type="button" class="btn btn-primary" id="draftListBtn">목록</button>
+									</div>
+	                        	</div>
+	                       	</c:when>
+							<c:otherwise>
+								<div class="row" style="float:right;">
+									<div class="demo-inline-spacing">
+										<button type="button" class="btn btn-primary" id="approveBtn" data-url="update">결재</button>
+										<button type="button" class="btn btn-warning" id="rejectBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">반려</button>
+										<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+									</div>
+	                        	</div>
+	                       	</c:otherwise>
+                       	</c:choose>
 					</div>
+					
+					<jsp:include page="/WEB-INF/views/approval/rejectModal.jsp"></jsp:include>
+					
 					<!-- / Content -->
 					<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
 					<div class="content-backdrop fade"></div>

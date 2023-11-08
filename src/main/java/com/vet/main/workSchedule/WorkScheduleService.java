@@ -25,7 +25,6 @@ public class WorkScheduleService {
 	}
 	
 	public WorkScheduleVO getWorkSchedule(WorkScheduleVO workScheduleVO) throws Exception {
-		
 		return workScheduleDAO.getWorkSchedule(workScheduleVO);
 	}
 	

@@ -259,7 +259,7 @@
 	              </a>
 	            </li>
 	            <li class="menu-item">
-	              <a href="cards-basic.html" class="menu-link">
+	              <a href="/approval/approverList/${emp.username}" class="menu-link">
 	                <div data-i18n="Basic">결재함</div>
 	              </a>
 	            </li>

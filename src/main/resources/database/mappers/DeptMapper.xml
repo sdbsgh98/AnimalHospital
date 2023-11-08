@@ -102,5 +102,29 @@
 		DELETE FROM DEPARTMENT
 		WHERE DEPTNO = #{deptNo}
 	</delete>
+	
+	
+	<!-- 결재선 설정 시 조회되는 부서목록 -->
+	<select id="getApLineDept" parameterType="com.vet.main.dept.DeptVO">
+		WITH RECURSIVE DEPTLIST AS (
+		SELECT DEPTNO, DEPTNAME, PARENTNO, DEPTH
+		FROM DEPARTMENT
+		WHERE PARENTNO IS NULL
+		
+		UNION ALL
+		
+		SELECT d.DEPTNO, d.DEPTNAME, d.PARENTNO, dh.DEPTH + 1
+		FROM DEPARTMENT d
+		INNER JOIN DEPTLIST dh ON d.PARENTNO = dh.DEPTNO
+		)
+		SELECT * FROM DEPTLIST
+		WHERE DEPTNO != '999'
+		ORDER BY DEPTNO ASC;
+	</select>
+	
+	<select id="selectApLineDept" parameterType="com.vet.main.dept.DeptVO">
+		SELECT * FROM DEPARTMENT
+		WHERE PARENTNO=0 and DEPTNO != 999 and DEPTNO != 100
+	</select>
 
 </mapper>
