@@ -26,7 +26,7 @@
 				<c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import>
 				<!-- Content wrapper -->
 				
-			<sec:authentication property="Principal" var="vo"/>
+			<sec:authentication property="Principal" var="user"/>
 				<div class="content-wrapper">
 					<!-- Content -->
 					<!-- 내용부분-->

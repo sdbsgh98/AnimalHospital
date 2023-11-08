@@ -47,19 +47,19 @@
 						        <c:forEach items="${list}" var="vo">
 						            <c:if test="${vo.deptNo == 0}">
 						                <li id="rootNode${vo.deptNo}">
-						                	<span>${vo.deptName}</span>
+						                	<span onclick="deptList(1)">${vo.deptName}</span>
 						                    <ul>
 						                        <c:forEach items="${list}" var="childVo">
 						                            <c:if test="${childVo.parentNo == vo.deptNo}">
 						                                <li id="childNode${childVo.deptNo}">
-						                                	<span>
+						                                	<span onclick="deptList(2)">
 						                                		${childVo.deptName}
 						                                	</span>					                                    					                                    
 						                                    <ul>
 						                                        <c:forEach items="${list}" var="child2">
 						                                            <c:if test="${child2.parentNo == childVo.deptNo}">
 						                                                <li id="child2Node${child2.deptNo}">
-						                                                	<span>${child2.deptName}</span>
+						                                                	<span onclick="deptList(3)">${child2.deptName}</span>
 						                                                    <ul>
 						                                                        <%-- <c:forEach items="${posi}" var="posi">
 						                                                            <c:if test="${posi.deptNo == childVo.deptNo}">

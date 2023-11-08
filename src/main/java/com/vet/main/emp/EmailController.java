@@ -1,7 +1,6 @@
 package com.vet.main.emp;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
 
@@ -11,11 +10,13 @@ public class EmailController {
 
 	private final EmailService emailService;
 
-//	@RequestMapping("/")
-//	public String index() {
+
+//	@RequestMapping("emp/sendMail")
+//	public String sendMail() {
 //		emailService.sendMailTest();
 //		
-//		return "emp/login";
+//		return "emp/sendMail";
+
 //	}
 	
 }

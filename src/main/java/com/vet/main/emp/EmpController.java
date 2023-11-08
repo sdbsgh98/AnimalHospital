@@ -1,5 +1,6 @@
 package com.vet.main.emp;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +32,6 @@ public class EmpController {
 
 	@Autowired
 	private EmpService empService;
-
 
 	// 로그인 페이지
 	
@@ -96,9 +96,13 @@ public class EmpController {
 	
 	@GetMapping("mypage")
 	public String mypage (EmpVO empVO, Model model) throws Exception{
-		empVO = empService.mypage(empVO);
-		model.addAttribute("vo",empVO);
 		
+	    empVO = empService.mypage(empVO);
+	    model.addAttribute("vo", empVO);
+
+	    empVO = empService.signList(empVO);
+	    model.addAttribute("sign", empVO);
+	    
 		return "emp/mypage";
 	}
 
@@ -114,7 +118,7 @@ public class EmpController {
 	@PostMapping("mypageUpdate")
 	public String mypageUpdate(EmpVO empVO, MultipartFile[] files)throws Exception{
 		int result = empService.mypageUpdate(empVO, files);
-		return "redirect:./login";
+		return "redirect:./mypage?username="+empVO.getUsername();
 		
 	}
 		
@@ -208,5 +212,26 @@ public class EmpController {
 		return "redirect: ./login";
 	}
 
+	// sign
+	
+	@GetMapping("signAdd")
+	public String signAdd(EmpVO empVO, Model model)throws Exception{
+		
+		return "emp/signAdd";
+	}
+	
+	@PostMapping("signAdd")
+	public String signAdd(EmpVO empVO, MultipartFile[] files) throws Exception{
+		int result = empService.signAdd(empVO, files);
+		
+		return "redirect:./mypage?username="+empVO.getUsername();
+	}
 
+//	@ResponseBody
+//	@RequestMapping(value = "/emp/signAdd", method = RequestMethod.POST)
+//	public String signAdd(EmpVO empVO, MultipartFile[] files) throws Exception{
+//		int result = empService.signAdd(empVO, files);
+//		
+//		return "redirect:./mypage?username="+empVO.getUsername();
+//	}
 }

@@ -33,6 +33,9 @@ public class EmpService implements UserDetailsService{
 	@Value("${app.emp}")
 	private String username;
 	
+	@Value("${app.sign}")
+	private String signNo;
+	
 	@Autowired
 	private FileManager fileManger;
 	
@@ -43,7 +46,7 @@ public class EmpService implements UserDetailsService{
 	private JavaMailSender mailSender;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 	
 	
 	@Override
@@ -83,7 +86,6 @@ public class EmpService implements UserDetailsService{
 			empVO.setFileName(fileName);
 			empVO.setOriginalFileName(multipartFile.getOriginalFilename());
 			
-			log.info("경로 : {}",uploadPath);
 			result = empDAO.mypageUpdate(empVO);
 			
 			
@@ -182,5 +184,35 @@ public class EmpService implements UserDetailsService{
 		return empDAO.getDeptNo();
 	}
 
+	// sign 
 	
+	// sign List
+	
+	public EmpVO signList(EmpVO empVO)throws Exception{
+		
+		return empDAO.signList(empVO);
+	}
+	
+	public int signAdd(EmpVO empVO, MultipartFile[] files) throws Exception{
+		int result = 0;
+		for(MultipartFile multipartFile:files) {
+			if(multipartFile.isEmpty()) {
+				continue;
+			}
+			
+			String fileName = fileManger.save(this.uploadPath+this.signNo, multipartFile);
+			empVO.setUploadName(fileName);
+			empVO.setOriginalSignName(multipartFile.getOriginalFilename());
+			empVO.setUsername(empVO.getUsername());
+
+	        int insertResult = empDAO.signAdd(empVO);
+
+	        if (insertResult > 0) {
+	            // 각 파일에 대한 삽입이 성공한 경우에만 결과 누적
+	            result += insertResult;
+	        }
+	    }
+		
+		return result;
+	}
 }

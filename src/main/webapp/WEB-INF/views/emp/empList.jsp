@@ -127,13 +127,15 @@
 					      </div>
 					      <div class="modal-body">
 
-					         <form action="empAdd" method="post" enctype="multipart/form-data" id="empAdd">
+					         <form action="empAdd" method="post" enctype="multipart/form-data" id="empAdd" class="was-validated">
 								<input type="hidden" class="form-control" name="username" id="username">
 								<input type="hidden" class="form-control" name="password" id="password">
 									<table style="margin: auto;">
 										<tr>
 											<td>이름</td>
-											<td><input type="text" class="form-control" name="empName" id="empName"></td>
+											<td><input type="text" class="form-control" name="empName" id="empName" required></td>
+											<td><div class="valid-feedback">Valid.</div></td>
+											<td><div class="invalid-feedback">Please fill out this field.</div></td>
 										</tr>
 										<tr>
 											<td>이메일</td>
