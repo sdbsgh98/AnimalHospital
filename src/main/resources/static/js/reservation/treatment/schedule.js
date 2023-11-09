@@ -1,4 +1,10 @@
 
+var dept = $("#deptNo").val();
+console.log(dept);
+$("#deptNo").on("change",function(){
+			var deptNo=this.value;
+			console.log("이건 바꼈을떄!!!!!")	
+});
 
 $(function(){
 			
@@ -55,29 +61,37 @@ $(function(){
 						var animalName=$("#animalName").val();
 						console.log(animalName);
 						
-						/*$("#customerSearch").on("click", function(){
-							var animalName=$("#animalName").val();
-							var param={"animalName":animalName}
+						$("#customerSearch").on("click", function(){
+							var animalName=$("#animalName").val();						
 							
 							$.ajax({
 								url:"/treatment/customerList",
-								data:JSON.stringify(param),
-								method:"POST",												
-								contentType: "application/json",
+								data:{
+									animalName:animalName
+								},
+								method: "GET",
 								success : function(data){
 									$("#listModal").modal("show");
 									console.log(data);
 									console.log("고객검색해!!!!")
+									
 									var arr = data;
 									console.log(arr);
 									for(var i=0; i<arr.length;i++){
 										var name = arr[i].name;
 										$("#nn").val(name);
 										console.log("이거맞나" + name);
-									}																															
+									}										
+									
+									$(data).each(function(index, item){
+										$("#demo").append(index + " ");
+										$("#demo").append(item.name + " ");
+										$("#demo").append(item.animalName + " ");
+										$("#demo").append(item.customerNo + " " + "<br>");										
+									});																			
 								}
 							})						
-						})*/
+						})
 					
 						//등록버튼클릭시
 						$('#addBtn').on("click", function(){
@@ -109,7 +123,7 @@ $(function(){
 							$("#name").val("");    
 							$("#treatmentDate").val("");
 
-							location.href="/treatment/schedule";		
+							location.href="/treatment/schedule?deptNo="+300;		
 						});
 						
 					
@@ -246,3 +260,11 @@ $(function(){
 	});
 	});
 });
+
+function openPop(){
+	var animal = $("#animalName").val();
+	
+	var popup = window.open(('/treatment/customerList?animalName='+animal, '네이버팝업', 'width=700px,height=800px,scrollbars=yes'));
+	
+}	
+	

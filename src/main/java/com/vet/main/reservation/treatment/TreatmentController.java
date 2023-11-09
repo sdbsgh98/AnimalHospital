@@ -52,26 +52,25 @@ public class TreatmentController {
 	//전체 예약스케줄
 	@PostMapping("schedule")
 	@ResponseBody
-	public List<TreatmentVO> getScheduleList()throws Exception{
+	public List<Map<String,Object>> getScheduleList()throws Exception{
 		List<TreatmentVO> list = treatmentService.getScheduleList();
 		
-//		JSONObject jsonObj = new JSONObject();
-//		JSONArray jsonArr = new JSONArray();
-//		HashMap<String, Object> hash = new HashMap<>();
-//		
-//		for(int i=0; i < list.size(); i++) {
-//			hash.put("title", list.get(i).getAnimalName());		
-//			hash.put("start", list.get(i).getTreatmentDate());			
-//			hash.put("id", list.get(i).getTreatmentNo());
-//		
-//			jsonObj = new JSONObject(hash); 
-//			jsonArr.add(jsonObj);		
-//		}
-//		
-//		log.info("jsonArrCheck:{}", jsonArr);
-//		
-//		return jsonArr;	
-		return list;
+		JSONObject jsonObj = new JSONObject();
+		JSONArray jsonArr = new JSONArray();
+		HashMap<String, Object> hash = new HashMap<>();
+		
+		for(int i=0; i < list.size(); i++) {
+			hash.put("title", list.get(i).getAnimalName());		
+			hash.put("start", list.get(i).getTreatmentDate());			
+			hash.put("id", list.get(i).getTreatmentNo());
+		
+			jsonObj = new JSONObject(hash); 
+			jsonArr.add(jsonObj);		
+		}
+		
+		log.info("jsonArrCheck:{}", jsonArr);
+		
+		return jsonArr;		
 	}
 	
 	//부서별스케줄
@@ -107,15 +106,33 @@ public class TreatmentController {
 		return "redirect:./schedule";
 	}
 	
-	//고객리스트조회
 	@GetMapping("customerList")
-	public List<CustomerVO> getCustomerList(Model model, CustomerVO customerVO)throws Exception{
+	public List<CustomerVO> customerList(Model model,CustomerVO customerVO)throws Exception{
 		List<CustomerVO> list = treatmentService.getCustomerList(customerVO);
+		
 		model.addAttribute("list", list);
+
+
 		log.info("customerlist:{}", list );
 		
 		return list;	
 	}
+	
+	
+	
+	
+	
+	//고객리스트조회
+	/*
+	 * @PostMapping("customerList") public ModelAndView getCustomerList(ModelAndView
+	 * mv,@RequestBody CustomerVO customerVO)throws Exception{ List<CustomerVO>
+	 * cuslist = treatmentService.getCustomerList(customerVO);
+	 * 
+	 * mv.addObject("cuslist", cuslist); mv.setViewName("/treatment/schedule");
+	 * log.info("customerlist:{}", cuslist );
+	 * 
+	 * return mv; }
+	 */
 	
 	//직원조회
 	@GetMapping("empList")
