@@ -33,7 +33,7 @@
                                 <thead>
                                   <tr>
 									<!-- <th class="text-center text-secondary opacity-7">번호</th> -->
-                                    <th class="text-center text-secondary opacity-7">약물명</th>
+                                    <th class="text-center text-secondary opacity-7">약품명</th>
                                     <th class="text-center text-secondary opacity-7">개수</th>
                                     <th class="text-center text-secondary opacity-7">유효기간</th>                                
                                   </tr>

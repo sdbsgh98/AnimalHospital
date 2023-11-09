@@ -91,11 +91,17 @@ public class CustomerController {
 		
 		return "redirect:./list";
 	}
-
-	//파일삭제
-	@GetMapping("fileDelete")
-	public String setFileDelete(CustomerFileVO customerFileVO, Model model) throws Exception {
-		int result = customerService.setFileDelete(customerFileVO);
+	
+	//사진삭제
+	@PostMapping("fileDelete")
+	public String updateFileDelete(CustomerFileVO customerFileVO, Model model) throws Exception {
+		int result = customerService.fileUpdateDelete(customerFileVO);
+		
+		if(result>0){
+			log.info("파일삭제 성공");
+		}else {
+			log.info("파일삭제 실패");
+		}
 		model.addAttribute("result", result);
 		
 		return "commons/ajaxResult";

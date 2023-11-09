@@ -59,7 +59,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 													<td rowspan="2" style="font-size: xx-large; font-weight: bolder;">진료차트수정</td>
 													<!-- <td></td> -->
 													<td>작성자</td>
-													<td>${emp.empName}</td>
+													<td>${user.empName}</td>
 												</tr>
 												<tr>
 													<!-- <td></td> -->
@@ -109,10 +109,22 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 														${f.originalFileName}
 													</div>
 													<div>
-													<button class="deletes btn btn-danger" data-delete-num="${f.fileNo}">삭제</button>
+													<button class="delets x2 btn btn-danger" data-file="${f.fileName}" data-num="${f.fileNo}">삭제</button>
+													<%-- <span class="x2" data-file="${f.fileName}" data-num="${f.fileNo}">x</span> --%>
 													</div>
 												</c:forEach>													
 											</div>
+											
+						 	 				<%-- <div class="mb-3" >
+					                        	<label id="label" data-list="${size}" for="files"><button type="button" id="fileAdd" class="btn btn-primary">사진추가</button></label>
+					                        	<div class="col-sm-10" id="fileBox">
+					                        		<c:forEach items="${vo.fileVOs}" var="f">
+					                        			<div class="file1"><div class="files alert alert-primary alert-dismissible">${f.originalFileName}</div>
+													 	<button class="x2 btn-danger" data-file="${f.fileName}" data-num="${f.fileNo}">삭제</button></div>
+					                        		</c:forEach>
+					                          	</div>
+					                        </div> --%>  
+											
 
 										</div>
 										<button class="btn btn-primary" style="float:right">진료차트수정</button>
@@ -164,6 +176,100 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	const fileList = document.getElementById("fileList");
 	const fileAdd = document.getElementById("fileAdd");
 	const deletes = document.getElementsByClassName("deletes");
+	
+	$('#fileList').on("click",'.x2',function(){
+    	if(confirm("삭제시 복원이 불가능 합니다.")){
+	    	let num = $(this).attr("data-num");
+	    	let name = $(this).attr("data-file");
+	    	
+    		fileDelete(num, name);
+    		
+    		$(this).parent().remove();
+	    	count --;
+	    	
+    	}
+    })
+    
+    function fileDelete(fileNo, fileName, username){
+    	$.ajax({
+			type:"post",
+			url:"./fileDelete",
+			data:{
+				"fileNo":fileNo,
+				"fileName":fileName
+			},
+			success:function(response){
+				r=response.trim();
+				console.log(r);
+				if(r>0){
+					alert("삭제 성공");
+				}else{
+					alert("삭제 실패");
+				}
+				
+			},
+			error:function(){
+				console.log("ajax 실패");
+			}
+		})
+    }
+
+	/* $('.deletes').click(function(){
+	    let num = $(this).attr("data-delete-num");
+	    let check = confirm("삭제시 복구 불가");
+	   
+	     if(check){
+	     $.ajax({
+	          type:'post',
+	           url:'./fileDelete?fileNo='+num,
+	           success:function(r){
+	                if(r.trim()=='1'){
+	                   $(this).remove();
+	                        count--;
+	                    }
+	           }
+	     })
+	     }
+	}) */
+
+	let max = 5;
+	let count = 0;
+
+	if(deletes != null) {
+	    count = deletes.length;
+	}
+
+	let idx = 0;
+
+	$("#fileList").on("click", ".df", function(){
+	    $(this).parent().remove();
+	    count--;
+	})
+
+	//jquery로 변경
+	$("#fileAdd").click(function(){
+	    if(count>=max){
+	        alert("첨부파일은 최대 5개까지만 업로드 가능합니다.");
+	        return;
+	    }
+	    count++;
+
+	    let r = '<div class="input-group mb-3" id="file'+idx+'">'
+	    r = r+'<input type="file" class="form-control" id="files" name="files">'
+	    r = r+ '<button class="delets x2 btn btn-danger" data-id="file'+idx+'">삭제</button>'
+	    r= r+"</div>";
+	    idx++;
+
+	    $("#fileList").append(r);
+
+	});
+	
+	</script>
+	
+<!-- 	<script>
+	const fileList = document.getElementById("fileList");
+	const fileAdd = document.getElementById("fileAdd");
+	const deletes = document.getElementsByClassName("deletes");
 
 	$('.deletes').click(function(){
 	    let num = $(this).attr("data-delete-num");
@@ -171,7 +277,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	   
 	     if(check){
 	     $.ajax({
-	          type:'GET',
+	          type:'post',
 	           url:'./fileDelete?fileNo='+num,
 	           success:function(r){
 	                if(r.trim()=='1'){
@@ -194,8 +300,6 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	let idx = 0;
 
 	$("#fileList").on("click", ".df", function(){
-	    // let deleteId=$(this).attr("data-id")
-	    // $("#"+deleteId).remove();
 	    $(this).parent().remove();
 	    count--;
 	})
@@ -218,7 +322,70 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 
 	});
 	
-	</script>
+	</script> -->
+	
+ 	 <!-- <script>
+    	let size = $('#label').attr("data-list");
+    	console.log(size);
+    	let max = 5;
+    	let count = 0;
+    		
+	    $('#fileAdd').click(function(){
+    	if(count < max){
+	    	
+		    let fileTag = '<br><div class="file1"><input type="file" class="files form-control" '
+		    			  +'id="files" name="files"/><button class="x btn-danger">삭제</button></div>';
+	    	$('#fileBox').append(fileTag);
+	        
+	    	count ++;
+    	}else{
+    		alert("첨부파일은 최대 5개까지만 업로드 가능합니다.");
+    	}
+	     });
+	     
+	    $('#fileBox').on("click",'.x',function(){
+	    	$(this).parent().remove();
+	    	count --;
+	    	
+	    })
+	    
+	     $('#fileBox').on("click",'.x2',function(){
+	    	if(confirm("삭제시 복원이 불가능 합니다.")){
+		    	let num = $(this).attr("data-num");
+		    	let name = $(this).attr("data-file");
+		    	
+	    		fileDelete(num, name);
+	    		
+	    		$(this).parent().remove();
+		    	count --;
+		    	
+	    	}
+	    })
+	    
+	    function fileDelete(fileNo, fileName){
+	    	$.ajax({
+				type:"post",
+				url:"./fileDelete",
+				data:{
+					"fileNo":fileNo,
+					"fileName":fileName
+				},
+				success:function(response){
+					r=response.trim();
+					console.log(r);
+					if(r>0){
+						alert("삭제 성공");
+					}else{
+						alert("삭제 실패");
+					}
+					
+				},
+				error:function(){
+					console.log("ajax 실패");
+				}
+			})
+	    }
+    </script> -->
 
 </body>
 </html>
