@@ -199,7 +199,7 @@
   	<select id="getDeptNo" parameterType="com.vet.main.emp.EmpVO">
 		SELECT *
 		FROM DEPARTMENT
-		WHERE PARENTNO != 0	|| DEPTNO = 999
+		WHERE PARENTNO != 0	|| DEPTNO = 999 || DEPTNO = 100
 	</select>
 	
   	 <select id="getPositionNo" parameterType="java.lang.String">

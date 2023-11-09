@@ -143,35 +143,35 @@
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 <script>
-document.getElementById("deptNo").addEventListener("change", function () {
-    var selectedDeptNo = this.value;  // 선택된 부서의 값
-    console.log(selectedDeptNo);
-    
-    $.ajax({
-        type: "GET",
-        url: "/emp/getPositionsByDept",
-        data: { deptNo: selectedDeptNo },
-        success: function (positions) {
-            var positionSelect = document.getElementById("positionNo");
-
-            // 기존 옵션 제거
-            while (positionSelect.firstChild) {
-                positionSelect.removeChild(positionSelect.firstChild);
-            }
-
-            // 새로운 옵션 추가
-            positions.forEach(function (position) {
-                var option = document.createElement("option");
-                option.value = position.positionNo;
-                option.text = position.positionName;
-                positionSelect.appendChild(option);
-            });
-        },
-        error: function () {
-            console.error("Failed to load positions.");
-        }
-    });
-});
+	document.getElementById("deptNo").addEventListener("change", function () {
+	    var selectedDeptNo = this.value;  // 선택된 부서의 값
+	    console.log(selectedDeptNo);
+	    
+	    $.ajax({
+	        type: "GET",
+	        url: "/emp/getPositionsByDept",
+	        data: { deptNo: selectedDeptNo },
+	        success: function (positions) {
+	            var positionSelect = document.getElementById("positionNo");
+	
+	            // 기존 옵션 제거
+	            while (positionSelect.firstChild) {
+	                positionSelect.removeChild(positionSelect.firstChild);
+	            }
+	
+	            // 새로운 옵션 추가
+	            positions.forEach(function (position) {
+	                var option = document.createElement("option");
+	                option.value = position.positionNo;
+	                option.text = position.positionName;
+	                positionSelect.appendChild(option);
+	            });
+	        },
+	        error: function () {
+	            console.error("Failed to load positions.");
+	        }
+	    });
+	});
 </script>
 </body>
 </html>

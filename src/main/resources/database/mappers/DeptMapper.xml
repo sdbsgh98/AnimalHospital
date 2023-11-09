@@ -58,7 +58,10 @@
 	</select>
 	
 	<select id="selectDept" parameterType="com.vet.main.dept.DeptVO">
-		SELECT * FROM DEPARTMENT WHERE PARENTNO=0 and DEPTNO != 999 and DEPTNO != 100
+		SELECT *
+		FROM DEPARTMENT D INNER JOIN POSITION P
+		ON D.DEPTNO = P.DEPTNO
+		WHERE D.DEPTNO = #{deptNo}
 	</select>
 	
 	<select id="positionList" parameterType="com.vet.main.dept.DeptVO">

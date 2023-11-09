@@ -74,64 +74,62 @@
 						</div>
 					</div>
 
-					<!-- 부서수정 modal -->
-<%-- 					<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-					    <div class="modal-dialog">
-					        <div class="modal-content">
-					            <div class="modal-header">
-					                <h1 class="modal-title fs-5" id="exampleModalLabel">부서 수정</h1>
-					                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					            </div>
-					            <div class="modal-body">
-
-					                <div id="jstree2">
-					                    <ul>
-					                        <c:forEach items="${list}" var="vo">
-					                            <c:if test="${vo.deptNo == 0}">
-					                                <li id="rootNode${vo.deptNo}">
-					                                    <input type="text" id="deptNo" value="${vo.deptNo}" style="border: none; width: 30px;"/>
-					                                    <input type="text" id="parentNo" value="${vo.parentNo}" style="border: none; width: 30px;"/>
-					                                    <input type="text" id="deptName" value="${vo.deptName}" style="border: none; width: 100px;"/>
-					                                    <ul>
-					                                        <c:forEach items="${list}" var="childVo">
-					                                            <c:if test="${childVo.parentNo == vo.deptNo}">
-					                                                <li id="childNode${childVo.deptNo}">
-					                                                    <input type="text" id="deptNo" value="${childVo.deptNo}" style="border: none; width: 35px;"/>
-					                                                    <input type="text" id="parentNo" value="${childVo.parentNo}" style="border: none; width: 35px;"/>
-					                                                    <input type="text" id="deptName" value="${childVo.deptName}" style="border: none; width: 100px;"/>
-					                                                    <ul>
-					                                                        <c:forEach items="${list}" var="child2">
-					                                                            <c:if test="${child2.parentNo == childVo.deptNo}">
-					                                                                <li id="child2Node${child2.deptNo}">
-					                                                                    <input type="text" id="deptNo" value="${child2.deptNo}" style="border: none; width: 50px;"/>
-					                                                                    <input type="text" id="parentNo" value="${child2.parentNo}" style="border: none; width: 50px;"/>
-					                                                                    <input type="text" id="deptName" value="${child2.deptName}" style="border: none; width: 100px;"/>
-					                                                                </li>
-					                                                            </c:if>
-					                                                        </c:forEach>
-					                                                    </ul>
-					                                                </li>
-					                                            </c:if>
-					                                        </c:forEach>
-					                                    </ul>
-					                                </li>
-					                            </c:if>
-					                        </c:forEach>
-					                    </ul>
-					                </div>
-					
-					                <div class="modal-footer">
-					                    <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					                    <button class="btn btn-primary" id="updateBtn">수정</button>
-					                    <button class="btn btn-primary" id="delBtn">삭제</button>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
-					</div> --%>
 					<div class="card shadow mb-4" style="width:78%; float: right; height: 400px;">			
 							<!-- Content -->
+							<c:forEach items="${dept}" var="dept">
+								<table class="table" id="deptNoList">
+									<tr>
+										<td>부서번호</td>
+										<td>
+											${dept.deptNo}
+										</td>
+									</tr>
+									<tr>
+										<td>이름</td>
+										<td>
+											${dept.deptName}
+										</td>
+									</tr>
+									<tr>
+									<tr>
+									    <td>상위부서 번호</td>
+									    <td>
+											${dept.parentNo}
+									    </td>
+									</tr>
+									<tr>
+									    <td>직급</td>
+									    <td>
+											${dept.positionName}
+									    </td>
+									</tr>
+
+								</table>
+							<%-- <table class="table" style="text-align: center; width:auto;">
+								<thead>
+									<tr>
+										<th>부서번호</th>
+										<th>부서이름</th>
+
+									</tr>
+								</thead>
+								<tbody>
+							<c:forEach items="${dept}" var="vo">
+									<tr>
+										<td>${vo.deptNo}</td>
+										<td>${vo.deptName}</td>
+									</tr>
+							</c:forEach>
+								</tbody>
 							
+							</table> --%>
+								
+							</c:forEach>
+							
+						</div>
+						
+						<div class="card shadow mb-4" style="width:100%; height: 400px;">
+						
 							<table class="table" style="text-align: center; width:auto; margin: 20px;">
 								<thead style="height: 70px;">
 									<tr>
@@ -205,36 +203,6 @@
     					<div> 						
     					</div>
 					</div>
-							
-						</div>
-						
-						<div class="card shadow mb-4" style="width:100%; height: 400px;">
-						
-							<table class="table" style="text-align: center;">
-								<thead style="height: 70px;">
-									<tr>
-										<th>사원번호</th>
-										<th>이름</th>
-										<th>부서</th>
-										<th>직급</th>
-										<th>입사일</th>
-										<th>상태</th>
-									</tr>
-								</thead>
-								<tbody style="height: 35px;">
-							<c:forEach items="${emp}" var="vo">
-									<tr>
-										<td><a href="/emp/empDetail?username=${vo.username}" style="color: #697a8d;">${vo.username}</a></td>
-										<td><a href="/emp/empDetail?username=${vo.username}" style="color: #697a8d;">${vo.empName}</a></td>
-										<td>${vo.deptName}</td>
-										<td>${vo.positionName}</td>
-										<td>${vo.hireDate}</td>
-										<td>${vo.state}</td>
-									</tr>
-							</c:forEach>
-								</tbody>
-							
-							</table>
 						
 						</div>
 						
@@ -252,7 +220,6 @@
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
 	<!-- / Layout wrapper -->
-	<%-- <c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import> --%>
 
 	<script src="${pageContext.request.contextPath}/assets/vendor/libs/popper/popper.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/vendor/js/bootstrap.js"></script>
@@ -268,72 +235,6 @@
 	<!-- Place this tag in your head or just before your close body tag. -->
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
 
-
-	
-<!-- 	<script type="text/javascript">
-	    $(document).ready(function () {
-	        $('#updateBtn').on("click", function () {
-	            let deptNo0 = $("#deptNo0").val();
-	            let deptName0 = $("#deptName0").val();
-	            let parentNo0 = $("#parentNo0").val();
-	            let deptNo1 = $("#deptNo1").val();
-	            let deptName1 = $("#deptName1").val();
-	            let parentNo1 = $("#parentNo1").val();
-	            let deptNo2 = $("#deptNo2").val();
-	            let deptName2 = $("#deptName2").val();
-	            let parentNo2 = $("#parentNo2").val();
-	
-	            let data = {
-	                deptNo0: deptNo0,
-	                deptName0: deptName0,
-	                parentNo0: parentNo0,
-	                deptNo1: deptNo1,
-	                deptName1: deptName1,
-	                parentNo1: parentNo1,
-	                deptNo2: deptNo2,
-	                deptName2: deptName2,
-	                parentNo2: parentNo2
-	            };
-	
-	            $.ajax({
-	                url: "/dept/deptList/deptUpdate",
-	                data: data,
-	                method: "post",
-	                success: function () {
-	                    console.log(data);
-	                    alert("수정이 완료되었습니다!");
-	                    location.href = "/dept/deptList";
-	                },
-	                error: function (data) {
-	                    console.log(data);
-	                    alert("관리자에게 문의해주세요.");
-	                }
-	            });
-	        });
-	    });
-	</script> -->	
-<!-- 		<script type="text/javascript">
-	    $(document).ready(function () {
-	        $('#delBtn').on("click", function () {
-	        	$("#jstree").jstree().delete_node( $("#"+ nodeId) );
-	        	let data = $("#deptNo").val();
-	    		$.ajax({
-	    			url:"/dept/deptList/deptDelete",
-	                data: data,
-	    			method:"post",												
-	    			success : function(){
-	    				console.log(data);
-	    				alert("삭제 완료");
-	    				location.href="/dept/deptList";		
-	    			},
-	    			error : function(data){
-	    				console.log(data);
-	    				alert("관리자에게 문의해주세요.");
-	    			}
-	    		})
-	        });
-	    });
-	</script> -->
     <script>
         $(document).ready(function () {
             $('#jstree').jstree();       
@@ -344,26 +245,40 @@
             
         });
     </script>
-
-    <script>
-        $(document).ready(function () {
-            $('#jstree2').jstree({
-            	'core':{
-            		'check_callback': true
-            	},
-	                'checkbox' : {
-	                	'keep_selected_Style' : false,
-	                	'three_state': false
-	                },
-	                'plugins' : ['checkbox']
-            });
-            $("#jstree2").jstree("open_all");
-            $('#jstree2').on("changed.jstree2", function (e, data) {
-            	
-                console.log(data.selected);
-            });
-            
-        });
+    
+    <script type="text/javascript">
+	document.getElementById("deptNo").addEventListener("click", '.jstree-anchor', function () {
+	    let selectedDeptNo = $(this).find('span'); // 선택된 부서의 값
+	    console.log(selectedDeptNo);
+	    
+/* 	    $.ajax({
+	        type: "GET",
+	        url: "/emp/getPositionsByDept",
+	        data: { deptNo: selectedDeptNo },
+	        success: function (positions) {
+	            var positionSelect = document.getElementById("positionNo");
+	
+	            // 기존 옵션 제거
+	            while (positionSelect.firstChild) {
+	                positionSelect.removeChild(positionSelect.firstChild);
+	            }
+	
+	            // 새로운 옵션 추가
+	            positions.forEach(function (position) {
+	                var option = document.createElement("option");
+	                option.value = position.positionNo;
+	                option.text = position.positionName;
+	                positionSelect.appendChild(option);
+	            });
+	        },
+	        error: function () {
+	            console.error("Failed to load positions.");
+	        }
+	    }); */
+	});   
+    	
+    
     </script>
+
 </body>
 </html>
