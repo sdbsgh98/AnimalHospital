@@ -18,7 +18,7 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
-    <div class="modal-content">
+    <div class="modal-content" style="position:fixed; width:950px; height:500px;">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">결재선 설정</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -27,7 +27,7 @@
 		<div class="content-wrapper">
 		<div class="container-xxl flex-grow-1 container-p-y">
 
-		<div class="card shadow mb-4" style="width: 250px; float: left; height: 450px;">
+		<div class="card shadow mb-4" style="width: 250px; float: left; height:300px;">
 		<input type="hidden" id="deptNo" name="deptNo">
 
 			<div id="jstree">
@@ -72,19 +72,24 @@
 			</div>
 		</div>
 		
-		<div class="card shadow mb-4" style="width: 250px; float: left; height: 450px; margin-left: 40px;">
+		<div class="card shadow mb-4" style="width: 250px; float: left; height:300px; margin-left: 40px;">
 			<div id="empList">
-<%-- 				<c:forEach items="${emp}" var="emp">
-	                <li>[${emp.deptName}] ${emp.positionName} ${emp.empName}</li>
-	            </c:forEach> --%>  
+				
 			</div> 
 		
 		</div>
-	      <div class="modal-footer">
-	        <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-	        <button class="btn btn-primary" id="addApLineBtn">추가</button>
-	      </div>
+		
+		<div class="card shadow mb-4" style="width: 250px; float: left; height:300px; margin-left: 40px;">
+			<div id="appList">
+				
+			</div> 
+		</div>
+		
 		    </div>
+	      <div class="modal-footer">
+	        <!-- <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button> -->
+	        <button class="btn btn-primary" id="addApLineBtn">결재선 등록</button>
+	      </div>
 		  </div>
 		</div>
       </div>
