@@ -13,7 +13,13 @@
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+<!-- jsTree Theme -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+<!-- jsTree -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 </head>
 <body>
 	<!-- Layout wrapper -->
@@ -33,32 +39,64 @@
 					
 					<form>
 					<h3>사원 목록</h3>
-					<div class="card shadow mb-4">
-								
+					
+					<div class="card shadow mb-4" style="width: 20%; float: left; height: 650px;">	
+					<div>
+					</div>
+						<div id="jstree">
+						    <ul>
+						        <c:forEach items="${dept}" var="vo">
+						            <c:if test="${vo.deptNo == 0}">
+						                <li id="rootNode${vo.deptNo}">
+						                	<span>${vo.deptName}</span>
+						                    <ul>
+						                        <c:forEach items="${dept}" var="childVo">
+						                            <c:if test="${childVo.parentNo == vo.deptNo}">
+						                                <li id="childNode${childVo.deptNo}">
+						                                	<span>
+						                                		${childVo.deptName}
+						                                	</span>					                                    					                                    
+						                                    <ul>
+						                                        <c:forEach items="${dept}" var="child2">
+						                                            <c:if test="${child2.parentNo == childVo.deptNo}">
+						                                                <li id="child2Node${child2.deptNo}">
+						                                                	<span>${child2.deptName}</span>
+						                                                </li>
+						                                            </c:if>
+						                                        </c:forEach>
+						                                    </ul>
+						                                </li>
+						                            </c:if>
+						                        </c:forEach>
+						                    </ul>
+						                </li>
+						            </c:if>
+						        </c:forEach>
+						    </ul>
+						</div>
+					</div>					
+					
+					<div class="card shadow mb-4" style="width:78%; float: right; height: auto;">			
 							<!-- Content -->
 							
-							<table class="table" style="text-align: center; width:auto; margin: 20px; ">
-								<thead style="height: 70px;">
+							<table class="table" style="text-align: center; width:auto; margin: 20px;">
+								<thead style="">
 									<tr>
 										<th>사원번호</th>
 										<th>이름</th>
 										<th>부서</th>
 										<th>직급</th>
-										<th>이메일</th>
-										<th>연락처</th>
 										<th>입사일</th>
 										<th>상태</th>
 									</tr>
 								</thead>
-								<tbody style="height: 35px;">
+								<tbody>
 							<c:forEach items="${list}" var="vo">
 									<tr>
 										<td><a href="./empDetail?username=${vo.username}" style="color: #697a8d;">${vo.username}</a></td>
 										<td><a href="./empDetail?username=${vo.username}" style="color: #697a8d;">${vo.empName}</a></td>
 										<td>${vo.deptName}</td>
 										<td>${vo.positionName}</td>
-										<td>${vo.email}</td>
-										<td>${vo.phone}</td>
 										<td>${vo.hireDate}</td>
 										<td>${vo.state}</td>
 									</tr>
@@ -176,7 +214,19 @@
 		<!-- Overlay -->
 		<div class="layout-overlay layout-menu-toggle"></div>
 	<!-- / Layout wrapper -->
-	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+	<script src="${pageContext.request.contextPath}/assets/vendor/libs/popper/popper.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/vendor/js/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/assets/vendor/js/menu.js"></script>
+	<!-- Vendors JS -->
+	<script src="${pageContext.request.contextPath}/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+	<!-- Main JS -->
+	<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+	<!-- Page JS -->
+	<script src="${pageContext.request.contextPath}/assets/js/dashboards-analytics.js"></script>
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
 	
 	<script type="text/javascript">
 	
@@ -227,6 +277,16 @@
 		
 	});
 	</script>
+    <script>
+        $(document).ready(function () {
+            $('#jstree').jstree();       
+            $("#jstree").jstree("open_all");
+            $('#jstree').on("changed.jstree", function (e, data) {
+                console.log(data.selected);
+            });
+            
+        });
+    </script>
 
 </body>
 </html>

@@ -37,9 +37,9 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 					<h3>조직도 / 사원 목록</h3>
 					<form>
-					<div class="card shadow mb-4" style="width: 20%; float: left; height: 650px;">	
+					<div class="card shadow mb-4" style="width: 20%; float: left; height: 400px;">	
 					<div>
-						<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#updateModal" style="width: 100px; margin-right: 20px;">수정</button>
+						<p>동물병원</p>
 					</div>
 						<div id="jstree">
 						    <ul>
@@ -59,15 +59,6 @@
 						                                            <c:if test="${child2.parentNo == childVo.deptNo}">
 						                                                <li id="child2Node${child2.deptNo}">
 						                                                	<span>${child2.deptName}</span>
-						                                                    <ul>
-						                                                        <%-- <c:forEach items="${posi}" var="posi">
-						                                                            <c:if test="${posi.deptNo == childVo.deptNo}">
-						                                                                <li>
-						                                                                	<span>${posi.positionName}</span>
-						                                                                </li>
-						                                                            </c:if>
-						                                                        </c:forEach> --%>				                                                        
-						                                                    </ul>
 						                                                </li>
 						                                            </c:if>
 						                                        </c:forEach>
@@ -138,7 +129,7 @@
 					        </div>
 					    </div>
 					</div> --%>
-					<div class="card shadow mb-4" style="width:78%; float: right; height: 650px;">			
+					<div class="card shadow mb-4" style="width:78%; float: right; height: 400px;">			
 							<!-- Content -->
 							
 							<table class="table" style="text-align: center; width:auto; margin: 20px;">
@@ -215,6 +206,36 @@
     					</div>
 					</div>
 							
+						</div>
+						
+						<div class="card shadow mb-4" style="width:100%; height: 400px;">
+						
+							<table class="table" style="text-align: center;">
+								<thead style="height: 70px;">
+									<tr>
+										<th>사원번호</th>
+										<th>이름</th>
+										<th>부서</th>
+										<th>직급</th>
+										<th>입사일</th>
+										<th>상태</th>
+									</tr>
+								</thead>
+								<tbody style="height: 35px;">
+							<c:forEach items="${emp}" var="vo">
+									<tr>
+										<td><a href="/emp/empDetail?username=${vo.username}" style="color: #697a8d;">${vo.username}</a></td>
+										<td><a href="/emp/empDetail?username=${vo.username}" style="color: #697a8d;">${vo.empName}</a></td>
+										<td>${vo.deptName}</td>
+										<td>${vo.positionName}</td>
+										<td>${vo.hireDate}</td>
+										<td>${vo.state}</td>
+									</tr>
+							</c:forEach>
+								</tbody>
+							
+							</table>
+						
 						</div>
 						
 						</form>

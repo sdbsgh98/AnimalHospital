@@ -100,6 +100,23 @@
 			LIMIT #{startRow}, #{perPage}
 	</select>
 	
+	<select id="deptList" parameterType="com.vet.main.dept.DeptVO">
+	
+		WITH RECURSIVE DEPTLIST AS (
+	    SELECT DEPTNO, DEPTNAME, PARENTNO, DEPTH
+	    FROM DEPARTMENT
+	    WHERE PARENTNO IS NULL
+	
+	    UNION ALL
+	
+	    SELECT d.DEPTNO, d.DEPTNAME, d.PARENTNO, dh.DEPTH + 1
+	    FROM DEPARTMENT d
+	    INNER JOIN DEPTLIST dh ON d.PARENTNO = dh.DEPTNO
+		)
+		SELECT * FROM DEPTLIST ORDER BY DEPTNO ASC
+	
+	</select>
+	
 	<resultMap type="com.vet.main.emp.EmpVO" id="getDetailResult">
 		<id column="USERNAME" property="username"/>
 		<result column="PASSWORD" property="password"/>
