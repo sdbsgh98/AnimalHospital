@@ -124,6 +124,15 @@ public class ApprovalService {
 		return approvalDAO.getApLinePerson(apNo);
 	}
 	
+	// 결재선 설정에 부서별 직원 리스트 출력
+	public List<EmpVO> getEmpSelectList(String deptName) throws Exception {
+		return approvalDAO.getEmpSelectList(deptName);
+	}
+	
+	public List<EmpVO> selectDept(String deptName) throws Exception {
+		return approvalDAO.selectDept(deptName);
+	}
+	
 	// 반려
 	public int rejectApprove(ApprovalVO approvalVO) throws Exception {
 		return approvalDAO.rejectApprove(approvalVO);

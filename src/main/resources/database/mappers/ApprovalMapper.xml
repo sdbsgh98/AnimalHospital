@@ -92,6 +92,13 @@
 			<result column="DEPTNAME" property="deptName"/>
 		<collection property="apLineList" resultMap="apLineMap" />
 	</resultMap>
+
+	<resultMap type="EmpVO" id="getApEmpList">
+		<id column="USERNAME" property="username"/>
+			<result column="DEPTNAME" property="deptName"/>
+			<result column="POSITIONNAME" property="positionName"/>
+			<result column="EMPNAME" property="empName"/>
+	</resultMap>
 	
   	<select id="getApUser" parameterType="com.vet.main.emp.EmpVO" resultMap="userMap">
   		SELECT E.*, P.*, D.* 
@@ -109,7 +116,8 @@
 		</selectKey>
 		
 		INSERT INTO APPROVAL
-		(APNO, USERNAME, APFORMATNO, APTITLE, APCDATE, APCONTENTS, APSTATE, APREJECTION, APKIND, EMPNAME, POSITIONNAME, DEPTNAME)
+		(APNO, USERNAME, APFORMATNO, APTITLE, APCDATE, APCONTENTS, APSTATE, APREJECTION, APKIND, EMPNAME, POSITIONNAME, 
+NAME)
 		VALUES
 		(#{apNo}, #{username}, 25, #{apTitle}, NOW(), #{apContents}, '결재대기중', '', '품의서', #{empName}, #{positionName}, #{deptName})
 	</insert>
@@ -278,13 +286,34 @@
 	
 	
 	<!-- 모든 부서 -->
-	<select id="selectDept" resultType="EmpVO">
+	<select id="selectDept" parameterType="DeptVO" resultType="EmpVO">
 		SELECT E.*, D.DEPTNAME
 		FROM DEPARTMENT D INNER JOIN EMP E
 		ON D.DEPTNO = E.DEPTNO
+		WHERE D.DEPTNAME = #{deptName}
 	</select>
+		
 	
-	
+	<!-- 반려 -->
+	<update id="rejectApprove" parameterType="ApprovalVO">
+		UPDATE APPROVAL
+		SET
+		APSTATE = #{apState},
+		APREJECTION = #{apRejection}
+		WHERE APNO = #{apNo}
+	</update>
+
+
+	<!-- 결재선 설정에 부서별 직원 리스트 출력 -->
+	<select id="getEmpSelectList" parameterType="String" resultMap="getApEmpList">
+		SELECT D.DEPTNAME, P.POSITIONNAME, E.EMPNAME, E.USERNAME
+		FROM EMP E INNER JOIN DEPARTMENT D
+		ON E.DEPTNO = D.DEPTNO
+		INNER JOIN POSITION P
+		ON E.POSITIONNO = P.POSITIONNO
+		WHERE D.DEPTNAME = #{deptName};	
+	</select>
+
 	<!-- 상세페이지에 결재선 직원 출력-->
 	<select id="getApLinePerson" parameterType="Long" resultType="ApprovalLineVO">
 		SELECT APL.*, E.POSITIONNO, P.POSITIONNAME
@@ -295,13 +324,5 @@
 		WHERE APL.APNO = #{apNo};
 	</select>
 	
-	<!-- 반려 -->
-	<update id="rejectApprove" parameterType="ApprovalVO">
-		UPDATE APPROVAL
-		SET
-		APSTATE = #{apState},
-		APREJECTION = #{apRejection}
-		WHERE APNO = #{apNo}
-	</update>
 	
 </mapper>

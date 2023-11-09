@@ -34,3 +34,5 @@ cancleBtn.addEventListener("click", function(){
 	/*location.href = "/approval/draftList/" + username;*/
 	location.href = "/approval/formatList";
 })
+
+

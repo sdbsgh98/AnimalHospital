@@ -15,6 +15,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
 
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
@@ -69,99 +70,24 @@
 					</c:forEach>
 				</ul>
 			</div>
-
-
+		</div>
+		
+		<div class="card shadow mb-4" style="width: 250px; float: left; height: 450px; margin-left: 40px;">
+			<div id="empList">
+<%-- 				<c:forEach items="${emp}" var="emp">
+	                <li>[${emp.deptName}] ${emp.positionName} ${emp.empName}</li>
+	            </c:forEach> --%>  
+			</div> 
+		
+		</div>
 	      <div class="modal-footer">
 	        <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 	        <button class="btn btn-primary" id="addApLineBtn">추가</button>
 	      </div>
-
-		      </div>
 		    </div>
 		  </div>
 		</div>
       </div>
     </div>
   </div>
-
-
-
-<!-- / Layout wrapper -->
-<script src="${pageContext.request.contextPath}/assets/vendor/libs/popper/popper.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendor/js/bootstrap.js"></script>
-<script src="${pageContext.request.contextPath}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
-<script src="${pageContext.request.contextPath}/assets/vendor/js/menu.js"></script>
-<!-- Vendors JS -->
-<script src="${pageContext.request.contextPath}/assets/vendor/libs/apex-charts/apexcharts.js"></script>
-<!-- Main JS -->
-<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
-<!-- Page JS -->
-<script src="${pageContext.request.contextPath}/assets/js/dashboards-analytics.js"></script>
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-
-	<script>
-	    $(document).ready(function () {
-	        $('#jstree').jstree();       
-	        $("#jstree").jstree("open_all");
-	        $('#jstree').on("changed.jstree", function (e, data) {
-	            console.log(data.selected);
-	        });	        
-	    });
-
-	</script>
-
-	
-	<script>
-	    $(document).ready(function () {
-	        $('#jstree2').jstree({
-	        	'core':{
-	        		'check_callback': true
-	        	},
-	             'checkbox' : {
-	             	'keep_selected_Style' : false,
-	             	'three_state': false
-	             },
-	             'plugins' : ['checkbox']
-	        }) 
-	        $("#jstree2").jstree("open_all");
-	       	$('#jstree2').on("changed.jstree2", function (e, data) {
-	        	
-	            console.log(data.selected);
-	        });
-	    });
-	</script>
-
-	<script type="text/javascript">
-	
-    /* $('#jstree').on("changed.jstree", function (e, data) {
-        console.log(data.selected);
-        
-        let deptName
-        
-		$.ajax({
-			  type: 'POST',
-			  url: path + '/approval/changeDep.do',
-			  data: { deptName: value },
-			  success: function(data) {
-			    $("#people-box").empty(); // #people-box 밑에 자식요소들 모두삭제
-			    for (let i = 0; i < data.length; i++) {
-			      var a = [data[i].memberId, data[i].memberName, data[i].job.jobName, data[i].dept.deptName];
-			      if (memberId !== data[i].memberId) {
-			        $("#people-box").append($('<input/>', { type: 'checkbox', name: 'peopleBox', value: a, width: '30px' }));
-			        $("#people-box").append($('<img/>', { src: path + '/resources/images/approve/circle_people.png', width: '20px', height: '20px' }));
-			        $("#people-box").append(data[i].memberId, '&nbsp;', data[i].memberName, '&nbsp;', data[i].job.jobName, '&nbsp;', data[i].dept.deptName, '<br>');
-			      }
-			    }
-			  },
-			  error: function(xhr, status, error) {
-			    // 에러 처리를 여기에 추가
-			    console.error(error);
-			  }
-			});
-    });	 */
-
-	</script>
 
