@@ -92,21 +92,32 @@ public class TreatmentChartService {
 		return treatmentChartDAO.getMedicineList();
 	}
 	
-	//파일삭제
-	public int setFileDelete(TreatmentChartFileVO treatmentChartFileVO) throws Exception {	
-		//폴더파일삭제
-		treatmentChartFileVO = treatmentChartDAO.getFileDetail(treatmentChartFileVO);
-		boolean flag = fileManager.fileDelete(treatmentChartFileVO, this.uploadPath + this.contents);
-		
+//	//파일삭제
+//	public int setFileDelete(TreatmentChartFileVO treatmentChartFileVO) throws Exception {	
+//		//폴더파일삭제
+//		treatmentChartFileVO = treatmentChartDAO.getFileDetail(treatmentChartFileVO);
+//		boolean flag = fileManager.fileDelete(treatmentChartFileVO, this.uploadPath + this.contents);
+//		
+//		log.info("파일이름 : {} ", treatmentChartFileVO.getFileName());
+//		log.info("파일번호 : {} ", treatmentChartFileVO.getFileNo());
+//		
+//		if(flag) {
+//			//DB삭제
+//			return treatmentChartDAO.setFileDelete(treatmentChartFileVO);
+//		}
+//		
+//		return 0;
+//	}
+	
+	public int fileUpdateDelete(TreatmentChartFileVO treatmentChartFileVO) throws Exception {
+		// 가져올 데이터로 폴더 삭제
 		log.info("파일이름 : {} ", treatmentChartFileVO.getFileName());
 		log.info("파일번호 : {} ", treatmentChartFileVO.getFileNo());
+		fileManager.fileDelete(treatmentChartFileVO, this.uploadPath + this.contents);
 		
-		if(flag) {
-			//DB삭제
-			return treatmentChartDAO.setFileDelete(treatmentChartFileVO);
-		}
+		int result = treatmentChartDAO.fileUpdateDelete(treatmentChartFileVO);
 		
-		return 0;
+		return result;
 	}
 
 }

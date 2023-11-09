@@ -8,9 +8,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.vet.main.customer.CustomerFileVO;
 import com.vet.main.file.FileVO;
+import com.vet.main.treatmentchart.TreatmentChartFileVO;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class FileManager {
 	
 	// 파일 저장 후 파일명을 리턴
@@ -37,13 +42,41 @@ public class FileManager {
 		return fileName;
 	}
 	
-	public boolean fileDelete(FileVO fileVO, String path) throws Exception {
+//	public boolean fileDelete(FileVO fileVO, String path) throws Exception {
+//		
+//		//1.삭제할 폴더의 실제 경로
+//		//path = session.getServletContext().getRealPath(path);
+//		
+//		File file = new File(path, fileVO.getFileName());
+//		
+//		return file.delete();
+//	}
+	
+	// treatmentchart 파일삭제
+	public boolean fileDelete(TreatmentChartFileVO treatmentChartFileVO, String path) {
 		
-		//1.삭제할 폴더의 실제 경로
-		//path = session.getServletContext().getRealPath(path);
+		log.info(path);
+		log.info(treatmentChartFileVO.getFileName());
+		File file = new File(path, treatmentChartFileVO.getFileName());
 		
-		File file = new File(path, fileVO.getFileName());
+		//로그 추가 file에 입력된 절대 경로 리턴
+		log.info("========== Delete file: {} ==========", file.getAbsolutePath());
 		
 		return file.delete();
+		
+	}
+	
+	// customer 파일삭제
+	public boolean fileDelete(CustomerFileVO customerFileVO, String path) {
+		
+		log.info(path);
+		log.info(customerFileVO.getFileName());
+		File file = new File(path, customerFileVO.getFileName());
+		
+		//로그 추가 file에 입력된 절대 경로 리턴
+		log.info("========== Delete file: {} ==========", file.getAbsolutePath());
+		
+		return file.delete();
+		
 	}
 }

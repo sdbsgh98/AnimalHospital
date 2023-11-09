@@ -84,12 +84,20 @@
 		</update>
 		
 		<!-- 사진삭제 -->
-		<delete id="setFileDelete" parameterType="TreatmentChartFileVO">
+<!-- 		<delete id="setFileDelete" parameterType="TreatmentChartFileVO">
 			DELETE FROM TREATMENTCHARTFILE WHERE FILENO = #{fileNo}
 		</delete>
 		
 		<select id="getFileDetail" parameterType="TreatmentChartFileVO" resultType="TreatmentChartFileVO">
 			SELECT FILENO, FILENAME FROM TREATMENTCHARTFILE WHERE FILENO = #{fileNo}
+		</select> -->
+		
+		<select id="getFileDelete" parameterType="TreatmentChartVO" resultType="TreatmentChartFileVO">
+			SELECT * FROM TREATMENTCHARTFILE WHERE CHARTNO = #{chartNo}
 		</select>
+		
+		<delete id="updateFileDelete" parameterType="TreatmentChartFileVO">
+			DELETE FROM TREATMENTCHARTFILE WHERE FILENO = #{fileNo}
+		</delete>
 		
 	</mapper>

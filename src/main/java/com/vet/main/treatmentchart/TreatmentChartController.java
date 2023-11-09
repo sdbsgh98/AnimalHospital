@@ -80,7 +80,7 @@ public class TreatmentChartController {
 		customerVO = customerService.getDetail(customerVO);
 		empVO = empService.empDetail(empVO);
 		
-		model.addAttribute("med", medicineVO);
+		
 		model.addAttribute("cus", customerVO);
 		model.addAttribute("emp", empVO);
 		model.addAttribute("vo", treatmentChartVO);
@@ -110,16 +110,30 @@ public class TreatmentChartController {
 	}
 	
 	//파일삭제
-	@GetMapping("fileDelete")
-	public String setFileDelete(TreatmentChartFileVO treatmentChartFileVO, Model model) throws Exception {
-		int result = treatmentChartService.setFileDelete(treatmentChartFileVO);
+//	@GetMapping("fileDelete")
+//	public String setFileDelete(TreatmentChartFileVO treatmentChartFileVO, Model model) throws Exception {
+//		int result = treatmentChartService.setFileDelete(treatmentChartFileVO);
+//		
+//		if(result > 0) {
+//			log.info("파일삭제 성공");
+//		}else {
+//			log.info("파일삭제 실패");
+//		}
+//		
+//		model.addAttribute("result", result);
+//		
+//		return "commons/ajaxResult";
+//	}
+	
+	@PostMapping("fileDelete")
+	public String fileUpdateDelete(Model model, TreatmentChartFileVO treatmentChartFileVO) throws Exception {
+		int result = treatmentChartService.fileUpdateDelete(treatmentChartFileVO);
 		
-		if(result > 0) {
+		if(result>0){
 			log.info("파일삭제 성공");
 		}else {
 			log.info("파일삭제 실패");
 		}
-		
 		model.addAttribute("result", result);
 		
 		return "commons/ajaxResult";

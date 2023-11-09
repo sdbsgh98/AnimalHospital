@@ -31,11 +31,15 @@ public interface TreatmentChartDAO {
 	//사진첨부
 	public int setFileAdd(FileVO fileVO) throws Exception;
 	
-	//파일상세
-	public TreatmentChartFileVO getFileDetail(TreatmentChartFileVO treatmentChartFileVO) throws Exception;
+//	//파일상세
+//	public TreatmentChartFileVO getFileDetail(TreatmentChartFileVO treatmentChartFileVO) throws Exception;
+//	
+//	//파일삭제
+//	public int setFileDelete(TreatmentChartFileVO treatmentChartFileVO) throws Exception;
 	
-	//파일삭제
-	public int setFileDelete(TreatmentChartFileVO treatmentChartFileVO) throws Exception;
+	public List<TreatmentChartFileVO> getFileDelete(TreatmentChartVO treatmentChartVO) throws Exception;
+	
+	public int fileUpdateDelete(TreatmentChartFileVO treatmentChartFileVO) throws Exception;
 	
 	//약품조회
 	public List<MedicineVO> getMedicineList() throws Exception;
