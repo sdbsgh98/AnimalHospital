@@ -38,4 +38,5 @@ public class ApprovalVO {
 	private List<ApprovalFileVO> fileList;
 	private List<ApprovalExpenseVO> expenseList;
 	private List<ApprovalLineVO> apLineList;
+	private List<EmpVO> printEmpList;
 }

@@ -69,12 +69,16 @@ public class EmpVO implements UserDetails{
 
 	public List<EmpVO> fileVO2;
 	
+	// 결재선
+	public List<EmpVO> selectList;
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
-
-		for(RoleVO roleVO: roleVOs) {
-			authorities.add(new SimpleGrantedAuthority(roleVO.getRoleName()));
+		if (roleVOs!=null) {
+			for(RoleVO roleVO: roleVOs) {
+				authorities.add(new SimpleGrantedAuthority(roleVO.getRoleName()));
+			}
 		}
 		
 		return authorities;

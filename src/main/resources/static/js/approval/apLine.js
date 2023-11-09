@@ -21,5 +21,4 @@ const changeDep = (e) => {  // 결재선 선택창에서 부서 눌렀을 때
 		console.error(error);
 		}
 	});
-
 }

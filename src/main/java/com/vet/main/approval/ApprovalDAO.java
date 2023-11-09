@@ -61,6 +61,11 @@ public interface ApprovalDAO {
 	// file
 	public int setApFileAdd(FileVO fileVO) throws Exception;
 	
+	// 결재선 설정에 부서 클릭시 파라미터를 받기위함
+	public List<EmpVO> selectDept(String deptName) throws Exception;
+	
+	// 결재선 설정에 부서별 직원 리스트 출력
+	public List<EmpVO> getEmpSelectList(String deptName) throws Exception;
 	
 	// 상세페이지에 결재자 출력
 	public List<ApprovalLineVO> getApLinePerson(Long apNo) throws Exception;
