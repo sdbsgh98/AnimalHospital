@@ -74,9 +74,7 @@
 		
 		<div class="card shadow mb-4" style="width: 250px; float: left; height: 450px; margin-left: 40px;">
 			<div id="empList">
-<%-- 				<c:forEach items="${emp}" var="emp">
-	                <li>[${emp.deptName}] ${emp.positionName} ${emp.empName}</li>
-	            </c:forEach> --%>  
+
 			</div> 
 		
 		</div>
