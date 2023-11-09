@@ -228,27 +228,30 @@ public class ApprovalController {
 	@PostMapping("apLineSelect") // 결재선에서 부서클릭시 맞는 부서들 출력
 	@ResponseBody
 	public List<EmpVO> getEmpSelectList(String deptName, Model model) throws Exception { // 선택한 부서에 맞는 사원들 리스트로 반환
-		List<EmpVO> selectList = new ArrayList<EmpVO>();
 		
+		List<EmpVO> selectList = new ArrayList<EmpVO>();
 		selectList = approvalService.getEmpSelectList(deptName);
+		
 		log.info("############### 결재선 직원 목록 : {} ################", selectList);
 		return selectList;
 	}
 	
+	
 	@PostMapping("empList")
 	@ResponseBody
 	public List<EmpVO> printEmpList(@RequestParam(value = "emps[]") String[] empData) throws Exception {
-
 		List<EmpVO> empList = new ArrayList<EmpVO>();
-
+		
 		for (int i = 0; i < empData.length; i++) {
 			empList.addAll(approvalService.getEmpSelectList(empData[i]));
 		}
-
 		return empList;
 	}
 	
-
+	
+	
+	
+	
 //	@PostMapping("empList")
 //	public String getEmpSelectList(@RequestParam("deptName") String deptName, Model model) throws Exception {
 //		List<EmpVO> empList = approvalService.getEmpSelectList(deptName);
