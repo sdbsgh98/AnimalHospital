@@ -129,6 +129,10 @@ public class ApprovalService {
 		return approvalDAO.getEmpSelectList(deptName);
 	}
 	
+	public List<EmpVO> getPositionEmp(String deptName) throws Exception {
+		return approvalDAO.getPositionEmp(deptName);
+	}
+	
 	public List<EmpVO> selectDept(String deptName) throws Exception {
 		return approvalDAO.selectDept(deptName);
 	}
