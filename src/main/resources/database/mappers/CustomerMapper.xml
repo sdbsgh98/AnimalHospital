@@ -87,14 +87,14 @@
 		<delete id="setDelete" parameterType="CustomerVO">
 			DELETE FROM CUSTOMER WHERE CUSTOMERNO = #{customerNo}
 		</delete>
+				
+		<select id="getFileDelete" parameterType="CustomerVO" resultType="CustomerFileVO">
+			SELECT * FROM CUSTOMERFILE WHERE CUSTOMERNO = #{customerNo}
+		</select>
 		
 		<!-- 사진삭제 -->
-		<delete id="setFileDelete" parameterType="CustomerFileVO">
+		<delete id="fileUpdateDelete" parameterType="CustomerFileVO">
 			DELETE FROM CUSTOMERFILE WHERE FILENO = #{fileNo}
 		</delete>
-		
-		<select id="getFileDetail" parameterType="CustomerFileVO" resultType="CustomerFileVO">
-			SELECT FILENO, FILENAME FROM CUSTOMERFILE WHERE FILENO = #{fileNo}
-		</select>
 		
 	</mapper>

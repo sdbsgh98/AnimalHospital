@@ -87,36 +87,37 @@ public class TreatmentChartService {
 		return result;
 	}
 	
+	//약품조회
 	public List<MedicineVO> getMedicineList() throws Exception {
-		return treatmentChartDAO.getMedicienList();
+		return treatmentChartDAO.getMedicineList();
 	}
 	
-	//파일삭제
-	public int setFileDelete(TreatmentChartFileVO treatmentChartFileVO) throws Exception {	
-		//폴더파일삭제
-		treatmentChartFileVO = treatmentChartDAO.getFileDetail(treatmentChartFileVO);
-		boolean flag = fileManager.fileDelete(treatmentChartFileVO, uploadPath);
-		
-		if(flag) {
-			//DB삭제
-			return treatmentChartDAO.setFileDelete(treatmentChartFileVO);
-		}
-		
-		return 0;
-	}
+//	//파일삭제
+//	public int setFileDelete(TreatmentChartFileVO treatmentChartFileVO) throws Exception {	
+//		//폴더파일삭제
+//		treatmentChartFileVO = treatmentChartDAO.getFileDetail(treatmentChartFileVO);
+//		boolean flag = fileManager.fileDelete(treatmentChartFileVO, this.uploadPath + this.contents);
+//		
+//		log.info("파일이름 : {} ", treatmentChartFileVO.getFileName());
+//		log.info("파일번호 : {} ", treatmentChartFileVO.getFileNo());
+//		
+//		if(flag) {
+//			//DB삭제
+//			return treatmentChartDAO.setFileDelete(treatmentChartFileVO);
+//		}
+//		
+//		return 0;
+//	}
 	
-//	//썸머노트 사진등록
-//	public String contentsImgInsert(MultipartFile files, HttpSession session) throws Exception {
-//		String fileName = fileManager.save(this.uploadPath + this.contents, files);
-//		
-//		return this.uploadPath + this.contents;
-//	}
-//	
-//	//썸머노트 사진삭제
-//	public boolean contentsImgDelete(TreatmentChartFileVO treatmentChartFileVO, HttpSession session) throws Exception {
-//		treatmentChartFileVO.setFileName(this.contents.substring(this.contents.lastIndexOf("/") + 1));
-//		
-//		return fileManager.fileDelete(treatmentChartFileVO, uploadPath, session);	
-//	}
+	public int fileUpdateDelete(TreatmentChartFileVO treatmentChartFileVO) throws Exception {
+		// 가져올 데이터로 폴더 삭제
+		log.info("파일이름 : {} ", treatmentChartFileVO.getFileName());
+		log.info("파일번호 : {} ", treatmentChartFileVO.getFileNo());
+		fileManager.fileDelete(treatmentChartFileVO, this.uploadPath + this.contents);
+		
+		int result = treatmentChartDAO.fileUpdateDelete(treatmentChartFileVO);
+		
+		return result;
+	}
 
 }

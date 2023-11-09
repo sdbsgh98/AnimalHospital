@@ -56,7 +56,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 													<td rowspan="2" style="font-size: xx-large; font-weight: bolder;">진료차트상세</td>
 													<!-- <td></td> -->
 													<td>작성자</td>
-													<td>${emp.empName}</td>
+													<td>${user.empName}</td>
 												</tr>
 												<tr>
 													<!-- <td></td> -->
@@ -90,6 +90,10 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											<div class="mb-3 mt-4 ms-4">
                                                 <label for="contents" class="form-label"></label>
                                                 ${vo.contents}
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                            	${med.name}
                                             </div>
                                             
                                             <div>

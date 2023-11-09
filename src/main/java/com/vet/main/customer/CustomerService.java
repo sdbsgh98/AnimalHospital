@@ -89,23 +89,33 @@ public class CustomerService {
 	
 	//고객삭제
 	public int setDelete(CustomerVO customerVO) throws Exception {
-		return customerDAO.setDelete(customerVO);
+		//파일 먼저 삭제
+		List<CustomerFileVO> list = customerDAO.getFileDelete(customerVO);
+		
+		for(CustomerFileVO customerFileVO: list) {
+			if(customerFileVO == null) {
+				continue;
+			}
+			fileManger.fileDelete(customerFileVO, this.uploadPath + this.customerNo);
+		}
+		
+		//DB삭제
+		int result = customerDAO.setDelete(customerVO);
+		
+		return result;
 	}
 	
 	//파일삭제
-	public int setFileDelete(CustomerFileVO customerFileVO) throws Exception {
-		//int result = customerDAO.setFileDelete(customerFileVO);
+	public int fileUpdateDelete(CustomerFileVO customerFileVO) throws Exception {
+		// 가져올 데이터로 폴더 삭제
+		log.info("파일이름 : {} ", customerFileVO.getFileName());
+		log.info("파일번호 : {} ", customerFileVO.getFileNo());
 		
-		//폴더파일삭제
-		customerFileVO = customerDAO.getFileDetail(customerFileVO);
-		boolean flag = fileManger.fileDelete(customerFileVO, uploadPath);
+		fileManger.fileDelete(customerFileVO, this.uploadPath + this.customerNo);
 		
-		if(flag) {
-			//DB삭제
-			return customerDAO.setFileDelete(customerFileVO);
-		}
+		int result = customerDAO.fileUpdateDelete(customerFileVO);
 		
-		return 0;
+		return result;
 	}
 	
 }

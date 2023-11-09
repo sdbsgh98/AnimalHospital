@@ -50,7 +50,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 						<div class="card shadow mb-4" style="align-items: center;">
 							<form action="./add" method="POST" enctype="multipart/form-data">
 								<input type="hidden" id="customerNo" name="customerNo" value="${vo.customerNo}"> 
-								<input type="hidden" id="username" name="username" value="${emp.username}">
+								<input type="hidden" id="username" name="username" value="${user.username}">
 								<div>
 									<div style="width: 700px; margin-top: 20px;">
 										<div>
@@ -65,7 +65,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 													<td rowspan="2" style="font-size: xx-large; font-weight: bolder;">진료차트작성</td>
 													<!-- <td></td> -->
 													<td>작성자</td>
-													<td>${emp.empName}</td>
+													<td>${user.empName}</td>
 												</tr>
 												<tr>
 													<!-- <td></td> -->
@@ -104,47 +104,37 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											<div class="mb-3">
 											  <label for="pic" class="form-label">사진첨부 (최대 5개)</label>
 											  <div id="fileUploadContainer">
-											    동적으로 추가될 파일 업로드 필드와 삭제 버튼이 들어갈 곳입니다.
+											    <!-- 동적으로 추가될 파일 업로드 필드와 삭제 버튼이 들어갈 곳입니다. -->
 											  <br>
 											  </div>
 											  <br>
 											  <button class="btn btn-primary" type="button" id="addFileField">파일 추가</button>
 											</div>
-
-											<!-- <h3>약물추가</h3> -->
-											<!-- Button trigger modal -->
-											<%-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#medicineAdd">
-												약물추가
-											</button>
-											
-											<!-- Modal -->
-											<div class="modal fade" id="medicineAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-												<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-													<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<div class="modal-body">
-														<input type="hidden" id="medicineNo" name="medicineNo" value="${param.medicineNo}" >
-														<form action="./medicineList" method="GET" id="frm">
-															<div>
-															약물명 : <input type="text" name="name" id="name">                  
-															<button type="submit" id="medicineSearch" class="btn btn-primary" >검색</button>
-															</div>
-														</form>
-													</div>
-													<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary">Add</button>
-													</div>
-												</div>
-												</div>
-											</div> --%>
 											
 											<!-- 약물추가 -->
-											<h3>약물추가</h3>
-
+											 <div class="mb-3">
+						                        <button type="button" class="btn btn-primary" id="medicinePlusBtn">약품 추가</button>
+						                    </div> 
+						                    
+						                    <%-- <div id="addList" class="my-5">
+												<div class="medicine row g-3 mb-2" id="medicine" name="medicine">
+													<input type="hidden" id="medicineNo" name="medicineNo" value="${med.medicineNo}">
+												    <input type="text" class="form-control me-2" id="name" name="name" placeholder="약품명" style="width:350px;">
+												    <!-- <input type="text" class="form-control me-2" id="stock" name="stock" placeholder="수량" style="width:100px;"> -->
+												</div> 
+						                    </div> --%>
+						                    
+						                    <div id="addList" class="my-5">
+												<div class="medicine row g-3 mb-2" id="medicine" name="medicine">
+												    <select class="form-select" id="medicineNo" name="medicineNo" style="width:350px;">
+												    	<c:forEach items="${med}" var="a">
+															<option value="${a.medicineNo}">${a.name}</option>
+														</c:forEach>
+												    </select>
+												   <!--  <input type="text" class="form-control me-2" id="stock" name="stock" placeholder="수량" style="width:100px;"> -->
+												</div> 
+						                    </div>
+											
 										</div>
 										<button type="submit" class="btn btn-primary" style="float:right">진료차트등록</button>
 									</div>
@@ -228,6 +218,59 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
         // "파일 추가" 버튼 클릭 시 파일 필드를 추가합니다.
         addFileFieldButton.addEventListener("click", addFileField);
       });
+	</script>
+	
+	<script>
+		const addList = document.getElementById("addList");
+		const medicinePlusBtn = document.getElementById("medicinePlusBtn");
+		const medicineMinusBtn = document.getElementById("medicineMinusBtn");
+		const deletes = document.getElementsByClassName("deletes");
+		
+		let max = 4;
+		let count = 0;
+
+		if(deletes != null) {
+		    count = deletes.length;
+		}
+		let idx = 1;
+		
+		// medicineList에 항목 입력 폼 추가하기
+		$("#medicinePlusBtn").click(function(){
+
+		    if(count>=max){
+		        alert("약품 추가는 최대 5개까지 추가할 수 있습니다.");
+		        return;
+		    }
+		    count++;    
+
+
+			/* let f = '<div class="medicine row g-3 mb-2" id="medicine['+idx+']">'
+		    f = f + '<input type="text" class="form-control me-2" id="name'+idx+'" name="name" placeholder="약품명" style="width:350px;">';
+			f = f + '<input type="text" class="form-control me-2" id="stock'+idx+'" name="stock" placeholder="수량" style="width:100px;">';
+		  	f = f + '<button type="button" id="medicineMinusBtn" name="medicineMinusBtn" class="btn btn-primary df" style="width:50px; height:38.94px;"> X </button>';
+			f = f + '</div>';    
+		    idx++; */
+		    
+		    let f = '<div class="medicine row g-3 mb-2" id="medicine['+idx+']">'
+		    f = f + '<select class="form-select" id="medicineNo" name="medicineNo" style="width:350px;">'
+		    f = f + '<c:forEach items="${med}" var="a">'
+		    f = f + '<option value="${a.medicineNo}">${a.name}</option>'
+		    f = f + '</c:forEach>'
+		    f = f + '</select>'
+		  	f = f + '<button type="button" id="medicineMinusBtn" name="medicineMinusBtn" class="btn btn-primary df" style="width:50px; height:38.94px;"> X </button>';
+			f = f + '</div>';    
+		    idx++;
+
+		    $("#addList").append(f);
+
+		})
+
+		// medicineList에 항목 입력 폼 추가한거 지우기
+		$("#addList").on("click", ".df", function(){
+		    $(this).parent().remove();
+		    count--;
+		})
+
 	</script>
 
 </body>
