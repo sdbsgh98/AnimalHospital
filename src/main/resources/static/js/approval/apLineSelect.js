@@ -6,11 +6,12 @@ apLineSelect.addEventListener("click", function(){
 	$("#exampleModal").modal("show");
 })
 
-$(document).ready(function () {
+
     $(document).on('click', '.jstree-anchor', function () {
         let spanElement = $(this).find('span');
         
         let deptName = spanElement.text().trim();
+        console.log(deptName);
         
         $.ajax({
 			url : "/approval/apLineSelect",
@@ -32,7 +33,7 @@ $(document).ready(function () {
 			}
 		})
     });
-});
+
 
 
 
