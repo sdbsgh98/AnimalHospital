@@ -70,27 +70,61 @@ public class EmpController {
 	}
 	
 	
-	@GetMapping("findUsername")
-	public String findUsername(EmpVO empVO)throws Exception{
-		return "emp/findUsername";
-	}
+//	@GetMapping("findUsername")
+//	public String findUsername(EmpVO empVO)throws Exception{
+//		return "emp/findUsername";
+//	}
+//	
+//	// 사원번호 찾기
+//	@PostMapping("findUsername")
+//	public String findUsername(EmpVO empVO, Model model)throws Exception{
+//		EmpVO user = empService.findUsername(empVO);
+//		
+//		if(user == null) {
+//			model.addAttribute("check", 1);
+//
+//		}else {
+//			model.addAttribute("check", 0);
+//			model.addAttribute("username", user.getUsername());
+//
+//		}
+//		
+//		return "emp/findUsername";
+//	}
 	
-	// 사원번호 찾기
-	@PostMapping("findUsername")
-	public String findUsername(EmpVO empVO, Model model)throws Exception{
-		EmpVO user = empService.findUsername(empVO);
-		
-		if(user == null) {
-			model.addAttribute("check", 1);
-
-		}else {
-			model.addAttribute("check", 0);
-			model.addAttribute("username", user.getUsername());
-
+	// 비밀번호 찾기
+	@GetMapping("findUser")
+	public String findPw(@Valid FindVO empVO, Model model, BindingResult bindingResult) throws Exception{
+		boolean check = empService.getEmpError(empVO, bindingResult);
+		if(bindingResult.hasErrors() || check) {
+			return "emp/findUser";
 		}
 		
-		return "emp/findUsername";
+		return "emp/findUser";
 	}
+	
+//	@ResponseBody
+//	@RequestMapping(value = "/emp/login/findPassword", method = RequestMethod.POST)
+//	public String findPw(HttpServletRequest request, Model model, @RequestParam String username, 
+//			@RequestParam String empName, @RequestParam String email, EmpVO empVO) throws Exception {
+//		try {
+//			empVO.setUsername(username);
+//			empVO.setEmpName(empName);
+//			empVO.setEmail(email);
+//			
+//			int search = empService.pwdCheck(empVO);
+//			
+//			if(search == 0) {
+//				model.addAttribute("msg", "기입된 정보가 잘못되었습니다. 다시 입력해주세요.")
+//			}
+//			
+//			String newPw = Randoms
+//			
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		return "redirect: ./login";
+//	}
 	
 	// 마이페이지
 	
@@ -179,35 +213,6 @@ public class EmpController {
 	public List<DeptVO> getPositionsByDept(@RequestParam("deptNo") String deptNo) throws Exception {
 	    List<DeptVO> positions = empService.getPositionNo(deptNo);
 	    return positions;
-	}
-	// 비밀번호 찾기
-	@GetMapping("findPw")
-	public String findPw(EmpVO empVO, Model model) throws Exception{
-		
-		return "emp/findPw";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/emp/login/findPassword", method = RequestMethod.POST)
-	public String findPw(HttpServletRequest request, Model model, @RequestParam String username, 
-			@RequestParam String empName, @RequestParam String email, EmpVO empVO) throws Exception {
-//		try {
-//			empVO.setUsername(username);
-//			empVO.setEmpName(empName);
-//			empVO.setEmail(email);
-//			
-//			int search = empService.pwdCheck(empVO);
-//			
-//			if(search == 0) {
-//				model.addAttribute("msg", "기입된 정보가 잘못되었습니다. 다시 입력해주세요.")
-//			}
-//			
-//			String newPw = Randoms
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-		return "redirect: ./login";
 	}
 
 	// sign

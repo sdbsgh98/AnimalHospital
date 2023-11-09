@@ -14,7 +14,7 @@ public interface EmpDAO {
 
 	public Long getTotal(Pager pager) throws Exception;
 	
-	public EmpVO getEmp (EmpVO empVO)throws Exception; 
+	public EmpVO getEmp (FindVO findVO)throws Exception; 
 	
 	public EmpVO getLogin(String empNo)throws Exception;
 	
@@ -42,7 +42,7 @@ public interface EmpDAO {
 	
 	public List<DeptVO> getDeptNo()throws Exception; //deptNo 선택창
 	
-	public EmpVO findUsername(EmpVO empVO)throws Exception;
+	public EmpVO findUser(EmpVO empVO)throws Exception;
 	
 	// sign
 	public EmpVO signList(EmpVO empVO)throws Exception;

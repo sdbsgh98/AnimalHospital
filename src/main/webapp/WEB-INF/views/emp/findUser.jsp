@@ -3,6 +3,7 @@
 <!-- JSP에서 properties 메세지를 사용할 수 있도록 하는 API -->
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
     data-theme="theme-default" data-assets-path="/assets/"
@@ -36,16 +37,16 @@
 						              
 						              <br><br>
 									<div >
-										<input type="radio" class="" id="search_username" name="search_total" onclick="search_check(1)" checked="checked">
+										<!-- <input type="radio" class="" id="search_username" name="search_total" onclick="search_check(1)" checked="checked">
 										<label class=""	for="search_username">사원번호 찾기</label>
-										&nbsp;&nbsp;
-										<input type="radio" class="custom-control-input" id="search_password" name="search_total" onclick="search_check(2)"> 
+										&nbsp;&nbsp; -->
+										<!-- <input type="radio" class="custom-control-input" id="search_password" name="search_total" onclick="search_check(2)">  -->
 										<label class="" for="search_password">비밀번호 찾기</label>
 									</div>
 						              <br>
 						              <!-- /Logo -->
 
-										<div id="searchI">
+										<%-- <div id="searchI">
 							              <h4 class="mb-2">사원번호 찾기🔐</h4><br>
 											<form method="post" class="form-signin" action="findUsername" name="findform">
 
@@ -80,17 +81,43 @@
 					                                <a href="./findPw">비밀번호 찾기</a>
 					                            </c:if>				        		
 							        		</form>
-										</div>
+										</div> --%>
 						
-										<div id="searchP" style="display: none;">
+										<div id="searchP">
 										<h4 class="mb-2">비밀번호 찾기🔐</h4><br>
-											<form method="post" class="form-signin" action="findUsername" name="findform">
+											<%-- <form method="post" class="form-signin" action="findUser" name="findform"> --%>
+											<div>
+											
+												<form:form modelAttribute="empVO" action="/emp/findUser" method="POST">
+												  <div class="form-group">
+												  	<form:label path="username">사원번호</form:label>
+													<input id="username" Class="form-control" name="username" placeholder="ex) 2023000"/>
+													<form:errors path="username"></form:errors>					
+												 
+												  </div>
+												  <div class="form-group">
+												  	<form:label path="empName">이름</form:label>
+												    <input type="text" class="form-control" id="empName" name="empName" placeholder="ex) 홍길동"/>
+												  	<form:errors path="empName"></form:errors>
+												  </div>
+												  <div class="form-group">
+												  	<form:label path="email">이메일</form:label>
+												    <input type="email" class="form-control" id="email" name="email" placeholder="ex) animal@hospital.com">
+												  	<form:errors path="email"></form:errors>
+												  	<button class="btn form-control" id="sendMail">이메일 전송</button>
+												  </div>
+													<input class="btn btn-secondary btn-block text-uppercase" id="searchBtn" type="button" value="확인">
 
-											 	<table>
+												  <!-- <button type="submit" class="btn btn-primary" style="margin-top: 30px;">로그인</button> -->
+	
+								        		</form:form>	
+								        		
+											</div>
+											 	<!-- <table>
 													<tr>
 														<td>사원번호</td>
 													 	<td>
-													 		<input type="text" class="form-control" id="empName" name="empName" placeholder="ex) 2023000">
+													 		<input type="text" class="form-control" id="empNo" name="empNo" placeholder="ex) 2023000">
 													 	</td>
 												 	</tr>											 	
 													<tr>
@@ -105,18 +132,19 @@
 													 	<td>
 													 		<input type="email" class="form-control" id="email" name="email" placeholder="ex) animal@hospital.com">
 													 	</td>
+												 	<tr>
 													 	<td>
-													 		<button class="btn" id="sendMail">이메일 전송</button>
+													 		<button class="btn form-control" id="sendMail">이메일 전송</button>
 													 	</td>
-												 	</tr>
-											 	</table>
-											  <br>	
+												 	</tr>												 	
+											 	</table> -->
+											 <!--  <br>	
 												  <input class="btn btn-secondary btn-block text-uppercase" type="submit" value="확인">
 												  <button class="btn btn-secondary btn-block text-uppercase"> <a href="./login" style="color: white;">로그인</a> </button>
-											  <br><br>			  			  				  				          													  	  				  			  				  				          		
+											  <br><br>	 -->		  			  				  				          													  	  				  			  				  				          		
 
 								                 <!-- 이름과 비밀번호가 일치하지 않을 때 -->
-					                            <c:if test="${check == 1}">                        
+					                            <%-- <c:if test="${check == 1}">                        
 					                                <label>일치하는 정보가 존재하지 않습니다.</label>
 					                            </c:if>
 					                            
@@ -124,8 +152,8 @@
 					                                <label>찾으시는 아이디는 '${username}' 입니다.</label>
 					                                <br>
 					                                <a href="./findPw">비밀번호 찾기</a>
-					                            </c:if>				        		
-							        		</form>
+					                            </c:if>	 --%>			        		
+							        		<%-- </form> --%>
 										</div>
 						            </div>
 						          </div>
@@ -144,9 +172,16 @@
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
     <script type="text/javascript">
         $('#searchBtn').on("click", function () {
+        	let username = $("#username").val();
             let empName = $("#empName").val();
             let email = $("#email").val();
 
+            if (username === "") {
+                alert("사원번호는 필수입력사항입니다.");
+                $("#username").focus();
+                return;
+            }
+            
             if (empName === "") {
                 alert("이름은 필수입력사항입니다.");
                 $("#empName").focus();
@@ -160,7 +195,7 @@
         });
     </script>
     
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
 		function search_check(num) {
 			if (num == '1') {
 				document.getElementById("searchP").style.display = "none";
@@ -170,7 +205,7 @@
 				document.getElementById("searchP").style.display = "";
 			}
 		}
-    </script>
+    </script> -->
 
 	<script type="text/javascript">
 		$('#sendMail').on("click", function(){

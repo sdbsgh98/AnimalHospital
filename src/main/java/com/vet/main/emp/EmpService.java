@@ -108,9 +108,9 @@ public class EmpService implements UserDetailsService{
 	}
 	
 	// 사원번호 찾기
-	public EmpVO findUsername(EmpVO empVO)throws Exception{
+	public EmpVO findUser(EmpVO empVO)throws Exception{
 	
-		return empDAO.findUsername(empVO);
+		return empDAO.findUser(empVO);
 	}
 
 	
@@ -135,7 +135,7 @@ public class EmpService implements UserDetailsService{
 		return result;
 	}
 	
-	public boolean getEmpError(EmpVO empVO, BindingResult bindingResult)throws Exception{
+	public boolean getEmpError(FindVO findVO , BindingResult bindingResult)throws Exception{
 		boolean check = false; // false면 error 없음, true면 error 있음 (검증실패)
 		
 		//password 일치여부 검증
@@ -146,7 +146,7 @@ public class EmpService implements UserDetailsService{
 //		}
 		
 		//이메일 중복 검사
-		EmpVO checkVO = empDAO.getEmp(empVO);
+		EmpVO checkVO = empDAO.getEmp(findVO);
 		
 		if(checkVO != null) {
 			check = true;

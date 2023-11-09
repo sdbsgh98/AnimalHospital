@@ -25,6 +25,7 @@ import lombok.ToString;
 public class EmpVO implements UserDetails{
 
 	//emp
+	@NotBlank(message = "사원번호는 필수 입력 값입니다.")
 	private String username;
 //	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*\\\\W)(?=\\\\S+$).{6,12}", message = "확인이 필요합니다.")
 	private String password;
