@@ -128,10 +128,6 @@ public class EmpController {
 	public String empList(Pager pager,Model model)throws Exception{
 		List<EmpVO> ar = empService.empList(pager);
 		model.addAttribute("list", ar);
-		
-		List<DeptVO> dept = empService.deptList();
-		model.addAttribute("dept", dept);
-
 		model.addAttribute("pager", pager);
 		
 		return "emp/empList";

@@ -38,8 +38,6 @@ public interface EmpDAO {
 	
 	public int empRole(Map<String, Object> map)throws Exception; //회원가입시 권한 부여하는 것
 	
-	public List<DeptVO> deptList()throws Exception;
-	
 	public List<DeptVO> getPositionNo(String deptNo)throws Exception; //positionNo 선택창
 	
 	public List<DeptVO> getDeptNo()throws Exception; //deptNo 선택창

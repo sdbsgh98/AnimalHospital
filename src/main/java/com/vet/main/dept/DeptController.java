@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vet.main.commons.Pager;
-import com.vet.main.commons.DeptPager;
 import com.vet.main.emp.EmpService;
 
 @Controller
@@ -29,24 +28,19 @@ public class DeptController {
 	private EmpService empService;
 	
 	@GetMapping("deptList")
-	public String deptList(Model model, DeptPager deptPager, String deptName)throws Exception{
+	public String deptList(Model model, Pager pager)throws Exception{
 		List<DeptVO> ar = deptService.deptList();
-		List<DeptVO> emp = deptService.getEmpList(deptPager);
+		List<DeptVO> emp = deptService.getEmpList(pager);
+		List<DeptVO> dept = deptService.selectDept();
 		
+		model.addAttribute("dept", dept);
 		model.addAttribute("emp", emp);
 		model.addAttribute("list", ar);
-		model.addAttribute("pager", deptPager);
+		model.addAttribute("pager", pager);
 		
 		return "dept/deptList";
 	} 
 	
-	@ResponseBody
-	@RequestMapping(value = "/dept/deptSelect", method = RequestMethod.GET)
-	public String deptSelect(@RequestParam("deptName") DeptVO deptVO, Model model) throws Exception {
-	    DeptVO deptSelect = deptService.selectDept(deptVO);
-		model.addAttribute("dept",deptVO);	    
-		return "redirect:./deptList";
-	}
 	
 	//부서 등록 (modal)
 	
@@ -78,9 +72,9 @@ public class DeptController {
 	//부서 관리 페이지
 	
 	@GetMapping("deptManage")
-	public String deptManage(DeptVO deptVO, Model model, DeptPager deptPager) throws Exception{
+	public String deptManage(DeptVO deptVO, Model model, Pager pager) throws Exception{
 		List<DeptVO> ar = empService.getDeptNo(deptVO);
-		List<DeptVO> emp = deptService.getEmpList(deptPager);
+		List<DeptVO> emp = deptService.getEmpList(pager);
 		deptVO = deptService.deptDetail(deptVO);
 		model.addAttribute("dept", ar);
 		model.addAttribute("emp", emp);
