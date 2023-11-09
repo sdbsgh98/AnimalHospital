@@ -94,11 +94,12 @@ public class EmpController {
 	
 	// 비밀번호 찾기
 	@GetMapping("findUser")
-	public String findPw(@Valid FindVO empVO, Model model, BindingResult bindingResult) throws Exception{
+	public String findPw(@Valid EmpVO empVO, Model model, BindingResult bindingResult) throws Exception{
 		boolean check = empService.getEmpError(empVO, bindingResult);
 		if(bindingResult.hasErrors() || check) {
 			return "emp/findUser";
 		}
+		
 		
 		return "emp/findUser";
 	}

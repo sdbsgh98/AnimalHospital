@@ -14,7 +14,7 @@ public interface EmpDAO {
 
 	public Long getTotal(Pager pager) throws Exception;
 	
-	public EmpVO getEmp (FindVO findVO)throws Exception; 
+	public EmpVO getEmp (EmpVO empVO)throws Exception; 
 	
 	public EmpVO getLogin(String empNo)throws Exception;
 	
