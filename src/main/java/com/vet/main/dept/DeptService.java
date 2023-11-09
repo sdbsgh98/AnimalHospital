@@ -27,8 +27,8 @@ public class DeptService {
 		return deptDAO.deptList();
 	}
 	
-	public List<DeptVO> selectDept()throws Exception{
-		return deptDAO.selectDept();
+	public DeptVO selectDept(DeptVO deptVO)throws Exception{
+		return deptDAO.selectDept(deptVO);
 	}
 	
 	public int deptAdd(DeptVO deptVO)throws Exception{

@@ -74,57 +74,27 @@
 						</div>
 					</div>
 
-					<div class="card shadow mb-4" style="width:78%; float: right; height: 400px;">			
+					<div class="card shadow mb-4" style="width:78%; float: right; height: 400px;"  id="deptSelect">			
 							<!-- Content -->
-							<c:forEach items="${dept}" var="dept">
-								<table class="table" id="deptNoList">
-									<tr>
-										<td>부서번호</td>
-										<td>
-											${dept.deptNo}
-										</td>
-									</tr>
-									<tr>
-										<td>이름</td>
-										<td>
-											${dept.deptName}
-										</td>
-									</tr>
-									<tr>
-									<tr>
-									    <td>상위부서 번호</td>
-									    <td>
-											${dept.parentNo}
-									    </td>
-									</tr>
-									<tr>
-									    <td>직급</td>
-									    <td>
-											${dept.positionName}
-									    </td>
-									</tr>
-
+	
+								<table class="table">
+		                            <tr>
+		                                <td>부서번호</td>
+		                                <td>${dept.deptNo}</td>
+		                            </tr>
+		                            <tr>
+		                                <td>이름</td>
+		                                <td>${dept.deptName}</td>
+		                            </tr>
+		                            <tr>
+		                                <td>상위부서 번호</td>
+		                                <td>${dept.parentNo}</td>
+		                            </tr>
+		                            <tr>
+		                                <td>직급</td>
+		                                <td>${dept.positionName}</td>
+		                            </tr>
 								</table>
-							<%-- <table class="table" style="text-align: center; width:auto;">
-								<thead>
-									<tr>
-										<th>부서번호</th>
-										<th>부서이름</th>
-
-									</tr>
-								</thead>
-								<tbody>
-							<c:forEach items="${dept}" var="vo">
-									<tr>
-										<td>${vo.deptNo}</td>
-										<td>${vo.deptName}</td>
-									</tr>
-							</c:forEach>
-								</tbody>
-							
-							</table> --%>
-								
-							</c:forEach>
 							
 						</div>
 						
@@ -246,39 +216,45 @@
         });
     </script>
     
-    <script type="text/javascript">
-	document.getElementById("deptNo").addEventListener("click", '.jstree-anchor', function () {
-	    let selectedDeptNo = $(this).find('span'); // 선택된 부서의 값
-	    console.log(selectedDeptNo);
-	    
-/* 	    $.ajax({
+<script type="text/javascript">
+	$(document).on('click', '.jstree-anchor', function () {
+	    let spanElement = $(this).find('span');
+	    let deptName = spanElement.text().trim();
+	
+	    $.ajax({
 	        type: "GET",
-	        url: "/emp/getPositionsByDept",
-	        data: { deptNo: selectedDeptNo },
-	        success: function (positions) {
-	            var positionSelect = document.getElementById("positionNo");
-	
-	            // 기존 옵션 제거
-	            while (positionSelect.firstChild) {
-	                positionSelect.removeChild(positionSelect.firstChild);
-	            }
-	
-	            // 새로운 옵션 추가
-	            positions.forEach(function (position) {
-	                var option = document.createElement("option");
-	                option.value = position.positionNo;
-	                option.text = position.positionName;
-	                positionSelect.appendChild(option);
-	            });
+	        url: "/dept/deptSelect",
+	        data: { deptName: deptName },
+	        success: function (data) {
+	            $("#deptSelect").empty();
+	            // Assuming 'data' is a JSON object containing department information
+	            $("#deptSelect").append(
+	                `<table class="table">
+	                    <tr>
+	                        <td>부서번호</td>
+	                        <td>${data.deptNo}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>이름</td>
+	                        <td>${data.deptName}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>상위부서 번호</td>
+	                        <td>${data.parentNo}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>직급</td>
+	                        <td>${data.positionName}</td>
+	                    </tr>
+	                </table>`
+	            );
 	        },
 	        error: function () {
-	            console.error("Failed to load positions.");
+	            console.error("Failed to load department data.");
 	        }
-	    }); */
-	});   
-    	
-    
-    </script>
+	    });
+	});
+</script>
 
 </body>
 </html>

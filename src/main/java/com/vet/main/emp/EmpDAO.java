@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.vet.main.commons.Pager;
 import com.vet.main.dept.DeptVO;
-import com.vet.main.file.FileVO;
+
 
 @Mapper
 public interface EmpDAO {

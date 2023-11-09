@@ -61,10 +61,10 @@
 		SELECT *
 		FROM DEPARTMENT D INNER JOIN POSITION P
 		ON D.DEPTNO = P.DEPTNO
-		WHERE D.DEPTNO = #{deptNo}
+		WHERE D.DEPTNAME = #{deptName}
 	</select>
 	
-	<select id="positionList" parameterType="com.vet.main.dept.DeptVO">
+	<select id="positionList" parameterType="com.vet.main.dept.DeptVO" resultType="com.vet.main.dept.DeptVO">
 	
 		SELECT * 
 		FROM POSITION P INNER JOIN DEPARTMENT D
