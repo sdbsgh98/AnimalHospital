@@ -35,13 +35,12 @@
 						                </a>
 						              </div>
 						              
-						              <br><br>
 									<div >
 										<!-- <input type="radio" class="" id="search_username" name="search_total" onclick="search_check(1)" checked="checked">
 										<label class=""	for="search_username">사원번호 찾기</label>
 										&nbsp;&nbsp; -->
 										<!-- <input type="radio" class="custom-control-input" id="search_password" name="search_total" onclick="search_check(2)">  -->
-										<label class="" for="search_password">비밀번호 찾기</label>
+								
 									</div>
 						              <br>
 						              <!-- /Logo -->
@@ -88,70 +87,41 @@
 											<%-- <form method="post" class="form-signin" action="findUser" name="findform"> --%>
 											<div>
 											
-												<form:form modelAttribute="empVO" action="/emp/findUser" method="POST">
+												<form:form modelAttribute="findVO" action="/emp/findUser" method="POST">
 												  <div class="form-group">
 												  	<form:label path="username">사원번호</form:label>
 													<input id="username" Class="form-control" name="username" placeholder="ex) 2023000"/>
-													<form:errors path="username"></form:errors>					
+													<form:errors path="username" cssStyle="error"/>					
 												 
 												  </div>
 												  <div class="form-group">
 												  	<form:label path="empName">이름</form:label>
 												    <input type="text" class="form-control" id="empName" name="empName" placeholder="ex) 홍길동"/>
-												  	<form:errors path="empName"></form:errors>
+												  	<form:errors path="empName" cssStyle="error"/>
 												  </div>
 												  <div class="form-group">
 												  	<form:label path="email">이메일</form:label>
 												    <input type="email" class="form-control" id="email" name="email" placeholder="ex) animal@hospital.com">
-												  	<form:errors path="email"></form:errors>
-												  	<button class="btn form-control" id="sendMail">이메일 전송</button>
+												  	<form:errors path="email" cssStyle="error"/>
+												  	<a class="btn btn-secondary form-control" id="sendMail" href="/sendMail">이메일 전송</a>
 												  </div>
+												  <br>
 													<input class="btn btn-secondary btn-block text-uppercase" id="searchBtn" type="button" value="확인">
 
 												  <!-- <button type="submit" class="btn btn-primary" style="margin-top: 30px;">로그인</button> -->
 	
 								        		</form:form>	
 								        		
-											</div>
-											 	<!-- <table>
-													<tr>
-														<td>사원번호</td>
-													 	<td>
-													 		<input type="text" class="form-control" id="empNo" name="empNo" placeholder="ex) 2023000">
-													 	</td>
-												 	</tr>											 	
-													<tr>
-														<td>이름</td>
-													 	<td>
-													 		<input type="text" class="form-control" id="empName" name="empName" placeholder="ex) 홍길동">
-													 	</td>
-												 	</tr>
-
-												 	<tr>
-														<td>이메일</td>
-													 	<td>
-													 		<input type="email" class="form-control" id="email" name="email" placeholder="ex) animal@hospital.com">
-													 	</td>
-												 	<tr>
-													 	<td>
-													 		<button class="btn form-control" id="sendMail">이메일 전송</button>
-													 	</td>
-												 	</tr>												 	
-											 	</table> -->
-											 <!--  <br>	
-												  <input class="btn btn-secondary btn-block text-uppercase" type="submit" value="확인">
-												  <button class="btn btn-secondary btn-block text-uppercase"> <a href="./login" style="color: white;">로그인</a> </button>
-											  <br><br>	 -->		  			  				  				          													  	  				  			  				  				          		
+											</div>		  			  				  				          													  	  				  			  				  				          		
 
 								                 <!-- 이름과 비밀번호가 일치하지 않을 때 -->
-					                            <%-- <c:if test="${check == 1}">                        
+					                           <%--  <c:if test="${check == 1}">                        
 					                                <label>일치하는 정보가 존재하지 않습니다.</label>
 					                            </c:if>
 					                            
 					                            <c:if test="${check == 0}">
-					                                <label>찾으시는 아이디는 '${username}' 입니다.</label>
-					                                <br>
-					                                <a href="./findPw">비밀번호 찾기</a>
+					                                <label>이메일 인증이 필요합니다.</label>
+					                                <a class="btn btn-secondary form-control" id="sendMail" href="/sendMail">이메일 전송</a>
 					                            </c:if>	 --%>			        		
 							        		<%-- </form> --%>
 										</div>
@@ -171,6 +141,7 @@
 	    </div>  
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
     <script type="text/javascript">
+    $(document).ready(function () {
         $('#searchBtn').on("click", function () {
         	let username = $("#username").val();
             let empName = $("#empName").val();
@@ -192,6 +163,20 @@
                 $("#email").focus();
                 return;
             }
+            
+            $.ajax({
+                url: "/emp/checkUser", // Adjust the URL to your actual endpoint
+                type: "POST",
+                data: { username: username, empName: empName, email: email },
+                success: function (response) {
+                    $("#resultMessage").text(response.message);
+                },
+                error: function () {
+                    $("#resultMessage").text("Error occurred.");
+                }
+            });
+        });
+            
         });
     </script>
     
