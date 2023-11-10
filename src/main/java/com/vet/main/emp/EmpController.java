@@ -94,7 +94,7 @@ public class EmpController {
 	
 	// 비밀번호 찾기
 	@GetMapping("findUser")
-	public String findPw(@Valid EmpVO empVO, Model model, BindingResult bindingResult) throws Exception{
+	public String findUser(@Valid EmpVO empVO, Model model, BindingResult bindingResult) throws Exception{
 		boolean check = empService.getEmpError(empVO, bindingResult);
 		if(bindingResult.hasErrors() || check) {
 			return "emp/findUser";
@@ -178,7 +178,7 @@ public class EmpController {
 //		if(bindingResult.hasErrors() || check) {
 //			return "emp/empList";
 //		}
-//		
+		
 		int result = empService.empAdd(empVO);
 		return "redirect:./empList";
 	}

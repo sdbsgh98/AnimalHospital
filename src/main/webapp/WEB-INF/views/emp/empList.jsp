@@ -127,34 +127,32 @@
 					      </div>
 					      <div class="modal-body">
 
-					         <form action="empAdd" method="post" enctype="multipart/form-data" id="empAdd" class="was-validated">
+					         <form action="empAdd" method="post" enctype="multipart/form-data" id="empForm">
 								<input type="hidden" class="form-control" name="username" id="username">
 								<input type="hidden" class="form-control" name="password" id="password">
-									<table style="margin: auto;">
-										<tr>
-											<td>이름</td>
-											<td><input type="text" class="form-control" name="empName" id="empName" required></td>
-											<td><div class="valid-feedback">Valid.</div></td>
-											<td><div class="invalid-feedback">Please fill out this field.</div></td>
-										</tr>
-										<tr>
-											<td>이메일</td>
-											<td><input type="email" class="form-control mail" name="email" id="email"></td>
-										</tr>
+								   <div class="form-group">
+							            <label for="empName">이름</label>
+							            <input type="text" class="form-control" id="empName" name="empName" placeholder="ex) 홍길동">
+							            <div id="empNameError" class="error"></div>
+							        </div>
+								   <div class="form-group">
+							            <label for="email">이메일</label>
+							            <input type="email" class="form-control" id="email" name="email" placeholder="ex) example@gmail.com">
+							            <div id="emailError" class="error"></div>
+							        </div>
+								   <div class="form-group">
+							            <label for="phone">연락처</label>
+							            <input type="text" class="form-control" id="phone" name="phone" placeholder="ex) 01012345678">
+							            <div id="phoneError" class="error"></div>
+							        </div>
+								   <div class="form-group">
+							            <label for="birth">생년월일</label>
+							            <input type="date" class="form-control" id="birth" name="birth" placeholder="ex) 1900-01-01">
+							            <div id="birthError" class="error"></div>
+							        </div>							        							        							        
 
-										<tr>
-											<td>연락처</td>
-											<td><input type="text" class="form-control" name="phone" id="phone"></td>
-										</tr>
-
-										<tr>
-											<td>생년월일</td>
-											<td><input type="date" class="form-control" id="birth" name="birth"></td>
-										</tr>
-										
-									</table>
 								</form>
-					          		<br>
+				          	<br>
 							      <div class="modal-footer">
 							        <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 							        <button class="btn btn-primary" id="addBtn">추가</button>
