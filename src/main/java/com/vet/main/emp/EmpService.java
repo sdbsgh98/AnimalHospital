@@ -108,9 +108,9 @@ public class EmpService implements UserDetailsService{
 	}
 	
 	// 사원번호 찾기
-	public EmpVO findUser(EmpVO empVO)throws Exception{
+	public FindVO findUser(FindVO findVO)throws Exception{
 	
-		return empDAO.findUser(empVO);
+		return empDAO.findUser(findVO);
 	}
 
 	

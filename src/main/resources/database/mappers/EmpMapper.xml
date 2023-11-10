@@ -153,7 +153,7 @@
   		WHERE E.USERNAME=#{username}	
   	</update>
   	<select id="findUser" parameterType="com.vet.main.emp.EmpVO" resultMap="getDetailResult">
-  		SELECT PASSWORD FROM EMP WHERE EMPNAME = #{empName} AND EMAIL = #{email}
+  		SELECT EMPNAME FROM EMP WHERE EMPNAME = #{empName} AND EMAIL = #{email} AND USERNAME=#{username}
   	</select>
   	<update id="pwUpdate" parameterType="com.vet.main.emp.EmpVO">
   		UPDATE EMP 

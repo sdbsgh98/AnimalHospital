@@ -66,7 +66,7 @@ public class EmpController {
 	
 	@GetMapping("/sendMail")
 	public String sendMail(EmpVO empVO)throws Exception{
-		return "emp/sendMail";
+		return "redirect:emp/findUser";
 	}
 	
 	
@@ -94,12 +94,22 @@ public class EmpController {
 	
 	// 비밀번호 찾기
 	@GetMapping("findUser")
-	public String findUser(@Valid EmpVO empVO, Model model, BindingResult bindingResult) throws Exception{
-		boolean check = empService.getEmpError(empVO, bindingResult);
-		if(bindingResult.hasErrors() || check) {
-			return "emp/findUser";
-		}
+	public String findUser(FindVO findVO, Model model) throws Exception{
+				
+		return "emp/findUser";
+	}
+	
+	@PostMapping("findUser")
+	public String findUser1(@Valid FindVO findVO, Model model) throws Exception{
+		FindVO pw = empService.findUser(findVO);
 		
+		if(pw == null) {
+			model.addAttribute("check", 1);
+		}else {
+			model.addAttribute("check", 0);
+			
+			return"emp/pwUpdate";
+		}
 		
 		return "emp/findUser";
 	}

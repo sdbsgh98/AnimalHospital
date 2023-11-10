@@ -42,7 +42,7 @@ public interface EmpDAO {
 	
 	public List<DeptVO> getDeptNo()throws Exception; //deptNo 선택창
 	
-	public EmpVO findUser(EmpVO empVO)throws Exception;
+	public FindVO findUser(FindVO findVO)throws Exception;
 	
 	// sign
 	public EmpVO signList(EmpVO empVO)throws Exception;
