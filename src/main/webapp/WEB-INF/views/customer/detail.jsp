@@ -34,19 +34,19 @@
 									<div style="width: 300px; float: left;">
 										<c:forEach items="${vo.fileVO}" var="f">
 											<img alt="" src="../files/customer/${f.fileName}"
-											style="width: 200px; height: 200px; margin: 30px;">
+											style="width: 250px; height: 250px; margin: 30px;">
 										</c:forEach>
 									</div>
 								</c:if>
 								<c:if test="${empty vo.fileVO}">
 									<div style="width: 300px; float: left;">
 											<img alt="" src="/resources/images/default.jpeg"
-											style="width: 200px; height: 200px; margin: 30px;">
+											style="width: 250px; height: 250px; margin: 30px;">
 									</div>
 								</c:if>
 								
-								<div style="width: 550px; margin-top: 20px; float: left;">
-									<table class="table">
+								<div style="width: 550px; margin-top: 20px; margin-bottom: 20px; float: left;">
+									<table class="table" style="margin-top: 40px;">
 										<tr>
 											<td>이름</td>
 											<td>${vo.animalName}</td>
@@ -92,15 +92,15 @@
 									</table>
 								</div>
 		
-								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float:right">
+								<!-- 고객정보삭제모달 -->
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">
 								  삭제
 								</button>
-								<a href="./update?customerNo=${vo.customerNo}" class="btn btn-primary" style="float:right">수정</a>
-								<a href="/treatmentchart/list?customerNo=${vo.customerNo}" class="btn btn-primary" style="float:left">진료차트</a>
+								<a href="./update?customerNo=${vo.customerNo}" class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">수정</a>
+								<a href="/treatmentchart/list?customerNo=${vo.customerNo}" class="btn btn-primary" style="float: left; margin-top: 20px; margin-bottom: 20px; margin-left: 10px;">진료차트</a>
 								
-								<!-- Modal -->
-								<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<!-- 고객정보삭제모달창 -->
+								<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 								  <div class="modal-dialog">
 								    <div class="modal-content">
 								      <div class="modal-header">

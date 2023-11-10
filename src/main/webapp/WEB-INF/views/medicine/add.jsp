@@ -51,7 +51,7 @@
 											</tr>
 											
 										</table>
-										<button type="submit" class="btn btn-primary" style="float:right">약품등록</button>
+										<button type="submit" class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">약품등록</button>
 									</div>
 								</div>
 							</form>

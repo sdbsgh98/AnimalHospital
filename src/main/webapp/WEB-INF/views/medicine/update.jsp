@@ -54,7 +54,7 @@
 												</tr>
 												
 											</table>
-											<button class="btn btn-primary" style="float:right">수정</button>
+											<button class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">수정</button>
 										</div>
 									</div>
 								</form>

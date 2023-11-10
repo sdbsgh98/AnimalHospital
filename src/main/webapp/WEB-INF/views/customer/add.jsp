@@ -138,7 +138,7 @@
 												</td>
 											</tr>
 										</table>
-										<button type="submit" class="btn btn-primary" style="float: right;">등록</button>
+										<button type="submit" class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">등록</button>
 									</div>
 								</div>
 							</form>

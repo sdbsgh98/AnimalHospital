@@ -7,6 +7,7 @@
 	
 		<select id="getTotal" parameterType="Pager" resultType="Long">
 	  		SELECT COUNT(CHARTNO) FROM TREATMENTCHART 
+	  			WHERE CUSTOMERNO = #{customerNo}
 	  	</select>
 		
 		<!-- 진료차트목록 -->
@@ -26,6 +27,16 @@
 		<insert id="setAdd" parameterType="TreatmentChartVO"  useGeneratedKeys="true" keyProperty="chartNo">
 			INSERT INTO TREATMENTCHART (CHARTNO, CONTENTS, DISEASE, DATE, CUSTOMERNO, USERNAME, MEDICINENO)
 				VALUES (NULL, #{contents}, #{disease}, #{date}, #{customerNo}, #{username}, #{medicineNo})
+				<!-- INSERT INTO TREATMENTCHART SET 
+					CHARTNO = NULL,
+					CONTENTS = #{contents},
+					DISEASE = #{disease},
+					DATE = #{date},
+					CUSTOMERNO = #{customerNo},
+					USERNAME = #{username},
+					MEDICINENO = #{medicineNo}
+					ON DUPLICATE KEY UPDATE
+					STOCK = #{stock} -->
 		</insert>
 		
 		<!-- 사진첨부 -->
@@ -35,26 +46,11 @@
 		</insert>
 		
 		<!-- 진료차트상세 -->
-		<select id="getDetail" parameterType="TreatmentChartVO" resultMap="getDetailResult">
-			<!-- SELECT TC.*, E.*, C.*
+		<select id="getDetail" parameterType="TreatmentChartVO" resultMap="getDetailResult">		
+				SELECT TC.*, TCF.*, M.name
 				FROM TREATMENTCHART TC
-					INNER JOIN CUSTOMER C
-						ON C.CUSTOMERNO = TC.CUSTOMERNO
-					INNER JOIN EMP E
-						ON TC.USERNAME = E.USERNAME
-				WHERE TC.CHARTNO = #{chartNo} -->
-				<!-- SELECT TC.*, E.*, C.*, TCF.*
-				FROM TREATMENTCHART TC
-					INNER JOIN CUSTOMER C
-						ON C.CUSTOMERNO = TC.CUSTOMERNO
-					INNER JOIN EMP E
-						ON TC.USERNAME = E.USERNAME
-					LEFT OUTER JOIN TREATMENTCHARTFILE TCF
-						ON TC.CHARTNO = TCF.CHARTNO
-				WHERE TC.CHARTNO = #{chartNo} -->
-				
-				SELECT TC.*, TCF.*
-				FROM TREATMENTCHART TC
+					INNER JOIN MEDICINE M
+					ON TC.MEDICINENO = M.MEDICINENO
 					LEFT OUTER JOIN TREATMENTCHARTFILE TCF
 						ON TC.CHARTNO = TCF.CHARTNO
 				WHERE TC.CHARTNO = #{chartNo}
@@ -68,6 +64,7 @@
 			<result column="COUSTOMERNO" property="customerNo"/>
 			<result column="USERNAME" property="username"/>
 			<result column="MEDICINENO" property="medicineNo"/>
+			<result column="NAME" property="name"/>
 			<collection property="fileVOs" javaType="java.util.List" ofType="TreatmentChartFileVO">
 				<id column="FILENO" property="fileNo"/>
 				<result column="FILENAME" property="fileName"/>

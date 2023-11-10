@@ -53,9 +53,9 @@
 									<!-- Button trigger modal -->
 									<button type="button" class="btn btn-primary"
 										data-bs-toggle="modal" data-bs-target="#exampleModal"
-										style="float: right">삭제</button>
+										style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">삭제</button>
 									<a href="./update?medicineNo=${vo.medicineNo}"
-										class="btn btn-primary" style="float: right">수정</a>
+										class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">수정</a>
 			
 									<!-- Modal -->
 									<div class="modal fade" id="exampleModal" tabindex="-1"

@@ -131,12 +131,12 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 															<option value="${a.medicineNo}">${a.name}</option>
 														</c:forEach>
 												    </select>
-												   <!--  <input type="text" class="form-control me-2" id="stock" name="stock" placeholder="수량" style="width:100px;"> -->
+												   <!-- <input type="text" class="form-control me-2" id="stock" name="stock" placeholder="수량" style="width:100px;"> -->
 												</div> 
 						                    </div>
 											
 										</div>
-										<button type="submit" class="btn btn-primary" style="float:right">진료차트등록</button>
+										<button type="submit" class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">진료차트등록</button>
 									</div>
 								</div>
 							</form>

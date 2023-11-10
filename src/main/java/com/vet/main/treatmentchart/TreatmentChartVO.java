@@ -20,6 +20,8 @@ public class TreatmentChartVO {
 	private Long username;
 	private Long medicineNo;
 	
+	private String name;
+	
 	private List<TreatmentChartFileVO> fileVOs;
 	
 }
