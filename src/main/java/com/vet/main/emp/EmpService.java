@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.vet.main.commons.FileManager;
@@ -113,6 +114,10 @@ public class EmpService implements UserDetailsService{
 		return empDAO.findUser(findVO);
 	}
 
+	
+	public boolean checkUser(String username, String empName, String email)throws Exception{
+		return empDAO.checkUser(username, empName, email);
+	}
 	
 	// 사원 관리(직원 목록)
 	public List<EmpVO> empList(Pager pager)throws Exception{

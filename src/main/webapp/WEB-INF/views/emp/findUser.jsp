@@ -87,42 +87,47 @@
 											<%-- <form method="post" class="form-signin" action="findUser" name="findform"> --%>
 											<div>
 											
-												<form:form modelAttribute="findVO" action="/emp/findUser" method="POST">
+												<form:form modelAttribute="findVO" action="/emp/findUser" method="POST" id="findform">
 												  <div class="form-group">
 												  	<form:label path="username">사원번호</form:label>
-													<input id="username" Class="form-control" name="username" placeholder="ex) 2023000"/>
+													<form:input  id="username" path="username" cssClass="form-control"/>
 													<form:errors path="username" cssStyle="error"/>					
 												 
 												  </div>
 												  <div class="form-group">
 												  	<form:label path="empName">이름</form:label>
-												    <input type="text" class="form-control" id="empName" name="empName" placeholder="ex) 홍길동"/>
+												    <form:input  id="empName" path="empName" cssClass="form-control"/>
 												  	<form:errors path="empName" cssStyle="error"/>
 												  </div>
 												  <div class="form-group">
 												  	<form:label path="email">이메일</form:label>
-												    <input type="email" class="form-control" id="email" name="email" placeholder="ex) animal@hospital.com">
+												    <form:input  id="email" path="email" cssClass="form-control"/>					  
 												  	<form:errors path="email" cssStyle="error"/>
-												  	<a class="btn btn-secondary form-control" id="sendMail" href="/sendMail">이메일 전송</a>
+												  	<a class="btn btn-danger form-control" id="checkBtn">db조회</a>
+												  	<a class="btn btn-secondary form-control" id="sendBtn">이메일 전송</a>
 												  </div>
 												  <br>
 													<input class="btn btn-secondary btn-block text-uppercase" id="searchBtn" type="button" value="확인">
-
-												  <!-- <button type="submit" class="btn btn-primary" style="margin-top: 30px;">로그인</button> -->
-	
 								        		</form:form>	
+													<label id="resultMessage"></label>
+													 <c:if test="${check == 1}">  
+													                       
+					                                	<label>일치하는 정보가 존재하지 않습니다.</label>
+					                           		 </c:if>
+					                            
+						                            <c:if test="${check == 0}">
+						                                <label>이메일 인증이 필요합니다.</label>
+															
+						                            </c:if>	
+	
+													<!-- <div id="mail_number" name="mail_number" style="display: none">
+									                	<input type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
+									                	<button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
+								        			</div> -->
 								        		
 											</div>		  			  				  				          													  	  				  			  				  				          		
 
-								                 <!-- 이름과 비밀번호가 일치하지 않을 때 -->
-					                           <%--  <c:if test="${check == 1}">                        
-					                                <label>일치하는 정보가 존재하지 않습니다.</label>
-					                            </c:if>
-					                            
-					                            <c:if test="${check == 0}">
-					                                <label>이메일 인증이 필요합니다.</label>
-					                                <a class="btn btn-secondary form-control" id="sendMail" href="/sendMail">이메일 전송</a>
-					                            </c:if>	 --%>			        		
+					                         			        		
 							        		<%-- </form> --%>
 										</div>
 						            </div>
@@ -141,11 +146,14 @@
 	    </div>  
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
     <script type="text/javascript">
-    $(document).ready(function () {
+            
+      $(document).ready(function () {
         $('#searchBtn').on("click", function () {
-        	let username = $("#username").val();
-            let empName = $("#empName").val();
-            let email = $("#email").val();
+
+    	    let username = $("#username").val();
+    	    let empName = $("#empName").val();
+    	    let email = $("#email").val();  
+    	  
 
             if (username === "") {
                 alert("사원번호는 필수입력사항입니다.");
@@ -163,18 +171,6 @@
                 $("#email").focus();
                 return;
             }
-            
-            $.ajax({
-                url: "/emp/checkUser", // Adjust the URL to your actual endpoint
-                type: "POST",
-                data: { username: username, empName: empName, email: email },
-                success: function (response) {
-                    $("#resultMessage").text(response.message);
-                },
-                error: function () {
-                    $("#resultMessage").text("Error occurred.");
-                }
-            });
         });
             
         });
@@ -193,10 +189,77 @@
     </script> -->
 
 	<script type="text/javascript">
-		$('#sendMail').on("click", function(){
-			alret("이메일 발송이 완료되었습니다.");
-		});
+ 
+	$('#sendBtn').on("click", function(){	
+		
+	    let username = $("#username").val();
+	    let empName = $("#empName").val();
+	    let email = $("#email").val();
+		
+		if (username === "") {
+            alert("사원번호는 필수입력사항입니다.");
+            $("#username").focus();
+            return;
+        }
+        
+        if (empName === "") {
+            alert("이름은 필수입력사항입니다.");
+            $("#empName").focus();
+            return;
+        }
+        if (email === "") {
+            alert("이메일은 필수입력사항입니다.");
+            $("#email").focus();
+            return;
+        }
+		
+	    $.ajax({
+	        url: "/emp/sendMail", 
+	        type: "POST",
+	        data: { email: $("#email").val() },  
+	        success: function () {
+	            alert("인증메일 발송완료"); 
+	        },
+	        error: function () {
+	            console.log("문제있음"); 
+	        }
+	    });  
+	  
+	});
+		
+
 	</script>
+	<script type="text/javascript">
+	
+	$('#checkBtn').on("click", function () {
+	    let username = $("#username").val();
+	    let empName = $("#empName").val();
+	    let email = $("#email").val();
+
+	    if (username === "" || empName === "" || email === "") {
+	        alert("모든 필수 입력 항목을 작성해주세요.");
+	        return;
+	    }
+
+	     $.ajax({
+	        url: "/emp/findUser",
+	        type: "POST",
+	        data: { username: username, empName: empName, email: email },
+	        success: function (data) {
+	            if (data === "success") {
+	                $('#sendBtn').prop("disabled", false);
+	                alert("사용자가 확인되었습니다. 이메일 전송 버튼을 사용할 수 있습니다.");
+	            } else {
+	                $('#sendBtn').prop("disabled", true);
+	                alert("일치하는 사용자가 없습니다.");
+	            }
+	        },
+	        error: function () {
+	            console.log("오류발생");
+	        }
+	    }); 
+	});
+	</script> 
 
 </body>
 </html>

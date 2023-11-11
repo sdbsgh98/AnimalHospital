@@ -10,15 +10,8 @@ import lombok.Setter;
 @Setter
 public class FindVO {
 
+	@NotBlank(message = "사원번호는 필수 입력 값입니다.")
     private String username;
-	
-	@NotBlank
-	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*\\\\W)(?=\\\\S+$).{6,12}", message = "확인이 필요합니다.")
-	private String password;
-	
-	@NotBlank
-	@Pattern(regexp = "(?=.*[0-9])(?=.*[a-z])(?=.*\\\\W)(?=\\\\S+$).{6,12}", message = "확인이 필요합니다.")
-	private String passwordCheck;
 	
     @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String empName;

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.vet.main.commons.Pager;
 import com.vet.main.dept.DeptVO;
@@ -43,6 +44,8 @@ public interface EmpDAO {
 	public List<DeptVO> getDeptNo()throws Exception; //deptNo 선택창
 	
 	public FindVO findUser(FindVO findVO)throws Exception;
+	
+	public boolean checkUser(String username, String empName, String email);
 	
 	// sign
 	public EmpVO signList(EmpVO empVO)throws Exception;

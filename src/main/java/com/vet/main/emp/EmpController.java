@@ -28,11 +28,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/emp/*")
+@Slf4j
 public class EmpController {
 
 	@Autowired
 	private EmpService empService;
-
+	
 	// 로그인 페이지
 	
 	@GetMapping("login")
@@ -63,34 +64,7 @@ public class EmpController {
 		int result = empService.pwUpdate(empVO);
 		return "emp/login";
 	}
-	
-	@GetMapping("/sendMail")
-	public String sendMail(EmpVO empVO)throws Exception{
-		return "redirect:emp/findUser";
-	}
-	
-	
-//	@GetMapping("findUsername")
-//	public String findUsername(EmpVO empVO)throws Exception{
-//		return "emp/findUsername";
-//	}
-//	
-//	// 사원번호 찾기
-//	@PostMapping("findUsername")
-//	public String findUsername(EmpVO empVO, Model model)throws Exception{
-//		EmpVO user = empService.findUsername(empVO);
-//		
-//		if(user == null) {
-//			model.addAttribute("check", 1);
-//
-//		}else {
-//			model.addAttribute("check", 0);
-//			model.addAttribute("username", user.getUsername());
-//
-//		}
-//		
-//		return "emp/findUsername";
-//	}
+
 	
 	// 비밀번호 찾기
 	@GetMapping("findUser")
@@ -99,19 +73,49 @@ public class EmpController {
 		return "emp/findUser";
 	}
 	
-	@PostMapping("findUser")
-	public String findUser1(@Valid FindVO findVO, Model model) throws Exception{
-		FindVO pw = empService.findUser(findVO);
+//	@PostMapping("findUser")
+//	public void findUser1(@Valid FindVO findVO,Model model, BindingResult bindingResult) throws Exception{
+//		boolean check = empService.getEmpError(empVO, bindingResult);
+//		
+//		if(bindingResult.hasErrors() || check) {
+//			return "emp/findUser";
+//		}
 		
-		if(pw == null) {
+//		model.addAttribute("username", findVO.getUsername());
+//		model.addAttribute("email", findVO.getEmail());
+//		model.addAttribute("empName", findVO.getEmpName());
+//		
+//		findVO = empService.findUser(findVO);
+//		
+//		if(findVO == null) {
+//			model.addAttribute("check", 1);
+//			log.info("check : ", findVO);
+//			System.out.println(findVO);
+//		}else {
+//			model.addAttribute("check", 0);
+//		}
+//		
+//	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/emp/findUser", method = RequestMethod.POST)
+	public String checkUser(FindVO findVO, @RequestParam String username, @RequestParam String empName, @RequestParam String email,Model model) throws Exception {
+		model.addAttribute("username", findVO.getUsername());
+		model.addAttribute("email", findVO.getEmail());
+		model.addAttribute("empName", findVO.getEmpName());
+		
+		findVO = empService.findUser(findVO);
+		
+		if(findVO == null) {
 			model.addAttribute("check", 1);
+
 		}else {
 			model.addAttribute("check", 0);
-			
-			return"emp/pwUpdate";
 		}
 		
-		return "emp/findUser";
+		boolean userExists = empService.checkUser(username, empName, email);
+
+	    return userExists ? "success" : "failure";
 	}
 	
 //	@ResponseBody
