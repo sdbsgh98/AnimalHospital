@@ -65,7 +65,7 @@
 													<div class="input-group" style="width: 120px;">
 														<input type="hidden" value="${pager.page}" id="page" name="page">
 														<select name="kind" id="k" class="form-select"
-															data-kind="${pager.kind}" aria-label="Default select example" style="width: 50px; margin-left: 10px;">
+															data-kind="${pager.kind}" aria-label="Default select example" style="width: 50px;">
 															<option class="kind" value="animalName">이름</option>
 															<option class="kind" value="name">보호자이름</option>
 														</select>

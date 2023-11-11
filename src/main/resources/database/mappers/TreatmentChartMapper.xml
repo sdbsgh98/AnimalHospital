@@ -15,7 +15,7 @@
 			SELECT * FROM TREATMENTCHART
 				WHERE CUSTOMERNO = #{customerNo}
 				ORDER BY CHARTNO DESC
-				LIMIT #{startRow}, #{perPage}
+				LIMIT #{startRow}, #{lastRow}
 		</select>
 		
 		<!-- 약품조회 -->

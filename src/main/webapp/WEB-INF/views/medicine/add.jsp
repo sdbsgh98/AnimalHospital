@@ -31,26 +31,25 @@
 						<div class="card shadow mb-4" style="align-items: center;">
 							<form action="./add" method="POST">
 								<div>	
-									<div style="width: 550px; margin-top: 20px; float: left;">
-										<table class="table">
-											<tr>
-												<td>약품명</td>
-												<td><input type="text" name="name" class="form-control" id="name" placeholder="약품이름을 입력하세요."></td>
-											</tr>
-											<tr>
-												<td>재고</td>
-												<td><input type="text" name="stock" class="form-control" id="stock"></td>
-											</tr>
-											<!-- <tr>	
-												<td>입고일</td>
-												<td><input type="date" name="medicineDate" class="form-control" id="medicineDate"></td>
-											</tr> -->
-											<tr>
-												<td>유통기한</td>
-												<td><input type="date" name="expirationDate" class="form-control" id="expirationDate"></td>
-											</tr>
-											
-										</table>
+									<div style="width: 550px; margin-top: 50px;">
+										<div class="mb-3 row">
+										    <label for="name" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">약품명</label>
+											    <div class="col-sm-10">
+											      <input type="text" name="name" class="form-control" id="name" placeholder="약품이름을 입력하세요.">
+											    </div>
+									  	</div>
+									  	<div class="mb-3 row">
+										    <label for="inputPassword" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">재고</label>
+											    <div class="col-sm-10">
+											      <input type="text" name="stock" class="form-control" id="stock">
+											    </div>
+									  	</div>
+									  	<div class="mb-3 row">
+										    <label for="inputPassword" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">유통기한</label>
+											    <div class="col-sm-10">
+											      <input type="date" name="expirationDate" class="form-control" id="expirationDate">
+											    </div>
+									  	</div>
 										<button type="submit" class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">약품등록</button>
 									</div>
 								</div>

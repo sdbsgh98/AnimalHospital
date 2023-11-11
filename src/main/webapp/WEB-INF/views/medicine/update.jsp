@@ -33,27 +33,31 @@
 									<input type="hidden" name="medicineNo" value="${vo.medicineNo}">
 			
 									<div>	
-										<div style="width: 550px; margin-top: 20px; float: left;">
-											<table class="table">
-												<tr>
-													<td>약품명</td>
-													<td>${vo.name}</td>
-												</tr>
-												
-												<tr>
-													<td>재고</td>
-													<td><input type="text" name="stock" class="form-control" id="stock" value="${vo.stock}"></td>
-												</tr>
-												<tr>	
-													<td>입고일</td>
-													<td><input type="date" name="medicineDate" class="form-control" id="medicineDate" value="${vo.medicineDate}"></td>
-												</tr>
-												<tr>
-													<td>유통기한</td>
-													<td><input type="date" name="expirationDate" class="form-control" id="expirationDate" value="${vo.expirationDate}"></td>
-												</tr>
-												
-											</table>
+										<div style="width: 550px; margin-top: 50px;">
+											<div class="mb-3 row">
+											    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">약품명</label>
+												    <div class="col-sm-10">
+												      <input type="text" readonly class="form-control-plaintext" id="name" value="${vo.name}">
+												    </div>
+											</div>
+											<div class="mb-3 row">
+											    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">재고</label>
+												    <div class="col-sm-10">
+												      <input type="text" name="stock" class="form-control" id="stock" value="${vo.stock}">
+												    </div>
+											</div>
+											<div class="mb-3 row">
+											    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">입고일</label>
+												    <div class="col-sm-10">
+												      <input type="date" name="medicineDate" class="form-control" id="medicineDate" value="${vo.medicineDate}">
+												    </div>
+											</div>
+											<div class="mb-3 row">
+											    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">유통기한</label>
+												    <div class="col-sm-10">
+												      <input type="date" name="expirationDate" class="form-control" id="expirationDate" value="${vo.expirationDate}">
+												    </div>
+											</div>
 											<button class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">수정</button>
 										</div>
 									</div>

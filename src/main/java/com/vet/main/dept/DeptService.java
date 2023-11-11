@@ -15,9 +15,12 @@ public class DeptService {
 	
 	
 	public List<DeptVO> getEmpList(Pager pager)throws Exception{
+		pager.setPerPage(10L);
+		pager.makeRowNum();
 		Long totalCount = deptDAO.getTotal(pager);
-		pager.makeNum(totalCount);
-		pager.makeStartRow();
+		pager.makePageNum(totalCount);
+//		pager.makeNum(totalCount);
+//		pager.makeStartRow();
 		
 		return deptDAO.getEmpList(pager);
 	}

@@ -33,8 +33,98 @@
 							<input type="hidden" name="customerNo" value="${vo.customerNo}">
 		
 								<div>	
-									<div style="width: 550px; margin-top: 20px; float: left;">
-										<table class="table">
+									<div style="width: 550px; margin-top: 50px;">
+									
+										 <div class="mb-3 row">
+										    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">이름</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" readonly class="form-control-plaintext" id="animalName" value="${vo.animalName}">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">나이</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" name="age" class="form-control" id="age" value="${vo.age}">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">성별</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" readonly class="form-control-plaintext" id="gender" value="${vo.gender}">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">중성화</label>
+										    	<div class="col-sm-10">
+										      		<select class="form-select" aria-label="Default select example" name='neutering'>
+														<option value="${vo.neutering}" selected="selected">${vo.neutering}</option>
+														<option value="yes">yes</option>
+														<option value="no">no</option>
+													</select>
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">몸무게</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" name="weight" class="form-control" id="weight" value="${vo.weight}">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">종류</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" readonly class="form-control-plaintext" id="kind" value="${vo.kind}">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">보호자</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" name="name" class="form-control" id="name" value="${vo.name}" placeholder="보호자이름을 입력하세요.">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">전화번호</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" name="phone" class="form-control" id="phone" value="${vo.phone}" placeholder="전화번호를 입력하세요.">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">주소</label>
+										    	<div class="col-sm-10">
+										      		<div>      			
+										                <input type="text" name="address" class="form-control" id="postcode" placeholder="우편번호"
+										            	readonly>
+										            	<button type="button" class="btn btn-primary" id="addressSearch">우편번호찾기</button>
+										            </div>
+											        <div class="field">       
+											            <div>
+											                <input type="text" name="address" class="form-control" id="address" value="${vo.address}" placeholder="주소"
+											            readonly>
+											            </div>
+											            <div>
+											            	<input type="text" name="address" class="form-control" id="detailAddress" placeholder="상세주소입력">                
+											        	</div>
+											        </div>
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">사진</label>
+										    	<div class="col-sm-10">
+										      		<div class="mb-3">
+														<button type="button" class="btn btn-primary" id="fileAdd">사진추가</button>
+													</div>
+													<div id="fileList" class="my-5">
+											        	<c:forEach items="${vo.fileVO}" var="f">
+											            	<div class="file-item mb-2">
+											                	<span class="alert alert-primary me-2" role="alert" id="${f.originalFileName}">
+											                    	첨부파일: ${f.originalFileName}
+											                    </span>
+											                 		<button class="delets x2 btn btn-danger" data-file="${f.fileName}" data-num="${f.fileNo}">삭제</button>
+											                </div>
+											         	</c:forEach>
+											         </div>
+										    	</div>
+										 </div>
+										<%-- <table class="table">
 											<!-- <tr>
 												<td>사진</td>
 											  	<td><input type="file" class="form-control" name="files"></td>
@@ -97,7 +187,7 @@
 										        </div>
 												</td>
 											</tr>
-											<%-- <tr>
+											<tr>
 												<td>사진</td>
 												<td>
 													<c:if test="${empty vo.fileVO}">
@@ -118,8 +208,8 @@
 											            </div>
 										            </c:if>
 												</td>
-											</tr> --%>
-											<%-- <tr>
+											</tr>
+											<tr>
 											<td>사진</td>
 											<td>
 												<div class="mb-3">
@@ -132,7 +222,7 @@
 						                          	</div>
 						                        </div>
 					                        </td>
-					                        </tr> --%>
+					                        </tr>
 					                        
 					                        <tr>
 					                        	<td>사진</td>
@@ -153,7 +243,7 @@
 					                        	</td>
 					                        </tr>
 											
-										</table>
+										</table> --%>
 										
 										<button class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">수정</button>
 									</div>

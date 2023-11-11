@@ -97,7 +97,7 @@
 		<include refid="forPager"></include>
 			LIKE CONCAT('%', #{search}, '%')
 			ORDER BY E.USERNAME DESC
-			LIMIT #{startRow}, #{perPage}
+			LIMIT #{startRow}, #{lastRow}
 	</select>
 	
 	<resultMap type="com.vet.main.emp.EmpVO" id="getDetailResult">

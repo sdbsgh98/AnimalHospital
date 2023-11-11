@@ -76,24 +76,30 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											</table>
 											<div>
 												<br><h3>반려동물</h3>
-												<table class="table">
-													<tr>
-														<td>이름</td>
-														<td>${vo.animalName}</td>
-													</tr>
-													<tr>
-														<td>성별</td>
-														<td>${vo.gender}</td>
-													</tr>
-													<tr>
-														<td>나이</td>
-														<td>${vo.age}</td>
-													</tr>
-													<tr>
-														<td>병명</td>
-														<td><input type="text" name="disease" class="form-control" id="disease"></td>
-													</tr>
-												</table>
+												<div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">이름</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="animalName" value="${vo.animalName}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">성별</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="gender" value="${vo.gender}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">나이</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="age" value="${vo.age}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="disease" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">병명</label>
+													    <div class="col-sm-10">
+													      <input type="text" name="disease" class="form-control" id="disease">
+													    </div>
+												  </div>
 											</div>
 
 											<div class="mb-3">

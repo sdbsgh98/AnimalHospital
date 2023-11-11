@@ -29,7 +29,7 @@
 				<include refid="forPager"></include>
 				LIKE CONCAT('%', #{search}, '%')
 				ORDER BY CUSTOMERNO DESC
-				LIMIT #{startRow}, #{perPage}
+				LIMIT #{startRow}, #{lastRow}
 		</select>
 		
 		<!-- 고객추가 -->

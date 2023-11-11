@@ -67,7 +67,7 @@
 															<input type="hidden" value="${pager.page}" id="page" name="page">
 															<select name="kind" id="k" class="form-select"
 																data-kind="${pager.kind}" aria-label="Default select example" style="width: 50px;">
-																<option class="kind" value="name">이름</option>
+																<option class="kind" value="name">약품명</option>
 															</select>
 														</div> 
 														<input type="text" name="search" value="${pager.search}"

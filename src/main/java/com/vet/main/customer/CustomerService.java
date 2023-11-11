@@ -36,9 +36,12 @@ public class CustomerService {
 	
 	//고객목록
 	public List<CustomerVO> getList(Pager pager) throws Exception {
-		Long totalCount = customerDAO.getTotal(pager);
-		pager.makeNum(totalCount);
-		pager.makeStartRow();
+		pager.setPerPage(10L); //10개씩
+		pager.makeRowNum(); //출력할 row 처음
+		Long totalCount = customerDAO.getTotal(pager); //전체 데이터
+		pager.makePageNum(totalCount); //데이터수로 페이지 수
+//		pager.makeNum(totalCount);
+//		pager.makeStartRow();
 		return customerDAO.getList(pager);
 	}
 	

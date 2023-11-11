@@ -50,7 +50,31 @@
 											</table>
 											<div>
 												<br><h3>반려동물</h3>
-												<table class="table">
+												<div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">이름</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="animalName" value="${cus.animalName}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">성별</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="gender" value="${cus.gender}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">나이</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="age" value="${cus.age}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="disease" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">병명</label>
+													    <div class="col-sm-10">
+													    <input type="text" readonly class="form-control-plaintext" id="disease" value="${vo.disease}">
+													    </div>
+												  </div>
+												<%-- <table class="table">
 													<tr>
 														<td>이름</td>
 														<td>${cus.animalName}</td>
@@ -67,7 +91,7 @@
 														<td>병명</td>
 														<td>${vo.disease}</td>
 													</tr>
-												</table>
+												</table> --%>
 											</div>
                                             
                                             <div class="card" style="width: auto; margin-top: 20px;">
