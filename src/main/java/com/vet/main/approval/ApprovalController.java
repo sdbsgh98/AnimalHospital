@@ -59,9 +59,11 @@ public class ApprovalController {
 		List<DeptVO> ar = deptService.getApLineDept();
 		List<DeptVO> dept = deptService.selectApLineDept();
 
+		// 모달창에서 결재선 선택 리스트 뿌려줌
 		model.addAttribute("dept", dept);
 		model.addAttribute("list", ar);
-
+		
+		// 작성화면에서 로그인 직원의 정보와 현재 날짜를 뿌려줌
 		model.addAttribute("emp", empVO);
 		model.addAttribute("date", date);
 
@@ -84,14 +86,17 @@ public class ApprovalController {
 
 	// 기안 작성 데이터 전송 (지출결의서 제외)
 	@PostMapping("add/{apKind}")
-	public String setApAdd(@PathVariable String apKind, ApprovalVO approvalVO) throws Exception {
+	public String setApAdd(@PathVariable String apKind, ApprovalVO approvalVO, ApprovalLineVO approvalLineVO) throws Exception {
 
 		log.info("==================== Poom Insert ======================");
 		log.info("====== Poom : {} ======", approvalVO);
 
 		if (apKind.equals("poomAdd")) {
-
 			int result = approvalService.setApPoomAdd(approvalVO);
+			approvalLineVO.setApNo(approvalVO.getApNo());
+			
+			result = approvalService.setFirstApLine(approvalLineVO);
+			result = approvalService.setSecondApLine(approvalLineVO);
 
 		} else if (apKind.equals("dayoffAdd")) {
 
@@ -227,7 +232,7 @@ public class ApprovalController {
 
 	@PostMapping("apLineSelect") // 결재선에서 부서클릭시 맞는 부서들 출력
 	@ResponseBody
-	public List<EmpVO> getEmpSelectList(String deptName, Model model) throws Exception { // 선택한 부서에 맞는 사원들 리스트로 반환
+	public List<EmpVO> getEmpSelectList(String deptName) throws Exception { // 선택한 부서에 맞는 사원들 리스트로 반환
 		
 		List<EmpVO> selectList = new ArrayList<EmpVO>();
 		selectList = approvalService.getEmpSelectList(deptName);
@@ -249,27 +254,6 @@ public class ApprovalController {
 	}
 	
 	
-	
-	
-	
-//	@PostMapping("empList")
-//	public String getEmpSelectList(@RequestParam("deptName") String deptName, Model model) throws Exception {
-//		List<EmpVO> empList = approvalService.getEmpSelectList(deptName);
-//		model.addAttribute("emp", empList);
-//		log.info("############### 결재선 직원 목록 : {} ################", empList);
-//		
-//		return "approval/apLineSelect";
-//	}
-
-	/*
-	 * @GetMapping("apLineSelect") public String getDeptList(Model model)throws
-	 * Exception { List<DeptVO> ar = deptService.deptList(); List<DeptVO> dept =
-	 * deptService.selectDept();
-	 * 
-	 * model.addAttribute("dept", dept); model.addAttribute("list", ar);
-	 * 
-	 * return "approval/apLineSelect"; }
-	 */
 
 	@PostMapping("reject")
 	public String rejectApprove(ApprovalVO approvalVO, Model model) throws Exception {

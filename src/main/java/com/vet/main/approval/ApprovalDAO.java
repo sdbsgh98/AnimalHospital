@@ -67,7 +67,14 @@ public interface ApprovalDAO {
 	// 결재선 설정에 부서별 직원 리스트 출력
 	public List<EmpVO> getEmpSelectList(String deptName) throws Exception;
 	
+	// 결재선 설정에 부서별 직원 리스트 출력 (대표원장)
 	public List<EmpVO> getPositionEmp(String deptName) throws Exception;
+	
+	// 1차 결재자 설정
+	public int setFirstApLine(ApprovalLineVO approvalLineVO) throws Exception;
+	
+	// 2차 결재자 설정
+	public int setSecondApLine(ApprovalLineVO approvalLineVO) throws Exception;
 	
 	// 상세페이지에 결재자 출력
 	public List<ApprovalLineVO> getApLinePerson(Long apNo) throws Exception;

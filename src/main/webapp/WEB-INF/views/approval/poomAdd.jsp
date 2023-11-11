@@ -30,6 +30,11 @@
 
 	<meta charset="UTF-8">
 	<title>품의서 작성</title>
+	<style>
+	    .hidden {
+	      display: none;
+	    }
+    </style>
 
 </head>
 
@@ -58,10 +63,36 @@
 								  <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
 								</div>
 								
-								<div>
-								  <label for="apLineSelect01" class="form-label"></label>
-								  <button type="button" class="btn btn-primary" id="apLineSelect" name="apLineSelect">결재선 설정</button>
+
+			                    
+								<div class="firstApLineBox mb-2">
+								  <!-- controller에 정보 전달하기 위함 -->
+								  <input type="hidden" id="firstLineUsername" name="firstLineUsername" value="">
+								  <input type="hidden" id="firstLineEmpName" name="firstLineEmpName" value="">
+								  
+								  <label for="firstApLineInfo" class="form-label"></label>
+								  <input type="text" class="form-control firstApLineInfo mb-1" id="firstApLineInfo" readonly style="width:250px;">
+								  <button type="button" class="btn btn-primary" id="firstApLineSelect" name="firstApLineSelect" data-bs-target="#staticBackdrop1">1차 결재선 설정</button>
 								</div>
+								
+								
+			                    <div>
+			                        <button type="button" class="btn btn-primary" id="addLineBtn" style="font-size: 20px;" onclick="toggleButtons()">+</button>
+			                    </div>
+			                    
+								<div class="secondApLineBox hidden mb-2" id="secondApLineBox">
+								
+								  <button type="button" class="btn btn-primary mb-2" id="deleteLineBtn" style="font-size: 20px;" onclick="toggleButtons()">-</button>
+								  
+								  <!-- controller에 정보 전달하기 위함 -->
+								  <input type="hidden" id="secondLineUsername" name="secondLineUsername" value="">
+								  <input type="hidden" id="secondLineEmpName" name="secondLineEmpName" value="">
+								  
+								  <label for="secondApLineSelect" class="form-label"></label>
+								  <input type="text" class="form-control secondApLineInfo mb-1" id="secondApLineInfo" style="width:250px;" value="" readonly>
+								  <button type="button" class="btn btn-primary" id="secondApLineSelect" name="secondApLineSelect" data-bs-target="#staticBackdrop2">2차 결재선 설정</button>
+								</div>
+
 								
  								<jsp:include page="/WEB-INF/views/approval/apLineSelect.jsp"></jsp:include>
  								
@@ -173,29 +204,36 @@
 	        $('#jstree').on("changed.jstree", function (e, data) {
 	            console.log(data.selected);
 	        });
-	        
 	    });
 	</script>
 	
 	<script>
 	    $(document).ready(function () {
-	        $('#jstree2').jstree({
-	        	'core':{
-	        		'check_callback': true
-	        	},
-	             'checkbox' : {
-	             	'keep_selected_Style' : false,
-	             	'three_state': false
-	             },
-	             'plugins' : ['checkbox']
-	        });
+	        $('#jstree2').jstree();       
 	        $("#jstree2").jstree("open_all");
 	        $('#jstree2').on("changed.jstree2", function (e, data) {
-	        	
 	            console.log(data.selected);
 	        });
-	        
 	    });
+	</script>
+	
+	<script type="text/javascript">
+	
+	function toggleButtons() {
+	  var addLineBtn = document.getElementById('addLineBtn');
+	  var deleteLineBtn = document.getElementById('deleteLineBtn');
+	  var secondApLineBox = document.getElementById('secondApLineBox');
+	  var secondApLineInfo = document.getElementById('secondApLineInfo');
+	  
+	  if (addLineBtn.style.display !== 'none') {
+		  	addLineBtn.style.display = 'none';
+		  	secondApLineBox.style.display = 'inline-block';
+		  	secondApLineInfo.value = "";
+		  } else {
+			addLineBtn.style.display = 'inline-block';
+			secondApLineBox.style.display = 'none';
+		  }
+	}
 	</script>
 
 

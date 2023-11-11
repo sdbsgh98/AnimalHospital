@@ -84,7 +84,7 @@
 
 								
 								<label for="dayoffKind" class="form-label">구분</label>
-								<div class="input-group-text mb-3">
+								<div class="input-group-text mb-3" id="dayoffKind">
 			                        <input type="radio" class="form-check-input mt-0" name="dayoffKind" value="반차" id="halfDay">&nbsp;반차
 			                        <input type="radio" class="form-check-input ms-3" name="dayoffKind" value="연차" id="fullDay">&nbsp;연차
 			                        <input type="radio" class="form-check-input ms-3" name="dayoffKind" value="병가" id="sickDay">&nbsp;병가

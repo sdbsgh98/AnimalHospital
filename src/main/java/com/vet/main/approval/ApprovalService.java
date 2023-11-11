@@ -129,8 +129,19 @@ public class ApprovalService {
 		return approvalDAO.getEmpSelectList(deptName);
 	}
 	
+	// 결재선 설정에 부서별 직원 리스트 출력 (대표원장)
 	public List<EmpVO> getPositionEmp(String deptName) throws Exception {
 		return approvalDAO.getPositionEmp(deptName);
+	}
+	
+	// 1차 결재자 설정
+	public int setFirstApLine(ApprovalLineVO approvalLineVO) throws Exception {
+		return approvalDAO.setFirstApLine(approvalLineVO);
+	}
+	
+	// 2차 결재자 설정
+	public int setSecondApLine(ApprovalLineVO approvalLineVO) throws Exception {
+		return approvalDAO.setSecondApLine(approvalLineVO);
 	}
 	
 	public List<EmpVO> selectDept(String deptName) throws Exception {

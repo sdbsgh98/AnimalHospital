@@ -40,10 +40,11 @@
 	<!-- 결재선 -->
 	<resultMap type="ApprovalLineVO" id="apLineMap">
 		<id column="APNO" property="apNo"/>
-			<result column="USERNAME" property="userName"/>
+			<result column="USERNAME" property="username"/>
 			<result column="EMPNAME" property="empName"/>
 			<result column="APCONFIRMSTATE" property="apConfimeState"/>
 			<result column="APCONFIRMDATE" property="apConfimeDate"/>
+			<result column="APLSTEP" property="aplStep"/>
 	</resultMap>
 
 	
@@ -68,6 +69,7 @@
 			<result column="EXPENSEAMOUNT" property="expenseAmount"/>
 			<result column="EXPENSEBIGO" property="expenseBigo"/>
 		</collection>
+		<collection property="apLineList" resultMap="apLineMap" />
 	</resultMap>
 	
 	<!-- 기안 상세페이지 -->
@@ -116,8 +118,7 @@
 		</selectKey>
 		
 		INSERT INTO APPROVAL
-		(APNO, USERNAME, APFORMATNO, APTITLE, APCDATE, APCONTENTS, APSTATE, APREJECTION, APKIND, EMPNAME, POSITIONNAME, 
-NAME)
+		(APNO, USERNAME, APFORMATNO, APTITLE, APCDATE, APCONTENTS, APSTATE, APREJECTION, APKIND, EMPNAME, POSITIONNAME, DEPTNAME)
 		VALUES
 		(#{apNo}, #{username}, 25, #{apTitle}, NOW(), #{apContents}, '결재대기중', '', '품의서', #{empName}, #{positionName}, #{deptName})
 	</insert>
@@ -323,6 +324,22 @@ NAME)
 		ON E.POSITIONNO = P.POSITIONNO
 		WHERE P.POSITIONNAME = #{positionName};	
 	</select>
+	
+	<!-- 1차 결재선 설정 -->
+	<insert id="setFirstApLine" parameterType="ApprovalLineVO">
+		INSERT INTO APLINE
+		(APNO, USERNAME, EMPNAME, APCONFIRMSTATE, APCONFIRMDATE, APLSTEP)
+		VALUES
+		(#{apNo}, #{firstLineUsername}, #{firstLineEmpName}, '0', #{apConfirmDate}, '1')
+	</insert>
+	
+	<!-- 2차 결재선 설정 -->
+	<insert id="setSecondApLine" parameterType="ApprovalLineVO">
+		INSERT INTO APLINE
+		(APNO, USERNAME, EMPNAME, APCONFIRMSTATE, APCONFIRMDATE, APLSTEP)
+		VALUES
+		(#{apNo}, #{secondLineUsername}, #{secondLineEmpName}, '0', #{apConfirmDate}, '2')
+	</insert>
 
 	<!-- 상세페이지에 결재선 직원 출력-->
 	<select id="getApLinePerson" parameterType="Long" resultType="ApprovalLineVO">
@@ -333,6 +350,5 @@ NAME)
 			ON P.POSITIONNO = E.POSITIONNO
 		WHERE APL.APNO = #{apNo};
 	</select>
-	
-	
+
 </mapper>

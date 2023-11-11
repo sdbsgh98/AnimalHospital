@@ -39,7 +39,7 @@ const deletes = document.getElementsByClassName("deletes");
  
  
 
-let max = 10;
+let max = 9;
 let count = 0;
 
 if(deletes != null) {
