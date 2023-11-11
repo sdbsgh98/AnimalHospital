@@ -84,12 +84,35 @@ $("#addList").on("click", ".df", function(){
 
 // 글 ADD
 addBtn.addEventListener("click", function(){
+	
+	let expenseName = document.getElementsByName("expenseName");
+	let expenseAmount = document.getElementsByName("expenseAmount");
+	let expensePrice = document.getElementsByName("expensePrice");
 
     if(apTitle.value == ""){
         alert("제목을 입력해주세요.");
         apTitle.focus();
         return;
     }
+	if(expenseName.value == "" || expenseName.value == null) {
+		alert("지출항목의 이름을 확인해주세요.");
+		return;
+	}
+	if(expenseAmount.value == "" || expenseAmount.value == null) {
+		alert("지출항목의 이름을 확인해주세요.");
+		return;
+	}
+	if(expensePrice.value == "" || expensePrice.value == null) {
+		alert("지출항목의 이름을 확인해주세요.");
+		return;
+	}
+    if($("#firstLineUsername").val() == "") {
+		alert("결재자 선택은 필수입니다.");
+		return;
+	}
+	if($("#secondLineUsername").val() == "") {
+		$("#secondLineUsername").val() = "";
+	}
     
     // 폼에 입력한 데이터를 서버로 전송
     addFrm.submit();

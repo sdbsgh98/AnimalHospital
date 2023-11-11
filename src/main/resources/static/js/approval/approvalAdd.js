@@ -25,8 +25,8 @@ addBtn.addEventListener("click", function(){
 		alert("결재자 선택은 필수입니다.");
 		return;
 	}
-	if($("secondLineUsername").val() == "") {
-		$("secondLineUsername").val() = "";
+	if($("#secondLineUsername").val() == "") {
+		$("#secondLineUsername").val() = "";
 	}
       
     // 폼에 입력한 데이터를 서버로 전송
@@ -37,7 +37,6 @@ addBtn.addEventListener("click", function(){
 
 // 취소 버튼
 cancleBtn.addEventListener("click", function(){
-	/*location.href = "/approval/draftList/" + username;*/
 	location.href = "/approval/formatList";
 })
 

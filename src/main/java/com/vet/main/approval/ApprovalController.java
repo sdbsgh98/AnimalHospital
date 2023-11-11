@@ -216,7 +216,7 @@ public class ApprovalController {
 			approvalLineVO.setEmpName(lineEmpName[i]);
 			approvalLineVO.setAplStep(String.valueOf(i+1));
 			
-			result = approvalService.setApLine(approvalLineVO);
+			approvalService.setApLine(approvalLineVO);
 		}
 
 		return "redirect:../draftList/" + username;

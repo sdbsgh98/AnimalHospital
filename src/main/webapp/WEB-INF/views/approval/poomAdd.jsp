@@ -184,7 +184,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
 	 integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 	 
-	<script src="/js/approval/apPoomAdd.js"></script>
+	<script src="/js/approval/approvalAdd.js"></script>
 	<script src="/js/approval/apLineSelect.js"></script>
 	
 	
@@ -223,21 +223,25 @@
 	
 	<script type="text/javascript">
 	
-	function toggleButtons() {
-	  var addLineBtn = document.getElementById('addLineBtn');
-	  var deleteLineBtn = document.getElementById('deleteLineBtn');
-	  var secondApLineBox = document.getElementById('secondApLineBox');
-	  var secondApLineInfo = document.getElementById('secondApLineInfo');
-	  
-	  if (addLineBtn.style.display !== 'none') {
-		  	addLineBtn.style.display = 'none';
-		  	secondApLineBox.style.display = 'inline-block';
-		  	secondApLineInfo.value = "";
-		  } else {
-			addLineBtn.style.display = 'inline-block';
-			secondApLineBox.style.display = 'none';
-		  }
-	}
+		function toggleButtons() {
+		  var addLineBtn = document.getElementById('addLineBtn');
+		  var deleteLineBtn = document.getElementById('deleteLineBtn');
+		  var secondApLineBox = document.getElementById('secondApLineBox');
+		  var secondApLineInfo = document.getElementById('secondApLineInfo');
+		  var secondLineUsername = document.getElementById('secondLineUsername');
+		  var secondLineEmpName = document.getElementById('secondLineEmpName');
+		  
+		  if (addLineBtn.style.display !== 'none') {
+			  	addLineBtn.style.display = 'none';
+			  	secondApLineBox.style.display = 'inline-block';
+			  	secondApLineInfo.value = "";
+			  } else {
+				addLineBtn.style.display = 'inline-block';
+				secondApLineBox.style.display = 'none';
+			  	secondLineUsername.value = "";
+			  	secondLineEmpName.value = "";
+			  }
+		}
 	</script>
 
 
