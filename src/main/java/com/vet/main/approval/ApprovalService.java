@@ -119,11 +119,6 @@ public class ApprovalService {
 		return approvalDAO.getApExpenseDetail(approvalVO);
 	}
 	
-	// 상세페이지에 결재자 출력
-	public List<ApprovalLineVO> getApLinePerson(Long apNo) throws Exception {
-		return approvalDAO.getApLinePerson(apNo);
-	}
-	
 	// 결재선 설정에 부서별 직원 리스트 출력
 	public List<EmpVO> getEmpSelectList(String deptName) throws Exception {
 		return approvalDAO.getEmpSelectList(deptName);
@@ -141,6 +136,16 @@ public class ApprovalService {
 	
 	public List<EmpVO> selectDept(String deptName) throws Exception {
 		return approvalDAO.selectDept(deptName);
+	}
+	
+	// 상세페이지에 결재자 출력
+	public List<ApprovalLineVO> getApLinePerson(Long apNo) throws Exception {
+		return approvalDAO.getApLinePerson(apNo);
+	}
+	
+	// 상세페이지에 결재자 도장 출력
+	public List<ApprovalLineVO> getApSign(ApprovalLineVO approvalLineVO) throws Exception {
+		return approvalDAO.getApSign(approvalLineVO);
 	}
 	
 	// 반려

@@ -92,7 +92,6 @@
 			<result column="EMPNAME" property="empName"/>
 			<result column="POSITIONNAME" property="positionName"/>
 			<result column="DEPTNAME" property="deptName"/>
-		<collection property="apLineList" resultMap="apLineMap" />
 	</resultMap>
 
 	<resultMap type="EmpVO" id="getApEmpList">
@@ -177,8 +176,9 @@
 	
 	<!-- 기안서 상세 -->
 	<select id="getApDetail" parameterType="ApprovalVO" resultMap="getApDetailResult">
-		SELECT A.*
-		FROM APPROVAL
+		SELECT A.*, S.*
+		FROM APPROVAL A INNER JOIN SIGNFILE S
+		ON A.USERNAME = S.USERNAME
 		WHERE A.APNO = #{apNo}
 	</select>
 	
@@ -336,12 +336,22 @@
 
 	<!-- 상세페이지에 결재자 출력-->
 	<select id="getApLinePerson" parameterType="Long" resultType="ApprovalLineVO">
-		SELECT APL.*, P.POSITIONNAME
+		SELECT APL.*, P.POSITIONNAME, S.*
 		FROM APLINE APL INNER JOIN EMP E
 			ON APL.USERNAME = E.USERNAME
 			INNER JOIN POSITION P
 			ON P.POSITIONNO = E.POSITIONNO
-		WHERE APL.APNO = #{apNo};
+			INNER JOIN SIGNFILE S
+			ON APL.USERNAME = S.USERNAME
+		WHERE APL.APNO = #{apNo}
+		ORDER BY APL.APLSTEP ASC
 	</select>
-
+	
+	<!-- 도장 조회 -->
+	<select id="getApSign" parameterType="ApprovalLineVO">
+		SELECT APL.*, S.*
+		FROM APLINE APL INNER JOIN SIGNFILE S
+		ON APL.USERNAME = S.USERNAME
+		WHERE APL.USERNAME = #{username}
+	</select>
 </mapper>

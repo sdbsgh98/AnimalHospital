@@ -6,6 +6,8 @@
 <!-- 날짜포맷 라이브러리 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
 	data-theme="theme-default" data-assets-path="/assets/"
@@ -98,38 +100,69 @@
 														<span style="font-family:나눔고딕">기 안 자</span>
 													</p>
 												</td>
-												<c:forEach items="${line}" var="apl">
-													<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 101px;">
-														<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
-															${apl.positionName}<br>${apl.empName}
-														</p>
-													</td>
-												</c:forEach>
-													<!-- <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 97px;">
-														<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
-															<span style="font-family:나눔고딕">&nbsp;</span>
-														</p>
-													</td> -->
-												
+												<c:choose>
+												    <c:when test="${fn:length(line) eq 1}">
+												        <!-- 결재자가 한 명인 경우 -->
+												        <c:forEach items="${line}" var="apl">
+												            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 101px;">
+												                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+												                    ${apl.positionName}<br>${apl.empName}
+												                </p>
+												            </td>
+															<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 97px;">
+																<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+																	<span style="font-family:나눔고딕">&nbsp;</span>
+																</p>
+															</td>
+												        </c:forEach>
+												    </c:when>
+												    <c:when test="${fn:length(line) eq 2}">
+												        <!-- 결재자가 두 명인 경우 -->
+												        <c:forEach items="${line}" var="apl">
+												            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 101px;">
+												                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+												                    ${apl.positionName}<br>${apl.empName}
+												                </p>
+												            </td>
+												        </c:forEach>
+												    </c:when>
+												</c:choose>
 											</tr>
 											
 											<!-- 기안자와 결재자의 도장 표시 -->
 											<tr style="">
 												<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 80px; width: 94px;">
 													<p align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
-														<span style="font-family:나눔고딕">&nbsp;</span>
+														<img alt="" src="../files/sign/${approvalVO.uploadName}" style="width: 80px; height: 80px;">
 													</p>
 												</td>
-												<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 80px; width: 101px;">
-													<p class="signStamp" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
-														<span style="font-family:나눔고딕">&nbsp;</span>
-													</p>
-												</td>
-												<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 80px; width: 97px;">
-													<p class="signStamp" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
-														<span style="font-family:나눔고딕">&nbsp;</span>
-													</p>
-												</td>
+												<c:choose>
+												    <c:when test="${fn:length(line) eq 1}">
+												        <!-- 결재자가 한 명인 경우 -->
+												        <c:forEach items="${line}" var="apl">
+												            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 101px;">
+												                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+												                    <img alt="" src="../files/sign/${apl.uploadName}" style="width: 80px; height: 80px;">
+												                </p>
+												            </td>
+															<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 97px;">
+																<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+																	<span style="font-family:나눔고딕">&nbsp;</span>
+																</p>
+															</td>
+												        </c:forEach>
+												    </c:when>
+												    <c:when test="${fn:length(line) eq 2}">
+												        <!-- 결재자가 두 명인 경우 -->
+												        <c:forEach items="${line}" var="apl">
+												            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 101px;">
+												                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+												                    <img alt="" src="../files/sign/${apl.uploadName}" style="width: 80px; height: 80px;">
+												                </p>
+												            </td>
+												        </c:forEach>
+												    </c:when>
+												</c:choose>
 											</tr>
 											
 											<!-- 기안작성날짜와 결재날짜 표시 -->
@@ -140,16 +173,33 @@
 														<fmt:formatDate pattern="yyyy/MM/dd" value="${approvalVO.apCDate}"/>
 													</p>
 												</td>
-												<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 26px; width: 101px;">
-													<p class="createDate" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
-														<span style="font-family:나눔고딕">&nbsp;</span>
-													</p>
-												</td>
-												<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 26px; width: 97px;">
-													<p class="createDate" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
-														<span style="font-family:나눔고딕">&nbsp;</span>
-													</p>
-												</td>
+												<c:choose>
+												    <c:when test="${fn:length(line) eq 1}">
+												        <!-- 결재자가 한 명인 경우 -->
+												        <c:forEach items="${line}" var="apl">
+												            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 101px;">
+												                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+												                    ${apl.apConfirmDate}
+												                </p>
+												            </td>
+															<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 97px;">
+																<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+																	<span style="font-family:나눔고딕">&nbsp;</span>
+																</p>
+															</td>
+												        </c:forEach>
+												    </c:when>
+												    <c:when test="${fn:length(line) eq 2}">
+												        <!-- 결재자가 두 명인 경우 -->
+												        <c:forEach items="${line}" var="apl">
+												            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 101px;">
+												                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+												                    ${apl.apConfirmDate}
+												                </p>
+												            </td>
+												        </c:forEach>
+												    </c:when>
+												</c:choose>
 											</tr>
 										</tbody>
 									</table>
@@ -298,7 +348,7 @@
 													<p align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
 														<span style="font-family:나눔고딕">기 안 자 :
 															<span style="spacerun:yes">&nbsp;&nbsp;&nbsp; ${approvalVO.empName} </span>
-															<span style="spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>(인)
+															<!-- <span style="spacerun:yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> -->
 														</span>
 													</p>
 												</td>

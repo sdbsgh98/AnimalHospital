@@ -76,6 +76,9 @@ public interface ApprovalDAO {
 	// 상세페이지에 결재자 출력
 	public List<ApprovalLineVO> getApLinePerson(Long apNo) throws Exception;
 	
+	// 상세페이지에 결재자 도장 출력
+	public List<ApprovalLineVO> getApSign(ApprovalLineVO approvalLineVO) throws Exception; 
+	
 	// 반려
 	public int rejectApprove(ApprovalVO approvalVO) throws Exception;
 

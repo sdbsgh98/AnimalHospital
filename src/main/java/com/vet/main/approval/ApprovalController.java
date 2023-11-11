@@ -115,7 +115,7 @@ public class ApprovalController {
 			
 			for(int i=0; i<lineUsername.length; i++) {
 				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
-				if(lineUsername[1] == "" || lineEmpName[1] == "") {
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
 					break;
 				}
 				
@@ -133,7 +133,7 @@ public class ApprovalController {
 			
 			for(int i=0; i<lineUsername.length; i++) {
 				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
-				if(lineUsername[1] == "" || lineEmpName[1] == "") {
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
 					break;
 				}
 				
@@ -151,7 +151,7 @@ public class ApprovalController {
 			
 			for(int i=0; i<lineUsername.length; i++) {
 				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
-				if(lineUsername[1] == "" || lineEmpName[1] == "") {
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
 					break;
 				}
 				
@@ -206,7 +206,7 @@ public class ApprovalController {
 		// 결재자를 insert
 		for(int i=0; i<lineUsername.length; i++) {
 			// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
-			if(lineUsername[1] == "" || lineEmpName[1] == "") {
+			if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
 				break;
 			}
 			
@@ -257,8 +257,17 @@ public class ApprovalController {
 
 		approvalVO = approvalService.getApDetail(approvalVO);
 		Long apNo = approvalVO.getApNo();
+		
+		// 결재자 조회
 		List<ApprovalLineVO> line = approvalService.getApLinePerson(apNo);
 		model.addAttribute("line", line);
+		
+		// 결재자 도장 조회
+//		for(int i=0; i<line.size(); i++) {
+//			line.get(i);
+//		}
+//		List<ApprovalLineVO> lineSign = approvalService.getApSign(null);
+		
 
 		log.info("=============== detail 정보 : {} ================", approvalVO);
 

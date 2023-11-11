@@ -22,4 +22,10 @@ public class ApprovalLineVO {
 	private String aplStep;
 	
 	private String positionName;
+	
+	//sign
+	private String signName;
+	private String uploadName;
+	private String originalSignName;
+	private Date addDate;
 }
