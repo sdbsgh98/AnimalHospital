@@ -135,13 +135,8 @@ public class ApprovalService {
 	}
 	
 	// 1차 결재자 설정
-	public int setFirstApLine(ApprovalLineVO approvalLineVO) throws Exception {
-		return approvalDAO.setFirstApLine(approvalLineVO);
-	}
-	
-	// 2차 결재자 설정
-	public int setSecondApLine(ApprovalLineVO approvalLineVO) throws Exception {
-		return approvalDAO.setSecondApLine(approvalLineVO);
+	public int setApLine(ApprovalLineVO approvalLineVO) throws Exception {
+		return approvalDAO.setApLine(approvalLineVO);
 	}
 	
 	public List<EmpVO> selectDept(String deptName) throws Exception {

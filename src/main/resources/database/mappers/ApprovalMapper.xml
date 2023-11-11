@@ -325,23 +325,15 @@
 		WHERE P.POSITIONNAME = #{positionName};	
 	</select>
 	
-	<!-- 1차 결재선 설정 -->
-	<insert id="setFirstApLine" parameterType="ApprovalLineVO">
+	<!-- 결재선 설정 -->
+	<insert id="setApLine" parameterType="ApprovalLineVO">
 		INSERT INTO APLINE
 		(APNO, USERNAME, EMPNAME, APCONFIRMSTATE, APCONFIRMDATE, APLSTEP)
 		VALUES
-		(#{apNo}, #{firstLineUsername}, #{firstLineEmpName}, '0', #{apConfirmDate}, '1')
-	</insert>
-	
-	<!-- 2차 결재선 설정 -->
-	<insert id="setSecondApLine" parameterType="ApprovalLineVO">
-		INSERT INTO APLINE
-		(APNO, USERNAME, EMPNAME, APCONFIRMSTATE, APCONFIRMDATE, APLSTEP)
-		VALUES
-		(#{apNo}, #{secondLineUsername}, #{secondLineEmpName}, '0', #{apConfirmDate}, '2')
+		(#{apNo}, #{username}, #{empName}, '0', #{apConfirmDate}, #{aplStep})
 	</insert>
 
-	<!-- 상세페이지에 결재선 직원 출력-->
+	<!-- 상세페이지에 결재자 출력-->
 	<select id="getApLinePerson" parameterType="Long" resultType="ApprovalLineVO">
 		SELECT APL.*, E.POSITIONNO, P.POSITIONNAME
 		FROM APLINE APL INNER JOIN EMP E

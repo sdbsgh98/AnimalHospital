@@ -71,11 +71,8 @@ public interface ApprovalDAO {
 	public List<EmpVO> getPositionEmp(String deptName) throws Exception;
 	
 	// 1차 결재자 설정
-	public int setFirstApLine(ApprovalLineVO approvalLineVO) throws Exception;
-	
-	// 2차 결재자 설정
-	public int setSecondApLine(ApprovalLineVO approvalLineVO) throws Exception;
-	
+	public int setApLine(ApprovalLineVO approvalLineVO) throws Exception;
+
 	// 상세페이지에 결재자 출력
 	public List<ApprovalLineVO> getApLinePerson(Long apNo) throws Exception;
 	

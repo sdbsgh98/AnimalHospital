@@ -67,8 +67,10 @@
 			                    
 								<div class="firstApLineBox mb-2">
 								  <!-- controller에 정보 전달하기 위함 -->
-								  <input type="hidden" id="firstLineUsername" name="firstLineUsername" value="">
-								  <input type="hidden" id="firstLineEmpName" name="firstLineEmpName" value="">
+								  <div id="apLine[0]">
+								  <input type="hidden" id="firstLineUsername" name="lineUsername" value="">
+								  <input type="hidden" id="firstLineEmpName" name="lineEmpName" value="">
+								  </div>
 								  
 								  <label for="firstApLineInfo" class="form-label"></label>
 								  <input type="text" class="form-control firstApLineInfo mb-1" id="firstApLineInfo" readonly style="width:250px;">
@@ -85,8 +87,10 @@
 								  <button type="button" class="btn btn-primary mb-2" id="deleteLineBtn" style="font-size: 20px;" onclick="toggleButtons()">-</button>
 								  
 								  <!-- controller에 정보 전달하기 위함 -->
-								  <input type="hidden" id="secondLineUsername" name="secondLineUsername" value="">
-								  <input type="hidden" id="secondLineEmpName" name="secondLineEmpName" value="">
+								  <div id="apLine[1]">
+								  <input type="hidden" id="secondLineUsername" name="lineUsername" value="">
+								  <input type="hidden" id="secondLineEmpName" name="lineEmpName" value="">
+								  </div>
 								  
 								  <label for="secondApLineSelect" class="form-label"></label>
 								  <input type="text" class="form-control secondApLineInfo mb-1" id="secondApLineInfo" style="width:250px;" value="" readonly>

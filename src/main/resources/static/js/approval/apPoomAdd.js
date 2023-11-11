@@ -26,7 +26,7 @@ addBtn.addEventListener("click", function(){
 		return;
 	}
 	if($("secondLineUsername").val() == "") {
-		$("secondLineUsername").val() = null;
+		$("secondLineUsername").val() = "";
 	}
       
     // 폼에 입력한 데이터를 서버로 전송
