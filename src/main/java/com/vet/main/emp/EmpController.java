@@ -142,11 +142,6 @@ public class EmpController {
 	@ResponseBody
 	@RequestMapping(value = "/empList/empAdd", method = RequestMethod.POST)
 	public String empAdd(@Valid EmpVO empVO, BindingResult bindingResult) throws Exception{
-//		boolean check = empService.getEmpError(empVO, bindingResult);
-//		
-//		if(bindingResult.hasErrors() || check) {
-//			return "emp/empList";
-//		}
 		
 		int result = empService.empAdd(empVO);
 		return "redirect:./empList";
@@ -159,6 +154,25 @@ public class EmpController {
 		model.addAttribute("vo",empVO);
 		
 		return "emp/empDetail";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/emp/findEmail", method = RequestMethod.POST)
+	public String checkEmail(FindVO findVO, @RequestParam String email,Model model) throws Exception {
+		model.addAttribute("email", findVO.getEmail());
+		
+		findVO = empService.findUser(findVO);
+		
+		if(findVO == null) {
+			model.addAttribute("check", 1);
+
+		}else {
+			model.addAttribute("check", 0);
+		}
+		
+		boolean userExists = empService.checkEmail(email);
+
+	    return userExists ? "success" : "failure";
 	}
 	
 	// 직원 수정(부서, 직급 수정)

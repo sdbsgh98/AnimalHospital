@@ -31,8 +31,6 @@ public interface EmpDAO {
 	
 	public int empUpdate(EmpVO empVO)throws Exception;
 	
-	public int pwdCheck(EmpVO empVO)throws Exception;
-	
 	public int pwUpdate(PwVO pwVO)throws Exception;
 
 //	public void save(EmpVO empVO);
@@ -46,6 +44,8 @@ public interface EmpDAO {
 	public FindVO findUser(FindVO findVO)throws Exception;
 	
 	public boolean checkUser(String username, String empName, String email);
+	
+	public boolean checkEmail(String email);
 	
 	// sign
 	public EmpVO signList(EmpVO empVO)throws Exception;

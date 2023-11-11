@@ -3,6 +3,7 @@ package com.vet.main.emp;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,16 @@ public class EmailService {
 
     private final JavaMailSender javaMailSender;
     private int number;
-
+    
+    private String username;
+    private String phone;
+    
+    public void getEmp(EmpVO empVO) throws Exception {
+    	username = empVO.getUsername();
+    	phone = empVO.getPhone();
+    	
+    }
+    
     public void createNumber(){
         number = (int)(Math.random() * (90000)) + 100000;// (int) Math.random() * (최댓값-최소값+1) + 최소값
     }
@@ -40,5 +50,19 @@ public class EmailService {
         sendMailTest(email);
     }
 	
+	public void sendMailAdd(String email, String username, String phone) {
+		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+		
+		simpleMailMessage.setTo(email);
+		simpleMailMessage.setSubject("[동물병원] 로그인 관련 안내입니다.");
+		simpleMailMessage.setText("안녕하세요. 사원번호는 " + username + "이며 비밀번호는 " + phone + "입니다.");
+		
+		javaMailSender.send(simpleMailMessage);
+	}
+	
+    public void sendMailUser(String email, String username, String phone) {
+        sendMailAdd(email, username, phone);
+    }
+    
 }
 

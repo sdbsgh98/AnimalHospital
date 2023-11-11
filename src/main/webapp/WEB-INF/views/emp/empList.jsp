@@ -128,7 +128,7 @@
 					      <div class="modal-body">
 
 					         <form action="empAdd" method="post" enctype="multipart/form-data" id="empForm">
-								<input type="hidden" class="form-control" name="username" id="username">
+								<input type="hidden" class="form-control" name="username" id="username" value="${vo.username}">
 								<input type="hidden" class="form-control" name="password" id="password">
 								   <div class="form-group">
 							            <label for="empName">이름</label>
@@ -138,6 +138,7 @@
 								   <div class="form-group">
 							            <label for="email">이메일</label>
 							            <input type="email" class="form-control" id="email" name="email" placeholder="ex) example@gmail.com">
+							            <input type="button" class="form-control" id="emailCheck" value="이메일 중복확인" style="background-color: rgb(255,239,222); margin-top: 5px;">
 							            <div id="emailError" class="error"></div>
 							        </div>
 								   <div class="form-group">
@@ -183,8 +184,9 @@
 		let email = $("#email").val();
 		let phone = $("#phone").val();
 		let birth = $("#birth").val();
+		let username = $("#username").val();
 		
-		let data = {empName:empName, email:email, phone:phone, birth:birth};
+		let data = {username:username, empName:empName, email:email, phone:phone, birth:birth};
 		
 		if(empName == ""){
 	        alert("이름은 필수입력사항입니다.");
@@ -213,7 +215,7 @@
 			method:"post",	
 			success : function(){
 				console.log(data);
-				alert("등록이 완료되었습니다!");
+				alert("등록이 완료되었습니다.");
 				location.href="/emp/empList";
 			},
 			error : function(data){
@@ -222,7 +224,52 @@
 			}
 		});
 	 
+	    $.ajax({
+	        url: "/emp/sendMailAdd", 
+	        type: "POST",
+	        data: {email: $("#email").val(), username: $("#username").val(), phone : $("#phone").val()},  
+	        success: function () {
+	            alert("인증메일 발송완료"); 
+	            console.log(data);
+	        },
+	        error: function () {
+	            console.log("문제있음"); 
+	        }
+	    });  
+	    
 		
+	});
+	</script>
+
+	<script type="text/javascript">
+	$('#emailCheck').on("click", function () {
+	    let email = $("#email").val();
+
+	    if (email === "") {
+	        alert("이메일을 입력해주세요.");
+	        email.focus();
+	        return;
+	    }	
+	    
+	     $.ajax({
+		        url: "/emp/findEmail",
+		        type: "POST",
+		        data: {email: email},
+		        success: function (data) {
+		            if (data === "success") {	        	    
+		                alert("사용할 수 없는 이메일입니다.");
+		                email.focus();
+						return;
+		            } else {
+		                alert("사용가능한 이메일입니다.");
+		                $("#email").prop("readonly", true);
+		            }
+		        },
+		        error: function () {
+		        	alert("오류발생");
+		        }
+		    });
+	     
 	});
 	</script>
 

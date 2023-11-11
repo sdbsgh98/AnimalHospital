@@ -103,12 +103,7 @@ public class EmpService implements UserDetailsService{
 	    return result;
 	}
 	
-	// 비밀번호 일치 확인
-//	public int pwdCheck(EmpVO empVO) throws Exception{
-//		return empDAO.pwdCheck(empVO);
-//	}
-//	
-	// 사원번호 찾기
+	// 비밀번호 찾기
 	public FindVO findUser(FindVO findVO)throws Exception{
 	
 		return empDAO.findUser(findVO);
@@ -117,6 +112,12 @@ public class EmpService implements UserDetailsService{
 	// db에 존재하는지 확인
 	public boolean checkUser(String username, String empName, String email)throws Exception{
 		return empDAO.checkUser(username, empName, email);
+	}
+	
+	// 이메일 중복확인	
+	// db에 email 존재하는지 확인 (이메일 중복확인)
+	public boolean checkEmail(String email)throws Exception{
+		return empDAO.checkEmail(email);
 	}
 	
 	// 사원 관리(직원 목록)

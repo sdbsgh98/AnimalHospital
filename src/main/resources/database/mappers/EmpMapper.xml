@@ -160,6 +160,11 @@
   		SELECT COUNT(*) FROM EMP WHERE EMPNAME = #{empName} AND EMAIL = #{email}
   	</select>
   	
+  	<select id="checkEmail" parameterType="com.vet.main.emp.FindVO">
+  		SELECT COUNT(*) FROM EMP WHERE EMAIL = #{email}
+  	</select>
+  	
+  	
   	<update id="pwUpdate" parameterType="com.vet.main.emp.PwVO">
   		UPDATE EMP 
   		SET
@@ -217,7 +222,7 @@
 			UPLOADNAME = #{uploadName}, 
 			ORIGINALSIGNNAME = #{originalSignName}, 
 			ADDDATE = NOW()
-			ON DUPLICATE KEY UPDATE
+		ON DUPLICATE KEY UPDATE
 			SIGNNAME = #{signName}, 
 			UPLOADNAME = #{uploadName}, 
 			ORIGINALSIGNNAME = #{originalSignName}	
