@@ -14,17 +14,6 @@ import lombok.RequiredArgsConstructor;
 public class EmailController {
 
 	private final EmailService emailService;
-
-//    @ResponseBody
-//    @PostMapping("/sendMail")
-//    public String MailSend(@RequestParam String email){
-//
-//        int number = emailService.sendMail(email);
-//
-//        String num = "" + number;
-//
-//        return num;
-//    }
 	
 
 	@RequestMapping(value = "/emp/sendMail", method = RequestMethod.POST)
@@ -33,6 +22,15 @@ public class EmailController {
 	    emailService.sendMailTest(email);
 	}
 	
+	@ResponseBody
+    @RequestMapping(value = "/code", method = RequestMethod.POST)
+    public String verifyCode(@RequestParam int code) {
+        if (emailService.code(code)) {
+            return "success"; 
+        } else {
+            return "failure";
+        }
+    }
 	
 	
 }

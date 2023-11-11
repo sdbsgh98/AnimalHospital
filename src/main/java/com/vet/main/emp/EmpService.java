@@ -96,25 +96,25 @@ public class EmpService implements UserDetailsService{
 	}
 	
 	// 비밀번호 변경
-	public int pwUpdate(EmpVO empVO)throws Exception{
-		empVO.setPassword(passwordEncoder.encode(empVO.getPassword()));
-		int result = empDAO.pwUpdate(empVO);
-		
-		return result;
+	public int pwUpdate(PwVO pwVO) throws Exception {
+	    pwVO.setPassword(passwordEncoder.encode(pwVO.getPassword()));
+	    int result = empDAO.pwUpdate(pwVO);
+
+	    return result;
 	}
 	
 	// 비밀번호 일치 확인
-	public int pwdCheck(EmpVO empVO) throws Exception{
-		return empDAO.pwdCheck(empVO);
-	}
-	
+//	public int pwdCheck(EmpVO empVO) throws Exception{
+//		return empDAO.pwdCheck(empVO);
+//	}
+//	
 	// 사원번호 찾기
 	public FindVO findUser(FindVO findVO)throws Exception{
 	
 		return empDAO.findUser(findVO);
 	}
 
-	
+	// db에 존재하는지 확인
 	public boolean checkUser(String username, String empName, String email)throws Exception{
 		return empDAO.checkUser(username, empName, email);
 	}
@@ -130,7 +130,9 @@ public class EmpService implements UserDetailsService{
 	// 신규직원 등록
 	@Transactional(rollbackFor = Exception.class)
 	public int empAdd(EmpVO empVO) throws Exception{
-		empVO.setPassword(passwordEncoder.encode("animal"));
+		String pw = empVO.getPhone();
+		
+		empVO.setPassword(passwordEncoder.encode(pw));
 		int result = empDAO.empAdd(empVO);
 		Map<String, Object> map = new HashMap<>();
 		map.put("roleNum", 2);
@@ -140,23 +142,16 @@ public class EmpService implements UserDetailsService{
 		return result;
 	}
 	
-	public boolean getEmpError(EmpVO empVO, BindingResult bindingResult)throws Exception{
+	public boolean getPwError(PwVO pwVO ,BindingResult bindingResult)throws Exception{
 		boolean check = false; // false면 error 없음, true면 error 있음 (검증실패)
 		
 		//password 일치여부 검증
-//		if(!empVO.getPassword().equals(empVO.getPasswordCheck())) {
-//			check = true;
-//			
-//			bindingResult.rejectValue("passwordCheck", "empVO.password.equalCheck");
-//		}
-		
-		//이메일 중복 검사
-		EmpVO checkVO = empDAO.getEmp(empVO);
-		
-		if(checkVO != null) {
+		if(!pwVO.getPassword().equals(pwVO.getPasswordCheck())) {
 			check = true;
-			bindingResult.rejectValue("email", "empVO.email.equalCheck");
+			
+			bindingResult.rejectValue("passwordCheck", "pwVO.password.equalCheck");
 		}
+		
 		
 		return check;
 	}

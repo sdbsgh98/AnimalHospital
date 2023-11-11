@@ -61,56 +61,8 @@
 										</div>
 										<br>
 									 <p class="text-center">
-										<a href="/emp/findUser">사원번호 / 비밀번호 찾기</a>								
+										<a href="/emp/findUser">비밀번호 찾기</a>								
 						              </p>
-															
-						              <!-- 비밀번호 찾기 modal -->
-						              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-										  <div class="modal-dialog">
-										    <div class="modal-content">
-										      <div class="modal-header">
-										        <h1 class="modal-title fs-5" id="exampleModalLabel">비밀번호 찾기</h1>
-										        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-										      </div>
-										      <div class="modal-body" style="margin: auto;">
-					
-										        <table>
-													<tr>
-														<td>사원번호</td>
-													 	<td><input type="text" class="form-control" name="username" placeholder="사원번호를 입력해주세요."></td>
-												 	</tr>
-
-													<tr>
-														<td>이름</td>
-													 	<td>
-													 		<input type="text" class="form-control" name="empName" placeholder="이름을 입력해주세요.">
-													 	</td>
-												 	</tr>
-
-												 	<tr>
-														<td>이메일</td>
-													 	<td>
-													 		<input type="email" class="form-control" name="email" placeholder="이메일을 입력해주세요.">
-													 		<!-- <input type="button" class="form-control" id="sendMail" value="인증번호전송">  -->
-													 	</td>
-												 	</tr>
-
-												 	<tr>
-														<td>인증번호</td>
-													 	<td><input type="text" class="form-control" name="randnum" placeholder="인증번호를 입력해주세요."></td>
-												 	</tr>
-											 	</table>
-										          <br><br>
-										          
-												 <div class="modal-footer">
-												   <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-												   <button class="btn btn-primary" id="addBtn">추가</button>
-												 </div>
-					
-										      </div>
-										    </div>
-										  </div>
-										</div>
 						              
 						            </div>
 						          </div>

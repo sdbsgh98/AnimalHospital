@@ -37,23 +37,24 @@
 						              <h4 class="mb-2">비밀번호를 변경해주세요.🔐</h4>
 						              <p class="mb-4">Please change your password!</p>
 										<div>
-											<form action="pwUpdate" method="post">
-											<input type="hidden" name="username" value="${user.username}">
-											<input type="hidden" name="randomPw" value="${user.randomPw}">
-											 	<table>
-												 	<tr>
-														<td>변경 할 비밀번호</td>
-													 	<td><input type="password" class="form-control" name="password"></td>
-												 	</tr>
-												 	<tr>
-														<td>비밀번호 확인</td>
-													 	<td><input type="password" class="form-control" name="passwordCheck"></td>
-												 	</tr>
-											 	</table>
-
-											  <br><br>			  			  				  				          													  	  				  			  				  				          		
-											  <button type="submit" class="btn btn-primary" style="margin-top: 30px;">완료</button>
-							        		</form>
+											<%-- <form action="pwUpdate" method="post"> --%>
+																	
+											<form:form modelAttribute="pwVO" action="/emp/pwUpdate" method="POST">
+			
+												<form:label path="password">새 비밀번호 등록</form:label>
+												<form:password path="password" cssClass="form-control"/>
+												<form:errors path="password"></form:errors>
+												
+												<form:label path="passwordCheck">새 비밀번호 등록</form:label>
+												<form:password path="passwordCheck" cssClass="form-control"/>
+												<form:errors path="passwordCheck"></form:errors>
+											
+											  <br>		  			  				  				          													  	  				  			  				  				          		
+											  <button type="submit" class="btn btn-primary" style="margin-top: 10px;">완료</button>
+											</form:form>						
+																					
+								
+							        		<%-- </form> --%>
 										</div>
 						
 						            </div>

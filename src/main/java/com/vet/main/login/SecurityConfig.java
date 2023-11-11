@@ -48,6 +48,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests()
 				.antMatchers("/resources/images/*").permitAll()
 				.antMatchers("/emp/findUsername").permitAll() 
+				.antMatchers("/emp/pwUpdate").permitAll() 
 				.antMatchers("/").hasAnyRole("ADMIN", "USER") 
 				.and()
 			.formLogin()

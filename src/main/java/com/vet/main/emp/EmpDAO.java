@@ -33,7 +33,7 @@ public interface EmpDAO {
 	
 	public int pwdCheck(EmpVO empVO)throws Exception;
 	
-	public int pwUpdate(EmpVO empVO)throws Exception;
+	public int pwUpdate(PwVO pwVO)throws Exception;
 
 //	public void save(EmpVO empVO);
 	

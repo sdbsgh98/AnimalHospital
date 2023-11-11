@@ -160,19 +160,19 @@
   		SELECT COUNT(*) FROM EMP WHERE EMPNAME = #{empName} AND EMAIL = #{email}
   	</select>
   	
-  	<update id="pwUpdate" parameterType="com.vet.main.emp.EmpVO">
+  	<update id="pwUpdate" parameterType="com.vet.main.emp.PwVO">
   		UPDATE EMP 
   		SET
   		PASSWORD = #{password},
-  		RANDOMPW = 1	
+  		RANDOMPW = #{randomPw}	
   		WHERE USERNAME=#{username}
   	</update>
   	
-  	<select id="pwdCheck" resultType="Integer">
+<!--   	<select id="pwdCheck" resultType="Integer">
   		SELECT COUNT(*) 
   		FROM EMP
   		WHERE USERNAME = #{username} and EMPNAME = #{empName} and EMAIL = #{email}
-  	</select>
+  	</select> -->
   	
   	  <update id="mypageUpdate" parameterType="com.vet.main.emp.EmpVO">
   		UPDATE EMP

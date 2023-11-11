@@ -1,9 +1,7 @@
 package com.vet.main.emp;
 
-import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -23,12 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.vet.main.commons.Pager;
 import com.vet.main.dept.DeptVO;
 
-import lombok.extern.slf4j.Slf4j;
-
 
 @Controller
 @RequestMapping("/emp/*")
-@Slf4j
 public class EmpController {
 
 	@Autowired
@@ -53,16 +48,23 @@ public class EmpController {
 	
 	// 비밀번호 수정페이지
 	@GetMapping("pwUpdate")
-	public String pwUpdate(EmpVO empVO, Model model) throws Exception{
-		empVO = empService.empDetail(empVO);
-		model.addAttribute("vo", empVO);
-		return "emp/pwUpdate";
+	public String pwUpdate(Model model) throws Exception {
+	    model.addAttribute("pwVO", new PwVO());
+	    return "emp/pwUpdate";
 	}
-	
+
 	@PostMapping("pwUpdate")
-	public String pwUpdate(EmpVO empVO) throws Exception{
-		int result = empService.pwUpdate(empVO);
-		return "emp/login";
+	public String pwUpdate(@Valid PwVO pwVO, BindingResult bindingResult) throws Exception {
+	    boolean check = empService.getPwError(pwVO, bindingResult);
+
+	    if (bindingResult.hasErrors() || check) {
+	        return "emp/login";
+	    }
+
+	    pwVO.setRandomPw(true);
+
+	    int result = empService.pwUpdate(pwVO);
+	    return "emp/login";
 	}
 
 	
@@ -73,32 +75,8 @@ public class EmpController {
 		return "emp/findUser";
 	}
 	
-//	@PostMapping("findUser")
-//	public void findUser1(@Valid FindVO findVO,Model model, BindingResult bindingResult) throws Exception{
-//		boolean check = empService.getEmpError(empVO, bindingResult);
-//		
-//		if(bindingResult.hasErrors() || check) {
-//			return "emp/findUser";
-//		}
-		
-//		model.addAttribute("username", findVO.getUsername());
-//		model.addAttribute("email", findVO.getEmail());
-//		model.addAttribute("empName", findVO.getEmpName());
-//		
-//		findVO = empService.findUser(findVO);
-//		
-//		if(findVO == null) {
-//			model.addAttribute("check", 1);
-//			log.info("check : ", findVO);
-//			System.out.println(findVO);
-//		}else {
-//			model.addAttribute("check", 0);
-//		}
-//		
-//	}
-	
 	@ResponseBody
-	@RequestMapping(value = "/emp/findUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/emp/find", method = RequestMethod.POST)
 	public String checkUser(FindVO findVO, @RequestParam String username, @RequestParam String empName, @RequestParam String email,Model model) throws Exception {
 		model.addAttribute("username", findVO.getUsername());
 		model.addAttribute("email", findVO.getEmail());
@@ -117,29 +95,6 @@ public class EmpController {
 
 	    return userExists ? "success" : "failure";
 	}
-	
-//	@ResponseBody
-//	@RequestMapping(value = "/emp/login/findPassword", method = RequestMethod.POST)
-//	public String findPw(HttpServletRequest request, Model model, @RequestParam String username, 
-//			@RequestParam String empName, @RequestParam String email, EmpVO empVO) throws Exception {
-//		try {
-//			empVO.setUsername(username);
-//			empVO.setEmpName(empName);
-//			empVO.setEmail(email);
-//			
-//			int search = empService.pwdCheck(empVO);
-//			
-//			if(search == 0) {
-//				model.addAttribute("msg", "기입된 정보가 잘못되었습니다. 다시 입력해주세요.")
-//			}
-//			
-//			String newPw = Randoms
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return "redirect: ./login";
-//	}
 	
 	// 마이페이지
 	
