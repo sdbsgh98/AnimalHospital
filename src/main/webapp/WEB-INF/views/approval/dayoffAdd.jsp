@@ -12,7 +12,7 @@
 
 	<!-- include summernote -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-	integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg=" crossorigin="anonymous">	  
+	  integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg=" crossorigin="anonymous">	  
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
 	integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
 	
@@ -134,7 +134,7 @@
 		                        </div>
 														
 						        <div id="dateFields" class="mb-3">
-						            <!-- 이곳에 동적으로 필드가 생성될 것입니다. -->
+						        
 						        </div>
 						        <div id="result">
 						        
@@ -168,13 +168,23 @@
 		<!-- Overlay -->
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
+	
 	<!-- / Layout wrapper -->
-	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+	<script src="${pageContext.request.contextPath}/assets/vendor/libs/popper/popper.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/vendor/js/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/assets/vendor/js/menu.js"></script>
+	<!-- Vendors JS -->
+	<script src="${pageContext.request.contextPath}/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+	<!-- Main JS -->
+	<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+	<!-- Page JS -->
+	<script src="${pageContext.request.contextPath}/assets/js/dashboards-analytics.js"></script>
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
 	
 	<!-- summernote -->
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"
-	integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-	
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"
 	integrity="sha256-5slxYrL5Ct3mhMAp/dgnb5JSnTYMtkr4dHby34N10qw=" crossorigin="anonymous"></script>
 	
@@ -183,7 +193,7 @@
 	integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="anonymous"></script>
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+	 integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 	 	 
 	<script>
 	$('#apContents').summernote({
@@ -198,7 +208,7 @@
 	$("#apContents").summernote('code'); 
 	</script>
 	
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
     
 	<script src="/js/approval/apDayoffAdd.js"></script>

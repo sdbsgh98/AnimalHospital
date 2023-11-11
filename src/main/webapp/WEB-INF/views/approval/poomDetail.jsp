@@ -98,17 +98,19 @@
 														<span style="font-family:나눔고딕">기 안 자</span>
 													</p>
 												</td>
-												<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 101px;">
-													<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
-														<span style="font-family:나눔고딕">&nbsp;</span>
-													
-													</p>
-												</td>
-												<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 97px;">
-													<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
-														<span style="font-family:나눔고딕">&nbsp;</span>
-													</p>
-												</td>
+												<c:forEach items="${line}" var="apl">
+													<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 101px;">
+														<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+															${apl.positionName}<br>${apl.empName}
+														</p>
+													</td>
+												</c:forEach>
+													<!-- <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 97px;">
+														<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+															<span style="font-family:나눔고딕">&nbsp;</span>
+														</p>
+													</td> -->
+												
 											</tr>
 											
 											<!-- 기안자와 결재자의 도장 표시 -->

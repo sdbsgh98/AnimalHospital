@@ -134,7 +134,7 @@ public class ApprovalService {
 		return approvalDAO.getPositionEmp(deptName);
 	}
 	
-	// 1차 결재자 설정
+	// 결재자 설정
 	public int setApLine(ApprovalLineVO approvalLineVO) throws Exception {
 		return approvalDAO.setApLine(approvalLineVO);
 	}

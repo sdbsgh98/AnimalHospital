@@ -97,7 +97,7 @@ public class ApprovalController {
 			
 			for(int i=0; i<lineUsername.length; i++) {
 				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
-				if(lineUsername[1] == "" || lineEmpName[1] == "") {
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
 					break;
 				}
 				

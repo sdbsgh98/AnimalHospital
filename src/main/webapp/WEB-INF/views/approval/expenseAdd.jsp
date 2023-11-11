@@ -149,8 +149,23 @@
 		<!-- Overlay -->
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
+	
+	
 	<!-- / Layout wrapper -->
-	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+	<script src="${pageContext.request.contextPath}/assets/vendor/libs/popper/popper.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/vendor/js/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/assets/vendor/js/menu.js"></script>
+	<!-- Vendors JS -->
+	<script src="${pageContext.request.contextPath}/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+	<!-- Main JS -->
+	<script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+	<!-- Page JS -->
+	<script src="${pageContext.request.contextPath}/assets/js/dashboards-analytics.js"></script>
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+	
 	
 	<script src="/js/approval/apExpenseAdd.js"></script>
 	<script src="/js/approval/apLineSelect.js"></script>

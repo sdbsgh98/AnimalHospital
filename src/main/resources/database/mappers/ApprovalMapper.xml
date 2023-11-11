@@ -42,8 +42,8 @@
 		<id column="APNO" property="apNo"/>
 			<result column="USERNAME" property="username"/>
 			<result column="EMPNAME" property="empName"/>
-			<result column="APCONFIRMSTATE" property="apConfimeState"/>
-			<result column="APCONFIRMDATE" property="apConfimeDate"/>
+			<result column="APCONFIRMSTATE" property="apConfirmState"/>
+			<result column="APCONFIRMDATE" property="apConfirmDate"/>
 			<result column="APLSTEP" property="aplStep"/>
 	</resultMap>
 
@@ -175,6 +175,13 @@
 		(#{apNo}, #{username}, 26, #{apTitle}, NOW(), '결재대기중', '', '지출결의서', #{empName}, #{positionName}, #{deptName})
 	</insert>
 	
+	<!-- 기안서 상세 -->
+	<select id="getApDetail" parameterType="ApprovalVO" resultMap="getApDetailResult">
+		SELECT A.*
+		FROM APPROVAL
+		WHERE A.APNO = #{apNo}
+	</select>
+	
 	<!-- 지출항목 추가 -->
 	<insert id="setExpenseAdd" parameterType="ApprovalExpenseVO">
 		INSERT INTO APEXPENSE
@@ -254,12 +261,6 @@
 		  AND <include refid="forPager"></include>
 		 LIKE #{pattern}
 	</select>
-
-	<select id="getApDetail" parameterType="ApprovalVO" resultMap="getApDetailResult">
-		SELECT *
-		FROM APPROVAL
-		WHERE APNO = #{apNo}
-	</select>
 	
 	<delete id="setApDelete" parameterType="ApprovalVO">
 		DELETE FROM APPROVAL
@@ -335,7 +336,7 @@
 
 	<!-- 상세페이지에 결재자 출력-->
 	<select id="getApLinePerson" parameterType="Long" resultType="ApprovalLineVO">
-		SELECT APL.*, E.POSITIONNO, P.POSITIONNAME
+		SELECT APL.*, P.POSITIONNAME
 		FROM APLINE APL INNER JOIN EMP E
 			ON APL.USERNAME = E.USERNAME
 			INNER JOIN POSITION P

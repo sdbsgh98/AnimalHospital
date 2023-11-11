@@ -154,8 +154,6 @@
 		<!-- Overlay -->
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
-	<!-- / Layout wrapper -->
-	<%-- <c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import> --%>
 	
 	<!-- / Layout wrapper -->
 	<script src="${pageContext.request.contextPath}/assets/vendor/libs/popper/popper.js"></script>
