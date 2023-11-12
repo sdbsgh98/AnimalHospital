@@ -26,7 +26,8 @@ public class DeptPager {
 	
 	private String username;
 	private Long customerNo;
-	
+	private String deptNo;
+	private String parentNo;
 	//시작 index 번호를 계산하는 메서드
 	public void makeStartRow() {
 		//page = 1, startRow = 0

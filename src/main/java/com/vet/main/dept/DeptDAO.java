@@ -12,9 +12,15 @@ public interface DeptDAO {
 
 	public Long getTotal(DeptPager deptPager) throws Exception;
 	
+	public Long getTotal2(DeptPager deptPager) throws Exception;
+	
 	public List<DeptVO> getEmpList(DeptPager deptPager)throws Exception;
 	
+	public List<DeptVO> detailEmp(DeptPager deptPager)throws Exception;
+	
 	public List<DeptVO> deptList()throws Exception;
+	
+	public List<DeptVO> deptPosition()throws Exception;
 	
 	public List<DeptVO> selectDept()throws Exception;
 	
@@ -29,7 +35,11 @@ public interface DeptDAO {
 	
 	public List<DeptVO> selectApLineDept() throws Exception;
 	
-	public DeptVO deptDetail(DeptVO deptVO)throws Exception;
+	//public DeptVO deptDetail(DeptVO deptVO)throws Exception;
 	
-	public List<DeptVO> getPositionNo(int deptNo)throws Exception;
+	public DeptVO getDeptDetails(String deptNo);
+	
+	public DeptVO deptDetail(DeptVO deptVO);
+	
+	public List<String> positionList(String deptNo)throws Exception;
 }

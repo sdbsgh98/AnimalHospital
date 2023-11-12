@@ -23,12 +23,24 @@ public class DeptService {
 		return deptDAO.getEmpList(deptPager);
 	}
 	
+	public List<DeptVO> detailEmp(DeptPager deptPager)throws Exception{
+		Long totalCount = deptDAO.getTotal2(deptPager);
+		deptPager.makeNum(totalCount);
+		deptPager.makeStartRow();
+		
+		return deptDAO.detailEmp(deptPager);
+	}
+	
 	public List<DeptVO> deptList()throws Exception{
 		return deptDAO.deptList();
 	}
 	
 	public List<DeptVO> selectDept()throws Exception{
 		return deptDAO.selectDept();
+	}
+	
+	public List<DeptVO> deptPosition()throws Exception{
+		return deptDAO.deptPosition();
 	}
 	
 	public int deptAdd(DeptVO deptVO)throws Exception{
@@ -62,5 +74,12 @@ public class DeptService {
 		return deptDAO.deptDetail(deptVO);
 	}
 	
+	public List<String> positionList(String deptNo) throws Exception{
+		return deptDAO.positionList(deptNo);
+	}
 	
+    public DeptVO getDeptDetails(String deptNo) {
+        return deptDAO.getDeptDetails(deptNo);
+    }
+    
 }
