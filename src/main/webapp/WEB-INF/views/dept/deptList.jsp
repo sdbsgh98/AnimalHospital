@@ -72,36 +72,36 @@
 						    </ul>
 						</div>
 					</div>
-					<div class="card shadow mb-4" style="width: 78%; float: right; height: 400px;">
-							<c:forEach items="${dept}" var="dept">
-								<table class="table" id="deptNoList">
+					<div class="card shadow mb-4" style="width: 78%; float: right; height: 400px;" id="detail">
+
+								<table class="table" id="deptNoList" style="display: none;">
 									<tr>
 										<td>부서번호</td>
 										<td>
-											${dept.deptNo}
+											${vo.deptNo}
 										</td>
 									</tr>
 									<tr>
 										<td>이름</td>
 										<td>
-											${dept.deptName}
+											${vo.deptName}
 										</td>
 									</tr>
 									<tr>
 									<tr>
 									    <td>상위부서 번호</td>
 									    <td>
-											${dept.parentNo}
+											${vo.parentNo}
 									    </td>
 									</tr>
 									<tr>
 									    <td>직급</td>
 									    <td>
-											${dept.positionName}
+											${vo.positionName}
 									    </td>
 									</tr>
 							</table>
-						</c:forEach>								
+							
 					</div>
 					
 						<div class="card shadow mb-4" style="width:100%; height: 400px;">
@@ -216,7 +216,7 @@
 
 
 
-    <script>
+<!--     <script>
         $(document).ready(function () {
             $('#jstree').jstree();       
             $("#jstree").jstree("open_all");
@@ -225,7 +225,33 @@
             });
             
         });
-    </script>
+    </script> -->
+
+	<script>
+	    $(document).ready(function () {
+
+	        $('#jstree').jstree();
+	        $("#jstree").jstree("open_all");
+	        $('#jstree').on('click', 'a', function (event) {
+	            event.preventDefault();
+
+	            var deptNo = $(this).parent().attr('id').replace('child2Node', '');
+
+	            $.ajax({
+	                url: '/dept/deptDetail',
+	                type: 'GET',
+	                data: { deptNo: deptNo },
+	                success: function (data) {
+	                    $('#detail').html(data);
+	                    console.log(deptNo);
+	                },
+	                error: function () {
+	                    console.log('Error fetching dept details.');
+	                }
+	            });
+	        });
+	    });
+	</script>
 
 </body>
 </html>

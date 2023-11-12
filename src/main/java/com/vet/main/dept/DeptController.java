@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vet.main.commons.DeptPager;
 import com.vet.main.commons.Pager;
 import com.vet.main.emp.EmpService;
+import com.vet.main.emp.EmpVO;
 
 @Controller
 @RequestMapping("/dept/*")
@@ -72,17 +73,17 @@ public class DeptController {
 	
 	//부서 관리 페이지
 	
-	@GetMapping("deptManage")
-	public String deptManage(DeptVO deptVO, Model model, DeptPager deptPager) throws Exception{
-		List<DeptVO> ar = empService.getDeptNo(deptVO);
-		List<DeptVO> emp = deptService.getEmpList(deptPager);
-		deptVO = deptService.deptDetail(deptVO);
-		model.addAttribute("dept", ar);
-		model.addAttribute("emp", emp);
-		model.addAttribute("vo", deptVO);
-		
-		return "dept/deptManage";
-	}
+//	@GetMapping("deptManage")
+//	public String deptManage(DeptVO deptVO, Model model, DeptPager deptPager) throws Exception{
+//		List<DeptVO> ar = empService.getDeptNo(deptVO);
+//		List<DeptVO> emp = deptService.getEmpList(deptPager);
+//		deptVO = deptService.deptDetail(deptVO);
+//		model.addAttribute("dept", ar);
+//		model.addAttribute("emp", emp);
+//		model.addAttribute("vo", deptVO);
+//		
+//		return "dept/deptManage";
+//	}
 	
 //	@ResponseBody
 //    @RequestMapping(value = "/getPositionNo", method = RequestMethod.GET)
@@ -92,13 +93,42 @@ public class DeptController {
 //        
 //        return positions;
 //	}
-	// 부서 상세
+	
 //	@GetMapping("deptDetail")
 //	public String deptDetail(DeptVO deptVO, Model model)throws Exception{
 //		deptVO = deptService.deptDetail(deptVO);
-//		model.addAttribute("vo", deptVO);
-//		
+//		model.addAttribute("dept", deptVO);
 //		return "dept/deptDetail";
 //	}
+
+	// 부서 상세
+//	@ResponseBody
+//	@RequestMapping(value = "/dept/deptDetail", method = RequestMethod.GET)
+//	public String deptDetail(DeptVO deptVO) throws Exception {
+//	    deptVO = deptService.deptDetail(deptVO);
+//
+//	    ModelAndView modelAndView = new ModelAndView("dept/deptDetail");
+//	
+//	    modelAndView.addObject("dept", deptVO);
+//
+//	    return modelAndView.toString();
+//	}
+	
+    @GetMapping("dept/deptDetail")
+    @ResponseBody
+    public String getDeptDetails(@RequestParam("deptNo") String deptNo) {
+        try {
+            DeptVO deptVO = deptService.getDeptDetails(deptNo);
+            	
+            return "<div>"+"<table>"
+            		+ "<th>부서번호<th>"+ "<tr>"+"<td>" + deptVO.getDeptNo() + "</td>"+"</tr>"+
+            		"<th>부서명</th>"+ "<td>" +deptVO.getDeptName()+ "</td>" +
+            		"<th>상위부서번호</th>"+ "<td>" + deptVO.getParentNo()+ "</td>" +
+            		"</table>"+"</div>";
+        } catch (Exception e) {
+            // Handle exception
+            return "에러";
+        }
+    }
 	
 }
