@@ -47,10 +47,12 @@
 		
 		<!-- 진료차트상세 -->
 		<select id="getDetail" parameterType="TreatmentChartVO" resultMap="getDetailResult">		
-				SELECT TC.*, TCF.*, M.name
+				SELECT TC.*, TCF.*, M.name, E.empName
 				FROM TREATMENTCHART TC
 					INNER JOIN MEDICINE M
 					ON TC.MEDICINENO = M.MEDICINENO
+					INNER JOIN EMP E
+					ON TC.USERNAME = E.USERNAME
 					LEFT OUTER JOIN TREATMENTCHARTFILE TCF
 						ON TC.CHARTNO = TCF.CHARTNO
 				WHERE TC.CHARTNO = #{chartNo}
@@ -65,6 +67,7 @@
 			<result column="USERNAME" property="username"/>
 			<result column="MEDICINENO" property="medicineNo"/>
 			<result column="NAME" property="name"/>
+			<result column="EMPNAME" property="empName"/>
 			<collection property="fileVOs" javaType="java.util.List" ofType="TreatmentChartFileVO">
 				<id column="FILENO" property="fileNo"/>
 				<result column="FILENAME" property="fileName"/>

@@ -74,7 +74,7 @@ public class CustomerService {
 	public int setUpdate(CustomerVO customerVO, MultipartFile[] files) throws Exception {
 		int result = customerDAO.setUpdate(customerVO);
 		
-		for(MultipartFile multipartFile:files) {
+		for(MultipartFile multipartFile: files) {
 			if(multipartFile.isEmpty()) {
 				continue;
 			}

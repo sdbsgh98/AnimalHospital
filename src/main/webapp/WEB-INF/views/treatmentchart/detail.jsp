@@ -39,7 +39,7 @@
 													<td rowspan="2" style="font-size: xx-large; font-weight: bolder;">진료차트상세</td>
 													<!-- <td></td> -->
 													<td>작성자</td>
-													<td>${user.empName}</td>
+													<td>${vo.empName}</td>
 												</tr>
 												<tr>
 													<!-- <td></td> -->
@@ -74,24 +74,6 @@
 													    <input type="text" readonly class="form-control-plaintext" id="disease" value="${vo.disease}">
 													    </div>
 												  </div>
-												<%-- <table class="table">
-													<tr>
-														<td>이름</td>
-														<td>${cus.animalName}</td>
-													</tr>
-													<tr>
-														<td>성별</td>
-														<td>${cus.gender}</td>
-													</tr>
-													<tr>
-														<td>나이</td>
-														<td>${cus.age}</td>
-													</tr>
-													<tr>
-														<td>병명</td>
-														<td>${vo.disease}</td>
-													</tr>
-												</table> --%>
 											</div>
                                             
                                             <div class="card" style="width: auto; margin-top: 20px;">

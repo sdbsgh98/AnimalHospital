@@ -21,6 +21,7 @@ public class TreatmentChartVO {
 	private Long medicineNo;
 	
 	private String name;
+	private String empName;
 	
 	private List<TreatmentChartFileVO> fileVOs;
 	

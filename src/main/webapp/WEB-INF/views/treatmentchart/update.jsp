@@ -117,7 +117,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											</div>
 
 										</div>
-										<button class="btn btn-primary" style="float:right">진료차트수정</button>
+										<button class="btn btn-primary" style="float: right; margin-bottom: 20px; margin-right: 20px;">진료차트수정</button>
 									</div>
 								</div>
 							</form>
@@ -163,7 +163,6 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	</script>
 	
 	<script>
-	
 	const fileAdd = document.getElementById("fileAdd");
 	const fileList = document.getElementById("fileList");
 	const delets = document.getElementsByClassName("delets");

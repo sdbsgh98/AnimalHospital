@@ -44,10 +44,10 @@
 											</tr>
 										</thead>
 										
-										<c:forEach items="${list}" var="vo">
+										<c:forEach items="${list}" var="vo" varStatus="i">
 											<tbody style="height: 35px;">
 												<tr>
-													<td>${vo.chartNo}</td>
+													<td>${i.index + 1}</td>
 													<td><a href="./detail?chartNo=${vo.chartNo}&customerNo=${vo.customerNo}&username=${user.username}">${vo.disease}</a></td>
 													<!-- <td></td> -->
 													<td>${vo.date}</td>
