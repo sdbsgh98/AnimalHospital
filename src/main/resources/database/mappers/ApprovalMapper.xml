@@ -215,7 +215,7 @@ NAME)
 		  AND <include refid="forPager"></include>
 		 LIKE CONCAT('%', #{search}, '%')
 		ORDER BY A.APNO DESC
-		LIMIT #{startRow}, #{perPage}
+		LIMIT #{startRow}, #{lastRow}
 	</select>
 	
 	<!-- 결재함  -->
@@ -231,7 +231,7 @@ NAME)
 		  AND <include refid="forPager"></include>
 		 LIKE CONCAT('%', #{search}, '%')
 		ORDER BY A.APNO DESC
-		LIMIT #{startRow}, #{perPage}
+		LIMIT #{startRow}, #{lastRow}
 	</select>
 	
 	<!-- pager 관련 (해당 유저 기안함의 총 게시글 수를 구하기 위함) -->

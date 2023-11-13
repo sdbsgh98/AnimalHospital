@@ -15,22 +15,15 @@
 <body id="page-top">
 	    <!-- Page Wrapper -->
 	    <div id="wrapper">
-	    	<!-- sidebar -->
-	    	<%-- <c:import url="/WEB-INF/views/layout/sidebar.jsp"></c:import> --%>
-	    	
 	    	<div id="content-wrapper" class="d-flex flex-column">
-	    		<div id="content">
-	    		
-	    		<%-- <c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import> --%>
-	    		
+	    		<div id="content">	    		
 		    		<div class="container-fluid" style="margin-top: 50px;">
-		    				<!-- Content -->
 						<sec:authentication property="Principal" var="user"/>
 						    <div class="container-xxl">
 						      <div class="authentication-wrapper authentication-basic container-p-y">
 						        <div class="authentication-inner">
 						          <!-- Register -->
-						          <div class="card">
+						          <div class="card" style="width: 800px; align-items: center; margin: auto; margin-top: 10px;">
 						            <div class="card-body">
 						              <!-- Logo -->
 						              <div class="app-brand justify-content-center">
@@ -39,31 +32,29 @@
 						                  <span class="app-brand-text demo text-body fw-bolder">Animal Hospital</span>
 						                </a>
 						              </div>
+						              
 						              <!-- /Logo -->
 						              <h4 class="mb-2">비밀번호를 변경해주세요.🔐</h4>
 						              <p class="mb-4">Please change your password!</p>
 										<div>
-											<form action="pwUpdate" method="post">
-											<input type="hidden" name="username" value="${user.username}">
-											<input type="hidden" name="randomPw" value="${user.randomPw}">
-											 	<table>
-													<tr>
-														<td>변경 전 비밀번호</td>
-													 	<td><input type="password" name="originalPassword"></td>
-												 	</tr>
-												 	<tr>
-														<td>변경 할 비밀번호</td>
-													 	<td><input type="password" name="password"></td>
-												 	</tr>
-												 	<tr>
-														<td>비밀번호 확인</td>
-													 	<td><input type="password" name="passwordCheck"></td>
-												 	</tr>
-											 	</table>
-
-											  <br><br>			  			  				  				          													  	  				  			  				  				          		
-											  <button type="submit" class="btn btn-primary" style="margin-top: 30px;">완료</button>
-							        		</form>
+											<%-- <form action="pwUpdate" method="post"> --%>
+																	
+											<form:form modelAttribute="pwVO" action="/emp/pwUpdate" method="POST">
+			
+												<form:label path="password">새 비밀번호 등록</form:label>
+												<form:password path="password" cssClass="form-control"/>
+												<form:errors path="password"></form:errors>
+												
+												<form:label path="passwordCheck">새 비밀번호 등록</form:label>
+												<form:password path="passwordCheck" cssClass="form-control"/>
+												<form:errors path="passwordCheck"></form:errors>
+											
+											  <br>		  			  				  				          													  	  				  			  				  				          		
+											  <button type="submit" class="btn btn-primary" style="margin-top: 10px;">완료</button>
+											</form:form>						
+																					
+								
+							        		<%-- </form> --%>
 										</div>
 						
 						            </div>

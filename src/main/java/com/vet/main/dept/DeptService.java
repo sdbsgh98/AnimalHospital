@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vet.main.commons.DeptPager;
 import com.vet.main.commons.Pager;
 
 @Service
@@ -14,12 +15,29 @@ public class DeptService {
 	private DeptDAO deptDAO;
 	
 	
-	public List<DeptVO> getEmpList(Pager pager)throws Exception{
+	public List<DeptVO> getEmpList(DeptPager deptPager)throws Exception{
+		Long totalCount = deptDAO.getTotal(deptPager);
+		deptPager.makeNum(totalCount);
+		deptPager.makeStartRow();
+
+/*	public List<DeptVO> getEmpList(Pager pager)throws Exception{
+		pager.setPerPage(10L);
+		pager.makeRowNum();
 		Long totalCount = deptDAO.getTotal(pager);
-		pager.makeNum(totalCount);
-		pager.makeStartRow();
+		pager.makePageNum(totalCount);
+//		pager.makeNum(totalCount);
+//		pager.makeStartRow();
+*/
 		
-		return deptDAO.getEmpList(pager);
+		return deptDAO.getEmpList(deptPager);
+	}
+	
+	public List<DeptVO> detailEmp(DeptPager deptPager)throws Exception{
+		Long totalCount = deptDAO.getTotal2(deptPager);
+		deptPager.makeNum(totalCount);
+		deptPager.makeStartRow();
+		
+		return deptDAO.detailEmp(deptPager);
 	}
 	
 	public List<DeptVO> deptList()throws Exception{
@@ -28,6 +46,10 @@ public class DeptService {
 	
 	public List<DeptVO> selectDept()throws Exception{
 		return deptDAO.selectDept();
+	}
+	
+	public List<DeptVO> deptPosition()throws Exception{
+		return deptDAO.deptPosition();
 	}
 	
 	public int deptAdd(DeptVO deptVO)throws Exception{
@@ -56,4 +78,21 @@ public class DeptService {
 	public List<DeptVO> selectApLineDept() throws Exception{
 		return deptDAO.selectApLineDept();
 	}
+
+	public DeptVO deptDetail(DeptVO deptVO)throws Exception{
+		return deptDAO.deptDetail(deptVO);
+	}
+	
+	public List<DeptVO> getDeptPosition(DeptVO deptVO) throws Exception{
+		return deptDAO.getDeptPosition(deptVO);
+	}
+	
+    public DeptVO getDeptDetails(String deptNo) throws Exception{
+        return deptDAO.getDeptDetails(deptNo);
+    }
+    
+    public int positionAdd(DeptVO deptVO)throws Exception{
+    	return deptDAO.positionAdd(deptVO);
+    }
+    
 }

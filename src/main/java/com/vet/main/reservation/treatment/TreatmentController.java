@@ -94,7 +94,7 @@ public class TreatmentController {
 		
 		log.info("jsonArrCheck:{}", jsonArr);
 		
-		return jsonArr;		
+		return jsonArr;		 
 	}
 	
 	//예약추가

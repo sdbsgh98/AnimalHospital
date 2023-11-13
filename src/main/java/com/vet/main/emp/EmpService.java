@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.vet.main.commons.FileManager;
@@ -43,7 +45,7 @@ public class EmpService implements UserDetailsService{
 	private EmpDAO empDAO;
 
 	@Autowired
-	private JavaMailSender mailSender;
+	private JavaMailSender javaMailSender;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -95,37 +97,47 @@ public class EmpService implements UserDetailsService{
 	}
 	
 	// 비밀번호 변경
-	public int pwUpdate(EmpVO empVO)throws Exception{
-		empVO.setPassword(passwordEncoder.encode(empVO.getPassword()));
-		int result = empDAO.pwUpdate(empVO);
-		
-		return result;
+	public int pwUpdate(PwVO pwVO) throws Exception {
+	    pwVO.setPassword(passwordEncoder.encode(pwVO.getPassword()));
+	    int result = empDAO.pwUpdate(pwVO);
+
+	    return result;
 	}
 	
-	// 비밀번호 일치 확인
-	public int pwdCheck(EmpVO empVO) throws Exception{
-		return empDAO.pwdCheck(empVO);
-	}
+	// 비밀번호 찾기
+	public FindVO findUser(FindVO findVO)throws Exception{
 	
-	// 사원번호 찾기
-	public EmpVO findUsername(EmpVO empVO)throws Exception{
-	
-		return empDAO.findUsername(empVO);
+		return empDAO.findUser(findVO);
 	}
 
+	// db에 존재하는지 확인
+	public boolean checkUser(String username, String empName, String email)throws Exception{
+		return empDAO.checkUser(username, empName, email);
+	}
+	
+	// 이메일 중복확인	
+	// db에 email 존재하는지 확인 (이메일 중복확인)
+	public boolean checkEmail(String email)throws Exception{
+		return empDAO.checkEmail(email);
+	}
 	
 	// 사원 관리(직원 목록)
 	public List<EmpVO> empList(Pager pager)throws Exception{
+		pager.setPerPage(10L);
+		pager.makeRowNum();
 		Long totalCount = empDAO.getTotal(pager);
-		pager.makeNum(totalCount);
-		pager.makeStartRow();
+		pager.makePageNum(totalCount);
+//		pager.makeNum(totalCount);
+//		pager.makeStartRow();
 		return empDAO.empList(pager);
 	}
 	
 	// 신규직원 등록
 	@Transactional(rollbackFor = Exception.class)
 	public int empAdd(EmpVO empVO) throws Exception{
-		empVO.setPassword(passwordEncoder.encode("animal"));
+		String pw = empVO.getPhone();
+		
+		empVO.setPassword(passwordEncoder.encode(pw));
 		int result = empDAO.empAdd(empVO);
 		Map<String, Object> map = new HashMap<>();
 		map.put("roleNum", 2);
@@ -135,23 +147,31 @@ public class EmpService implements UserDetailsService{
 		return result;
 	}
 	
-	public boolean getEmpError(EmpVO empVO, BindingResult bindingResult)throws Exception{
+	public void sendMailAdd(String email, String username, String phone) {
+		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+		
+		simpleMailMessage.setTo(email);
+		simpleMailMessage.setSubject("[동물병원] 로그인 관련 안내입니다.");
+		simpleMailMessage.setText("안녕하세요. 사원번호는 " + username + "이며 비밀번호는 " + phone + "입니다.");
+		
+		javaMailSender.send(simpleMailMessage);
+	}
+	
+    public void sendMailUser(String email, String username, String phone) {
+        sendMailAdd(email, username, phone);
+    }
+	
+	
+	public boolean getPwError(PwVO pwVO ,BindingResult bindingResult)throws Exception{
 		boolean check = false; // false면 error 없음, true면 error 있음 (검증실패)
 		
 		//password 일치여부 검증
-//		if(!empVO.getPassword().equals(empVO.getPasswordCheck())) {
-//			check = true;
-//			
-//			bindingResult.rejectValue("passwordCheck", "empVO.password.equalCheck");
-//		}
-		
-		//이메일 중복 검사
-		EmpVO checkVO = empDAO.getEmp(empVO);
-		
-		if(checkVO != null) {
+		if(!pwVO.getPassword().equals(pwVO.getPasswordCheck())) {
 			check = true;
-			bindingResult.rejectValue("email", "empVO.email.equalCheck");
+			
+			bindingResult.rejectValue("passwordCheck", "pwVO.password.equalCheck");
 		}
+		
 		
 		return check;
 	}
@@ -176,8 +196,8 @@ public class EmpService implements UserDetailsService{
 		
 	}
 	
-	public List<DeptVO> getPositionNo(DeptVO deptVO)throws Exception{
-		return empDAO.getPositionNo();
+	public List<DeptVO> getPositionNo(String deptNo)throws Exception{
+		return empDAO.getPositionNo(deptNo);
 	}
 	
 	public List<DeptVO> getDeptNo(DeptVO deptVO)throws Exception{

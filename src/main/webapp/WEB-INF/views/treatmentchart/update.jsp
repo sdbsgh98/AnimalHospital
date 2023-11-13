@@ -59,7 +59,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 													<td rowspan="2" style="font-size: xx-large; font-weight: bolder;">진료차트수정</td>
 													<!-- <td></td> -->
 													<td>작성자</td>
-													<td>${emp.empName}</td>
+													<td>${user.empName}</td>
 												</tr>
 												<tr>
 													<!-- <td></td> -->
@@ -95,8 +95,9 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 												<textarea class="form-control" id="contents" name="contents" rows="3" placeholder="내용을 입력하세요">${vo.contents}</textarea>
 											</div>
 											
+											<!-- 사진첨부 -->
 											<div class="mb-3">
-												<button type="button" class="btn btn-primary" id="fileAdd">사진추가</button>
+												<button type="button" class="btn btn-primary" id="fileAdd">File추가</button>
 											</div>
 								
 											<div id="fileList" class="mb-3">
@@ -105,17 +106,18 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 								
 											<div>
 												<c:forEach items="${vo.fileVOs}" var="f">
-													<div class="alert alert-warning">
+													<div class="alert alert-warning delets df" data-num="${f.fileNo}">
 														${f.originalFileName}
 													</div>
-													<div>
-													<button class="deletes btn btn-danger" data-delete-num="${f.fileNo}">삭제</button>
-													</div>
-												</c:forEach>													
+													<%-- <div>
+													<button class="delets df btn btn-danger" data-num="${f.fileNo}">삭제</button>
+													
+													</div> --%>
+												</c:forEach>
 											</div>
 
 										</div>
-										<button class="btn btn-primary" style="float:right">진료차트수정</button>
+										<button class="btn btn-primary" style="float: right; margin-bottom: 20px; margin-right: 20px;">진료차트수정</button>
 									</div>
 								</div>
 							</form>
@@ -161,41 +163,43 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	</script>
 	
 	<script>
-	const fileList = document.getElementById("fileList");
 	const fileAdd = document.getElementById("fileAdd");
-	const deletes = document.getElementsByClassName("deletes");
+	const fileList = document.getElementById("fileList");
+	const delets = document.getElementsByClassName("delets");
 
-	$('.deletes').click(function(){
-	    let num = $(this).attr("data-delete-num");
-	    let check = confirm("삭제시 복구 불가");
-	   
-	     if(check){
-	     $.ajax({
-	          type:'GET',
-	           url:'./fileDelete?fileNo='+num,
-	           success:function(r){
-	                if(r.trim()=='1'){
-	                   $(this).remove();
+	//-------------------------------
+	for(del of delets){
+	    del.addEventListener("click", function(){
+	        let num = this.getAttribute("data-num");
+	        let check = confirm("삭제시 복구 불가");
+
+	        if(check){
+	            fetch("./fileDelete?fileNum="+num, {method:"get"})
+	                .then((result)=>{return result.text()})
+	                .then((r)=>{ 
+	                    if(r.trim()=='1'){
+	                        
+	                        this.remove();
 	                        count--;
 	                    }
-	           }
-	     })
-	     }
-	})
 
-	let max = 5;
-	let count = 0;
-
-	if(deletes != null) {
-	    count = deletes.length;
-	    alert(count);
+	                 })
+	        }
+	        
+	    });
 	}
 
-	let idx = 0;
+	let max=5;
+	let count=0;
 
+
+	if(delets != null){
+	    count=delets.length;
+	    
+	}
+
+	let idx=0;
 	$("#fileList").on("click", ".df", function(){
-	    // let deleteId=$(this).attr("data-id")
-	    // $("#"+deleteId).remove();
 	    $(this).parent().remove();
 	    count--;
 	})
@@ -203,14 +207,14 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	//jquery로 변경
 	$("#fileAdd").click(function(){
 	    if(count>=max){
-	        alert("최대 5개만 가능");
+	    	alert("최대 5개만 가능합니다");
 	        return;
 	    }
 	    count++;
 
 	    let r = '<div class="input-group mb-3" id="file'+idx+'">'
 	    r = r+'<input type="file" class="form-control" id="files" name="files">'
-	    r = r+ '<button class="df" data-id="file'+idx+'">삭제</button>'
+	    r = r+ '<button class="df btn-danger" data-id="file'+idx+'">삭제</button>'
 	    r= r+"</div>";
 	    idx++;
 
@@ -219,6 +223,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	});
 	
 	</script>
+
 
 </body>
 </html>

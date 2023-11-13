@@ -1,9 +1,7 @@
 package com.vet.main.emp;
 
-import java.security.Principal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -23,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.vet.main.commons.Pager;
 import com.vet.main.dept.DeptVO;
 
-import lombok.extern.slf4j.Slf4j;
-
 
 @Controller
 @RequestMapping("/emp/*")
@@ -32,7 +28,7 @@ public class EmpController {
 
 	@Autowired
 	private EmpService empService;
-
+	
 	// 로그인 페이지
 	
 	@GetMapping("login")
@@ -52,44 +48,52 @@ public class EmpController {
 	
 	// 비밀번호 수정페이지
 	@GetMapping("pwUpdate")
-	public String pwUpdate(EmpVO empVO, Model model) throws Exception{
-		empVO = empService.empDetail(empVO);
-		model.addAttribute("vo", empVO);
-		return "emp/pwUpdate";
+	public String pwUpdate(Model model) throws Exception {
+	    model.addAttribute("pwVO", new PwVO());
+	    return "emp/pwUpdate";
 	}
-	
+
 	@PostMapping("pwUpdate")
-	public String pwUpdate(EmpVO empVO) throws Exception{
-		int result = empService.pwUpdate(empVO);
-		return "emp/login";
+	public String pwUpdate(@Valid PwVO pwVO, BindingResult bindingResult) throws Exception {
+	    boolean check = empService.getPwError(pwVO, bindingResult);
+
+	    if (bindingResult.hasErrors() || check) {
+	        return "emp/login";
+	    }
+
+	    pwVO.setRandomPw(true);
+
+	    int result = empService.pwUpdate(pwVO);
+	    return "emp/login";
+	}
+
+	
+	// 비밀번호 찾기
+	@GetMapping("findUser")
+	public String findUser(FindVO findVO, Model model) throws Exception{
+				
+		return "emp/findUser";
 	}
 	
-	@GetMapping("/sendMail")
-	public String sendMail(EmpVO empVO)throws Exception{
-		return "emp/sendMail";
-	}
-	
-	
-	@GetMapping("findUsername")
-	public String findUsername(EmpVO empVO)throws Exception{
-		return "emp/findUsername";
-	}
-	
-	// 사원번호 찾기
-	@PostMapping("findUsername")
-	public String findUsername(EmpVO empVO, Model model)throws Exception{
-		EmpVO user = empService.findUsername(empVO);
+	@ResponseBody
+	@RequestMapping(value = "/emp/find", method = RequestMethod.POST)
+	public String checkUser(FindVO findVO, @RequestParam String username, @RequestParam String empName, @RequestParam String email,Model model) throws Exception {
+		model.addAttribute("username", findVO.getUsername());
+		model.addAttribute("email", findVO.getEmail());
+		model.addAttribute("empName", findVO.getEmpName());
 		
-		if(user == null) {
+		findVO = empService.findUser(findVO);
+		
+		if(findVO == null) {
 			model.addAttribute("check", 1);
 
 		}else {
 			model.addAttribute("check", 0);
-			model.addAttribute("username", user.getUsername());
-
 		}
 		
-		return "emp/findUsername";
+		boolean userExists = empService.checkUser(username, empName, email);
+
+	    return userExists ? "success" : "failure";
 	}
 	
 	// 마이페이지
@@ -135,22 +139,18 @@ public class EmpController {
 	
 	// 신규직원 추가 페이지
 	
-//	@GetMapping("empAdd2")
-//	public void empAdd(@ModelAttribute EmpVO empVO)throws Exception{
-//
-//	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/empList/empAdd", method = RequestMethod.POST)
 	public String empAdd(@Valid EmpVO empVO, BindingResult bindingResult) throws Exception{
-//		boolean check = empService.getEmpError(empVO, bindingResult);
-//		
-//		if(bindingResult.hasErrors() || check) {
-//			return "emp/empList";
-//		}
-//		
+		
 		int result = empService.empAdd(empVO);
 		return "redirect:./empList";
+	}
+	
+	@RequestMapping(value = "/emp/sendMailAdd", method = RequestMethod.POST)
+	@ResponseBody
+	public void sendMailAdd(@RequestParam String email,@RequestParam String username,@RequestParam String phone) throws Exception {
+	    empService.sendMailUser(email,username,phone);
 	}
 	
 	// 직원 상세
@@ -162,14 +162,31 @@ public class EmpController {
 		return "emp/empDetail";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/emp/findEmail", method = RequestMethod.POST)
+	public String checkEmail(FindVO findVO, @RequestParam String email,Model model) throws Exception {
+		model.addAttribute("email", findVO.getEmail());
+		
+		findVO = empService.findUser(findVO);
+		
+		if(findVO == null) {
+			model.addAttribute("check", 1);
+
+		}else {
+			model.addAttribute("check", 0);
+		}
+		
+		boolean userExists = empService.checkEmail(email);
+
+	    return userExists ? "success" : "failure";
+	}
+	
 	// 직원 수정(부서, 직급 수정)
 	@GetMapping("empUpdate")
 	public String empUpdate(EmpVO empVO, DeptVO deptVO, Model model) throws Exception{
 		List<DeptVO> ar = empService.getDeptNo(deptVO);
-		List<DeptVO> po = empService.getPositionNo(deptVO);
 		empVO = empService.empDetail(empVO);
 		
-		model.addAttribute("po", po);
 		model.addAttribute("dept", ar);
 		model.addAttribute("vo", empVO);
 		return "emp/empUpdate";
@@ -181,35 +198,11 @@ public class EmpController {
 		return "redirect:./empList";
 	}
 	
-	
-	// 비밀번호 찾기
-	@GetMapping("findPw")
-	public String findPw(EmpVO empVO, Model model) throws Exception{
-		
-		return "emp/findPw";
-	}
-	
 	@ResponseBody
-	@RequestMapping(value = "/emp/login/findPassword", method = RequestMethod.POST)
-	public String findPw(HttpServletRequest request, Model model, @RequestParam String username, 
-			@RequestParam String empName, @RequestParam String email, EmpVO empVO) throws Exception {
-//		try {
-//			empVO.setUsername(username);
-//			empVO.setEmpName(empName);
-//			empVO.setEmail(email);
-//			
-//			int search = empService.pwdCheck(empVO);
-//			
-//			if(search == 0) {
-//				model.addAttribute("msg", "기입된 정보가 잘못되었습니다. 다시 입력해주세요.")
-//			}
-//			
-//			String newPw = Randoms
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-		return "redirect: ./login";
+	@RequestMapping(value = "/emp/getPositionsByDept", method = RequestMethod.GET)
+	public List<DeptVO> getPositionsByDept(@RequestParam("deptNo") String deptNo) throws Exception {
+	    List<DeptVO> positions = empService.getPositionNo(deptNo);
+	    return positions;
 	}
 
 	// sign

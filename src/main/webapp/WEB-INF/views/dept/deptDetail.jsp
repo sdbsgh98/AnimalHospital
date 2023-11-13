@@ -40,7 +40,7 @@
 					<div class="card shadow mb-4" style="width: 20%; float: left; height: 400px;">	
 					<div>
 					</div>
-					<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 100px; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left: 5px;">부서등록</button>
+					<a type="button" href="./deptList" class="btn" style="width: 100px; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left: 5px;">전체보기</a>
 						<div id="jstree">
 						    <ul>
 						        <c:forEach items="${list}" var="vo">
@@ -72,53 +72,21 @@
 						        </c:forEach>
 						    </ul>
 						</div>
-					<!-- 부서등록 modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					 <div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="exampleModalLabel">부서 등록</h1>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-								<div class="modal-body">
-					
-										 <input type="hidden" id="deptNoAdd" name="deptNo">
-										<div class="mb-3">
-										    <label for="deptName" class="col-form-label">부서명:</label>
-										   <input type="text" class="form-control" id="deptNameAdd" name="deptName">
-										</div>
-										<div class="mb-3">
-										     <label for="parentNo" class="col-form-label">상위부서:</label>
-											<select class="form-control" name='parentNo' id="parentNoAdd" style="height: 35px;">										
-													<c:forEach items="${dept}" var="dept">
-														<option value="${dept.deptNo}">${dept.deptName}</option>
-													</c:forEach>
-												<option value=0>없음</option>
-											</select>
-										</div>
-										          
-										<div class="modal-footer">
-											 <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-											 <button class="btn btn-primary" id="addBtn">추가</button>
-										</div>					
-									</div>
-								</div>
-							 </div>
-						</div>							
-						
 					</div>
 					<div class="card shadow mb-4" style="width: 78%; float: right; height: 400px;">
-							
-							<div id="detail" style="width: 80%; height:90%; margin: auto; display: none;">
+
+							<div id="detail" style="width: 80%; height:75%; margin: auto;">
 								<span>부서번호</span>
 								<input type="text" class="form-control" readonly="readonly" value="${vo.deptNo}">
 								<span>이름</span>
 								<input type="text" class="form-control" readonly="readonly" value="${vo.deptName}">
 								<span>상위부서 번호</span>
-								<input type="text" class="form-control" readonly="readonly" value="${vo.parentNo}">								
+								<input type="text" class="form-control" readonly="readonly" value="${vo.parentNo}">
 							</div>
+							<a href="./deptManage?deptNo=${vo.deptNo}" type="button" class="btn" style="width: 100px; background-color: rgb(255,255,222); font-size: 13px; margin-top: 5px; margin-left: 5px;">수정</a>
+							<a href="./deptDelete?deptNo=${vo.deptNo}" id="deleteBtn">삭제</a>
 					</div>
-					
+										
 						<div class="card shadow mb-4" style="width:100%; height: 400px;">
 						
 							<table class="table" style="text-align: center;">
@@ -148,45 +116,26 @@
 							</table>
 						
 
-						<div class="d-flex justify-content-between mb-3" style="margin-top: 20px;">
-						<div>
-							<!-- 검색 -->
-							<div class="input-group mb-3">
-								<form action="./deptList" method="get" class="d-flex align-items-center" id="frm">
-									<div class="input-group" style="width: 120px;">
-										<input type="hidden" value="${pager.page}" id="page" name="page">
-										<select name="kind" id="k" class="form-select"
-											data-kind="${pager.kind}" aria-label="Default select example" style="width: 50px;">
-											<option class="kind" value="empName">이름</option>
-											<option class="kind" value="deptName">부서</option>
-											<option class="kind" value="positionName">직급</option>
-										</select>
-									</div> 
-									<input type="text" name="search" value="${pager.search}"
-										class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 150px;">
-										<button type="submit" class="btn btn-primary" style="width:100px;">검색</button>
-								</form>
-							</div>
-						</div>
+						<div class="d-flex justify-content-between mb-3" style="margin: auto;">
     					<div>
     						<!-- 페이징 -->
-							<nav aria-label="Page navigation example" >
+							<nav aria-label="Page navigation example">
 								<ul class="pagination justify-content-center">
 									<c:if test="${pager.pre}">
 									<li class="page-item ${pager.pre?'':'disabled'}"><a
 										class="page-link"
-										href="./deptList?page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}"
+										href="./deptDetail?deptNo=${vo.deptNo}?page=${pager.startNum - 1}"
 										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 									</a></li>
 									</c:if>
 									<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
 										var="i">
 										<li class="page-item"><a class="page-link"
-											href="./deptList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+											href="./deptDetail?deptNo=${vo.deptNo}?page=${i}">${i}</a></li>
 									</c:forEach>
 									<c:if test="${pager.next}">
 										<li class="page-item"><a class="page-link"
-											href="./deptList?page=${pager.lastNum + 1}&kind=${pager.kind}&search=${pager.search}"
+											href="./deptDetail?deptNo=${vo.deptNo}?page=${pager.lastNum + 1}"
 											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 										</a></li>
 									</c:if>
@@ -229,60 +178,35 @@
 	<!-- Place this tag in your head or just before your close body tag. -->
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
 
-
-<script>
-    $(document).ready(function () {
-        $('#jstree').jstree();
-        $("#jstree").jstree("open_all");
-
-        $('#jstree').on('click', 'a', function (event) {
-            event.preventDefault();
-
-            let nodeId = $(this).parent().attr('id');
-
-            if (nodeId.startsWith('child2Node')) {
-                let deptNo = nodeId.replace('child2Node', '');
-                location.href = "./deptDetail?deptNo=" + deptNo;
-            } else if (nodeId.startsWith('childNode')) {
-                let parentNo = nodeId.replace('childNode', '');
-                location.href = "./deptDetail?deptNo=" + parentNo;
-            }
-        });
-    });
-</script>
-	
 	<script type="text/javascript">
-		$('#addBtn').on("click", function(){
 	
-			let deptName = $("#deptNameAdd").val();
-			let parentNo = $("#parentNoAdd").val();
+	$('#deleteBtn').on("click", function(){
+		confirm("삭제하시겠습니까?");
+	})
 	
+	</script>
+
+	<script>
+	    $(document).ready(function () {
+	        $('#jstree').jstree();
+	        $("#jstree").jstree("open_all");
+	
+	        $('#jstree').on('click', 'a', function (event) {
+	            event.preventDefault();
+	
+	            let nodeId = $(this).parent().attr('id');
+	
+	            if (nodeId.startsWith('child2Node')) {
+	                let deptNo = nodeId.replace('child2Node', '');
+	                location.href = "./deptDetail?deptNo=" + deptNo;
+	            } else if (nodeId.startsWith('childNode')) {
+	                let parentNo = nodeId.replace('childNode', '');
+	                location.href = "./deptDetail?deptNo=" + parentNo;
+	            }
+	        });
+	    });
+	</script>
 		
-			let data = {deptName:deptName, parentNo:parentNo};
-			
-		    if(deptName == ""){
-		        alert("부서이름을 입력해주세요.");
-		        deptName.focus();
-		        return;
-		    }
-	
-			$.ajax({
-				url:"/dept/deptList/deptAdd",
-	            data: data,
-				method:"post",												
-				success : function(){
-					console.log(data);
-					alert("등록이 완료되었습니다!");
-					location.href="/dept/deptList";		
-				},
-				error : function(data){
-					console.log(data);
-					alert("관리자에게 문의해주세요.");
-				}
-			})
-	
-		});
-	</script>	
 
 </body>
 </html>

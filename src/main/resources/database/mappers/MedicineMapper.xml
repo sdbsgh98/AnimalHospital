@@ -29,7 +29,7 @@
 				<include refid="forPager"></include>
 				LIKE CONCAT('%', #{search}, '%')
 				ORDER BY MEDICINENO DESC
-				LIMIT #{startRow}, #{perPage}
+				LIMIT #{startRow}, #{lastRow}
 		</select>
 		
 		<!-- 약품추가 -->
