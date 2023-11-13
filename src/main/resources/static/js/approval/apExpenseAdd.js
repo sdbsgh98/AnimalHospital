@@ -83,7 +83,7 @@ $("#addList").on("click", ".df", function(){
 
 
 // 글 ADD
-function addBtn(){
+addBtn.addEventListener("click", function(){
 	
 	let expenseName = document.getElementsByName("expenseName");
 	let expenseAmount = document.getElementsByName("expenseAmount");
@@ -101,8 +101,7 @@ function addBtn(){
     
     // 폼에 입력한 데이터를 서버로 전송
     addFrm.submit();
-    
-};
+})
 
 
 // 취소 버튼

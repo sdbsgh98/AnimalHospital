@@ -433,7 +433,7 @@ public class ApprovalController {
 		List<ApprovalLineVO> line = approvalService.getApLinePerson(apNo);
 		model.addAttribute("line", line);
 
-		if (apKind.equals("품의서") || apKind.equals("휴가신청서") || apKind.equals("퇴직신청서")) {
+		if (apKind.equals("품의서") || apKind.equals("휴직신청서") || apKind.equals("퇴직신청서")) {
 			return "approval/update";
 		} else if (apKind.equals("지출결의서")) {
 			ApprovalVO approvalVO2 = new ApprovalVO();
@@ -539,7 +539,7 @@ public class ApprovalController {
 	@PostMapping("update/expenseUpdate")
 	public String setApUpdate(@RequestParam("apNo") Long apNo, @RequestParam("username") String username, @RequestParam("apTitle") String apTitle, @RequestParam("expenseName") String[] expenseName,
 			@RequestParam("expenseAmount") Long[] expenseAmount, @RequestParam("expensePrice") Long[] expensePrice,
-			@RequestParam("expenseBigo") String[] expenseBigo, @RequestParam("expenseNo") Long[] expenseNo, @RequestParam("lineUsername") String[] lineUsername
+			@RequestParam("expenseBigo") String[] expenseBigo, @RequestParam("lineUsername") String[] lineUsername
 			, @RequestParam("lineEmpName") String[] lineEmpName) throws Exception {
 
 		ApprovalVO approvalVO = new ApprovalVO();
@@ -551,16 +551,15 @@ public class ApprovalController {
 		log.info("============= approvalVO : {} ==============", approvalVO);
 			
 		// 지출내역을 update
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i < expenseName.length; i++) {
 			ApprovalExpenseVO expenseVO = new ApprovalExpenseVO();
 			expenseVO.setApNo(apNo);
 			expenseVO.setExpenseName(expenseName[i]);
 			expenseVO.setExpenseAmount(expenseAmount[i]);
 			expenseVO.setExpensePrice(expensePrice[i]);
 			expenseVO.setExpenseBigo(expenseBigo[i]);
-			expenseVO.setExpenseNo(expenseNo[i]);
 
-			approvalService.setExpenseUpdate(expenseVO);
+			approvalService.setExpenseAdd(expenseVO);
 
 			log.info("============= expenseVO : {} ==============", expenseVO);
 		}

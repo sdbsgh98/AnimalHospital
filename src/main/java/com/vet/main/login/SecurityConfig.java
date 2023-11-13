@@ -49,7 +49,7 @@ public class SecurityConfig {
 				.antMatchers("/resources/images/*").permitAll()
 				.antMatchers("/emp/findUsername").permitAll() 
 				.antMatchers("/emp/pwUpdate").permitAll() 
-				.antMatchers("/").hasAnyRole("ADMIN", "USER") 
+				.antMatchers("/**").hasAnyRole("ADMIN", "USER") 
 				.and()
 			.formLogin()
 				.loginPage("/emp/login")

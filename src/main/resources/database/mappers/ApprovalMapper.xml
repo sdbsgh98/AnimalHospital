@@ -186,9 +186,11 @@
 	<!-- 지출항목 추가 -->
 	<insert id="setExpenseAdd" parameterType="ApprovalExpenseVO">
 		INSERT INTO APEXPENSE
-			(APNO, EXPENSENAME, EXPENSEAMOUNT, EXPENSEPRICE, EXPENSEBIGO, EXPENSENO)
+			(APNO, EXPENSENAME, EXPENSEAMOUNT, EXPENSEPRICE, EXPENSEBIGO)
 		VALUES
-            (#{apNo}, #{expenseName}, #{expenseAmount}, #{expensePrice}, #{expenseBigo}, NEXTVAL(EXPENSE_SEQ))
+            (#{apNo}, #{expenseName}, #{expenseAmount}, #{expensePrice}, #{expenseBigo})
+        ON DUPLICATE KEY UPDATE
+        	APNO = #{apNo} AND EXPENSENAME = #{expenseName}
 	</insert>
 	
   	<!-- 수정페이지에서 지출항목 삭제 -->
@@ -418,7 +420,8 @@
 	<update id="setApprover" parameterType="ApprovalLineVO">
 		UPDATE APLINE
 		SET
-		APCONFIRMSTATE = ${apConfirmState}
+		APCONFIRMSTATE = #{apConfirmState},
+		APCONFIRMDATE = NOW()
 		WHERE APNO = #{apNo}
 		AND USERNAME = #{username}
 	</update>
