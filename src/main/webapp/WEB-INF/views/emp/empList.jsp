@@ -128,7 +128,7 @@
 					      <div class="modal-body">
 
 					         <form action="empAdd" method="post" enctype="multipart/form-data" id="empForm">
-								<input type="hidden" class="form-control" name="username" id="username" value="${vo.username}">
+								<input type="hidden" class="form-control" name="username" id="username"">
 								<input type="hidden" class="form-control" name="password" id="password">
 								   <div class="form-group">
 							            <label for="empName">이름</label>

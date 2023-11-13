@@ -84,6 +84,7 @@
 								<input type="text" class="form-control" readonly="readonly" value="${vo.parentNo}">
 							</div>
 							<a href="./deptManage?deptNo=${vo.deptNo}" type="button" class="btn" style="width: 100px; background-color: rgb(255,255,222); font-size: 13px; margin-top: 5px; margin-left: 5px;">수정</a>
+							<a href="./deptDelete?deptNo=${vo.deptNo}" id="deleteBtn">삭제</a>
 					</div>
 										
 						<div class="card shadow mb-4" style="width:100%; height: 400px;">
@@ -177,34 +178,35 @@
 	<!-- Place this tag in your head or just before your close body tag. -->
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
 
-<script>
-    $(document).ready(function () {
-        $('#jstree').jstree();
-        $("#jstree").jstree("open_all");
-
-        $('#jstree').on('click', 'a', function (event) {
-            event.preventDefault();
-
-            let nodeId = $(this).parent().attr('id');
-
-            if (nodeId.startsWith('child2Node')) {
-                let deptNo = nodeId.replace('child2Node', '');
-                location.href = "./deptDetail?deptNo=" + deptNo;
-            } else if (nodeId.startsWith('childNode')) {
-                let parentNo = nodeId.replace('childNode', '');
-                location.href = "./deptDetail?deptNo=" + parentNo;
-            }
-        });
-    });
-</script>
+	<script type="text/javascript">
 	
-<script type="text/javascript">
-$(document).ready(function () {
-    $('#update').on("click", function () 
+	$('#deleteBtn').on("click", function(){
+		confirm("삭제하시겠습니까?");
+	})
+	
+	</script>
+
+	<script>
+	    $(document).ready(function () {
+	        $('#jstree').jstree();
+	        $("#jstree").jstree("open_all");
+	
+	        $('#jstree').on('click', 'a', function (event) {
+	            event.preventDefault();
+	
+	            let nodeId = $(this).parent().attr('id');
+	
+	            if (nodeId.startsWith('child2Node')) {
+	                let deptNo = nodeId.replace('child2Node', '');
+	                location.href = "./deptDetail?deptNo=" + deptNo;
+	            } else if (nodeId.startsWith('childNode')) {
+	                let parentNo = nodeId.replace('childNode', '');
+	                location.href = "./deptDetail?deptNo=" + parentNo;
+	            }
+	        });
+	    });
+	</script>
 		
-    });
-})
-</script>
 
 </body>
 </html>

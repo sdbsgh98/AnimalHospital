@@ -52,7 +52,7 @@ public class DeptController {
 	@RequestMapping(value = "/deptList/deptAdd", method = RequestMethod.POST)
 	public String deptAdd(DeptVO deptVO)throws Exception{
 		int result = deptService.deptAdd(deptVO);
-		return "redirect: ./deptList";
+		return "redirect:./deptList";
 	}
 	
 	//부서 수정
@@ -64,13 +64,6 @@ public class DeptController {
 	}
 	
 	// 부서 삭제
-	
-//	@ResponseBody
-//	@RequestMapping(value = "/deptList/deptDelete", method = RequestMethod.GET)
-//	public String deptDelete(DeptVO deptVO)throws Exception{
-//		int result = deptService.deptDelete(deptVO);
-//		return "redirect:./deptList";
-//	}
 	
 	@GetMapping("deptDelete")
 	public String deptDelete(DeptVO deptVO)throws Exception{
@@ -86,26 +79,17 @@ public class DeptController {
 		List<DeptVO> ar = empService.getDeptNo(deptVO);
 		List<DeptVO> emp = deptService.getEmpList(deptPager);
 		List<DeptVO> select = deptService.selectDept();
-		List<DeptVO> position = deptService.deptPosition();
-		
+		List<DeptVO> deptPosition = deptService.getDeptPosition(deptVO);
+
 		deptVO = deptService.deptDetail(deptVO);
 		model.addAttribute("dept", ar);
 		model.addAttribute("emp", emp);
 		model.addAttribute("select", select);
 		model.addAttribute("vo", deptVO);
-		model.addAttribute("po", position);
+		model.addAttribute("deptPosition", deptPosition);
 		return "dept/deptManage";
 	}
-	
-//	@ResponseBody
-//    @RequestMapping(value = "/getPositionNo", method = RequestMethod.GET)
-//    public List<DeptVO> getPositionNo(@RequestParam("deptNo") int deptNo) throws Exception{
-//
-//        List<DeptVO> positions = deptService.getPositionNo(deptNo);
-//        
-//        return positions;
-//	}
-	
+
 	@GetMapping("deptDetail")
 	public String deptDetail(DeptVO deptVO, Model model, DeptPager deptPager)throws Exception{
 		List<DeptVO> ar = deptService.deptList(); //조직도
@@ -123,23 +107,16 @@ public class DeptController {
 		return "dept/deptDetail";
 	}
 
-	// 부서 상세
+	// 직급추가
+	
+	@ResponseBody
+	@RequestMapping(value = "/dept/positionAdd", method = RequestMethod.POST)
+	public String positionAdd(DeptVO deptVO)throws Exception{
+		int result = deptService.positionAdd(deptVO);
+		return "redirect:./deptManage?deptNo="+deptVO.getDeptNo();
+	}
 
 	
-//    @GetMapping("dept/deptDetail")
-//    @ResponseBody
-//    public String getDeptDetails(@RequestParam("deptNo") String deptNo) {
-//        try {
-//            DeptVO deptVO = deptService.getDeptDetails(deptNo);        	
-//            return "<div>"+"<table>"
-//            		+ "<th>부서번호<th>"+ "<tr>"+"<td>" + deptVO.getDeptNo() + "</td>"+"</tr>"+
-//            		"<th>부서명</th>"+ "<tr>"+ "<td>" +deptVO.getDeptName()+ "</td>" +"</tr>"+
-//            		"<th>상위부서번호</th>"+ "<tr>"+ "<td>" + deptVO.getParentNo()+ "</td>" +"</tr>"+
-//            		"</table>"+"</div>";
-//        } catch (Exception e) {
-//            // Handle exception
-//            return "에러";
-//        }
-//    }
+
 	
 }

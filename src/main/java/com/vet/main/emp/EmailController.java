@@ -22,11 +22,11 @@ public class EmailController {
 	    emailService.sendMailTest(email);
 	}
 	
-	@RequestMapping(value = "/emp/sendMailAdd", method = RequestMethod.POST)
-	@ResponseBody
-	public void sendMailAdd(@RequestParam String email,@RequestParam String username,@RequestParam String phone) throws Exception {
-	    emailService.sendMailUser(email,username,phone);
-	}
+//	@RequestMapping(value = "/emp/sendMailAdd", method = RequestMethod.POST)
+//	@ResponseBody
+//	public void sendMailAdd(@RequestParam String email,@RequestParam String username,@RequestParam String phone) throws Exception {
+//	    emailService.sendMailUser(email,username,phone);
+//	}
 	
 	@ResponseBody
     @RequestMapping(value = "/code", method = RequestMethod.POST)

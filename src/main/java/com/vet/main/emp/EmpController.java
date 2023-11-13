@@ -147,6 +147,12 @@ public class EmpController {
 		return "redirect:./empList";
 	}
 	
+	@RequestMapping(value = "/emp/sendMailAdd", method = RequestMethod.POST)
+	@ResponseBody
+	public void sendMailAdd(@RequestParam String email,@RequestParam String username,@RequestParam String phone) throws Exception {
+	    empService.sendMailUser(email,username,phone);
+	}
+	
 	// 직원 상세
 	@GetMapping("empDetail")
 	public String empDetail (EmpVO empVO, Model model) throws Exception{

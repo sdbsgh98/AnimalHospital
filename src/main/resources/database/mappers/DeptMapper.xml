@@ -78,15 +78,14 @@
 	</select>
 			
 	<select id="deptPosition" parameterType="com.vet.main.dept.DeptVO">
-		SELECT P.POSITIONNO, P.POSITIONNAME FROM DEPARTMENT D INNER JOIN POSITION P ON D.DEPTNO = P.DEPTNO WHERE D.DEPTNO=#{deptNo}
+		SELECT P.POSITIONNO, P.POSITIONNAME 
+		FROM DEPARTMENT D INNER JOIN POSITION P 
+		ON D.DEPTNO = P.DEPTNO 
+		WHERE D.DEPTNO=#{deptNo}
 	</select>
-	
-	<select id="positionList" parameterType="com.vet.main.dept.DeptVO">
-	
-		SELECT * 
-		FROM POSITION P INNER JOIN DEPARTMENT D
-		ON P.DEPTNO = D.DEPTNO
-	
+	<!-- 부서관리에서 position 리스트 출력을 위한 sql -->
+	<select id="getDeptPosition" parameterType="com.vet.main.dept.DeptVO">
+		SELECT P.POSITIONNO, P.POSITIONNAME FROM DEPARTMENT D INNER JOIN POSITION P ON D.DEPTNO = P.DEPTNO WHERE D.DEPTNO=#{deptNo}
 	</select>
 	
 	<resultMap type="com.vet.main.dept.DeptVO" id="getDetailResult">
@@ -111,12 +110,16 @@
 	</insert>
 
 	<update id="deptUpdate" parameterType="com.vet.main.dept.DeptVO">
-	    UPDATE DEPARTMENT
+	    UPDATE DEPARTMENT D
+	    INNER JOIN POSITION P
+	    ON D.DEPTNO = P.DEPTNO
 	    SET
-	    DEPTNO = #{deptNo},
-	    DEPTNAME = #{deptName},
-	    PARENTNO = #{parentNo}
-	    WHERE DEPTNO = #{deptNo}
+	    D.DEPTNO = #{deptNo},
+	    D.DEPTNAME = #{deptName},
+	    D.PARENTNO = #{parentNo},
+	    P.POSITIONNO = #{positionNo},
+	    P.POSITIONNAME = #{positionName}
+	    WHERE D.DEPTNO = #{deptNo} AND P.POSITIONNO = #{positionNo}
 	</update>
 
 	<delete id="deptDelete" parameterType="com.vet.main.dept.DeptVO">
@@ -154,5 +157,9 @@
 		WHERE DEPTNO = #{deptNo}
 	</select>
 
-
+	<!-- 직급 추가 -->
+	<insert id="positionAdd" parameterType="com.vet.main.dept.DeptVO">
+		INSERT INTO POSITION
+		VALUES (NULL, #{positionName}, #{deptNo})
+	</insert>
 </mapper>

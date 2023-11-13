@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -44,7 +45,7 @@ public class EmpService implements UserDetailsService{
 	private EmpDAO empDAO;
 
 	@Autowired
-	private JavaMailSender mailSender;
+	private JavaMailSender javaMailSender;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -142,6 +143,21 @@ public class EmpService implements UserDetailsService{
 		
 		return result;
 	}
+	
+	public void sendMailAdd(String email, String username, String phone) {
+		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+		
+		simpleMailMessage.setTo(email);
+		simpleMailMessage.setSubject("[동물병원] 로그인 관련 안내입니다.");
+		simpleMailMessage.setText("안녕하세요. 사원번호는 " + username + "이며 비밀번호는 " + phone + "입니다.");
+		
+		javaMailSender.send(simpleMailMessage);
+	}
+	
+    public void sendMailUser(String email, String username, String phone) {
+        sendMailAdd(email, username, phone);
+    }
+	
 	
 	public boolean getPwError(PwVO pwVO ,BindingResult bindingResult)throws Exception{
 		boolean check = false; // false면 error 없음, true면 error 있음 (검증실패)

@@ -74,12 +74,16 @@ public class DeptService {
 		return deptDAO.deptDetail(deptVO);
 	}
 	
-	public List<String> positionList(String deptNo) throws Exception{
-		return deptDAO.positionList(deptNo);
+	public List<DeptVO> getDeptPosition(DeptVO deptVO) throws Exception{
+		return deptDAO.getDeptPosition(deptVO);
 	}
 	
-    public DeptVO getDeptDetails(String deptNo) {
+    public DeptVO getDeptDetails(String deptNo) throws Exception{
         return deptDAO.getDeptDetails(deptNo);
+    }
+    
+    public int positionAdd(DeptVO deptVO)throws Exception{
+    	return deptDAO.positionAdd(deptVO);
     }
     
 }

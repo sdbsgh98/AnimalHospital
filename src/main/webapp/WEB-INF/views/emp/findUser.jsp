@@ -156,7 +156,12 @@
 		        success: function (data) {
 		            if (data === "success") {	        	    
 		                alert("사용자가 확인되었습니다. 이메일 인증을 진행해주세요.");
-		                btn_check(1);
+		                btn_check(1)
+		                
+		    		    $("#username").prop("readonly", true);
+		    		    $("#empName").prop("readonly", true);
+		    		    $("#email").prop("readonly", true);
+		                
 		            } else {
 		                alert("일치하는 사용자가 없습니다.");
 		                btn_check(0);
@@ -167,9 +172,7 @@
 		        }
 		    });
 	     
-		    $("#username").prop("readonly", true);
-		    $("#empName").prop("readonly", true);
-		    $("#email").prop("readonly", true);
+
 	});
 	</script>
 
