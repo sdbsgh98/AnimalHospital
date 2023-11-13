@@ -25,8 +25,8 @@ public class SurgeryService {
 		return surgeryDAO.setSurgeryAdd(surgeryVO);
 	}
 	
-	public List<CustomerVO> getCustomerList(CustomerVO customerVO) throws Exception{
-		return surgeryDAO.getCustomerList(customerVO);
+	public List<CustomerVO> getCustomerList(String animalName) throws Exception{
+		return surgeryDAO.getCustomerList(animalName);
 	}
 	
 	public List<EmpVO> getEmpList() throws Exception{

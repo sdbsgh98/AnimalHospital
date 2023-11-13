@@ -13,7 +13,7 @@ public class SurgeryVO {
 	private Long surgeryNo;
 	private LocalDateTime surgeryStart;
 	private LocalDateTime surgeryEnd;
-	private Integer surgeryRoom;
+	private String surgeryRoom;
 	private String surgeryName;
 	
 	private Long customerNo;

@@ -17,11 +17,13 @@ public interface TreatmentDAO {
 	public List<TreatmentVO> getScheduleList();
 	public List<TreatmentVO> getDeptScheduleList(TreatmentVO treatmentVO);
 	public int setTreatmentAdd(TreatmentVO treatmentVO);
-	public List<CustomerVO> getCustomerList(CustomerVO customerVO);
-	public List<EmpVO> getEmpList();
+	public List<CustomerVO> getCustomerList(String animalName);
+	public List<EmpVO> getEmpList(String deptNo);
 	public List<DeptVO> getDeptList();
+	public List<EmpVO> getAllEmpList();
 	public TreatmentVO getDetail(TreatmentVO treatmentVO);
 	public int setDelete(TreatmentVO treatmentVO);
 	public int setUpdate(TreatmentVO treatmentVO);
 	public List<TreatmentVO> getTreatment();
+	public int reservedTreat(TreatmentVO treatmentVO);
 }

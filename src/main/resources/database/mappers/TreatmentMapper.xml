@@ -32,21 +32,33 @@
 		INSERT INTO TREATMENT VALUES(NULL, #{treatmentDate}, #{customerNo}, #{username})		
 	</insert>
 	
-	<select id="getCustomerList" parameterType="CustomerVO" resultType="CustomerVO">
+	<select id="getCustomerList" parameterType="String" resultType="CustomerVO">
 		SELECT CUSTOMERNO, ANIMALNAME, NAME
 		  FROM CUSTOMER
 		 WHERE ANIMALNAME=#{animalName}
 	</select>	
 	
-	<select id="getEmpList"  resultType="EmpVO">
+	<select id="getEmpList"  parameterType="String" resultType="EmpVO">
 		SELECT E.USERNAME, E.EMPNAME, E.DEPTNO, D.DEPTNAME , P.POSITIONNAME 
 		  FROM EMP E
 				 INNER JOIN DEPARTMENT D 
 				         ON E.DEPTNO = D.DEPTNO 
 				 INNER JOIN POSITION P 
 				 		 ON E.POSITIONNO = P.POSITIONNO
-					  WHERE P.POSITIONNO BETWEEN 2 AND 6		       	
+					  WHERE E.DEPTNO=#{deptNo}		       	
 	</select>
+
+	
+	<select id="getAllEmpList" resultType="EmpVO">
+		SELECT E.USERNAME, E.EMPNAME, E.DEPTNO, D.DEPTNAME , P.POSITIONNAME 
+		  FROM EMP E
+				 INNER JOIN DEPARTMENT D 
+				         ON E.DEPTNO = D.DEPTNO 
+				 INNER JOIN POSITION P 
+				 		 ON E.POSITIONNO = P.POSITIONNO
+					  WHERE E.DEPTNO BETWEEN 400 AND 600;      	
+	</select>
+	
 	
 	<select id="getDeptList" resultType="DeptVO">
 		SELECT DEPTNO, DEPTNAME
@@ -70,6 +82,14 @@
 		  	   INNER JOIN CUSTOMER C
 		  	   		   ON T.CUSTOMERNO=C.CUSTOMERNO
 	</select>
+	
+	<select id="reservedTreat" parameterType="TreatmentVO" resultType="Integer">
+		SELECT COUNT(*)
+		  FROM TREATMENT T
+		 WHERE TREATMENTDATE=#{treatmentDate} AND USERNAME=#{username}
+	</select>
+	
+	
 	
 	<update id="setUpdate" parameterType="TreatmentVO">
 		UPDATE TREATMENT 

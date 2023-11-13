@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vet.main.hostpitalize.HospitalizeDAO">
+	
+	<insert id="setHospitalize" parameterType="HospitalizeVO">
+		INSERT INTO HOSPITALIZE VALUES(NULL, #{customerNo}, #{username}, #{startDate}, #{lastDate},
+									#{cageNo}, 1)
+	</insert>
+	
+	<select id="getCustomerList" parameterType="String" resultType="CustomerVO">
+		SELECT CUSTOMERNO, ANIMALNAME, NAME
+		  FROM CUSTOMER
+		 WHERE ANIMALNAME=#{animalName}
+	</select>
+		
+	<select id="getCustomer" parameterType="CustomerVO" resultType="CustomerVO">
+		SELECT C.*,T.DISEASE, T.USERNAME
+			  FROM CUSTOMER C
+			    INNER JOIN TREATMENTCHART T 
+			         	ON C.CUSTOMERNO = T.CUSTOMERNO
+			 WHERE CUSTOMERNO = #{customerNo}
+	</select>
+	
+
+	
+	
+</mapper>

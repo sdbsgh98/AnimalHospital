@@ -72,11 +72,11 @@ public class SurgeryController {
 	
 		
 	//고객검색
-	@GetMapping("customerList")	
-	public List<CustomerVO> getCustomerList(Model model, CustomerVO customerVO)throws Exception{
-		List<CustomerVO> list = surgeryService.getCustomerList(customerVO);
-		model.addAttribute("list", list);	
-			
+	@PostMapping("customerList")
+	@ResponseBody
+	public List<CustomerVO> getCustomerList(String animalName)throws Exception{
+		List<CustomerVO> list = surgeryService.getCustomerList(animalName);
+		
 		log.info("customerlist:{}", list );
 			
 		return list;	

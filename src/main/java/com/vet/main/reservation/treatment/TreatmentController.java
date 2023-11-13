@@ -38,11 +38,15 @@ public class TreatmentController {
 
 	
 	@GetMapping("schedule")
-	public String getScheduleList1(Model model, EmpVO empVO)throws Exception{
-		List<EmpVO> emplist = treatmentService.getEmpList();
+	public String getScheduleList1(Model model)throws Exception{
+		/* List<EmpVO> emplist = treatmentService.getEmpList(); */
 		List<DeptVO> deptlist = treatmentService.getDeptList();
-
-		model.addAttribute("emplist", emplist);
+		
+		/*
+		 * log.info("####emplist확인:{}",emplist);
+		 * 
+		 * model.addAttribute("emplist", emplist);
+		 */
 		model.addAttribute("deptlist", deptlist);
 		
 		
@@ -52,26 +56,25 @@ public class TreatmentController {
 	//전체 예약스케줄
 	@PostMapping("schedule")
 	@ResponseBody
-	public List<TreatmentVO> getScheduleList()throws Exception{
+	public List<Map<String,Object>> getScheduleList()throws Exception{
 		List<TreatmentVO> list = treatmentService.getScheduleList();
 		
-//		JSONObject jsonObj = new JSONObject();
-//		JSONArray jsonArr = new JSONArray();
-//		HashMap<String, Object> hash = new HashMap<>();
-//		
-//		for(int i=0; i < list.size(); i++) {
-//			hash.put("title", list.get(i).getAnimalName());		
-//			hash.put("start", list.get(i).getTreatmentDate());			
-//			hash.put("id", list.get(i).getTreatmentNo());
-//		
-//			jsonObj = new JSONObject(hash); 
-//			jsonArr.add(jsonObj);		
-//		}
-//		
-//		log.info("jsonArrCheck:{}", jsonArr);
-//		
-//		return jsonArr;	
-		return list;
+		JSONObject jsonObj = new JSONObject();
+		JSONArray jsonArr = new JSONArray();
+		HashMap<String, Object> hash = new HashMap<>();
+		
+		for(int i=0; i < list.size(); i++) {
+			hash.put("title", list.get(i).getAnimalName());		
+			hash.put("start", list.get(i).getTreatmentDate());			
+			hash.put("id", list.get(i).getTreatmentNo());
+		
+			jsonObj = new JSONObject(hash); 
+			jsonArr.add(jsonObj);		
+		}
+		
+		log.info("jsonArrCheck:{}", jsonArr);
+		
+		return jsonArr;		
 	}
 	
 	//부서별스케줄
@@ -100,32 +103,46 @@ public class TreatmentController {
 	
 	//예약추가
 	@PostMapping("scheduleAdd")
-	public String setTreatmentAdd(@RequestBody TreatmentVO treatmentVO)throws Exception{
+	@ResponseBody
+	public int setTreatmentAdd(@RequestBody TreatmentVO treatmentVO)throws Exception{
 		
-		treatmentService.setTreatmentAdd(treatmentVO);
+		int result = treatmentService.reservedTreat(treatmentVO);
+		int rst = 0;
 		
-		return "redirect:./schedule";
+		if(result==0) {
+			rst = treatmentService.setTreatmentAdd(treatmentVO);
+		}else {
+			rst=0;
+		}
+		
+		return rst;
 	}
 	
-	//고객리스트조회
-	@GetMapping("customerList")
-	public List<CustomerVO> getCustomerList(Model model, CustomerVO customerVO)throws Exception{
-		List<CustomerVO> list = treatmentService.getCustomerList(customerVO);
+	@PostMapping("customerList")
+	@ResponseBody
+	public List<CustomerVO> customerList(Model model,String animalName)throws Exception{
+		List<CustomerVO> list = treatmentService.getCustomerList(animalName);
+		
 		model.addAttribute("list", list);
+
+
 		log.info("customerlist:{}", list );
 		
 		return list;	
 	}
 	
-	//직원조회
-	@GetMapping("empList")
-	public String getEmpList(Model model)throws Exception{
-		List<EmpVO> list = treatmentService.getEmpList();
-		model.addAttribute("list", list);
-		
-		return "treatment/empList";	
-	}
 	
+	//직원조회
+	
+	  @PostMapping("empList")
+	  @ResponseBody
+	  public List<EmpVO> getEmpList(Model model, String deptNo)throws Exception{
+			List<EmpVO> list = treatmentService.getEmpList(deptNo);
+			model.addAttribute("list", list);
+	  
+	  return list; 
+	  }
+	 
 	/*
 	 * @GetMapping("scheduleDetail") public String getDetail()throws Exception{
 	 * return "treatment/scheduleDetail"; }
@@ -167,8 +184,8 @@ public class TreatmentController {
 		treatmentService.setUpdate(treatmentVO);
 		
 		return "redirect:./schedule";
-	}
-	
+	}	
+
 	
 	
 	
