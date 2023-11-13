@@ -118,19 +118,48 @@ $(document).ready(function() {
 
 
 
+  function isRadioChecked() {
+    var dayoffKind = document.getElementById('dayoffKind');
+
+    var radioButtons = dayoffKind.querySelectorAll('input[type="radio"]');
+
+    for (var i = 0; i < radioButtons.length; i++) {
+      if (radioButtons[i].checked) {
+        return true; // 체크된 라디오 버튼이 하나 이상 있음
+      }
+    }
+    return false; // 체크된 라디오 버튼이 없음
+  }
+
+
+
 // 글 ADD
 addBtn.addEventListener("click", function(){
 
-    if(apTitle.value == ""){
+    if(apTitle.value == "") {
         alert("제목을 입력해주세요.");
         apTitle.focus();
         return;
     }
-    if(apContents.value == ""){
+    if(apContents.value == "") {
         alert("내용을 입력해주세요.");
         apContents.focus();
         return;
     }
+    if(!isRadioChecked()) {
+		alert("휴가 구분을 선택해주세요.")
+	    dayoffKind.focus();
+    	return;
+	}
+    if(dayoffStartDate.value == "") {
+	    alert("날짜를 선택해주세요.");
+	    dayoffStartDate.focus();
+	    return;
+    }
+    if($("#firstLineUsername").val() == "") {
+		alert("결재자 선택은 필수입니다.");
+		return;
+	}
     
     // 폼에 입력한 데이터를 서버로 전송
     addFrm.submit();

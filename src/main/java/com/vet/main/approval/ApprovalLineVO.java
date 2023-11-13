@@ -15,10 +15,21 @@ import lombok.ToString;
 @ToString
 public class ApprovalLineVO {
 	private Long apNo;
-	private String userName;
+	private String username;
 	private String empName;
-	private String apContfimeState;
-	private String apContfimeDate;
+	private String apConfirmState;
+	private Date apConfirmDate;
+	private String aplStep;
 	
 	private String positionName;
+	
+	//sign
+	private String signName;
+	private String uploadName;
+	private String originalSignName;
+	private Date addDate;
+	
+	// 결재자 수, 미결기안 수
+	private Long aplCount;
+	private Long notSign;
 }

@@ -26,7 +26,7 @@
 
 	<c:import url="/WEB-INF/views/layout/headCSS.jsp"></c:import>
 	<meta charset="UTF-8">
-	<title>휴직신청서 작성</title>
+	<title></title>
 	
 	<style>
 	    .hidden {
@@ -54,11 +54,13 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 					
 						<div class="row">
-				    		<form action="vacationAdd" id="addFrm" method="post">
+				    		<form action="update" id="updateFrm" method="post">
 				    		
 				    			<div class="mb-3">
 								  <label for="username" class="form-label"></label>
 								  <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
+								  <input type="hidden" id="apKind" name="apKind" value="${approvalVO.apKind}">
+								  <input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
 								</div>
 								
 								
@@ -97,42 +99,40 @@
 								
  								<jsp:include page="/WEB-INF/views/approval/apLineSelect.jsp"></jsp:include>
 								
-								
-								
 				    						    			
 				    			<div class="mb-3">
 								  <label for="positionName" class="form-label">부서</label>
-								  <input type="text" class="form-control" id="positionName" name="positionName" value="${user.positionName}" readonly>
+								  <input type="text" class="form-control" id="positionName" name="positionName" value="${approvalVO.positionName}" readonly>
 								</div>
 								
 				    			<div class="mb-3">
 								  <label for="deptName" class="form-label">직급</label>
-								  <input type="text" class="form-control" id="deptName" name="deptName" value="${user.deptName}" readonly>
+								  <input type="text" class="form-control" id="deptName" name="deptName" value="${approvalVO.deptName}" readonly>
 								</div>
 								
 				    			<div class="mb-3">
 								  <label for="empName" class="form-label">성명</label>
-								  <input type="text" class="form-control" id="empName" name="empName" value="${user.empName}" readonly>
+								  <input type="text" class="form-control" id="empName" name="empName" value="${approvalVO.empName}" readonly>
 								</div>
 								
 				    			<div class="mb-3">
 								  <label for="apCDate" class="form-label">기안일자</label>
-								  <input type="text" class="form-control" id="apCDate" name="apCDate" value="${date}" readonly>
+								  <input type="text" class="form-control" id="apCDate" name="apCDate" value="${approvalVO.apCDate}" readonly>
 								</div>
 				    			
 				    			<div class="mb-3">
 								  <label for="apTitle" class="form-label">제목</label>
-								  <input type="text" class="form-control" id="apTitle" name="apTitle" placeholder="제목을 입력하세요">
+								  <input type="text" class="form-control" id="apTitle" name="apTitle" placeholder="제목을 입력하세요" value="${approvalVO.apTitle}">
 								</div>
 
 								<div class="mb-3">
 								  <label for="apContents" class="form-label">내용</label>
-								  <textarea class="form-control" id="apContents" name="apContents" rows="3" placeholder="내용을 입력하세요"></textarea>
+								  <textarea class="form-control" id="apContents" name="apContents" rows="3" placeholder="내용을 입력하세요">${approvalVO.apContents}</textarea>
 								</div>
 								
 					    		<div class="row">
 									<div class="demo-inline-spacing">
-										<button type="button" class="btn btn-primary" id="addBtn">작성</button>
+										<button type="button" class="btn btn-primary" onclick="updateSubmitBtn()">수정</button>
 										<button type="button" class="btn btn-primary" id="cancleBtn">취소</button>
 									</div>
 	                            </div>
@@ -153,6 +153,7 @@
 		<!-- Overlay -->
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
+	
 	
 	<!-- / Layout wrapper -->
 	<script src="${pageContext.request.contextPath}/assets/vendor/libs/popper/popper.js"></script>
@@ -180,7 +181,6 @@
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
 	 integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-	 
 	
 	<script>
 	$('#apContents').summernote({
@@ -195,9 +195,8 @@
 	$("#apContents").summernote('code'); 
 	</script>
 	
-	<script src="/js/approval/approvalAdd.js"></script>
+	<script src="/js/approval/detail.js"></script>
 	<script src="/js/approval/apLineSelect.js"></script>
-	
 	
 	<script>
 	    $(document).ready(function () {

@@ -59,9 +59,11 @@ public class ApprovalController {
 		List<DeptVO> ar = deptService.getApLineDept();
 		List<DeptVO> dept = deptService.selectApLineDept();
 
+		// 모달창에서 결재선 선택 리스트 뿌려줌
 		model.addAttribute("dept", dept);
 		model.addAttribute("list", ar);
-
+		
+		// 작성화면에서 로그인 직원의 정보와 현재 날짜를 뿌려줌
 		model.addAttribute("emp", empVO);
 		model.addAttribute("date", date);
 
@@ -84,26 +86,83 @@ public class ApprovalController {
 
 	// 기안 작성 데이터 전송 (지출결의서 제외)
 	@PostMapping("add/{apKind}")
-	public String setApAdd(@PathVariable String apKind, ApprovalVO approvalVO) throws Exception {
+	public String setApAdd(@PathVariable String apKind, ApprovalVO approvalVO, @RequestParam("lineUsername") String[] lineUsername
+							, @RequestParam("lineEmpName") String[] lineEmpName) throws Exception {
 
 		log.info("==================== Poom Insert ======================");
 		log.info("====== Poom : {} ======", approvalVO);
 
 		if (apKind.equals("poomAdd")) {
-
 			int result = approvalService.setApPoomAdd(approvalVO);
+			
+			for(int i=0; i<lineUsername.length; i++) {
+				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
+					break;
+				}
+				
+				ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+				approvalLineVO.setApNo(approvalVO.getApNo());
+				approvalLineVO.setUsername(lineUsername[i]);
+				approvalLineVO.setEmpName(lineEmpName[i]);
+				approvalLineVO.setAplStep(String.valueOf(i+1));
+				
+				result = approvalService.setApLine(approvalLineVO);
+			}
 
 		} else if (apKind.equals("dayoffAdd")) {
-
 			int result = approvalService.setApDayoffAdd(approvalVO);
+			
+			for(int i=0; i<lineUsername.length; i++) {
+				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
+					break;
+				}
+				
+				ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+				approvalLineVO.setApNo(approvalVO.getApNo());
+				approvalLineVO.setUsername(lineUsername[i]);
+				approvalLineVO.setEmpName(lineEmpName[i]);
+				approvalLineVO.setAplStep(String.valueOf(i+1));
+				
+				result = approvalService.setApLine(approvalLineVO);
+			}
 
 		} else if (apKind.equals("vacationAdd")) {
-
 			int result = approvalService.setApVacationAdd(approvalVO);
+			
+			for(int i=0; i<lineUsername.length; i++) {
+				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
+					break;
+				}
+				
+				ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+				approvalLineVO.setApNo(approvalVO.getApNo());
+				approvalLineVO.setUsername(lineUsername[i]);
+				approvalLineVO.setEmpName(lineEmpName[i]);
+				approvalLineVO.setAplStep(String.valueOf(i+1));
+				
+				result = approvalService.setApLine(approvalLineVO);
+			}
 
 		} else if (apKind.equals("retireAdd")) {
-
 			int result = approvalService.setApRetireAdd(approvalVO);
+			
+			for(int i=0; i<lineUsername.length; i++) {
+				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
+					break;
+				}
+				
+				ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+				approvalLineVO.setApNo(approvalVO.getApNo());
+				approvalLineVO.setUsername(lineUsername[i]);
+				approvalLineVO.setEmpName(lineEmpName[i]);
+				approvalLineVO.setAplStep(String.valueOf(i+1));
+				
+				result = approvalService.setApLine(approvalLineVO);
+			}
 		}
 
 		return "redirect:../draftList/" + approvalVO.getUsername();
@@ -115,7 +174,8 @@ public class ApprovalController {
 			@RequestParam("deptName") String deptName, @RequestParam("empName") String empName,
 			@RequestParam("apTitle") String apTitle, @RequestParam("expenseName") String[] expenseName,
 			@RequestParam("expenseAmount") Long[] expenseAmount, @RequestParam("expensePrice") Long[] expensePrice,
-			@RequestParam("expenseBigo") String[] expenseBigo) throws Exception {
+			@RequestParam("expenseBigo") String[] expenseBigo, @RequestParam("lineUsername") String[] lineUsername
+			, @RequestParam("lineEmpName") String[] lineEmpName) throws Exception {
 
 		ApprovalVO approvalVO = new ApprovalVO();
 
@@ -128,18 +188,35 @@ public class ApprovalController {
 		approvalService.setApExpenseAdd(approvalVO);
 
 		log.info("============= approvalVO : {} ==============", approvalVO);
-
+			
+		// 지출내역을 insert
 		for (int i = 0; i < expenseName.length; i++) {
 			ApprovalExpenseVO expenseVO = new ApprovalExpenseVO();
 			expenseVO.setApNo(approvalVO.getApNo());
 			expenseVO.setExpenseName(expenseName[i]);
 			expenseVO.setExpenseAmount(expenseAmount[i]);
-			expenseVO.setExpensePrice((expensePrice[i]));
-			expenseVO.setExpenseBigo((expenseBigo[i]));
+			expenseVO.setExpensePrice(expensePrice[i]);
+			expenseVO.setExpenseBigo(expenseBigo[i]);
 
 			approvalService.setExpenseAdd(expenseVO);
 
 			log.info("============= expenseVO : {} ==============", expenseVO);
+		}
+		
+		// 결재자를 insert
+		for(int i=0; i<lineUsername.length; i++) {
+			// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
+			if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
+				break;
+			}
+			
+			ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+			approvalLineVO.setApNo(approvalVO.getApNo());
+			approvalLineVO.setUsername(lineUsername[i]);
+			approvalLineVO.setEmpName(lineEmpName[i]);
+			approvalLineVO.setAplStep(String.valueOf(i+1));
+			
+			approvalService.setApLine(approvalLineVO);
 		}
 
 		return "redirect:../draftList/" + username;
@@ -177,11 +254,20 @@ public class ApprovalController {
 
 	@GetMapping("detail")
 	public String getApDetail(ApprovalVO approvalVO, Model model) throws Exception {
-
+		
 		approvalVO = approvalService.getApDetail(approvalVO);
 		Long apNo = approvalVO.getApNo();
+		
+		// 결재자 조회
 		List<ApprovalLineVO> line = approvalService.getApLinePerson(apNo);
 		model.addAttribute("line", line);
+		
+		// 결재자 도장 조회
+//		for(int i=0; i<line.size(); i++) {
+//			line.get(i);
+//		}
+//		List<ApprovalLineVO> lineSign = approvalService.getApSign(null);
+		
 
 		log.info("=============== detail 정보 : {} ================", approvalVO);
 
@@ -227,7 +313,7 @@ public class ApprovalController {
 
 	@PostMapping("apLineSelect") // 결재선에서 부서클릭시 맞는 부서들 출력
 	@ResponseBody
-	public List<EmpVO> getEmpSelectList(String deptName, Model model) throws Exception { // 선택한 부서에 맞는 사원들 리스트로 반환
+	public List<EmpVO> getEmpSelectList(String deptName) throws Exception { // 선택한 부서에 맞는 사원들 리스트로 반환
 		
 		List<EmpVO> selectList = new ArrayList<EmpVO>();
 		selectList = approvalService.getEmpSelectList(deptName);
@@ -249,38 +335,262 @@ public class ApprovalController {
 	}
 	
 	
-	
-	
-	
-//	@PostMapping("empList")
-//	public String getEmpSelectList(@RequestParam("deptName") String deptName, Model model) throws Exception {
-//		List<EmpVO> empList = approvalService.getEmpSelectList(deptName);
-//		model.addAttribute("emp", empList);
-//		log.info("############### 결재선 직원 목록 : {} ################", empList);
-//		
-//		return "approval/apLineSelect";
-//	}
-
-	/*
-	 * @GetMapping("apLineSelect") public String getDeptList(Model model)throws
-	 * Exception { List<DeptVO> ar = deptService.deptList(); List<DeptVO> dept =
-	 * deptService.selectDept();
-	 * 
-	 * model.addAttribute("dept", dept); model.addAttribute("list", ar);
-	 * 
-	 * return "approval/apLineSelect"; }
-	 */
-
+	// 결재자 수에 따른 처리과정 추가수정필요
+	// 반려
 	@PostMapping("reject")
 	public String rejectApprove(ApprovalVO approvalVO, Model model) throws Exception {
-
+		
+		String username = approvalVO.getUsername();
+		Long apNo = approvalVO.getApNo();
+		
+		// 전자결재 테이블에 업데이트
 		approvalVO.setApState("반려");
 
 		log.info("===================== 반려 : {} ======================", approvalVO);
 
-		approvalService.rejectApprove(approvalVO);
-		Long apNo = approvalVO.getApNo();
-		return "redirect:./detail?apNo=" + apNo;
+		approvalService.rejectApprove01(approvalVO);
+		
+		// 결재자 테이블에 업데이트
+		ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+		approvalLineVO.setApNo(apNo);
+		approvalLineVO.setUsername(username);
+		approvalLineVO.setApConfirmState("2");
+		
+		approvalService.setApprover(approvalLineVO);
+		
+		return "redirect:./approverList/" + username;
 	}
+	
+	// 결재
+	@PostMapping("approve")
+	public String setApprove(@RequestParam("apNo") Long apNo, @RequestParam("username") String username) throws Exception {
+		// 업데이트 데이터들 담을 객체 생성
+		ApprovalVO approvalVO = new ApprovalVO();
+		ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+		
+		// 전자결재 테이블에 결재상태 업데이트 (ajax로 받은 파라미터 넣어주기)
+		approvalVO.setApNo(apNo);
+		
+		// 결재자 수와 결재가 남았는지 확인 (ajax로 받은 파라미터 넣어주기)
+		ApprovalLineVO lineVO = approvalService.getApprovalState(apNo);
+		
+		// 결재라인 테이블에 결재상태 업데이트 (ajax로 받은 파라미터 넣어주기)
+		approvalLineVO.setApNo(apNo);
+		approvalLineVO.setUsername(username);
+		
+		if(lineVO.getAplCount() == 1) {
+			// 결재자가 1명일 경우
+			approvalVO.setApState("결재완료");
+			
+			// 결재자 테이블에 해당 결재자의 결재상태 업데이트
+			approvalLineVO.setApConfirmState("1");
+			
+		} else if(lineVO.getAplCount() == 2 && lineVO.getNotSign() == 2) {
+			// 결재자가 2명이고, 현재 결재되지 않은 기안이 2개일때
+			approvalVO.setApState("결재진행중");
+			
+			// 결재자 테이블에 해당 결재자의 결재상태 업데이트
+			approvalLineVO.setApConfirmState("1");
+			
+		} else if (lineVO.getAplCount() == 2 && lineVO.getNotSign() == 1) {
+			// 결재자가 2명이고, 현재 결재되지 않은 기안이 1개일때
+			approvalVO.setApState("결재완료");
+			
+			// 결재자 테이블에 해당 결재자의 결재상태 업데이트
+			approvalLineVO.setApConfirmState("1");
+	
+		}
+			
+		approvalService.setApState(approvalVO);
+		approvalService.setApprover(approvalLineVO);
+		
+		return "redirect:./approverList/" + username;
+	}
+	
+	@PostMapping("delete")
+	public String setApDelete(ApprovalVO approvalVO) throws Exception {
+		int result = approvalService.setApDelete(approvalVO);
+		String username = approvalVO.getUsername();
+		
+		return "redirect:./draftList/" + username;
+	}
+	
+	@GetMapping("update")
+	public String setApUpdate(ApprovalVO approvalVO, Model model) throws Exception {
+		approvalVO = approvalService.getApDetail(approvalVO);
+		String apKind = approvalVO.getApKind();
+		Long apNo = approvalVO.getApNo();
+		model.addAttribute("approvalVO", approvalVO);
+		
+		List<DeptVO> ar = deptService.getApLineDept();
+		List<DeptVO> dept = deptService.selectApLineDept();
+		
+		// 모달창에서 결재선 선택 리스트 뿌려줌
+		model.addAttribute("dept", dept);
+		model.addAttribute("list", ar);
+		
+		// 결재자 조회
+		List<ApprovalLineVO> line = approvalService.getApLinePerson(apNo);
+		model.addAttribute("line", line);
 
+		if (apKind.equals("품의서") || apKind.equals("휴가신청서") || apKind.equals("퇴직신청서")) {
+			return "approval/update";
+		} else if (apKind.equals("지출결의서")) {
+			ApprovalVO approvalVO2 = new ApprovalVO();
+			approvalVO2 = approvalService.getApExpenseDetail(approvalVO);
+			model.addAttribute("approvalVO", approvalVO2);
+
+			return "approval/expenseUpdate";
+			
+		} else if (apKind.equals("휴가신청서")) {
+			return "approval/dayoffUpdate";
+		}
+		
+		return null;
+	}
+	
+	@PostMapping("update")
+	public String setApUpdate(ApprovalVO approvalVO, @RequestParam("lineUsername") String[] lineUsername
+							, @RequestParam("lineEmpName") String[] lineEmpName) throws Exception {
+		Long apNo = approvalVO.getApNo();
+		String apKind = approvalVO.getApKind();
+		String username = approvalVO.getUsername();
+		
+		approvalService.resetApLine(apNo);
+		
+		
+		if (apKind.equals("품의서")) {
+			int result = approvalService.setApUpdate(approvalVO);
+			
+			for(int i=0; i<lineUsername.length; i++) {
+				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
+					break;
+				}
+				
+				ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+				approvalLineVO.setApNo(approvalVO.getApNo());
+				approvalLineVO.setUsername(lineUsername[i]);
+				approvalLineVO.setEmpName(lineEmpName[i]);
+				approvalLineVO.setAplStep(String.valueOf(i+1));
+				
+				result = approvalService.setApLine(approvalLineVO);
+			}
+
+		} else if (apKind.equals("휴가신청서")) {
+			int result = approvalService.setDayoffUpdate(approvalVO);
+			
+			for(int i=0; i<lineUsername.length; i++) {
+				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
+					break;
+				}
+				
+				ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+				approvalLineVO.setApNo(approvalVO.getApNo());
+				approvalLineVO.setUsername(lineUsername[i]);
+				approvalLineVO.setEmpName(lineEmpName[i]);
+				approvalLineVO.setAplStep(String.valueOf(i+1));
+				
+				result = approvalService.setApLine(approvalLineVO);
+			}
+
+		} else if (apKind.equals("휴직신청서")) {
+			int result = approvalService.setApUpdate(approvalVO);
+			
+			for(int i=0; i<lineUsername.length; i++) {
+				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
+					break;
+				}
+				
+				ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+				approvalLineVO.setApNo(approvalVO.getApNo());
+				approvalLineVO.setUsername(lineUsername[i]);
+				approvalLineVO.setEmpName(lineEmpName[i]);
+				approvalLineVO.setAplStep(String.valueOf(i+1));
+				
+				result = approvalService.setApLine(approvalLineVO);
+			}
+
+		} else if (apKind.equals("퇴직신청서")) {
+			int result = approvalService.setApUpdate(approvalVO);
+			
+			for(int i=0; i<lineUsername.length; i++) {
+				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
+				if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
+					break;
+				}
+				
+				ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+				approvalLineVO.setApNo(approvalVO.getApNo());
+				approvalLineVO.setUsername(lineUsername[i]);
+				approvalLineVO.setEmpName(lineEmpName[i]);
+				approvalLineVO.setAplStep(String.valueOf(i+1));
+				
+				result = approvalService.setApLine(approvalLineVO);
+			}
+		}
+
+		return "redirect:./draftList/" + username;
+	}
+	
+	
+	@PostMapping("update/expenseUpdate")
+	public String setApUpdate(@RequestParam("apNo") Long apNo, @RequestParam("username") String username, @RequestParam("apTitle") String apTitle, @RequestParam("expenseName") String[] expenseName,
+			@RequestParam("expenseAmount") Long[] expenseAmount, @RequestParam("expensePrice") Long[] expensePrice,
+			@RequestParam("expenseBigo") String[] expenseBigo, @RequestParam("expenseNo") Long[] expenseNo, @RequestParam("lineUsername") String[] lineUsername
+			, @RequestParam("lineEmpName") String[] lineEmpName) throws Exception {
+
+		ApprovalVO approvalVO = new ApprovalVO();
+		approvalVO.setApNo(apNo);
+		approvalVO.setApTitle(apTitle);
+		
+		approvalService.setApExpenseUpdate(approvalVO);
+
+		log.info("============= approvalVO : {} ==============", approvalVO);
+			
+		// 지출내역을 update
+		for (int i = 0; i <= 10; i++) {
+			ApprovalExpenseVO expenseVO = new ApprovalExpenseVO();
+			expenseVO.setApNo(apNo);
+			expenseVO.setExpenseName(expenseName[i]);
+			expenseVO.setExpenseAmount(expenseAmount[i]);
+			expenseVO.setExpensePrice(expensePrice[i]);
+			expenseVO.setExpenseBigo(expenseBigo[i]);
+			expenseVO.setExpenseNo(expenseNo[i]);
+
+			approvalService.setExpenseUpdate(expenseVO);
+
+			log.info("============= expenseVO : {} ==============", expenseVO);
+		}
+		
+		// 결재자를 insert
+		for(int i=0; i<lineUsername.length; i++) {
+			// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
+			if(lineUsername[i].equals("") || lineEmpName[i].equals("")) {
+				break;
+			}
+			
+			ApprovalLineVO approvalLineVO = new ApprovalLineVO();
+			approvalLineVO.setApNo(approvalVO.getApNo());
+			approvalLineVO.setUsername(lineUsername[i]);
+			approvalLineVO.setEmpName(lineEmpName[i]);
+			approvalLineVO.setAplStep(String.valueOf(i+1));
+			
+			approvalService.setApLine(approvalLineVO);
+		}
+
+		return "redirect:../draftList/" + username;
+	}
+	
+	@GetMapping("expenseDel")
+	public int setExpenseDelete(@RequestParam(value = "apNo") Long apNo, @RequestParam(value = "expenseName") String expenseName) throws Exception {
+		ApprovalExpenseVO expenseVO = new ApprovalExpenseVO();
+		expenseVO.setApNo(apNo);
+		expenseVO.setExpenseName(expenseName);
+		int result = approvalService.setExpenseDelete(expenseVO);
+		return result;
+	}
+	
 }
