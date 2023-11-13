@@ -152,22 +152,32 @@
   		E.STATE = #{state}
   		WHERE E.USERNAME=#{username}	
   	</update>
-  	<select id="findUsername" parameterType="com.vet.main.emp.EmpVO" resultMap="getDetailResult">
-  		SELECT USERNAME FROM EMP WHERE EMPNAME = #{empName} AND EMAIL = #{email}
+  	<select id="findUser" parameterType="com.vet.main.emp.FindVO">
+  		SELECT COUNT(*) FROM EMP WHERE EMPNAME = #{empName} AND EMAIL = #{email}
   	</select>
-  	<update id="pwUpdate" parameterType="com.vet.main.emp.EmpVO">
+  	
+  	<select id="checkUser" parameterType="com.vet.main.emp.FindVO">
+  		SELECT COUNT(*) FROM EMP WHERE EMPNAME = #{empName} AND EMAIL = #{email}
+  	</select>
+  	
+  	<select id="checkEmail" parameterType="com.vet.main.emp.FindVO">
+  		SELECT COUNT(*) FROM EMP WHERE EMAIL = #{email}
+  	</select>
+  	
+  	
+  	<update id="pwUpdate" parameterType="com.vet.main.emp.PwVO">
   		UPDATE EMP 
   		SET
   		PASSWORD = #{password},
-  		RANDOMPW = 1	
+  		RANDOMPW = #{randomPw}	
   		WHERE USERNAME=#{username}
   	</update>
   	
-  	<select id="pwdCheck" resultType="Integer">
+<!--   	<select id="pwdCheck" resultType="Integer">
   		SELECT COUNT(*) 
   		FROM EMP
   		WHERE USERNAME = #{username} and EMPNAME = #{empName} and EMAIL = #{email}
-  	</select>
+  	</select> -->
   	
   	  <update id="mypageUpdate" parameterType="com.vet.main.emp.EmpVO">
   		UPDATE EMP
@@ -182,13 +192,14 @@
   	<select id="getDeptNo" parameterType="com.vet.main.emp.EmpVO">
 		SELECT *
 		FROM DEPARTMENT
-		WHERE PARENTNO != 0	|| DEPTNO = 999
+		WHERE PARENTNO != 0	AND DEPTNO != 999
 	</select>
 	
-  	 <select id="getPositionNo" parameterType="com.vet.main.emp.EmpVO">
-		SELECT *
+  	 <select id="getPositionNo" parameterType="java.lang.String">
+		SELECT P.*
 		FROM DEPARTMENT D INNER JOIN POSITION P
-		ON D.DEPTNO = P.DEPTNO	
+		ON D.DEPTNO = P.DEPTNO
+		WHERE D.DEPTNO=#{deptNo}	
 	</select>
 	
 	<!-- SIGN -->
@@ -211,7 +222,7 @@
 			UPLOADNAME = #{uploadName}, 
 			ORIGINALSIGNNAME = #{originalSignName}, 
 			ADDDATE = NOW()
-			ON DUPLICATE KEY UPDATE
+		ON DUPLICATE KEY UPDATE
 			SIGNNAME = #{signName}, 
 			UPLOADNAME = #{uploadName}, 
 			ORIGINALSIGNNAME = #{originalSignName}	

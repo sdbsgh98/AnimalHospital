@@ -127,34 +127,33 @@
 					      </div>
 					      <div class="modal-body">
 
-					         <form action="empAdd" method="post" enctype="multipart/form-data" id="empAdd" class="was-validated">
-								<input type="hidden" class="form-control" name="username" id="username">
+					         <form action="empAdd" method="post" enctype="multipart/form-data" id="empForm">
+								<input type="hidden" class="form-control" name="username" id="username"">
 								<input type="hidden" class="form-control" name="password" id="password">
-									<table style="margin: auto;">
-										<tr>
-											<td>이름</td>
-											<td><input type="text" class="form-control" name="empName" id="empName" required></td>
-											<td><div class="valid-feedback">Valid.</div></td>
-											<td><div class="invalid-feedback">Please fill out this field.</div></td>
-										</tr>
-										<tr>
-											<td>이메일</td>
-											<td><input type="email" class="form-control mail" name="email" id="email"></td>
-										</tr>
+								   <div class="form-group">
+							            <label for="empName">이름</label>
+							            <input type="text" class="form-control" id="empName" name="empName" placeholder="ex) 홍길동">
+							            <div id="empNameError" class="error"></div>
+							        </div>
+								   <div class="form-group">
+							            <label for="email">이메일</label>
+							            <input type="email" class="form-control" id="email" name="email" placeholder="ex) example@gmail.com">
+							            <input type="button" class="form-control" id="emailCheck" value="이메일 중복확인" style="background-color: rgb(255,239,222); margin-top: 5px;">
+							            <div id="emailError" class="error"></div>
+							        </div>
+								   <div class="form-group">
+							            <label for="phone">연락처</label>
+							            <input type="text" class="form-control" id="phone" name="phone" placeholder="ex) 01012345678">
+							            <div id="phoneError" class="error"></div>
+							        </div>
+								   <div class="form-group">
+							            <label for="birth">생년월일</label>
+							            <input type="date" class="form-control" id="birth" name="birth" placeholder="ex) 1900-01-01">
+							            <div id="birthError" class="error"></div>
+							        </div>							        							        							        
 
-										<tr>
-											<td>연락처</td>
-											<td><input type="text" class="form-control" name="phone" id="phone"></td>
-										</tr>
-
-										<tr>
-											<td>생년월일</td>
-											<td><input type="date" class="form-control" id="birth" name="birth"></td>
-										</tr>
-										
-									</table>
 								</form>
-					          		<br>
+				          	<br>
 							      <div class="modal-footer">
 							        <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 							        <button class="btn btn-primary" id="addBtn">추가</button>
@@ -185,8 +184,9 @@
 		let email = $("#email").val();
 		let phone = $("#phone").val();
 		let birth = $("#birth").val();
+		let username = $("#username").val();
 		
-		let data = {empName:empName, email:email, phone:phone, birth:birth};
+		let data = {username:username, empName:empName, email:email, phone:phone, birth:birth};
 		
 		if(empName == ""){
 	        alert("이름은 필수입력사항입니다.");
@@ -215,7 +215,7 @@
 			method:"post",	
 			success : function(){
 				console.log(data);
-				alert("등록이 완료되었습니다!");
+				alert("등록이 완료되었습니다.");
 				location.href="/emp/empList";
 			},
 			error : function(data){
@@ -224,7 +224,52 @@
 			}
 		});
 	 
+	    $.ajax({
+	        url: "/emp/sendMailAdd", 
+	        type: "POST",
+	        data: {email: $("#email").val(), username: $("#username").val(), phone : $("#phone").val()},  
+	        success: function () {
+	            alert("인증메일 발송완료"); 
+	            console.log(data);
+	        },
+	        error: function () {
+	            console.log("문제있음"); 
+	        }
+	    });  
+	    
 		
+	});
+	</script>
+
+	<script type="text/javascript">
+	$('#emailCheck').on("click", function () {
+	    let email = $("#email").val();
+
+	    if (email === "") {
+	        alert("이메일을 입력해주세요.");
+	        email.focus();
+	        return;
+	    }	
+	    
+	     $.ajax({
+		        url: "/emp/findEmail",
+		        type: "POST",
+		        data: {email: email},
+		        success: function (data) {
+		            if (data === "success") {	        	    
+		                alert("사용할 수 없는 이메일입니다.");
+		                email.focus();
+						return;
+		            } else {
+		                alert("사용가능한 이메일입니다.");
+		                $("#email").prop("readonly", true);
+		            }
+		        },
+		        error: function () {
+		        	alert("오류발생");
+		        }
+		    });
+	     
 	});
 	</script>
 

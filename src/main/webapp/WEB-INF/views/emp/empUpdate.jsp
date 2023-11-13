@@ -62,26 +62,24 @@
 										</td>
 									</tr>
 									<tr>
-										<td>부서</td>
-										<td>
-											<select class="form-control" name='deptNo' id="deptNo" style="height: 35px;">
-												<option value="${vo.deptNo}" selected="selected">${vo.deptName}</option>										
-													<c:forEach items="${dept}" var="dept">
-														<option value="${dept.deptNo}">${dept.deptName}</option>
-													</c:forEach>
-											</select>
-										</td>
+									<tr>
+									    <td>부서</td>
+									    <td>
+									        <select class="form-control" name='deptNo' id="deptNo" style="height: 35px">
+									            <option value="${vo.deptNo}" selected="selected">${vo.deptName}</option>
+									            <c:forEach items="${dept}" var="dept">
+									                <option value="${dept.deptNo}">${dept.deptName}</option>
+									            </c:forEach>
+									        </select>
+									    </td>
 									</tr>
 									<tr>
-										<td>직급</td>
-										<td>
-											<select class="form-control" name='positionNo' id="positionNo" style="height: 35px;">
-												<option value="${vo.positionNo}">${vo.positionName}</option>										
-													<c:forEach items="${po}" var="po">
-														<option value="${po.positionNo}">${po.positionName}</option>
-													</c:forEach>
-											</select>
-										</td>
+									    <td>직급</td>
+									    <td>
+									        <select class="form-control" name='positionNo' id="positionNo" style="height: 35px">
+									            <option value="${vo.positionNo}">${vo.positionName}</option>
+									        </select>
+									    </td>
 									</tr>
 									<tr>
 										<td>상태</td>
@@ -144,36 +142,36 @@
 		<div class="layout-overlay layout-menu-toggle"></div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-<!-- <script type="text/javascript">
+<script>
+document.getElementById("deptNo").addEventListener("change", function () {
+    var selectedDeptNo = this.value;  // 선택된 부서의 값
+    console.log(selectedDeptNo);
+    
+    $.ajax({
+        type: "GET",
+        url: "/emp/getPositionsByDept",
+        data: { deptNo: selectedDeptNo },
+        success: function (positions) {
+            var positionSelect = document.getElementById("positionNo");
 
-	$(function(){
-	    $('#deptNo').change(function(){
-	        let selectedDeptNo = $(this).val();
-	        let username = $('#username').text();
-	        
-	        $.ajax({
-	            url: '/empUpdate?username=' + username, 
-	            method: 'GET',
-	            data: { deptNo: selectedDeptNo },
-	            success: function(data) {
-	                $('#positionNo').empty();
-	                
-	                for (let i = 0; i < data.length; i++) {
-	                    $('#positionNo').append($('<option>', {
-	                        value: data[i].positionNo,
-	                        text: data[i].positionName
-	                    }));
-	                }
-	                
-	                $('#positionNo').prop('selectedIndex', 0);
-	            },
-	            error: function() {
-	                console.log(username);
-	                console.log(selectedDeptNo);
-	            }
-	        });
-	    });
-	});
-</script> -->
+            // 기존 옵션 제거
+            while (positionSelect.firstChild) {
+                positionSelect.removeChild(positionSelect.firstChild);
+            }
+
+            // 새로운 옵션 추가
+            positions.forEach(function (position) {
+                var option = document.createElement("option");
+                option.value = position.positionNo;
+                option.text = position.positionName;
+                positionSelect.appendChild(option);
+            });
+        },
+        error: function () {
+            console.error("Failed to load positions.");
+        }
+    });
+});
+</script>
 </body>
 </html>
