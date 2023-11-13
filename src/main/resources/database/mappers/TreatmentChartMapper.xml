@@ -25,8 +25,8 @@
 		
 		<!-- 진료차트추가 -->
 		<insert id="setAdd" parameterType="TreatmentChartVO"  useGeneratedKeys="true" keyProperty="chartNo">
-			INSERT INTO TREATMENTCHART (CHARTNO, CONTENTS, DISEASE, DATE, CUSTOMERNO, USERNAME, MEDICINENO)
-				VALUES (NULL, #{contents}, #{disease}, #{date}, #{customerNo}, #{username}, #{medicineNo})
+			INSERT INTO TREATMENTCHART (CHARTNO, CONTENTS, DISEASE, DATE, CUSTOMERNO, USERNAME, MEDICINENO, COUNT)
+				VALUES (NULL, #{contents}, #{disease}, #{date}, #{customerNo}, #{username}, #{medicineNo}, #{count})
 				<!-- INSERT INTO TREATMENTCHART SET 
 					CHARTNO = NULL,
 					CONTENTS = #{contents},

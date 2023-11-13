@@ -118,9 +118,9 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											</div>
 											
 											<!-- 약물추가 -->
-											 <div class="mb-3">
+											<!-- <div class="mb-3">
 						                        <button type="button" class="btn btn-primary" id="medicinePlusBtn">약품 추가</button>
-						                    </div> 
+						                    </div>  -->
 						                    
 						                    <%-- <div id="addList" class="my-5">
 												<div class="medicine row g-3 mb-2" id="medicine" name="medicine">
@@ -137,7 +137,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 															<option value="${a.medicineNo}">${a.name}</option>
 														</c:forEach>
 												    </select>
-												   <!-- <input type="text" class="form-control me-2" id="stock" name="stock" placeholder="수량" style="width:100px;"> -->
+												   <input type="text" class="form-control me-2" id="count" name="count" placeholder="수량" style="width:100px;">
 												</div> 
 						                    </div>
 											
