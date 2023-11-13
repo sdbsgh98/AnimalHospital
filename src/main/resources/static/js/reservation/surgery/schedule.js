@@ -15,6 +15,8 @@ $(function(){
 		console.log(data);
 	
 		var calendarEl = document.getElementById('calendar');
+		let nowDate = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+		
 		
 		$('#closeBtn').on("click",function(){
 							$("#customerNo").val("");
@@ -34,7 +36,63 @@ $(function(){
 					click : function(){
 						$('#addModal').modal("show");
 						
-					
+						//현재날짜를 min으로 설정
+						let dateElement = document.getElementById('surgeryStart');
+						let dateElement2 = document.getElementById('surgeryEnd');
+						      					
+       					dateElement.value = nowDate;
+       					dateElement.setAttribute("min", nowDate);
+       					
+						dateElement2.value = nowDate;
+       					dateElement2.setAttribute("min", nowDate);
+       					
+       					//고객검색버튼 눌렀을때
+						$("#customerSearch").on("click", function(){
+							var animalName=$("#animalName").val();				
+							
+							$.ajax({
+								url:"/surgery/customerList",
+								data:{
+									animalName:animalName
+								},
+								method: "POST",
+								success : function(data){
+									if(data.length==0){
+										$("#animalName").val("");
+										alert("일치하는 고객정보가 없습니다!다시 입력해주세요")										
+									}else{									
+										$("#listModal").modal("show");
+										console.log(data);
+										$("#customer").empty();
+										
+										//조회된 결과
+										for(let i =0; i <data.length; i++){										
+											let animal = data[i].animalName;
+											let name = data[i].name;
+											let no = data[i].customerNo;
+											
+										    let inputElement = $('<input>', { type: 'radio', name: 'cusCheck', value:no});
+										
+										    $("#customer").append($('<br>'))
+	                  						$("#customer").append(inputElement);
+	                  						$("#customer").append(name);                 					          				
+                  						}								
+									}
+									
+								 //보호자선택하고 등록 눌렀을때
+								  $('#submit').click(function() {
+									var customerNo =  $("input[type=radio][name=cusCheck]:checked").val();
+									console.log(customerNo);
+       								
+       								$("#customerNo").val(customerNo);
+       								$("#listModal").modal("hide");
+       							  })
+																								
+								}
+							
+							})						
+						})
+       			
 						//등록버튼클릭시
 						$('#addBtn').on("click", function(){
 
@@ -80,7 +138,7 @@ $(function(){
 				$("#addModal").modal("show");
 				console.log('coords',jsEvent.pageX,jsEvent.pageY);
 			},
-			editable: true,
+			editable: false,
 			selectable: true,
 			locale: 'ko',
 			dateClick: function() {  
@@ -121,19 +179,24 @@ $(function(){
 						
 						 //수정버튼클릭시
 						$("#modifyBtn").on("click", function(){	
-							$("#detailModal").modal("hide");
-							$("#updateModal").modal("show");
-							
-							$("#upname").val(detail.animalName);
-							$("#upsurno").val(detail.surgeryRoom);
-							$("#upsurname").val(detail.surgeryName);
-							$("#upusername").val(detail.userName);
-							
-							$("#upstartdate").val(detail.surgeryStart);
-							$("#upenddate").val(detail.surgeryEnd);
+							 var treatdate =  $("#getstartdate").val();
+						
+							 var daterst = treatdate>=nowDate
 					
-							var usernameval = $("#upusername");
-							console.log(usernameval);		
+						    console.log(daterst);
+							
+							if(daterst==true){							
+								$("#detailModal").modal("hide");
+								$("#updateModal").modal("show");
+								
+								$("#upname").val(detail.animalName);
+								$("#upsurno").val(detail.surgeryRoom);
+								$("#upsurname").val(detail.surgeryName);
+								$("#upusername").val(detail.userName);
+								
+								$("#upstartdate").val(detail.surgeryStart);
+								$("#upenddate").val(detail.surgeryEnd);
+							}
 							
 					   })				
 											            													

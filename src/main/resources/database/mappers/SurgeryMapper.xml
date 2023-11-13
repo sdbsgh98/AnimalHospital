@@ -21,7 +21,7 @@
 										#{surgeryName},#{customerNo}, #{userName});
 	</insert>	
 	
-	<select id="getCustomerList" parameterType="CustomerVO" resultType="CustomerVO">
+	<select id="getCustomerList" parameterType="String" resultType="CustomerVO">
 		SELECT CUSTOMERNO, ANIMALNAME, NAME
 		  FROM CUSTOMER
 		 WHERE ANIMALNAME=#{animalName}

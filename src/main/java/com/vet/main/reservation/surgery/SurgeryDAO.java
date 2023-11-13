@@ -12,7 +12,7 @@ public interface SurgeryDAO {
 	
 	public List<SurgeryVO> getScheduleList();
 	public int setSurgeryAdd(SurgeryVO surgeryVO);
-	public List<CustomerVO> getCustomerList(CustomerVO customerVO);
+	public List<CustomerVO> getCustomerList(String animalName);
 	public List<EmpVO> getEmpList();
 	public SurgeryVO getDetail(SurgeryVO surgeryVO);
 	public int setDelete(SurgeryVO surgeryVO);

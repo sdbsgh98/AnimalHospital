@@ -193,7 +193,7 @@
                   </a>
                 </li>
                  <li class="menu-item">
-                  <a href="extended-ui-text-divider.html" class="menu-link">
+                  <a href="/hospitalize/add" class="menu-link">
                     <div data-i18n="Text Divider">입원실 관리</div>
                   </a>
                 </li>               

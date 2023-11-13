@@ -46,41 +46,133 @@
                        <h1 class="modal-title fs-5" id="exampleModalLabel">수술실 예약</h1>
                        <button type="button" id="closeBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                      </div>
-                     <div class="modal-body">               
-                     <input type="hidden" id="customerNo" name="customerNo" value="${param.customerNo}" >
-                     	<form action="./customerList" method="get">
-                        <div>
-                     	    이름 : <input type="text" name="animalName" id="animalName" value="${param.animalName}">                  
-                        <button type="submit" id="customerSearch" class="btn btn-primary" >검색</button>
-                        </div>
-                        </form>
-                        <input type="hidden" id="username" value="${param.username}">                  
-                        
-                        <div>                    
-                     	  수술의사    : <input type="text" readonly class="plaintext" id="empName" name="empName" value="${param.empName}">                     
-                        </div>
-                        <div> 수술실  :  <select name='surgeryRoom' id="surgeryRoom" class="form-select form-select-sm" aria-label="Small select example"> 
-                                                <option value="1">수술실1</option>
-                                                <option value="2">수술실2</option>
-                                          </select> 
-				              </div>
-                        <div> 수술명 : <input type="text" id="surgeryName"></div>
-                        <div>
-                     	    수술 시작시간 : <input type="datetime-local" id="surgeryStart">
-                        </div>
-                        <div>
-                            수술 예상종료시간 : <input type="datetime-local" id="surgeryEnd">
-                         </div>              
-                     </div>
-                     <div class="modal-footer">
-                       <button type="button" id="closeBtn"class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                       <button type="button" id="addBtn" class="btn btn-primary">Add</button>
-                     </div>
-                   </div>
-                 </div>
-               </div>
-            
-               
+                     <div class="modal-body">
+                     <input type="hidden" id="customerNo" name="customerNo">
+                     <table class="table align-items-center mb-0">								
+	                   	<tbody>                   		
+		                     <tr>
+									<td class="align-middle text-center text-sm">
+										<span class="text-secondary text-xs font-weight-bold">이름: </span>
+									</td>
+			                        <td class="align-middle text-center text-sm">
+			                        <span class="text-secondary text-xs font-weight-bold">
+			                        	<input type="text" class="form-control" name="animalName" id="animalName" > 
+									</span>	                        	                         
+			                        </td>
+			                        <td class="align-middle text-center text-sm">
+									<span class="text-secondary text-xs">
+										<button type="submit" id="customerSearch" class="btn btn-primary">검색</button>
+									</span>
+									</td>
+		                     </tr>
+		                     <tr>
+									<td class="align-middle text-center text-sm">
+										<span class="text-secondary text-xs font-weight-bold">수술의사: </span>
+									</td> 
+									<td class="align-middle text-center text-sm">
+										<span class="text-secondary text-xs font-weight-bold">
+									     <select name='username' id="username" class="form-select form-select-sm" aria-label="Large select example">                      
+			                                <c:forEach items="${emplist}" var="a">
+			                                  <option value="${a.username}" >${a.empName}</option>
+			                                </c:forEach>				
+			                             </select> 
+										</span>
+									</td>
+									<td class="align-middle text-center text-sm">
+										<span class="text-secondary text-xs font-weight-bold"></span>
+									</td>
+		                     </tr>
+		                  
+		                    <tr>
+									<td class="align-middle text-center text-sm">
+										<span class="text-secondary text-xs font-weight-bold">수술실: </span>
+									</td> 
+									<td class="align-middle text-center text-sm">
+										<select name='surgeryRoom' id="surgeryRoom" class="form-select form-select-sm" aria-label="Small select example"> 
+		                                    <option value="1">수술실1</option>
+		                                    <option value="2">수술실2</option>
+	                                    </select> 
+									</td>
+									<td class="align-middle text-center text-sm">
+										<span class="text-secondary text-xs font-weight-bold"></span>
+									</td>
+		                    </tr>
+		                    <tr>
+									<td class="align-middle text-center text-sm">
+										<span class="text-secondary text-xs font-weight-bold">수술명: </span>
+									</td> 
+									<td class="align-middle text-center text-sm">
+										<input type="text" class="form-control" id="surgeryName">
+									</td>
+									<td class="align-middle text-center text-sm">
+										<span class="text-secondary text-xs font-weight-bold"></span>
+									</td>
+							</tr>
+							 <tr>
+								<td class="align-middle text-center text-sm">
+									<span class="text-secondary text-xs font-weight-bold">수술시작시간: </span>
+								</td> 
+								<td class="align-middle text-center text-sm">
+									<input type="datetime-local" class="form-control-plaintext" id="surgeryStart">
+								</td>
+								<td class="align-middle text-center text-sm">
+									<span class="text-secondary text-xs font-weight-bold"></span>
+								</td>
+							</tr>
+							 <tr>
+								<td class="align-middle text-center text-sm">
+									<span class="text-secondary text-xs font-weight-bold">수술 예상종료시간: </span>
+								</td> 
+								<td class="align-middle text-center text-sm">
+									<input type="datetime-local" class="form-control-plaintext" id="surgeryEnd">
+								</td>
+								<td class="align-middle text-center text-sm">
+									<span class="text-secondary text-xs font-weight-bold"></span>
+								</td>
+							</tr>
+					       </tbody>
+		               </table>
+		               </div>
+	                     <div class="modal-footer">
+	                       <button type="button" id="closeBtn"class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	                       <button type="button" id="addBtn" class="btn btn-primary">Add</button>
+	                     </div>
+	                   </div>
+	                 </div>
+	               </div>
+	              
+	               <!--list modal -->
+	                <div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	                <div class="modal-dialog modal-sm">
+	                  <div class="modal-content">
+	                    <div class="modal-header">
+	                      <h1 class="modal-title fs-5" id="exampleModalLabel">보호자이름</h1>
+	                      <button type="button" id="closeBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	                    </div>
+		                    <div class="modal-body">
+			                    <div class="table-responsive p-0">
+			                        <table class="table align-items-center mb-0">
+			                          <thead>
+			                            <tr>									
+			                              <th class="text-center text-secondary opacity-7">보호자이름</th>                                
+			                            </tr>
+			                          </thead>
+			                          <tbody>           
+			                        	 <tr id="customer">
+			                    	 </tbody>
+		                             </table>							 
+	                            </div>
+		                    </div>
+	                    <div class="modal-footer">
+	                      <button type="button" id="closeBtn"class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	                      <button type="button" id="submit" class="btn btn-primary" >확인</button>
+	                    </div>
+	                  </div>
+	                </div>
+	              </div>   
+	               
+	               
+	               
                 <!--detail modal -->
                 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -237,7 +329,7 @@
 						</td>
                       <td class="align-middle text-center text-sm">
                           <span class="text-secondary text-xs font-weight-bold">
-	                          <select name='username' id="upusername" class="form-select form-select-lg mb-3" aria-label="Large select example">                      
+	                          <select name='username' id="upusername" class="form-select form-select-sm" aria-label="Large select example">                      
 								<c:forEach items="${emplist}" var="a">
 									<option value="${a.username}" >${a.empName}</option>
 								</c:forEach>				
@@ -252,7 +344,7 @@
                       </td> 
                       <td class="align-middle text-center text-sm">
                         <span class="text-secondary text-xs font-weight-bold">
-                        <input type="datetime-local"  id="upstartdate" value="">
+                        <input type="datetime-local" class="form-control-plaintext" id="upstartdate" value="">
                         </span>
                       </td>                                                     
                     </tr>
@@ -263,13 +355,11 @@
                       </td> 
                       <td class="align-middle text-center text-sm">
                         <span class="text-secondary text-xs font-weight-bold">
-                        <input type="datetime-local"  id="upenddate" value="">
+                        <input type="datetime-local" class="form-control-plaintext" id="upenddate" value="">
                         </span>
                       </td>                                                     
                     </tr> 
-                      
-                      
-                      </tbody>
+                   </tbody>
                      </table>
                       </div>
                       <div class="modal-footer">
