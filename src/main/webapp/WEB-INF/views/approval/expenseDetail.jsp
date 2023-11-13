@@ -6,6 +6,7 @@
 <!-- 날짜포맷 라이브러리 -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
 	data-theme="theme-default" data-assets-path="/assets/"
@@ -55,14 +56,19 @@
 			 
 					</table>
 					
-					<input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
-					<input type="hidden" id="apKind" name="apKind" value="${approvalVO.apKind}">
+					<form action="" id="frm">
+						<input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
+						<input type="hidden" name="username" id="username" value="${user.username}">
+						<input type="hidden" id="apKind" name="apKind" value="${approvalVO.apKind}">
+						<input type="hidden" name="username" id="username" value="${user.username}">
+					</form>
 					<input type="hidden" name="writeUsername" id="writeUsername" value="${approvalVO.username}">
-					<input type="hidden" name="username" id="username" value="${user.username}">
 					
-					<p>
-						<br>
-						</p>
+					<c:forEach items="${line}" var="line" varStatus="status">
+						<input type="hidden" class="approve" name="approve${status.index}" id="approve${status.index}" value="${line.username}">
+					</c:forEach>
+					
+
 						<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; width: 617px; border: 0px solid black; background-image: none; background-repeat: repeat; background-position: 0% 0%;" class="" data-pe_b-o-c="">
 							<tbody data-pe_b-o-c="">
 								<tr data-pe_b-o-c="">
@@ -99,34 +105,82 @@
 															<span style="font-family:나눔고딕">기 안 자</span>
 														</p>
 													</td>
-													<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 86px;">
-														<p align="center" style="margin:0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height:normal">
-															<span style="font-family:나눔고딕">&nbsp;</span>
-														</p>
-													</td>
-													<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 87px;">
-														<p align="center" style="margin:0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height:normal">
-															<span style="font-family:나눔고딕">&nbsp;</span>
-														</p>
-													</td>
+													<c:choose>
+													    <c:when test="${fn:length(line) eq 1}">
+													        <!-- 결재자가 한 명인 경우 -->
+													        <c:forEach items="${line}" var="apl">
+													            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 101px;">
+													                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+													                    ${apl.positionName}<br>${apl.empName}
+													                </p>
+													            </td>
+																<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 97px;">
+																	<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+																		<span style="font-family:나눔고딕">&nbsp;</span>
+																	</p>
+																</td>
+													        </c:forEach>
+													    </c:when>
+													    <c:when test="${fn:length(line) eq 2}">
+													        <!-- 결재자가 두 명인 경우 -->
+													        <c:forEach items="${line}" var="apl">
+													            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; background: rgb(208, 206, 206); padding: 0px 7px; height: 25px; width: 101px;">
+													                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+													                    ${apl.positionName}<br>${apl.empName}
+													                </p>
+													            </td>
+													        </c:forEach>
+													    </c:when>
+													</c:choose>
 												</tr>
-												<tr>
-													<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 80px; width: 82px;">
-														<p align="center" style="margin:0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height:normal">
-															<span style="font-family:나눔고딕">&nbsp;</span>
-														</p>
-													</td>
-													<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 80px; width: 86px;">
-														<p align="center" style="margin:0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height:normal">
-															<span style="font-family:나눔고딕">&nbsp;</span>
-														</p>
-													</td>
-													<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 80px; width: 87px;">
-														<p align="center" style="margin:0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height:normal">
-															<span style="font-family:나눔고딕">&nbsp;</span>
-														</p>
-													</td>
-												</tr>
+												
+																							<!-- 기안자와 결재자의 도장 표시 -->
+											<tr style="">
+												<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 80px; width: 94px;">
+													<p align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+														<img alt="" src="../files/sign/${approvalVO.uploadName}" style="width: 80px; height: 80px;">
+													</p>
+												</td>
+												<c:choose>
+												    <c:when test="${fn:length(line) eq 1}">
+												        <!-- 결재자가 한 명인 경우 -->
+												        <c:forEach items="${line}" var="apl" varStatus="aplStatus">
+												            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 101px;">
+												                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+												                    <img id="signImg${aplStatus.index}" src="../files/sign/${apl.uploadName}" style="width: 80px; height: 80px;">
+												                    <input type="hidden" id="confirm${aplStatus.index}" name="confirm${aplStatus.index}" value="${apl.apConfirmState}">
+												                </p>
+												            </td>
+															<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 97px;">
+																<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+																	<span style="font-family:나눔고딕">&nbsp;</span>
+																</p>
+															</td>
+												        </c:forEach>
+												    </c:when>
+												    <c:when test="${fn:length(line) eq 2}">
+												        <!-- 결재자가 두 명인 경우 -->
+												        <c:forEach items="${line}" var="apl" varStatus="aplStatus">
+												            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 101px;">
+												                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+												                    <img id="signImg${aplStatus.index}" src="../files/sign/${apl.uploadName}" style="width: 80px; height: 80px;">
+												                    <input type="hidden" id="confirm${aplStatus.index}" name="confirm${aplStatus.index}" value="${apl.apConfirmState}">
+												                </p>
+												            </td>
+												        </c:forEach>
+												    </c:when>
+												</c:choose>
+												<!-- <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 97px;">
+													<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+														<span style="font-family:나눔고딕">&nbsp;</span>
+													</p>
+												</td>
+												<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 97px;">
+													<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+														<span style="font-family:나눔고딕">&nbsp;</span>
+													</p>
+												</td> -->
+											</tr>
 												<tr>
 													<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; height: 26px; width: 82px;">
 														<p align="center" style="margin:0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height:normal">
@@ -134,16 +188,33 @@
 															<fmt:formatDate pattern="yyyy/MM/dd" value="${approvalVO.apCDate}"/>
 														</p>
 													</td>
-													<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; height: 26px; width: 86px;">
-														<p align="center" style="margin:0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height:normal">
-															<span style="font-family:나눔고딕">&nbsp;</span>
-														</p>
-													</td>
-													<td style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; height: 26px; width: 87px;">
-														<p align="center" style="margin:0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height:normal">
-															<span style="font-family:나눔고딕">&nbsp;</span>
-														</p>
-													</td>
+													<c:choose>
+													    <c:when test="${fn:length(line) eq 1}">
+													        <!-- 결재자가 한 명인 경우 -->
+													        <c:forEach items="${line}" var="apl">
+													            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 101px;">
+													                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+													                    ${apl.apConfirmDate}
+													                </p>
+													            </td>
+																<td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 97px;">
+																	<p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+																		<span style="font-family:나눔고딕">&nbsp;</span>
+																	</p>
+																</td>
+													        </c:forEach>
+													    </c:when>
+													    <c:when test="${fn:length(line) eq 2}">
+													        <!-- 결재자가 두 명인 경우 -->
+													        <c:forEach items="${line}" var="apl">
+													            <td style="border-top: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; border-image: initial; border-left: none; padding: 0px 7px; height: 25px; width: 101px;">
+													                <p class="poName" align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+													                    ${apl.apConfirmDate}
+													                </p>
+													            </td>
+													        </c:forEach>
+													    </c:when>
+													</c:choose>
 												</tr>
 											</tbody>
 										</table>
@@ -414,26 +485,87 @@
 					</div>
 					</div>
 					</div>
-						<c:choose>
-							<c:when test="${user.username eq approvalVO.username}">
-								<div class="row" style="float:right;">
-									<div class="demo-inline-spacing">
-										<button type="button" class="btn btn-primary submitBtn" id="updateBtn" data-url="update">수정</button>
-										<button type="button" class="btn btn-danger submitBtn" id="deleteBtn" data-url="delete">삭제</button>
-										<button type="button" class="btn btn-primary" id="draftListBtn">목록</button>
-									</div>
-	                        	</div>
-	                       	</c:when>
-							<c:otherwise>
-								<div class="row" style="float:right;">
+						<!-- 접속 아이디가 기안서 작성자와 같은 경우 -->
+						<c:if test="${user.username eq approvalVO.username}">
+							<div class="row" style="float:right;">
+								<div class="demo-inline-spacing">
+									<c:choose>
+										<c:when test="${approvalVO.apState eq '결재진행중' or approvalVO.apState eq '결재완료' or approvalVO.apState eq '반려'}">
+												<button type="button" class="btn btn-primary" id="draftListBtn">목록</button>
+										</c:when>
+										<c:when test="${approvalVO.apState eq '결재대기중'}">
+												<button type="button" class="btn btn-primary" onclick="updateBtn()">수정</button>
+												<button type="button" class="btn btn-danger" id="deleteBtn" data-url="delete" onclick="deleteBtn()">삭제</button>
+												<button type="button" class="btn btn-primary" id="draftListBtn">목록</button>
+										</c:when>
+									</c:choose>
+								</div>
+                       		</div>
+						</c:if>
+						
+						<!-- 접속 아이디가 결재자와 같은 경우 -->
+						<!-- foreach로 배열을 뿌리는 것 뿐만이 아니라 조회만해서 비교할 수 있다. -->
+						<c:forEach items="${line}" var="line">
+							<c:if test="${user.username eq line.username}">
+								<c:choose>
+						            <c:when test="${line.aplStep eq 1 and line.apConfirmState eq 0}">
+										<div class="row" style="float:right;">
+											<div class="demo-inline-spacing">
+												<button type="button" class="btn btn-primary" id="approveBtn">결재</button>
+												<button type="button" class="btn btn-warning" id="rejectBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">반려</button>
+					                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+											</div>
+			                        	</div>
+						            </c:when>
+						            <c:when test="${line.aplStep eq 1 and line.apConfirmState eq 1}">
+										<div class="row" style="float:right;">
+											<div class="demo-inline-spacing">
+					                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+											</div>
+			                        	</div>
+						            </c:when>
+						            <c:when test="${line.aplStep eq 1 and line.apConfirmState eq 2}">
+										<div class="row" style="float:right;">
+											<div class="demo-inline-spacing">
+					                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+											</div>
+			                        	</div>
+						            </c:when>
+						            <c:when test="${line.aplStep eq 2 and line.apConfirmState eq 0}">
+						                    <c:if test="${approvalVO.apState eq '결재대기중'}">
+												<div class="row" style="float:right;">
+													<div class="demo-inline-spacing">
+							                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+													</div>
+					                        	</div>
+						                    </c:if>
+						                    <c:if test="${approvalVO.apState eq '결재진행중'}">
+												<div class="row" style="float:right;">
+													<div class="demo-inline-spacing">
+														<button type="button" class="btn btn-primary" id="approveBtn">결재</button>
+														<button type="button" class="btn btn-warning" id="rejectBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">반려</button>
+							                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+													</div>
+					                        	</div>
+						                    </c:if>
+						                    <c:if test="${line.aplStep eq 2 and line.apConfirmState eq 2}">
+												<div class="row" style="float:right;">
+													<div class="demo-inline-spacing">
+							                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+													</div>
+					                        	</div>
+						                    </c:if>
+						            </c:when>
+						        </c:choose>
+								<!-- <div class="row" style="float:right;">
 									<div class="demo-inline-spacing">
 										<button type="button" class="btn btn-primary" id="approveBtn" data-url="update">결재</button>
 										<button type="button" class="btn btn-warning" id="rejectBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">반려</button>
-										<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+			                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
 									</div>
-	                        	</div>
-	                       	</c:otherwise>
-                       	</c:choose>
+	                        	</div> -->
+                       		</c:if>
+                       	</c:forEach>
 					</div>
 					
 					<jsp:include page="/WEB-INF/views/approval/rejectModal.jsp"></jsp:include>

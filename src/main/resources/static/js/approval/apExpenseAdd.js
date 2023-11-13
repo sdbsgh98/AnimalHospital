@@ -83,7 +83,7 @@ $("#addList").on("click", ".df", function(){
 
 
 // 글 ADD
-addBtn.addEventListener("click", function(){
+function addBtn(){
 	
 	let expenseName = document.getElementsByName("expenseName");
 	let expenseAmount = document.getElementsByName("expenseAmount");
@@ -94,30 +94,15 @@ addBtn.addEventListener("click", function(){
         apTitle.focus();
         return;
     }
-	if(expenseName.value == "" || expenseName.value == null) {
-		alert("지출항목의 이름을 확인해주세요.");
-		return;
-	}
-	if(expenseAmount.value == "" || expenseAmount.value == null) {
-		alert("지출항목의 이름을 확인해주세요.");
-		return;
-	}
-	if(expensePrice.value == "" || expensePrice.value == null) {
-		alert("지출항목의 이름을 확인해주세요.");
-		return;
-	}
     if($("#firstLineUsername").val() == "") {
 		alert("결재자 선택은 필수입니다.");
 		return;
-	}
-	if($("#secondLineUsername").val() == "") {
-		$("#secondLineUsername").val() = "";
 	}
     
     // 폼에 입력한 데이터를 서버로 전송
     addFrm.submit();
     
-});
+};
 
 
 // 취소 버튼
@@ -125,3 +110,84 @@ cancleBtn.addEventListener("click", function(){
 	/*location.href = "/approval/draftList/" + username;*/
 	location.href = "/approval/formatList";
 })
+
+
+// del 버튼 클릭하면 삭제하겠다
+/*for(del of deletes){
+    del.addEventListener("click", function(){
+        let apNo = this.getAttribute("data-delete-num");
+        let expenseName = this.getAttribute("data-delete-name");
+        
+        let check = confirm("정말로 항목을 삭제하시겠습니까?");
+
+        if(check){
+			
+		    $.ajax({
+				url : "/approval/expenseDel",
+				type : "post",
+				data : {
+					apNo : apNo,
+					expenseName : expenseName
+				},
+				success : function(data){
+		            if(result.trim()=='1'){
+                        $(this).parent().remove();
+                        this.remove();
+                        count--;
+                    }
+		            location.href="/approval/approverList/" + username;
+		        },
+		        error:function(xhr, status, error){
+		            alert('처리 중 에러가 발생했습니다.\n다시 시도해 주세요.');
+		        }
+		     })   
+        }
+    })
+}*/
+
+
+
+for(del of deletes){
+    del.addEventListener("click", function(){
+        let apNo = document.getElementById("apNo").value;
+        let expenseName = this.getAttribute("data-delete-name");
+             
+        let check = confirm("정말로 삭제하시겠습니까?");
+
+        if(check){
+        console.log("1");
+            fetch("./expenseDel?apNo=" + apNo + "&expenseName=" + expenseName, {method:"get"})
+                .then((result)=>{return result.text()}) // result.text를 반환받겠다
+                .then((r)=>{
+                    //  console.log("삭제 결과", r) 
+                    if(r.trim()=='1'){
+                        $(this).parent().remove();
+                        // this.remove();
+                        count--;
+                    }
+                })
+        }
+    })
+}
+
+
+
+function updateSubmitBtn() {
+	let apTitle = document.getElementById("apTitle");			// 전자결재 양식 제목
+	let firstLineUsername = document.getElementById("firstLineUsername");
+	
+    if(apTitle.value == ""){
+        alert("제목을 입력해주세요.");
+        apTitle.focus();
+        return;
+    }
+    if(firstLineUsername.value == "") {
+		alert("결재자 선택은 필수입니다.");
+		return;
+	}
+    
+    let updateFrm = document.getElementById("updateFrm");
+    
+    // 폼에 입력한 데이터를 서버로 전송
+    updateFrm.submit();
+}

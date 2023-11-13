@@ -18,7 +18,7 @@ public class ApprovalLineVO {
 	private String username;
 	private String empName;
 	private String apConfirmState;
-	private String apConfirmDate;
+	private Date apConfirmDate;
 	private String aplStep;
 	
 	private String positionName;
@@ -28,4 +28,8 @@ public class ApprovalLineVO {
 	private String uploadName;
 	private String originalSignName;
 	private Date addDate;
+	
+	// 결재자 수, 미결기안 수
+	private Long aplCount;
+	private Long notSign;
 }

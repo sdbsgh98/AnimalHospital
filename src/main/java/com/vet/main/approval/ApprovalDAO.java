@@ -35,6 +35,9 @@ public interface ApprovalDAO {
 	// 지출항목 추가
 	public int setExpenseAdd(ApprovalExpenseVO expenseVO) throws Exception;
 	
+	// 수정페이지에서 지출항목 삭제
+	public int setExpenseDelete(ApprovalExpenseVO expenseVO) throws Exception;
+	
 	// 기안서 상세
 	public ApprovalVO getApDetail(ApprovalVO approvalVO) throws Exception;
 	
@@ -43,6 +46,9 @@ public interface ApprovalDAO {
 	
 	// 기안서 수정
 	public int setApUpdate(ApprovalVO approvalVO) throws Exception;
+	
+	// 기안서 삭제
+	public int setApDelete(ApprovalVO approvalVO) throws Exception;
 	
 	
 	// 기안함 리스트
@@ -56,8 +62,7 @@ public interface ApprovalDAO {
 	
 	// pager 관련 (해당 유저에게 전달된 결재의 총 수를 구하기 위함)
 	public Long getApproverTotal(Pager pager) throws Exception;
-	
-	
+		
 	// file
 	public int setApFileAdd(FileVO fileVO) throws Exception;
 	
@@ -80,7 +85,26 @@ public interface ApprovalDAO {
 	public List<ApprovalLineVO> getApSign(ApprovalLineVO approvalLineVO) throws Exception; 
 	
 	// 반려
-	public int rejectApprove(ApprovalVO approvalVO) throws Exception;
-
+	public int rejectApprove01(ApprovalVO approvalVO) throws Exception;
 	
+	// 결재상태 업데이트 01 (결재대기 / 결재진행)
+	public int setApState(ApprovalVO approvalVO) throws Exception;
+	
+	// 결재상태 업데이트 02 (결재자 정보)
+	public int setApprover(ApprovalLineVO approvalLineVO) throws Exception;
+	
+	// 결재자 수와 결재가 남았는지 확인
+	public ApprovalLineVO getApprovalState(Long apNo) throws Exception;
+	
+	// 결재선 리셋
+	public int resetApLine(Long apNo) throws Exception;
+	
+	// 휴가신청서 수정
+	public int setDayoffUpdate(ApprovalVO approvalVO) throws Exception;
+
+	// 지출항목 수정
+	public int setApExpenseUpdate(ApprovalVO approvalVO) throws Exception;
+	
+	// 지출결의서 수정
+	public int setExpenseUpdate(ApprovalExpenseVO approvalExpenseVO) throws Exception;
 }

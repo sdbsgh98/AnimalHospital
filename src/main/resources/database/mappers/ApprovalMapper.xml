@@ -68,6 +68,7 @@
 			<result column="EXPENSEPRICE" property="expensePrice"/>
 			<result column="EXPENSEAMOUNT" property="expenseAmount"/>
 			<result column="EXPENSEBIGO" property="expenseBigo"/>
+			<result column="EXPENSENO" property="expenseNo"/>
 		</collection>
 		<collection property="apLineList" resultMap="apLineMap" />
 	</resultMap>
@@ -185,10 +186,18 @@
 	<!-- 지출항목 추가 -->
 	<insert id="setExpenseAdd" parameterType="ApprovalExpenseVO">
 		INSERT INTO APEXPENSE
-			(APNO, EXPENSENAME, EXPENSEAMOUNT, EXPENSEPRICE, EXPENSEBIGO)
+			(APNO, EXPENSENAME, EXPENSEAMOUNT, EXPENSEPRICE, EXPENSEBIGO, EXPENSENO)
 		VALUES
-            (#{apNo}, #{expenseName}, #{expenseAmount}, #{expensePrice}, #{expenseBigo})
+            (#{apNo}, #{expenseName}, #{expenseAmount}, #{expensePrice}, #{expenseBigo}, NEXTVAL(EXPENSE_SEQ))
 	</insert>
+	
+  	<!-- 수정페이지에서 지출항목 삭제 -->
+  	<delete id="setExpenseDelete" parameterType="ApprovalExpenseVO">
+  		DELETE FROM APEXPENSE
+  		WHERE
+  		APNO = #{apNo}
+  		AND EXPENSENO = #{expenseNo}
+  	</delete>
 	
 	<!-- 지출결의서 상세 -->
 	<select id="getApExpenseDetail" parameterType="ApprovalVO" resultMap="getExpenseResult">
@@ -270,11 +279,35 @@
 	<update id="setApUpdate" parameterType="ApprovalVO">
 		UPDATE APPROVAL
 		SET APTITLE = #{apTitle},
-			APCONTETNTS = #{apContents}
+			APCONTENTS = #{apContents}
 		WHERE APNO = #{apNo}
 	</update>
 	
+	<update id="setDayoffUpdate" parameterType="ApprovalVO">
+		UPDATE APPROVAL
+		SET APTITLE = #{apTitle},
+			DAYOFFSTARTDATE = #{dayoffStartDate},
+			DAYOFFENDDATE = #{dayoffEndDate},
+			APCONTENTS = #{apContents}
+		WHERE APNO = #{apNo}
+	</update>
 	
+	<update id="setExpenseUpdate" parameterType="ApprovalExpenseVO">
+		UPDATE APEXPENSE
+		SET
+		EXPENSENAME = #{expenseName},
+		EXPENSEPRICE = #{expensePrice},
+		EXPENSEAMOUNT = #{expenseAmount},
+		EXPENSEBIGO = #{expenseBigo}
+		WHERE EXPENSENO = #{expenseNo}
+	</update>
+	
+	<insert id="setApExpenseUpdate" parameterType="ApprovalVO">
+		UPDATE APPROVAL
+		SET APTITLE = #{apTitle}
+		WHERE APNO = #{apNo}
+	</insert>
+			
 	<!-- ************ FILE ************ -->
 	<insert id="setApFileAdd" parameterType="ApprovalFileVO">
 		INSERT INTO APFILE
@@ -295,17 +328,6 @@
 		WHERE D.DEPTNAME = #{deptName}
 	</select>
 		
-	
-	<!-- 반려 -->
-	<update id="rejectApprove" parameterType="ApprovalVO">
-		UPDATE APPROVAL
-		SET
-		APSTATE = #{apState},
-		APREJECTION = #{apRejection}
-		WHERE APNO = #{apNo}
-	</update>
-
-
 	<!-- 결재선 설정에 부서별 직원 리스트 출력 -->
 	<select id="getEmpSelectList" parameterType="String" resultMap="getApEmpList">
 		SELECT D.DEPTNAME, P.POSITIONNAME, E.EMPNAME, E.USERNAME
@@ -333,6 +355,12 @@
 		VALUES
 		(#{apNo}, #{username}, #{empName}, '0', #{apConfirmDate}, #{aplStep})
 	</insert>
+	
+	<!-- 결재선 수정 -->
+	<delete id="resetApLine" parameterType="Long">
+		DELETE FROM APLINE
+		WHERE APNO = #{apNo}
+	</delete>
 
 	<!-- 상세페이지에 결재자 출력-->
 	<select id="getApLinePerson" parameterType="Long" resultType="ApprovalLineVO">
@@ -341,7 +369,7 @@
 			ON APL.USERNAME = E.USERNAME
 			INNER JOIN POSITION P
 			ON P.POSITIONNO = E.POSITIONNO
-			INNER JOIN SIGNFILE S
+			LEFT OUTER JOIN SIGNFILE S
 			ON APL.USERNAME = S.USERNAME
 		WHERE APL.APNO = #{apNo}
 		ORDER BY APL.APLSTEP ASC
@@ -354,4 +382,44 @@
 		ON APL.USERNAME = S.USERNAME
 		WHERE APL.USERNAME = #{username}
 	</select>
+	
+	<!-- 결재자 수와 결재가 남았는지 확인 -->
+	<select id="getApprovalState" parameterType="Long" resultType="ApprovalLineVO">
+		SELECT (SELECT COUNT(USERNAME)
+				FROM APLINE
+				WHERE APNO = #{apNo}) AS APLCOUNT,
+			   (SELECT COUNT(USERNAME)
+				FROM APLINE
+				WHERE APNO = #{apNo}
+				AND APCONFIRMSTATE = 0) AS NOTSIGN
+		FROM APLINE
+		WHERE APNO = #{apNo}
+		LIMIT 1;
+	</select>
+	
+	<!-- 반려 시 기안테이블 업데이트 -->
+	<update id="rejectApprove01" parameterType="ApprovalVO">
+		UPDATE APPROVAL
+		SET
+		APSTATE = #{apState},
+		APREJECTION = #{apRejection}
+		WHERE APNO = #{apNo}
+	</update>
+
+	<!-- 결재상태 업데이트 01 (결재대기 / 결재진행) -->
+	<update id="setApState" parameterType="ApprovalVO">
+		UPDATE APPROVAL
+		SET
+		APSTATE = #{apState}
+		WHERE APNO = #{apNo}
+	</update>
+	
+	<!-- 결재상태 업데이트 02 (결재자 정보) (반려포함) -->
+	<update id="setApprover" parameterType="ApprovalLineVO">
+		UPDATE APLINE
+		SET
+		APCONFIRMSTATE = ${apConfirmState}
+		WHERE APNO = #{apNo}
+		AND USERNAME = #{username}
+	</update>
 </mapper>

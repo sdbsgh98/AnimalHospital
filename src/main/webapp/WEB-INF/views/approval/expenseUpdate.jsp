@@ -40,11 +40,13 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 					
 						<div class="row">
-				    		<form action="expenseAdd" id="addFrm" method="post">
+				    		<form action="update/expenseUpdate" id="updateFrm" method="post">
 				    		
 				    			<div class="mb-3">
 								  <label for="username" class="form-label"></label>
 								  <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
+								  <input type="hidden" id="apKind" name="apKind" value="${approvalVO.apKind}">
+								  <input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
 								</div>
 								
 								
@@ -86,27 +88,27 @@
 				    						    			
 				    			<div class="mb-3">
 								  <label for="positionName" class="form-label">부서</label>
-								  <input type="text" class="form-control" id="positionName" name="positionName" value="${user.positionName}" readonly>
+								  <input type="text" class="form-control" id="positionName" name="positionName" value="${approvalVO.positionName}" readonly>
 								</div>
 								
 				    			<div class="mb-3">
 								  <label for="deptName" class="form-label">직급</label>
-								  <input type="text" class="form-control" id="deptName" name="deptName" value="${user.deptName}" readonly>
+								  <input type="text" class="form-control" id="deptName" name="deptName" value="${approvalVO.deptName}" readonly>
 								</div>
 								
 				    			<div class="mb-3">
 								  <label for="empName" class="form-label">성명</label>
-								  <input type="text" class="form-control" id="empName" name="empName" value="${user.empName}" readonly>
+								  <input type="text" class="form-control" id="empName" name="empName" value="${approvalVO.empName}" readonly>
 								</div>
 								
 				    			<div class="mb-3">
-								  <label for="cDate" class="form-label">기안일자</label>
-								  <input type="text" class="form-control" id="cDate" name="cDate" value="${date}" disabled>
+								  <label for="apCDate" class="form-label">기안일자</label>
+								  <input type="text" class="form-control" id="apCDate" name="apCDate" value="${approvalVO.apCDate}" readonly>
 								</div>
 				    			
 				    			<div class="mb-3">
 								  <label for="apTitle" class="form-label">제목</label>
-								  <input type="text" class="form-control" id="apTitle" name="apTitle" placeholder="제목을 입력하세요">
+								  <input type="text" class="form-control" id="apTitle" name="apTitle" placeholder="제목을 입력하세요" value="${approvalVO.apTitle}">
 								</div>
 
 			
@@ -116,19 +118,34 @@
 			        
 			                    <!-- 지출결의서 폼이 추가되는 곳 -->
 			                    <div id="addList" class="my-5">
-									<div class="expense row g-3 mb-2" id="expense[0]" name="expense">
+									<!-- <div class="expense row g-3 mb-2" id="expense[0]" name="expense">
 									    <input type="text" class="form-control me-2" id="expenseName0" name="expenseName" placeholder="항목" style="width:350px;">
 									    <input type="text" class="form-control me-2" id="expenseAmount0" name="expenseAmount" placeholder="수량"
 									    		style="width:100px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');">
 									    <input type="text" class="form-control me-2" id="expensePrice0" name="expensePrice" placeholder="금액"
 									    		style="width:150px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');">
 									    <input type="text" class="form-control me-2" id="expenseBigo0" name="expenseBigo" placeholder="비고" style="width:200px;">
-									</div> 
+									</div> --> 
+			                    </div>
+			                    
+								<div>		
+			                        <c:forEach items="${approvalVO.expenseList}" var="e" varStatus="ee">
+										<div class="expense row g-3 mb-2" id="expense[${ee.index}]" name="expense">
+										    <input type="text" class="form-control me-2" id="expenseName${ee.index}" name="expenseName" placeholder="항목" style="width:350px;" value="${e.expenseName}">
+										    <input type="text" class="form-control me-2" id="expenseAmount${ee.index}" name="expenseAmount" placeholder="수량"
+										    		style="width:100px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');" value="${e.expenseAmount}">
+										    <input type="text" class="form-control me-2" id="expensePrice${ee.index}" name="expensePrice" placeholder="금액"
+										    		style="width:150px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');" value="${e.expensePrice}">
+										    <input type="text" class="form-control me-2" id="expenseBigo${ee.index}" name="expenseBigo" placeholder="비고" style="width:200px;" value="${e.expenseBigo}">
+										    <input type="hidden" class="form-control me-2" id="expenseNo${ee.index}" name="expenseNo" style="width:200px;" value="${e.expenseNo}">
+										    <button type="button" id="expenseMinusBtn" name="expenseMinusBtn" class="btn btn-primary deletes" data-delete-num="${e.apNo}" data-delete-name="${e.expenseName}" style="width:50px; height:38.94px;"> X </button>
+										</div> 
+			                        </c:forEach>
 			                    </div>
 								
 					    		<div class="row">
 									<div class="demo-inline-spacing">
-										<button type="button" class="btn btn-primary" onclick="addBtn()">작성</button>
+										<button type="button" class="btn btn-primary" onclick="updateSubmitBtn();">작성</button>
 										<button type="button" class="btn btn-primary" id="cancleBtn">취소</button>
 									</div>
 	                            </div>
