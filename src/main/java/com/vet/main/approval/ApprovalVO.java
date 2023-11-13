@@ -34,6 +34,12 @@ public class ApprovalVO {
 	private String deptName;
 	private String empName;
 	
+	// sign (도장)
+	private String signName;
+	private String uploadName;
+	private String originalSignName;
+	private Date addDate;
+	
 	private List<EmpVO> getApUserList;
 	private List<ApprovalFileVO> fileList;
 	private List<ApprovalExpenseVO> expenseList;

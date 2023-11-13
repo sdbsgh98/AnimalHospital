@@ -10,23 +10,9 @@
 	data-template="vertical-menu-template-free">
 <head>
 
-	<!-- include summernote -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-	  integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg=" crossorigin="anonymous">	  
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
-	integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
-	
-	<!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js) -->
-	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
-	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.js"></script>
-
-
 	<c:import url="/WEB-INF/views/layout/headCSS.jsp"></c:import>
 	<meta charset="UTF-8">
-	<title>휴직신청서 작성</title>
+	<title>지출내역서 작성</title>
 	
 	<style>
 	    .hidden {
@@ -54,11 +40,13 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 					
 						<div class="row">
-				    		<form action="vacationAdd" id="addFrm" method="post">
+				    		<form action="update/expenseUpdate" id="updateFrm" method="post">
 				    		
 				    			<div class="mb-3">
 								  <label for="username" class="form-label"></label>
 								  <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
+								  <input type="hidden" id="apKind" name="apKind" value="${approvalVO.apKind}">
+								  <input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
 								</div>
 								
 								
@@ -97,42 +85,67 @@
 								
  								<jsp:include page="/WEB-INF/views/approval/apLineSelect.jsp"></jsp:include>
 								
-								
-								
 				    						    			
 				    			<div class="mb-3">
 								  <label for="positionName" class="form-label">부서</label>
-								  <input type="text" class="form-control" id="positionName" name="positionName" value="${user.positionName}" readonly>
+								  <input type="text" class="form-control" id="positionName" name="positionName" value="${approvalVO.positionName}" readonly>
 								</div>
 								
 				    			<div class="mb-3">
 								  <label for="deptName" class="form-label">직급</label>
-								  <input type="text" class="form-control" id="deptName" name="deptName" value="${user.deptName}" readonly>
+								  <input type="text" class="form-control" id="deptName" name="deptName" value="${approvalVO.deptName}" readonly>
 								</div>
 								
 				    			<div class="mb-3">
 								  <label for="empName" class="form-label">성명</label>
-								  <input type="text" class="form-control" id="empName" name="empName" value="${user.empName}" readonly>
+								  <input type="text" class="form-control" id="empName" name="empName" value="${approvalVO.empName}" readonly>
 								</div>
 								
 				    			<div class="mb-3">
 								  <label for="apCDate" class="form-label">기안일자</label>
-								  <input type="text" class="form-control" id="apCDate" name="apCDate" value="${date}" readonly>
+								  <input type="text" class="form-control" id="apCDate" name="apCDate" value="${approvalVO.apCDate}" readonly>
 								</div>
 				    			
 				    			<div class="mb-3">
 								  <label for="apTitle" class="form-label">제목</label>
-								  <input type="text" class="form-control" id="apTitle" name="apTitle" placeholder="제목을 입력하세요">
+								  <input type="text" class="form-control" id="apTitle" name="apTitle" placeholder="제목을 입력하세요" value="${approvalVO.apTitle}">
 								</div>
 
-								<div class="mb-3">
-								  <label for="apContents" class="form-label">내용</label>
-								  <textarea class="form-control" id="apContents" name="apContents" rows="3" placeholder="내용을 입력하세요"></textarea>
-								</div>
+			
+			                    <div class="mb-1" style="margin:0 auto; width:fit-content;">
+			                        <button type="button" class="btn btn-primary" id="expensePlusBtn">내역 추가</button>
+			                    </div>
+			        
+			                    <!-- 지출결의서 폼이 추가되는 곳 -->
+			                    <div id="addList" class="my-5">
+									<!-- <div class="expense row g-3 mb-2" id="expense[0]" name="expense">
+									    <input type="text" class="form-control me-2" id="expenseName0" name="expenseName" placeholder="항목" style="width:350px;">
+									    <input type="text" class="form-control me-2" id="expenseAmount0" name="expenseAmount" placeholder="수량"
+									    		style="width:100px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');">
+									    <input type="text" class="form-control me-2" id="expensePrice0" name="expensePrice" placeholder="금액"
+									    		style="width:150px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');">
+									    <input type="text" class="form-control me-2" id="expenseBigo0" name="expenseBigo" placeholder="비고" style="width:200px;">
+									</div> --> 
+			                    </div>
+			                    
+								<div>		
+			                        <c:forEach items="${approvalVO.expenseList}" var="e" varStatus="ee">
+										<div class="expense row g-3 mb-2" id="expense[${ee.index}]" name="expense">
+										    <input type="text" class="form-control me-2" id="expenseName${ee.index}" name="expenseName" placeholder="항목" style="width:350px;" value="${e.expenseName}">
+										    <input type="text" class="form-control me-2" id="expenseAmount${ee.index}" name="expenseAmount" placeholder="수량"
+										    		style="width:100px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');" value="${e.expenseAmount}">
+										    <input type="text" class="form-control me-2" id="expensePrice${ee.index}" name="expensePrice" placeholder="금액"
+										    		style="width:150px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');" value="${e.expensePrice}">
+										    <input type="text" class="form-control me-2" id="expenseBigo${ee.index}" name="expenseBigo" placeholder="비고" style="width:200px;" value="${e.expenseBigo}">
+										    <input type="hidden" class="form-control me-2" id="expenseNo${ee.index}" name="expenseNo" style="width:200px;" value="${e.expenseNo}">
+										    <button type="button" id="expenseMinusBtn" name="expenseMinusBtn" class="btn btn-primary deletes" data-delete-num="${e.apNo}" data-delete-name="${e.expenseName}" style="width:50px; height:38.94px;"> X </button>
+										</div> 
+			                        </c:forEach>
+			                    </div>
 								
 					    		<div class="row">
 									<div class="demo-inline-spacing">
-										<button type="button" class="btn btn-primary" id="addBtn">작성</button>
+										<button type="button" class="btn btn-primary" onclick="updateSubmitBtn();">작성</button>
 										<button type="button" class="btn btn-primary" id="cancleBtn">취소</button>
 									</div>
 	                            </div>
@@ -154,6 +167,7 @@
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
 	
+	
 	<!-- / Layout wrapper -->
 	<script src="${pageContext.request.contextPath}/assets/vendor/libs/popper/popper.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/vendor/js/bootstrap.js"></script>
@@ -170,34 +184,8 @@
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
 	
 	
-	<!-- summernote -->
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"
-	integrity="sha256-5slxYrL5Ct3mhMAp/dgnb5JSnTYMtkr4dHby34N10qw=" crossorigin="anonymous"></script>
-	
-	<!-- language pack -->
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"
-	integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="anonymous"></script>
-	
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-	 integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-	 
-	
-	<script>
-	$('#apContents').summernote({
-	  tabsize: 2,
-	  height: 500,
-	  codemirror: { // codemirror options
-		    theme: 'monokai'
-		  },
-	  lang: 'ko-KR', // default: 'en-US'
-	});
-	
-	$("#apContents").summernote('code'); 
-	</script>
-	
-	<script src="/js/approval/approvalAdd.js"></script>
+	<script src="/js/approval/apExpenseAdd.js"></script>
 	<script src="/js/approval/apLineSelect.js"></script>
-	
 	
 	<script>
 	    $(document).ready(function () {
@@ -241,6 +229,7 @@
 			  }
 		}
 	</script>
+
 
 </body>
 </html>

@@ -92,6 +92,11 @@ public class ApprovalService {
 	public int setExpenseAdd(ApprovalExpenseVO expenseVO) throws Exception {	
 		return approvalDAO.setExpenseAdd(expenseVO);
 	}
+	
+	// 수정페이지에서 지출항목 삭제
+	public int setExpenseDelete(ApprovalExpenseVO expenseVO) throws Exception {
+		return approvalDAO.setExpenseDelete(expenseVO);
+	}
 
 	// 기안함 리스트
 	public List<ApprovalVO> getDraftList(Pager pager) throws Exception {
@@ -125,28 +130,83 @@ public class ApprovalService {
 		return approvalDAO.getApExpenseDetail(approvalVO);
 	}
 	
-	// 상세페이지에 결재자 출력
-	public List<ApprovalLineVO> getApLinePerson(Long apNo) throws Exception {
-		return approvalDAO.getApLinePerson(apNo);
-	}
-	
 	// 결재선 설정에 부서별 직원 리스트 출력
 	public List<EmpVO> getEmpSelectList(String deptName) throws Exception {
 		return approvalDAO.getEmpSelectList(deptName);
 	}
 	
+	// 결재선 설정에 부서별 직원 리스트 출력 (대표원장)
 	public List<EmpVO> getPositionEmp(String deptName) throws Exception {
 		return approvalDAO.getPositionEmp(deptName);
+	}
+	
+	// 결재자 설정
+	public int setApLine(ApprovalLineVO approvalLineVO) throws Exception {
+		return approvalDAO.setApLine(approvalLineVO);
 	}
 	
 	public List<EmpVO> selectDept(String deptName) throws Exception {
 		return approvalDAO.selectDept(deptName);
 	}
 	
-	// 반려
-	public int rejectApprove(ApprovalVO approvalVO) throws Exception {
-		return approvalDAO.rejectApprove(approvalVO);
+	// 상세페이지에 결재자 출력
+	public List<ApprovalLineVO> getApLinePerson(Long apNo) throws Exception {
+		return approvalDAO.getApLinePerson(apNo);
 	}
-
+	
+	// 상세페이지에 결재자 도장 출력
+	public List<ApprovalLineVO> getApSign(ApprovalLineVO approvalLineVO) throws Exception {
+		return approvalDAO.getApSign(approvalLineVO);
+	}
+	
+	// 반려
+	public int rejectApprove01(ApprovalVO approvalVO) throws Exception {
+		return approvalDAO.rejectApprove01(approvalVO);
+	}
+	
+	// 결재상태 업데이트 01 (결재대기 / 결재진행)
+	public int setApState(ApprovalVO approvalVO) throws Exception {
+		return approvalDAO.setApState(approvalVO);
+	}
+	
+	// 결재상태 업데이트 02 (결재자 정보)
+	public int setApprover(ApprovalLineVO approvalLineVO) throws Exception {
+		return approvalDAO.setApprover(approvalLineVO);
+	}
+	
+	// 결재자 수와 결재가 남았는지 확인
+	public ApprovalLineVO getApprovalState(Long apNo) throws Exception {
+		return approvalDAO.getApprovalState(apNo);
+	}
+	
+	// 기안서 수정
+	public int setApUpdate(ApprovalVO approvalVO) throws Exception {
+		return approvalDAO.setApUpdate(approvalVO);
+	}
+	
+	// 기안서 삭제
+	public int setApDelete(ApprovalVO approvalVO) throws Exception {
+		return approvalDAO.setApDelete(approvalVO);
+	}
+	
+	// 결재선 리셋
+	public int resetApLine(Long apNo) throws Exception {
+		return approvalDAO.resetApLine(apNo);
+	}
+	
+	// 휴가신청서 수정
+	public int setDayoffUpdate(ApprovalVO approvalVO) throws Exception {
+		return approvalDAO.setDayoffUpdate(approvalVO);
+	}
+	
+	// 지출항목 수정
+	public int setApExpenseUpdate(ApprovalVO approvalVO) throws Exception{
+		return approvalDAO.setApExpenseUpdate(approvalVO);
+	}
+	
+	// 지출결의서 수정
+	public int setExpenseUpdate(ApprovalExpenseVO approvalExpenseVO) throws Exception{
+		return approvalDAO.setExpenseUpdate(approvalExpenseVO);
+	}
 	
 }

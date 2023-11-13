@@ -14,11 +14,12 @@ public class ApprovalExpenseVO {
 	private Long expensePrice;
 	private Long expenseAmount;
 	private String expenseBigo;
+	private Long expenseNo;
+	
 	
 	public void setExpenseBigo(String string) {
 		if(this.expenseBigo == null || this.expenseBigo.isEmpty()) {
 			this.expenseBigo = "";
 		}
 	}
-
 }

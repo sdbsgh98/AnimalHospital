@@ -1,75 +1,172 @@
-let apLineSelect = document.getElementById("apLineSelect");
+// 첫번째 결재선
+let firstApLineSelect = document.getElementById("firstApLineSelect");
+
+// 두번째 결재선
+let secondApLineSelect = document.getElementById("secondApLineSelect");
+
+// 결재자 선택 후 추가
+let addApLineBtn = document.getElementById("addApLineBtn");
 
 
 
-apLineSelect.addEventListener("click", function(){
-	$("#exampleModal").modal("show")
+/* 첫번째 결재선 설정 */
+firstApLineSelect.addEventListener("click", function(){
+	$("#staticBackdrop1").modal("show");
+})
+
+/* 두번째 결재선 설정 */
+secondApLineSelect.addEventListener("click", function(){
+	$("#staticBackdrop2").modal("show");
 })
 
 
-    $(document).on('click', '.jstree-anchor', function () {
-        let spanElement = $(this).find('span');
-        
-        let deptName = spanElement.text().trim();
-        console.log(deptName);
-        
-        $.ajax({
-			url : "/approval/apLineSelect",
-			type : "post",
-			data : {deptName : deptName},
-			success : function(data) {
-				$("#empList").empty();
-				
-				let username = document.getElementById("username").value;
-				
-				for (let i = 0; i < data.length; i++) {
-					var empData = [data[i].deptName, data[i].positionName, data[i].empName]
-					if(username != data[i].username){ // 본인아이디에서는 결재선과 참조선에 이름이 나오지 않는 로직처리
-						$("#empList").append('<input type="checkbox" name="empList" value=empData/>');
-						/*$("#empList").append($('<img/>',{src:path+'/resources/images/approve/circle_people.png',width:'20px',height:'20px'}));*/
-						$("#empList").append(data[i].deptName, '&nbsp;', data[i].positionName, '&nbsp;', data[i].empName, '&nbsp;', '<br>')
-					}
+// 첫번째 결재선 추가
+$(document).on('click', '.jstree-anchor', function () {
+    let spanElement = $(this).find('span');
+    
+    let deptName = spanElement.text().trim();
+    console.log(deptName);
+    
+    $.ajax({
+		url : "/approval/apLineSelect",
+		type : "post",
+		data : {deptName : deptName},
+		success : function(data) {
+			$("#empBox").empty();
+			
+			let username = document.getElementById("username").value;
+			
+			for (let i = 0; i < data.length; i++) {
+				var empData = [data[i].deptName, data[i].positionName, data[i].empName, data[i].username]
+				if(username != data[i].username){ // 본인아이디에서는 결재선과 참조선에 이름이 나오지 않는 로직처리
+					/*$("#empBox").append('<input type="checkbox" name="empCheck" value=empData/>');*/
+					let inputElement = $('<input>', { type: 'radio', name: 'checkedEmp', value: empData});
+					$("#empBox").append(inputElement);
+					$("#empBox").append('&nbsp; <i class="fa-solid fa-user" style="color: #d6d6d6;"></i>');
+					$("#empBox").append('&nbsp;', data[i].positionName, '&nbsp;', data[i].empName, '&nbsp;', '<br>')
 				}
 			}
-		})
-    });
-
-
-
-
-/*$(document).ready(function () {
-	$(document).on('click', '#addApLineBtn', function () {
-		if ($('input:checkbox[name="peopleBox"]:checked').length == 0) { //결재선에 추가할 체크박스에 체크된개수가 0개이면
-			alert("사원을 선택해주세요");
-		} else { // 그외 체크된개수가 1개이상이면
-			$('input:checkbox[name="peopleBox"]:checked').each(function() { // 체크된것들을 foreach문으로 비교
-				var flag = false;
-				const str = this.value.split(",");
-	
-				$('input:checkbox[name="appBox"]').each(function() {  // 결재선에 추가되있는 사람을 중복확인하기위한 로직
-					const app = this.value.split(",");
-					if (str[0] == app[0]) {
-						flag = true; // 추가되있는 명단과, 추가할 사람의 사원번호가 동일하면 그 사람은 flag값을 true로
-					}
-				})
-	
-				if (flag == false) {
-					if ($('input:checkbox[name="appBox"]').length >= 2) { //추가할 명단이 중복되지않았을때, 최대인원이 3명으로 제한
-						alert("최대 2명까지만 결재신청 가능합니다");
-						return false;
-					} else { // 그외에는 추가함
-						$("#line-box").append($('<div/>', { class: str[0] })); // 결재선 만들어질때, div로 묶고 만들어짐 클래스값 = 사원번호
-						$("." + str[0]).append($('<input/>', { type: 'checkbox', name: 'appBox', value: str[0], width: '30px', margin: "10px" }));
-						$("." + str[0]).append($('<img/>',{src:path+'/resources/images/approve/circle_people.png',width:'20px',height:'20px'}));
-						$("." + str[0]).append(str[0] + " " + str[1] + " " + str[2] + " " + str[3], '<br>')
-					}
-	
-				} else { // flag값이 true일 경우에는 추가하지않음
-					alert("이미 등록된 사원입니다");
-					return false;
-				}
-			})
-			$("input:checkbox[name=peopleBox]").prop("checked", false); // 다 추가하고나서 선택창의 체크박스 초기화
 		}
 	})
-})*/
+})
+
+
+// 두번째 결재선 추가
+$(document).on('click', '.jstree-anchor', function () {
+    let spanElement = $(this).find('span');
+    
+    let deptName = spanElement.text().trim();
+    console.log(deptName);
+    
+    $.ajax({
+		url : "/approval/apLineSelect",
+		type : "post",
+		data : {deptName : deptName},
+		success : function(data) {
+			$("#empBox2").empty();
+			
+			let username = document.getElementById("username").value;
+			
+			for (let i = 0; i < data.length; i++) {
+				var empData = [data[i].deptName, data[i].positionName, data[i].empName, data[i].username]
+				if(username != data[i].username){ // 본인아이디에서는 결재선과 참조선에 이름이 나오지 않는 로직처리
+					/*$("#empBox").append('<input type="checkbox" name="empCheck" value=empData/>');*/
+					let inputElement = $('<input>', { type: 'radio', name: 'checkedEmp', value: empData});
+					$("#empBox2").append(inputElement);
+					$("#empBox2").append('&nbsp; <i class="fa-solid fa-user" style="color: #d6d6d6;"></i>');
+					$("#empBox2").append('&nbsp;', data[i].positionName, '&nbsp;', data[i].empName, '&nbsp;', '<br>')
+				}
+			}
+		}
+	})
+})
+
+
+
+function addApLine1() {
+
+	// 선택된 라디오박스의 값을 가져오기 위한 변수
+	let selectedRadio = $('input:radio[name="checkedEmp"]:checked');
+	
+	let firstApLineInfo = document.getElementById("firstApLineInfo");
+
+	if(selectedRadio.length === 0){
+		alert("결재자를 선택해주세요.");
+		return;
+	}
+	
+	let info = selectedRadio.val();
+	console.log(info);
+	
+	let infoArr = info.split(",");
+	console.log(infoArr);
+	
+	let deptName = infoArr[0];
+	let positionName = infoArr[1];
+	let empName = infoArr[2];
+	let username = infoArr[3];
+	
+	let firstLineUsername = document.getElementById("firstLineUsername");
+	firstLineUsername.value = username;
+	
+	let firstLineEmpName = document.getElementById("firstLineEmpName");
+	firstLineEmpName.value = empName;
+	
+	console.log(deptName, positionName, empName, username);
+	
+	firstApLineInfo.value = positionName + "/" + empName;
+	
+	
+	
+	console.log(firstApLineInfo.value);
+	
+	$("#empBox").empty();
+	$("#staticBackdrop1").modal("hide");
+}
+
+
+function addApLine2() {
+
+	// 선택된 라디오박스의 값을 가져오기 위한 변수
+	let selectedRadio = $('input:radio[name="checkedEmp"]:checked');
+	
+	let secondApLineInfo = document.getElementById("secondApLineInfo");
+
+	if(selectedRadio.length === 0){
+		alert("결재자를 선택해주세요.");
+		return;
+	}
+	
+	let info = selectedRadio.val();
+	console.log(info);
+	
+	let infoArr = info.split(",");
+	console.log(infoArr);
+	
+	let deptName = infoArr[0];
+	let positionName = infoArr[1];
+	let empName = infoArr[2];
+	let username = infoArr[3];
+	
+	if($("#firstLineUsername").val() == username) {
+		alert("이미 1차 결재선에 추가된 결재자입니다. \n 다시 선택해주세요.");
+		return;
+	} else {
+		let secondLineUsername = document.getElementById("secondLineUsername");
+		secondLineUsername.value = username;
+		
+		let secondLineEmpName = document.getElementById("secondLineEmpName");
+		secondLineEmpName.value = empName;
+	}
+	
+	console.log(deptName, positionName, empName, username);
+
+	secondApLineInfo.value = positionName + "/" + empName;
+	
+	console.log(secondApLineInfo.value);
+	
+	$("#empBox2").empty();
+	$("#staticBackdrop2").modal("hide");
+}
+
+
