@@ -53,7 +53,7 @@
 		ON E.DEPTNO = D.DEPTNO
 		INNER JOIN POSITION P
 		ON E.POSITIONNO = P.POSITIONNO
-		WHERE E.DEPTNO = #{deptNo} OR E.DEPTNO = #{parentNo}
+		WHERE E.DEPTNO = #{deptNo} OR E.DEPTNO = #{parentNo} OR E.DEPTNO = '999'
 	</select>
 	
 	<select id="deptList" parameterType="com.vet.main.dept.DeptVO">
