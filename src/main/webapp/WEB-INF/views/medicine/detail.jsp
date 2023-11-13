@@ -30,34 +30,39 @@
 						<h3>약품상세</h3>
 						<div class="card shadow mb-4" style="align-items: center;">
 							<div style="width: 900px; float: left; margin-bottom: 30px; margin-left: 250px;">	
-								<div style="width: 550px; margin-top: 20px; float: left;">
-									<table class="table">
-										<tr>
-											<td>약품명</td>
-											<td>${vo.name}</td>
-										</tr>
-										<tr>
-											<td>재고</td>
-											<td>${vo.stock}</td>
-										</tr>
-										<tr>	
-											<td>입고일</td>
-											<td>${vo.medicineDate}</td>
-										</tr>
-										<tr>
-											<td>유통기한</td>
-											<td>${vo.expirationDate}</td>
-										</tr>	
-									</table>
-								
-									<!-- Button trigger modal -->
+								<div style="width: 550px; margin-top: 50px;">
+									<div class="mb-3 row">
+									    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">약품명:</label>
+									    	<div class="col-sm-10">
+									      		<input type="text" readonly class="form-control-plaintext" id="name" value="${vo.name}">
+									    	</div>
+									</div>
+									<div class="mb-3 row">
+									    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">재고:</label>
+									    	<div class="col-sm-10">
+									      		<input type="text" readonly class="form-control-plaintext" id="stock" value="${vo.stock}">
+									    	</div>
+									</div>
+									<div class="mb-3 row">
+									    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">입고일:</label>
+									    	<div class="col-sm-10">
+									      		<input type="text" readonly class="form-control-plaintext" id="medicineDate" value="${vo.medicineDate}">
+									    	</div>
+									</div>
+									<div class="mb-3 row">
+									    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">유통기한:</label>
+									    	<div class="col-sm-10">
+									      		<input type="text" readonly class="form-control-plaintext" id="expirationDate" value="${vo.expirationDate}">
+									    	</div>
+									</div>
+									<!-- 삭제 -->
 									<button type="button" class="btn btn-primary"
 										data-bs-toggle="modal" data-bs-target="#exampleModal"
-										style="float: right">삭제</button>
+										style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">삭제</button>
 									<a href="./update?medicineNo=${vo.medicineNo}"
-										class="btn btn-primary" style="float: right">수정</a>
+										class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">수정</a>
 			
-									<!-- Modal -->
+									<!-- 삭제모달창 -->
 									<div class="modal fade" id="exampleModal" tabindex="-1"
 										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog">

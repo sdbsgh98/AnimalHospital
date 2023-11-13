@@ -18,9 +18,12 @@ public class MedicineService {
 	
 	//약품목록
 	public List<MedicineVO> getList(Pager pager) throws Exception {
+		pager.setPerPage(10L);
+		pager.makeRowNum();
 		Long totalCount = medicineDAO.getTotal(pager);
-		pager.makeNum(totalCount);
-		pager.makeStartRow();
+		pager.makePageNum(totalCount);
+//		pager.makeNum(totalCount);
+//		pager.makeStartRow();
 		return medicineDAO.getList(pager);
 	}
 	

@@ -10,23 +10,6 @@
 	data-template="vertical-menu-template-free">
 <head>
 
-<!-- include summernote -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg=" crossorigin="anonymous">	  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
-integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
-
-<!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js) -->
-<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
-<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.js"></script>
-
-<!-- include summernote css/js-->
-<link href="summernote.css">
-<script src="summernote.js"></script>
-
 <c:import url="/WEB-INF/views/layout/headCSS.jsp"></c:import>
 </head>
 <meta charset="UTF-8">
@@ -56,7 +39,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 													<td rowspan="2" style="font-size: xx-large; font-weight: bolder;">진료차트상세</td>
 													<!-- <td></td> -->
 													<td>작성자</td>
-													<td>${user.empName}</td>
+													<td>${vo.empName}</td>
 												</tr>
 												<tr>
 													<!-- <td></td> -->
@@ -67,33 +50,41 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											</table>
 											<div>
 												<br><h3>반려동물</h3>
-												<table class="table">
-													<tr>
-														<td>이름</td>
-														<td>${cus.animalName}</td>
-													</tr>
-													<tr>
-														<td>성별</td>
-														<td>${cus.gender}</td>
-													</tr>
-													<tr>
-														<td>나이</td>
-														<td>${cus.age}</td>
-													</tr>
-													<tr>
-														<td>병명</td>
-														<td>${vo.disease}</td>
-													</tr>
-												</table>
+												<div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">이름</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="animalName" value="${cus.animalName}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">성별</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="gender" value="${cus.gender}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">나이</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="age" value="${cus.age}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="disease" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">병명</label>
+													    <div class="col-sm-10">
+													    <input type="text" readonly class="form-control-plaintext" id="disease" value="${vo.disease}">
+													    </div>
+												  </div>
 											</div>
-
-											<div class="mb-3 mt-4 ms-4">
-                                                <label for="contents" class="form-label"></label>
-                                                ${vo.contents}
-                                            </div>
                                             
-                                            <div class="mb-3">
-                                            	${med.name}
+                                            <div class="card" style="width: auto; margin-top: 20px;">
+											  <div class="card-body" style="border-style: ridge;">
+											    <h5 class="card-title">진료내용</h5>
+											    <p class="card-text">${vo.contents}</p>
+											  </div>
+											</div>
+                                            
+                                            <div class="mb-3" style="margin-top: 20px;">
+                                            	약품 이름: ${vo.name}
                                             </div>
                                             
                                             <div>
@@ -104,7 +95,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											</div>
 
 										</div>
-										<a href="./update?chartNo=${vo.chartNo}&customerNo=${cus.customerNo}&username=${user.username}" class="btn btn-primary" style="float:right">진료차트수정</a>
+										<a href="./update?chartNo=${vo.chartNo}&customerNo=${cus.customerNo}&username=${user.username}" class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">진료차트수정</a>
 									</div>
 								</div>
 						</div>	
@@ -119,34 +110,6 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	</div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-
-	<!-- summernote -->
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"
-	integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-	
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"
-	integrity="sha256-5slxYrL5Ct3mhMAp/dgnb5JSnTYMtkr4dHby34N10qw=" crossorigin="anonymous"></script>
-	
-	<!-- language pack -->
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"
-	integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="anonymous"></script>
-	
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-	
-	<script>
-	$('#contents').summernote({
-	  tabsize: 2,
-	  height: 300,
-	  codemirror: { // codemirror options
-		    theme: 'monokai'
-		  },
-	  lang: 'ko-KR', // default: 'en-US'
-
-	});
-	
-	$("#contents").summernote('code'); 
-	</script>
 
 </body>
 </html>
