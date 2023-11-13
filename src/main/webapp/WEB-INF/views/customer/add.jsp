@@ -44,7 +44,7 @@
 										<div class="mb-3 row">
 											<label for="age" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">나이</label>
 										    	<div class="col-sm-10">
-										     		<input type="text" name="age" class="form-control age input" id="age">
+										     		<input type="text" name="age" class="form-control age input" id="age" placeholder="나이를 입력하세요.">
 										    	</div>
 										    	<div id="ageMsg" style="margin-left: 100px;"></div>
 										</div>
@@ -85,7 +85,7 @@
 										<div class="mb-3 row">
 											<label for="weight" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">몸무게</label>
 										    	<div class="col-sm-10">
-										     		<input type="text" name="weight" class="form-control weight input" id="weight">
+										     		<input type="text" name="weight" class="form-control weight input" id="weight" placeholder="몸무게를 입력하세요.">
 										    	</div>
 										    	<div id="wMsg" style="margin-left: 100px;"></div>
 										</div>
@@ -143,6 +143,7 @@
 															<input type="text" name="address" class="form-control" id="detailAddress" placeholder="상세주소입력">                
 														</div>
 													</div>
+													<div id="aMsg"></div>
 										    	</div>
 										</div> -->
 										
@@ -185,8 +186,8 @@
 	
 	<!-- 카카오주소api -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <!-- <script  text="text/javascript" src="/js/customer/add.js"></script> -->
-    <script type="text/javascript" src="/js/customer/customerAdd.js"></script>
+    <!-- <script type="text/javascript" src="/js/customer/add.js"></script> -->
+   	<script type="text/javascript" src="/js/customer/customerAdd.js"></script>
 
 </body>
 </html>

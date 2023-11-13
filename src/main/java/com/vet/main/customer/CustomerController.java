@@ -79,9 +79,9 @@ public class CustomerController {
 	
 	@PostMapping("update")
 	public String setUpdate(CustomerVO customerVO, MultipartFile[] files, HttpSession session, Model model) throws Exception {
-		int result = customerService.setUpdate(customerVO, files);
+		int result = customerService.setUpdate(customerVO, files, session);
 		
-		return "redirect:./list";
+		return "redirect:./list?customerNo="+customerVO.getCustomerNo();
 	}
 	
 	//고객삭제
