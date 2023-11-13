@@ -33,111 +33,95 @@
 							<input type="hidden" name="customerNo" value="${vo.customerNo}">
 		
 								<div>	
-									<div style="width: 550px; margin-top: 20px; float: left;">
-										<table class="table">
-											<!-- <tr>
-												<td>사진</td>
-											  	<td><input type="file" class="form-control" name="files"></td>
-											</tr> -->
-											<tr>
-												<td>이름</td>
-												<td>${vo.animalName}</td>
-											</tr>
-											<tr>
-												<td>나이</td>
-												<td><input type="text" name="age" class="form-control" id="age" value="${vo.age}"></td>
-											</tr>
-											<tr>
-												<td>성별</td>
-												<td>${vo.gender}</td>
-											</tr>
-											<tr>
-												<td>중성화</td>
-												<td>
-													<select class="form-select" aria-label="Default select example" name='neutering'>
+									<div style="width: 550px; margin-top: 50px;">
+									
+										 <div class="mb-3 row">
+										    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">이름</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" readonly class="form-control-plaintext" id="animalName" value="${vo.animalName}">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">나이</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" name="age" class="form-control" id="age" value="${vo.age}">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">성별</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" readonly class="form-control-plaintext" id="gender" value="${vo.gender}">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">중성화</label>
+										    	<div class="col-sm-10">
+										      		<select class="form-select" aria-label="Default select example" name='neutering'>
 														<option value="${vo.neutering}" selected="selected">${vo.neutering}</option>
 														<option value="yes">yes</option>
 														<option value="no">no</option>
 													</select>
-												</td>
-											</tr>
-											<tr>
-												<td>몸무게</td>
-												<td><input type="text" name="weight" class="form-control" id="weight" value="${vo.weight}"></td>
-											</tr>
-											<tr>
-												<td>종류</td>
-												<td>${vo.kind}</td>
-											</tr>
-								
-											<tr>
-												<td>보호자이름</td>
-												<td><input type="text" name="name" class="form-control" id="name" value="${vo.name}" placeholder="이름을 입력하세요."></td>
-											</tr>
-											<tr>
-												<td>전화번호</td>
-												<td><input type="text" name="phone" class="form-control" id="phone" value="${vo.phone}" placeholder="전화번호를 입력하세요."></td>
-											</tr>
-											<tr>
-												<td>주소</td>
-												<td>
-													<div>      			
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">몸무게</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" name="weight" class="form-control" id="weight" value="${vo.weight}">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">종류</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" readonly class="form-control-plaintext" id="kind" value="${vo.kind}">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">보호자</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" name="name" class="form-control" id="name" value="${vo.name}" placeholder="보호자이름을 입력하세요.">
+										    	</div>
+										 </div>
+										 <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">전화번호</label>
+										    	<div class="col-sm-10">
+										      		<input type="text" name="phone" class="form-control" id="phone" value="${vo.phone}" placeholder="전화번호를 입력하세요.">
+										    	</div>
+										 </div>
+										 <%-- <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">주소</label>
+										    	<div class="col-sm-10">
+										      		<div>      			
 										                <input type="text" name="address" class="form-control" id="postcode" placeholder="우편번호"
 										            	readonly>
 										            	<button type="button" class="btn btn-primary" id="addressSearch">우편번호찾기</button>
 										            </div>
-										         <div class="field">       
-										            <div>
-										                <input type="text" name="address" class="form-control" id="address" value="${vo.address}" placeholder="주소"
-										            readonly>
-										            </div>
-										            <div>
-										            	<input type="text" name="address" class="form-control" id="detailAddress" placeholder="상세주소입력">                
-										        	</div>
-										        </div>
-												</td>
-											</tr>
-											<%-- <tr>
-												<td>사진</td>
-												<td>
-													<c:if test="${empty vo.fileVO}">
-														<div class="mb-3">
-															<input type="file" class="form-control" name="files">
-														</div>
-													</c:if>
-													<c:if test="${!empty vo.fileVO}">
-														<div id="fileList" class="my-5">
-											                <c:forEach items="${vo.fileVO}" var="f">
-											                    <div class="file-item mb-2">
-											                        <span class="alert alert-primary me-2" role="alert" id="${f.originalFileName}">
-											                            첨부파일: ${f.originalFileName}
-											                        </span>
-											                        <span class="delets btn btn-danger" data-delete-num="${f.fileNo}">삭제</span>
-											                    </div>
-											                </c:forEach>
+											        <div class="field">       
+											            <div>
+											                <input type="text" name="address" class="form-control" id="address" value="${vo.address}" placeholder="주소"
+											            readonly>
 											            </div>
-										            </c:if>
-												</td>
-											</tr> --%>
-											<%-- <tr>
-											<td>사진</td>
-											<td>
-												<div class="mb-3">
-						                        	<label id="label" data-list="${size}" for="files"><button type="button" id="fileAdd" class="btn btn-primary">사진추가</button></label>
-						                        	<div class="col-sm-10" id="fileBox">
-						                        		<c:forEach items="${vo.fileVO}" var="f">
-						                        			<div class="file1"><div class="files alert alert-primary alert-dismissible">${f.originalFileName}</div>
-														 	<button type="button" class="x2 btn-danger" data-file="${f.fileName}" data-num="${f.fileNo}">삭제</button></div>
-						                        		</c:forEach>
-						                          	</div>
-						                        </div>
-					                        </td>
-					                        </tr> --%>
-					                        
-					                        <tr>
-					                        	<td>사진</td>
-					                        	<td>
-													<div class="mb-3">
+											            <div>
+											            	<input type="text" name="address" class="form-control" id="detailAddress" placeholder="상세주소입력">                
+											        	</div>
+											        </div>
+										    	</div>
+										 </div> --%>
+										 
+										 <div class="mb-3 row">
+				                          <label for="address" class="col-md-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">주소</label>
+				                          <div class="col-md-10">
+				                            <input class="form-control address input" name="address" type="text" id="address"  placeholder="우편번호" value="${vo.address}"/>
+				                            <button type="button" id="addressBtn" class="btn btn-primary">우편번호 찾기</button>
+				                            <input class="form-control" type="hidden" id="address"  placeholder="주소" />
+				                            <input class="form-control" type="hidden" id="address"  placeholder="상세주소" value="" />
+				                            <div id="aMsg"></div>
+				                          </div>
+				                        </div>
+										 
+										 <div class="mb-3 row">
+										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">사진</label>
+										    	<div class="col-sm-10">
+										      		<div class="mb-3">
 														<button type="button" class="btn btn-primary" id="fileAdd">사진추가</button>
 													</div>
 													<div id="fileList" class="my-5">
@@ -150,12 +134,10 @@
 											                </div>
 											         	</c:forEach>
 											         </div>
-					                        	</td>
-					                        </tr>
-											
-										</table>
+										    	</div>
+										 </div>
 										
-										<button class="btn btn-primary" style="float:right">수정</button>
+										<button class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">수정</button>
 									</div>
 								</div>
 							</form>
@@ -174,8 +156,9 @@
 	
 	<!-- 카카오주소api -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="/js/customer/add.js"></script>
-    <script type="/js/customer/file.js"></script>
+    <!-- <script src="/js/customer/add.js"></script> -->
+    <!-- <script type="/js/customer/file.js"></script> -->
+    <script type="text/javascript" src="/js/customer/customerUpdate.js"></script>
     
     <script>
 	const fileList = document.getElementById("fileList");
@@ -243,7 +226,7 @@
 	if(deletes != null) {
 	    count = deletes.length;
 	}
-
+	
 	let idx = 0;
 
 	$("#fileList").on("click", ".df", function(){
@@ -251,7 +234,7 @@
 	    count--;
 	})
 
-	//jquery로 변경
+ 	//jquery로 변경
 	$("#fileAdd").click(function(){
 	    if(count>=max){
 	        alert("첨부파일은 최대 1개까지만 업로드 가능합니다.");
@@ -268,71 +251,7 @@
 	    $("#fileList").append(r);
 
 	});
-	
 	</script>
-    
-    <!-- <script>
-    	let size = $('#label').attr("data-list");
-    	console.log(size);
-    	let max = 1;
-    	let count = 0;
-    		
-	    $('#fileAdd').click(function(){
-    	if(count < max){
-	    	
-		    let fileTag = '<br><div class="file1"><input type="file" class="files form-control" '
-		    			  +'id="files" name="files"/><button class="x btn-danger">삭제</button></div>';
-	    	$('#fileBox').append(fileTag);
-	        
-	    	count ++;
-    	}else{
-    		alert("첨부파일은 최대 1개까지만 업로드 가능합니다.");
-    	}
-	     });
-	     
-	    $('#fileBox').on("click",'.x',function(){
-	    	$(this).parent().remove();
-	    	count --;
-	    	
-	    })
-	    
-	     $('#fileBox').on("click",'.x2',function(){
-	    	if(confirm("삭제시 복원이 불가능 합니다.")){
-		    	let num = $(this).attr("data-num");
-		    	let name = $(this).attr("data-file");
-		    	
-	    		fileDelete(num, name);
-	    		
-	    		$(this).parent().remove();
-		    	count --;
-		    	
-	    	}
-	    })
-	    
-	    function fileDelete(fileNo, fileName){
-	    	$.ajax({
-				type:"post",
-				url:"./fileDelete",
-				data:{
-					"fileNo":fileNo,
-					"fileName":fileName
-				},
-				success:function(response){
-					r=response.trim();
-					console.log(r);
-					if(r>0){
-						alert("삭제 성공");
-					}else{
-						alert("삭제 실패");
-					}
-					
-				},
-				error:function(){
-					console.log("ajax 실패");
-				}
-			})
-	    }
-    </script> -->
     
 </body>
 </html>

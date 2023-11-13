@@ -95,17 +95,23 @@ public class ApprovalService {
 
 	// 기안함 리스트
 	public List<ApprovalVO> getDraftList(Pager pager) throws Exception {
+		pager.setPerPage(10L);
+		pager.makeRowNum();
 		Long totalCount = approvalDAO.getDraftTotal(pager);
-		pager.makeNum(totalCount);
-		pager.makeStartRow();
+		pager.makePageNum(totalCount);
+//		pager.makeNum(totalCount);
+//		pager.makeStartRow();
 		return approvalDAO.getDraftList(pager);
 	}
 	
 	// 결재함 리스트
 	public List<ApprovalVO> getApproverList(Pager pager) throws Exception {
+		pager.setPerPage(10L);
+		pager.makeRowNum();
 		Long totalCount = approvalDAO.getApproverTotal(pager);
-		pager.makeNum(totalCount);
-		pager.makeStartRow();
+		pager.makePageNum(totalCount);
+//		pager.makeNum(totalCount);
+//		pager.makeStartRow();
 		return approvalDAO.getApproverList(pager);
 	}
 	

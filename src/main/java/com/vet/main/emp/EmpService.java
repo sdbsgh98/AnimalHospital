@@ -123,9 +123,12 @@ public class EmpService implements UserDetailsService{
 	
 	// 사원 관리(직원 목록)
 	public List<EmpVO> empList(Pager pager)throws Exception{
+		pager.setPerPage(10L);
+		pager.makeRowNum();
 		Long totalCount = empDAO.getTotal(pager);
-		pager.makeNum(totalCount);
-		pager.makeStartRow();
+		pager.makePageNum(totalCount);
+//		pager.makeNum(totalCount);
+//		pager.makeStartRow();
 		return empDAO.empList(pager);
 	}
 	

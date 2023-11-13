@@ -32,13 +32,16 @@ public class CustomerService {
 	private String uploadPath;
 		
 	@Value("${app.customer}")
-	private String customerNo;
+	private String animalName;
 	
 	//고객목록
 	public List<CustomerVO> getList(Pager pager) throws Exception {
-		Long totalCount = customerDAO.getTotal(pager);
-		pager.makeNum(totalCount);
-		pager.makeStartRow();
+		pager.setPerPage(10L); //10개씩
+		pager.makeRowNum(); //출력할 row 처음
+		Long totalCount = customerDAO.getTotal(pager); //전체 데이터
+		pager.makePageNum(totalCount); //데이터수로 페이지 수
+//		pager.makeNum(totalCount);
+//		pager.makeStartRow();
 		return customerDAO.getList(pager);
 	}
 	
@@ -52,7 +55,7 @@ public class CustomerService {
 			}
 			
 			CustomerFileVO fileVO = new CustomerFileVO();
-			String fileName = fileManger.save(this.uploadPath + this.customerNo, multipartFile);
+			String fileName = fileManger.save(this.uploadPath + this.animalName, multipartFile);
 			fileVO.setCustomerNo(customerVO.getCustomerNo());
 			fileVO.setFileName(fileName);
 			fileVO.setOriginalFileName(multipartFile.getOriginalFilename());
@@ -68,7 +71,7 @@ public class CustomerService {
 	}
 	
 	//고객수정
-	public int setUpdate(CustomerVO customerVO, MultipartFile[] files) throws Exception {
+	public int setUpdate(CustomerVO customerVO, MultipartFile[] files, HttpSession session) throws Exception {
 		int result = customerDAO.setUpdate(customerVO);
 		
 		for(MultipartFile multipartFile:files) {
@@ -77,7 +80,7 @@ public class CustomerService {
 			}
 			
 			CustomerFileVO fileVO = new CustomerFileVO();
-			String fileName = fileManger.save(this.uploadPath + this.customerNo, multipartFile);
+			String fileName = fileManger.save(this.uploadPath + this.animalName, multipartFile);
 			fileVO.setCustomerNo(customerVO.getCustomerNo());
 			fileVO.setFileName(fileName);
 			fileVO.setOriginalFileName(multipartFile.getOriginalFilename());
@@ -96,7 +99,7 @@ public class CustomerService {
 			if(customerFileVO == null) {
 				continue;
 			}
-			fileManger.fileDelete(customerFileVO, this.uploadPath + this.customerNo);
+			fileManger.fileDelete(customerFileVO, this.uploadPath + this.animalName);
 		}
 		
 		//DB삭제
@@ -111,7 +114,7 @@ public class CustomerService {
 		log.info("파일이름 : {} ", customerFileVO.getFileName());
 		log.info("파일번호 : {} ", customerFileVO.getFileNo());
 		
-		fileManger.fileDelete(customerFileVO, this.uploadPath + this.customerNo);
+		fileManger.fileDelete(customerFileVO, this.uploadPath + this.animalName);
 		
 		int result = customerDAO.fileUpdateDelete(customerFileVO);
 		
