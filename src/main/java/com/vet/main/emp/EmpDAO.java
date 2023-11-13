@@ -25,13 +25,13 @@ public interface EmpDAO {
 	
 	public List<EmpVO> empList(Pager pager)throws Exception;
 	
-	public int empAdd(EmpVO empVO) throws Exception;
+	public int empAdd(AddVO addVO) throws Exception;
 	
 	public EmpVO empDetail(EmpVO empVO)throws Exception;
 	
 	public int empUpdate(EmpVO empVO)throws Exception;
 	
-	public int pwUpdate(PwVO pwVO)throws Exception;
+	public int pwUpdate(PwVO pwVO)throws Exception;	
 
 //	public void save(EmpVO empVO);
 	

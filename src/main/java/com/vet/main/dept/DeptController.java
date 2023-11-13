@@ -58,7 +58,8 @@ public class DeptController {
 	
 	//부서 수정
 	
-	@PostMapping("deptUpdate")
+	@ResponseBody
+	@RequestMapping(value = "/dept/deptUpdate", method = RequestMethod.POST)
 	public String deptUpdate(DeptVO deptVO)throws Exception{
 		int result = deptService.deptUpdate(deptVO);
 		return "redirect:./deptDetail?deptNo="+deptVO.getDeptNo();
@@ -90,9 +91,9 @@ public class DeptController {
 	}
 
 	@GetMapping("deptDetail")
-	public String deptDetail(DeptVO deptVO, Model model, DeptPager2 deptPager)throws Exception{
+	public String deptDetail(DeptVO deptVO, Model model, DeptPager2 deptPager2)throws Exception{
 		List<DeptVO> ar = deptService.deptList(); //조직도
-		List<DeptVO> emp = deptService.detailEmp(deptPager); //사원list
+		List<DeptVO> emp = deptService.detailEmp(deptPager2); //사원list
 		List<DeptVO> dept = deptService.selectDept();
 		List<DeptVO> position = deptService.deptPosition();
 		
@@ -102,7 +103,7 @@ public class DeptController {
 		model.addAttribute("list", ar);
 		model.addAttribute("vo", deptVO);
 		model.addAttribute("po", position);
-		model.addAttribute("pager", deptPager);
+		model.addAttribute("pager", deptPager2);
 		return "dept/deptDetail";
 	}
 

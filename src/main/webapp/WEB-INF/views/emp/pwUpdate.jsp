@@ -37,24 +37,40 @@
 						              <h4 class="mb-2">비밀번호를 변경해주세요.🔐</h4>
 						              <p class="mb-4">Please change your password!</p>
 										<div>
-											<%-- <form action="pwUpdate" method="post"> --%>
-																	
-											<form:form modelAttribute="pwVO" action="/emp/pwUpdate" method="POST">
-			
-												<form:label path="password">새 비밀번호 등록</form:label>
-												<form:password path="password" cssClass="form-control"/>
-												<form:errors path="password"></form:errors>
-												
-												<form:label path="passwordCheck">새 비밀번호 등록</form:label>
-												<form:password path="passwordCheck" cssClass="form-control"/>
-												<form:errors path="passwordCheck"></form:errors>
-											
-											  <br>		  			  				  				          													  	  				  			  				  				          		
-											  <button type="submit" class="btn btn-primary" style="margin-top: 10px;">완료</button>
-											</form:form>						
-																					
-								
+											 <%-- <form action="pwUpdate" method="post"> --%>
+										<form:form modelAttribute="pwVO" action="/emp/pwUpdate" method="POST">
+											<input type="hidden" name="username" value="${vo.username}">
+											<input type="hidden" name="randomPw" value="${vo.randomPw}">
+
+												<label>새 비밀번호 등록</label>
+													 <input type="password" class="form-control" id="password" name="password">
+													 <form:errors path="password" cssStyle="color: red; font-size: 12px;"/>
+													 <br>
+												<label>새 비밀번호 확인</label>
+													 <input type="password" class="form-control" id="passwordCheck" name="passwordCheck">
+													 <form:errors path="passwordCheck" cssStyle="color: red; font-size: 12px;"/>
+
+											  <br><br>			  			  				  				          													  	  				  			  				  				          		
+											  <button type="submit" class="btn btn-primary" id="updateBtn" style="margin-top: 30px;">완료</button>
 							        		<%-- </form> --%>
+							        		</form:form> 
+																	
+											<%-- <form:form modelAttribute="pwVO" action="/emp/pwUpdate" method="POST">
+											    <form:label path="password">새 비밀번호 등록</form:label>
+											    <form:password path="password" cssClass="form-control"/>
+											    <form:errors path="password" cssStyle="color: red; font-size: 12px;"/>
+											
+											    <br>
+											
+											    <form:label path="passwordCheck">새 비밀번호 확인</form:label>
+											    <form:password path="passwordCheck" cssClass="form-control"/>
+											    <form:errors path="passwordCheck" cssStyle="color: red; font-size: 12px;"/>
+											
+											    <br>
+											
+											    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">완료</button>
+											</form:form> --%>						
+																													
 										</div>
 						
 						            </div>
@@ -72,5 +88,28 @@
 	    	</div>
 	    </div>  
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+	
+	<script type="text/javascript">
+	$('#updateBtn').on("click", function(){
+		
+		let password = $("#password").val();
+		let passwordCheck = $("#passwordCheck").val();
+
+		
+	    if(password == ""){
+	        alert("변경 할 비밀번호를 입력해주세요.");
+	        password.focus();
+	        return;
+	    }
+	    if(passwordCheck == ""){
+	        alert("비밀번호 확인란를 입력해주세요.");
+	        passwordCheck.focus();
+	        return;
+	    }
+
+	    alert("비밀번호가 변경되었습니다. 다시 로그인해주세요.")
+	    
+	});
+	</script>
 </body>
 </html>

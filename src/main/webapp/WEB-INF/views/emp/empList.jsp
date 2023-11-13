@@ -127,32 +127,36 @@
 					      </div>
 					      <div class="modal-body">
 
-					         <form action="empAdd" method="post" enctype="multipart/form-data" id="empForm">
-								<input type="hidden" class="form-control" name="username" id="username"">
+					         <%-- <form action="empAdd" method="post" enctype="multipart/form-data" id="empForm"> --%>
+					          <form:form modelAttribute="addVO" action="/emp/empList/empAdd" method="POST">
+								<input type="hidden" class="form-control" name="username" id="username">
 								<input type="hidden" class="form-control" name="password" id="password">
 								   <div class="form-group">
 							            <label for="empName">이름</label>
 							            <input type="text" class="form-control" id="empName" name="empName" placeholder="ex) 홍길동">
-							            <div id="empNameError" class="error"></div>
+							            <form:errors path="empName" cssStyle="color: red; font-size: 12px;"/>
 							        </div>
+							        <br>
 								   <div class="form-group">
 							            <label for="email">이메일</label>
 							            <input type="email" class="form-control" id="email" name="email" placeholder="ex) example@gmail.com">
 							            <input type="button" class="form-control" id="emailCheck" value="이메일 중복확인" style="background-color: rgb(255,239,222); margin-top: 5px;">
-							            <div id="emailError" class="error"></div>
+							            <form:errors path="email" cssStyle="color: red; font-size: 12px;"/>
 							        </div>
+							        <br>
 								   <div class="form-group">
 							            <label for="phone">연락처</label>
 							            <input type="text" class="form-control" id="phone" name="phone" placeholder="ex) 01012345678">
-							            <div id="phoneError" class="error"></div>
+							            <form:errors path="phone" cssStyle="color: red; font-size: 12px;"/>
 							        </div>
+							        <br>
 								   <div class="form-group">
 							            <label for="birth">생년월일</label>
 							            <input type="date" class="form-control" id="birth" name="birth" placeholder="ex) 1900-01-01">
-							            <div id="birthError" class="error"></div>
+							            <form:errors path="birth" cssStyle="color: red; font-size: 12px;"/>
 							        </div>							        							        							        
-
-								</form>
+									</form:form>
+								<%-- </form> --%>
 				          	<br>
 							      <div class="modal-footer">
 							        <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -182,6 +186,7 @@
 	$('#addBtn').on("click", function(){
 		let empName = $("#empName").val();
 		let email = $("#email").val();
+		let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		let phone = $("#phone").val();
 		let birth = $("#birth").val();
 		let username = $("#username").val();
@@ -189,25 +194,31 @@
 		let data = {username:username, empName:empName, email:email, phone:phone, birth:birth};
 		
 		if(empName == ""){
-	        alert("이름은 필수입력사항입니다.");
-	        empName.focus();
+	        alert("이름은 필수입력사항입니다."); 
+	        /* empName.focus(); */
 	        return;
 	    }
 	    if(email == ""){
-	        alert("이메일은 필수입력사항입니다.");
-	        email.focus();
+	        alert("이메일은 필수입력사항입니다."); 
+	        email.focus(); 
 	        return;
 	    }
+		if (!emailRegex.test(email)) {
+		    alert("이메일 형식이 올바르지 않습니다.");
+		    return;
+		}
+		
 	    if(phone == ""){
 	        alert("연락처는 필수입력사항입니다.");
 	        phone.focus();
 	        return;
 	    }
 	    if(birth == ""){
-	        alert("생일은 필수입력사항입니다.");
+	        alert("생일은 필수입력사항입니다."); 
 	        birth.focus();
 	        return;
 	    }
+
 	    
 	    $.ajax({
 			url:"/emp/empList/empAdd",
@@ -245,6 +256,7 @@
 	$('#emailCheck').on("click", function () {
 	    let email = $("#email").val();
 
+	    
 	    if (email === "") {
 	        alert("이메일을 입력해주세요.");
 	        email.focus();

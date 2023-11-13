@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.vet.main.commons.DeptPager;
 import com.vet.main.commons.DeptPager2;
-import com.vet.main.commons.Pager;
 
 @Service
 public class DeptService {
@@ -36,8 +35,9 @@ public class DeptService {
 	
 	public List<DeptVO> detailEmp(DeptPager2 deptPager2)throws Exception{
 		Long totalCount = deptDAO.getTotal2(deptPager2);
-		deptPager2.makeNum(totalCount);
-		deptPager2.makeStartRow();
+		deptPager2.makePageNum(totalCount);
+		deptPager2.setPerPage(5L);
+		deptPager2.makeRowNum();
 		
 		return deptDAO.detailEmp(deptPager2);
 	}
