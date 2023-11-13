@@ -29,7 +29,7 @@ public class DeptPager {
 	private boolean pre;
 	// 다음 btn [true=중간블럭 | false=마지막블럭]
 	private boolean next;
-
+	
 	private String username;
 	private Long customerNo;
 	private String deptNo;
@@ -110,7 +110,7 @@ public class DeptPager {
 		}
 		public Long getPerPage() {
 			if(this.perPage==null) {
-				this.perPage=10L;
+				this.perPage=5L;
 			}
 			return perPage;
 		}

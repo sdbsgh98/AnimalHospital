@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vet.main.commons.DeptPager;
+import com.vet.main.commons.DeptPager2;
 import com.vet.main.commons.Pager;
 
 @Service
@@ -33,13 +34,12 @@ public class DeptService {
 		return deptDAO.getEmpList(deptPager);
 	}
 	
-	public List<DeptVO> detailEmp(DeptPager deptPager)throws Exception{
-		deptPager.setPerPage(5L);
-		deptPager.makeRowNum();
-		Long totalCount = deptDAO.getTotal2(deptPager);
-		deptPager.makePageNum(totalCount);
+	public List<DeptVO> detailEmp(DeptPager2 deptPager2)throws Exception{
+		Long totalCount = deptDAO.getTotal2(deptPager2);
+		deptPager2.makeNum(totalCount);
+		deptPager2.makeStartRow();
 		
-		return deptDAO.detailEmp(deptPager);
+		return deptDAO.detailEmp(deptPager2);
 	}
 	
 	public List<DeptVO> deptList()throws Exception{

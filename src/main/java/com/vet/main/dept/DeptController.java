@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vet.main.commons.DeptPager;
+import com.vet.main.commons.DeptPager2;
 import com.vet.main.commons.Pager;
 import com.vet.main.emp.EmpService;
 import com.vet.main.emp.EmpVO;
@@ -75,15 +76,13 @@ public class DeptController {
 	//부서 관리 페이지
 	
 	@GetMapping("deptManage")
-	public String deptManage(DeptVO deptVO, Model model, DeptPager deptPager) throws Exception{
+	public String deptManage(DeptVO deptVO, Model model) throws Exception{
 		List<DeptVO> ar = empService.getDeptNo(deptVO);
-		List<DeptVO> emp = deptService.getEmpList(deptPager);
 		List<DeptVO> select = deptService.selectDept();
 		List<DeptVO> deptPosition = deptService.getDeptPosition(deptVO);
 
 		deptVO = deptService.deptDetail(deptVO);
 		model.addAttribute("dept", ar);
-		model.addAttribute("emp", emp);
 		model.addAttribute("select", select);
 		model.addAttribute("vo", deptVO);
 		model.addAttribute("deptPosition", deptPosition);
@@ -91,7 +90,7 @@ public class DeptController {
 	}
 
 	@GetMapping("deptDetail")
-	public String deptDetail(DeptVO deptVO, Model model, DeptPager deptPager)throws Exception{
+	public String deptDetail(DeptVO deptVO, Model model, DeptPager2 deptPager)throws Exception{
 		List<DeptVO> ar = deptService.deptList(); //조직도
 		List<DeptVO> emp = deptService.detailEmp(deptPager); //사원list
 		List<DeptVO> dept = deptService.selectDept();
