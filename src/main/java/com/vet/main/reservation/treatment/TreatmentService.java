@@ -86,15 +86,21 @@ public class TreatmentService {
 	};
 	
 	public int setTreatmentAdd(TreatmentVO treatmentVO) throws Exception{
+		
 		return treatmentDAO.setTreatmentAdd(treatmentVO);
 	}
 	
-	public List<CustomerVO> getCustomerList(CustomerVO customerVO) throws Exception{
-		return treatmentDAO.getCustomerList(customerVO);
+	public List<CustomerVO> getCustomerList(String animalName) throws Exception{
+		return treatmentDAO.getCustomerList(animalName);
 	}
 	
-	public List<EmpVO> getEmpList() throws Exception{
-		return treatmentDAO.getEmpList();
+	public List<EmpVO> getEmpList(String deptNo) throws Exception{
+				
+		if(deptNo.equals("300")) {
+			return treatmentDAO.getAllEmpList();
+		}else {		
+		return treatmentDAO.getEmpList(deptNo);
+		}
 	}
 	
 	public List<DeptVO> getDeptList() throws Exception{
@@ -111,6 +117,10 @@ public class TreatmentService {
 	
 	public int setUpdate(TreatmentVO treatmentVO)throws Exception{
 		return treatmentDAO.setUpdate(treatmentVO);
+	}
+	
+	public int reservedTreat(TreatmentVO treatmentVO)throws Exception{
+		return treatmentDAO.reservedTreat(treatmentVO);
 	}
 	
 }

@@ -38,11 +38,15 @@ public class TreatmentController {
 
 	
 	@GetMapping("schedule")
-	public String getScheduleList1(Model model, EmpVO empVO)throws Exception{
-		List<EmpVO> emplist = treatmentService.getEmpList();
+	public String getScheduleList1(Model model)throws Exception{
+		/* List<EmpVO> emplist = treatmentService.getEmpList(); */
 		List<DeptVO> deptlist = treatmentService.getDeptList();
-
-		model.addAttribute("emplist", emplist);
+		
+		/*
+		 * log.info("####emplist확인:{}",emplist);
+		 * 
+		 * model.addAttribute("emplist", emplist);
+		 */
 		model.addAttribute("deptlist", deptlist);
 		
 		
@@ -99,16 +103,25 @@ public class TreatmentController {
 	
 	//예약추가
 	@PostMapping("scheduleAdd")
-	public String setTreatmentAdd(@RequestBody TreatmentVO treatmentVO)throws Exception{
+	@ResponseBody
+	public int setTreatmentAdd(@RequestBody TreatmentVO treatmentVO)throws Exception{
 		
-		treatmentService.setTreatmentAdd(treatmentVO);
+		int result = treatmentService.reservedTreat(treatmentVO);
+		int rst = 0;
 		
-		return "redirect:./schedule";
+		if(result==0) {
+			rst = treatmentService.setTreatmentAdd(treatmentVO);
+		}else {
+			rst=0;
+		}
+		
+		return rst;
 	}
 	
-	@GetMapping("customerList")
-	public List<CustomerVO> customerList(Model model,CustomerVO customerVO)throws Exception{
-		List<CustomerVO> list = treatmentService.getCustomerList(customerVO);
+	@PostMapping("customerList")
+	@ResponseBody
+	public List<CustomerVO> customerList(Model model,String animalName)throws Exception{
+		List<CustomerVO> list = treatmentService.getCustomerList(animalName);
 		
 		model.addAttribute("list", list);
 
@@ -119,30 +132,17 @@ public class TreatmentController {
 	}
 	
 	
-	
-	
-	
-	//고객리스트조회
-	/*
-	 * @PostMapping("customerList") public ModelAndView getCustomerList(ModelAndView
-	 * mv,@RequestBody CustomerVO customerVO)throws Exception{ List<CustomerVO>
-	 * cuslist = treatmentService.getCustomerList(customerVO);
-	 * 
-	 * mv.addObject("cuslist", cuslist); mv.setViewName("/treatment/schedule");
-	 * log.info("customerlist:{}", cuslist );
-	 * 
-	 * return mv; }
-	 */
-	
 	//직원조회
-	@GetMapping("empList")
-	public String getEmpList(Model model)throws Exception{
-		List<EmpVO> list = treatmentService.getEmpList();
-		model.addAttribute("list", list);
-		
-		return "treatment/empList";	
-	}
 	
+	  @PostMapping("empList")
+	  @ResponseBody
+	  public List<EmpVO> getEmpList(Model model, String deptNo)throws Exception{
+			List<EmpVO> list = treatmentService.getEmpList(deptNo);
+			model.addAttribute("list", list);
+	  
+	  return list; 
+	  }
+	 
 	/*
 	 * @GetMapping("scheduleDetail") public String getDetail()throws Exception{
 	 * return "treatment/scheduleDetail"; }
@@ -184,8 +184,8 @@ public class TreatmentController {
 		treatmentService.setUpdate(treatmentVO);
 		
 		return "redirect:./schedule";
-	}
-	
+	}	
+
 	
 	
 	

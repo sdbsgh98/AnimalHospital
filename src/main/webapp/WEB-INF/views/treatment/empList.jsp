@@ -76,6 +76,7 @@
 	</div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+	<span style="color: transparent; overflow: hidden; display: inline-block; width: 100%; white-space: nowrap; text-overflow: ellipsis;">
 
 </body>
 </html>
