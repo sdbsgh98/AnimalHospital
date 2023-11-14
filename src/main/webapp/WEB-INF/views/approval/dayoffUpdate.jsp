@@ -265,7 +265,7 @@
 		$(document).ready(function(){
 			let selectedValue = document.getElementById("dayoffValue").value;
 		    $('input[name="dayoffKind"][value="' + selectedValue + '"]').prop('checked', true);
-		})	
+		})
 		
 		
 $(document).ready(function() {
@@ -280,101 +280,16 @@ $(document).ready(function() {
 
 
        if (selectedValue === '반차') {
-            // 반차 선택 시
-            $('#dateFields').append('<label for="dayoffStartDate">날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
-            $('#dayoffStartDate').datepicker({
-                dateFormat: 'yy/mm/dd', // 날짜 형식 설정
-                minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
-            });
-
-            $('#dateFields').append('<label for="dayoffTime">시간:</label>');
-            $('#dateFields').append('<select id="dayoffTime" name="dayoffTime"><option value="오전">오전</option><option value="오후">오후</option></select>');
+            halfDay();
         } else if (selectedValue === '연차') {
-            // 연차 선택 시
-            $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
-            $('#dayoffStartDate').datepicker({
-                dateFormat: 'yy/mm/dd', // 날짜 형식 설정
-                minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
-            });
-
-            $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
-            $('#dayoffEndDate').datepicker({
-                dateFormat: 'yy/mm/dd', // 날짜 형식 설정
-                minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
-                beforeShow: function(input) {
-                    let dayoffStartDate = $('#dayoffStartDate').datepicker('getDate');
-                    if (dayoffStartDate) {
-                        return { minDate: dayoffStartDate };
-                    }
-                }
-            });
+            fullDay();
         } else if (selectedValue === '병가') {
-            // 병가 선택 시
-            $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
-            $('#dayoffStartDate').datepicker({
-                dateFormat: 'yy/mm/dd', // 날짜 형식 설정
-                minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
-            });
-
-            $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
-            $('#dayoffEndDate').datepicker({
-                dateFormat: 'yy/mm/dd', // 날짜 형식 설정
-                minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
-                beforeShow: function(input) {
-                    let dayoffStartDate = $('#dayoffStartDate').datepicker('getDate');
-                    if (dayoffStartDate) {
-                        return { minDate: dayoffStartDate };
-                    }
-                }
-            });
+            sickDay();
         } else if (selectedValue === '경조사') {
-            // 경조사 선택 시
-            $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
-            $('#dayoffStartDate').datepicker({
-                dateFormat: 'yy/mm/dd', // 날짜 형식 설정
-                minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
-            });
-
-            $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
-            $('#dayoffEndDate').datepicker({
-                dateFormat: 'yy/mm/dd', // 날짜 형식 설정
-                minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
-                beforeShow: function(input) {
-                    let dayoffStartDate = $('#dayoffStartDate').datepicker('getDate');
-                    if (dayoffStartDate) {
-                        return { minDate: dayoffStartDate };
-                    }
-                }
-            });
+            familyDay();
         } else if (selectedValue === '기타') {
-            // 기타 선택 시
-            $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
-            $('#dayoffStartDate').datepicker({
-                dateFormat: 'yy/mm/dd', // 날짜 형식 설정
-                minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
-            });
-
-            $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
-            $('#dayoffEndDate').datepicker({
-                dateFormat: 'yy/mm/dd', // 날짜 형식 설정
-                minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
-                beforeShow: function(input) {
-                    let dayoffStartDate = $('#dayoffStartDate').datepicker('getDate');
-                    if (dayoffStartDate) {
-                        return { minDate: dayoffStartDate };
-                    }
-                }
-            });
-            
+            etcDay();
+        }
          // 선택된 라디오 버튼의 값에 따라 필드 생성
             if (selectedRadioValue) {
                 $('input[name="dayoffKind"][value="' + selectedRadioValue + '"]').prop('checked', true).change();
@@ -382,10 +297,10 @@ $(document).ready(function() {
 
             $('#dayoffStartDate').val(previousDayoffStartDate);
             $('#dayoffEndDate').val(previousDayoffEndDate);
-        }
     });
 });
 		
+
 
 	</script>
 

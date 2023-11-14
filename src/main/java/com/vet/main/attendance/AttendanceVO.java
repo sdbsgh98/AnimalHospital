@@ -15,4 +15,9 @@ public class AttendanceVO {
 	private LocalDateTime attOut;
 	private Integer attState;
 	private Double atDayoffCount;
+	private Long attNo;
+	
+	private String positionName;
+	private String deptNo;
+	private String empName;
 }

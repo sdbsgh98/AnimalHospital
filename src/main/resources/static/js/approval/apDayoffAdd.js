@@ -171,3 +171,111 @@ addBtn.addEventListener("click", function(){
 cancleBtn.addEventListener("click", function(){
 	location.href = "/approval/draftList/" + username;
 })
+
+
+
+// 반차
+function halfDay() {
+	$('#dateFields').append('<label for="dayoffStartDate">날짜:</label>');
+    $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
+    $('#dayoffStartDate').datepicker({
+        dateFormat: 'yy/mm/dd', // 날짜 형식 설정
+        minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
+    });
+
+    $('#dateFields').append('<label for="dayoffTime">시간:</label>');
+    $('#dateFields').append('<select id="dayoffTime" name="dayoffTime"><option value="오전">오전</option><option value="오후">오후</option></select>');
+}
+
+// 연차
+function fullDay() {
+    $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
+    $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
+    $('#dayoffStartDate').datepicker({
+        dateFormat: 'yy/mm/dd', // 날짜 형식 설정
+        minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
+    });
+
+    $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
+    $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
+    $('#dayoffEndDate').datepicker({
+        dateFormat: 'yy/mm/dd', // 날짜 형식 설정
+        minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
+        beforeShow: function(input) {
+            let dayoffStartDate = $('#dayoffStartDate').datepicker('getDate');
+            if (dayoffStartDate) {
+                return { minDate: dayoffStartDate };
+            }
+        }
+    })
+}
+
+// 병가
+function sickDay() {
+    // 병가 선택 시
+    $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
+    $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
+    $('#dayoffStartDate').datepicker({
+        dateFormat: 'yy/mm/dd', // 날짜 형식 설정
+        minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
+    });
+
+    $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
+    $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
+    $('#dayoffEndDate').datepicker({
+        dateFormat: 'yy/mm/dd', // 날짜 형식 설정
+        minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
+        beforeShow: function(input) {
+            let dayoffStartDate = $('#dayoffStartDate').datepicker('getDate');
+            if (dayoffStartDate) {
+                return { minDate: dayoffStartDate };
+            }
+        }
+    })
+}
+
+function familyDay() {
+    // 경조사 선택 시
+    $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
+    $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
+    $('#dayoffStartDate').datepicker({
+        dateFormat: 'yy/mm/dd', // 날짜 형식 설정
+        minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
+    });
+
+    $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
+    $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
+    $('#dayoffEndDate').datepicker({
+        dateFormat: 'yy/mm/dd', // 날짜 형식 설정
+        minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
+        beforeShow: function(input) {
+            let dayoffStartDate = $('#dayoffStartDate').datepicker('getDate');
+            if (dayoffStartDate) {
+                return { minDate: dayoffStartDate };
+            }
+        }
+    })
+}
+
+// 기타
+function etcDay() {
+    $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
+    $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
+    $('#dayoffStartDate').datepicker({
+        dateFormat: 'yy/mm/dd', // 날짜 형식 설정
+        minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
+    });
+
+    $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
+    $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
+    $('#dayoffEndDate').datepicker({
+        dateFormat: 'yy/mm/dd', // 날짜 형식 설정
+        minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
+        beforeShow: function(input) {
+            let dayoffStartDate = $('#dayoffStartDate').datepicker('getDate');
+            if (dayoffStartDate) {
+                return { minDate: dayoffStartDate };
+            }
+        }
+    })
+}
