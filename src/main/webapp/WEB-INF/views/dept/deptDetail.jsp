@@ -42,7 +42,7 @@
 					<div class="card shadow mb-4" style="width: 20%; float: left; height: 400px;">	
 					<div>
 					</div>
-					<a type="button" href="./deptList" class="btn" style="width: 95%; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left:4px;">전체보기</a>
+					<a type="button" href="./deptList" class="btn" style="width: 95%; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left:4px;">전체부서</a>
 						<div id="jstree">
 						    <ul>
 						        <c:forEach items="${list}" var="vo">
