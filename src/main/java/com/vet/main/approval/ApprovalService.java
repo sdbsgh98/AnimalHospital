@@ -208,5 +208,4 @@ public class ApprovalService {
 	public int setExpenseUpdate(ApprovalExpenseVO approvalExpenseVO) throws Exception{
 		return approvalDAO.setExpenseUpdate(approvalExpenseVO);
 	}
-	
 }

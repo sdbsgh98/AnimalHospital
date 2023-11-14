@@ -363,6 +363,14 @@
 		DELETE FROM APLINE
 		WHERE APNO = #{apNo}
 	</delete>
+	
+	<update id="updateApLine" parameterType="Long">
+		UPDATE APLINE
+		SET
+		USERNAME = #{username},
+		EMPNAME = #{empName}
+		WHERE APNO = #{apNo}
+	</update>
 
 	<!-- 상세페이지에 결재자 출력-->
 	<select id="getApLinePerson" parameterType="Long" resultType="ApprovalLineVO">

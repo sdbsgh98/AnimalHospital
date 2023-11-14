@@ -32,4 +32,6 @@ public class ApprovalLineVO {
 	// 결재자 수, 미결기안 수
 	private Long aplCount;
 	private Long notSign;
+	
+	
 }

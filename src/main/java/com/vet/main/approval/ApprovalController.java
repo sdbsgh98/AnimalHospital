@@ -256,6 +256,9 @@ public class ApprovalController {
 	public String getApDetail(ApprovalVO approvalVO, Model model) throws Exception {
 		
 		approvalVO = approvalService.getApDetail(approvalVO);
+		
+		log.info("=============== 기안서 번호 가져오는지 확인 approvalVO : {} ===============", approvalVO);
+		
 		Long apNo = approvalVO.getApNo();
 		
 		// 결재자 조회
@@ -458,7 +461,6 @@ public class ApprovalController {
 		
 		approvalService.resetApLine(apNo);
 		
-		
 		if (apKind.equals("품의서")) {
 			int result = approvalService.setApUpdate(approvalVO);
 			
@@ -547,6 +549,8 @@ public class ApprovalController {
 		approvalVO.setApTitle(apTitle);
 		
 		approvalService.setApExpenseUpdate(approvalVO);
+		
+		approvalService.resetApLine(apNo);
 
 		log.info("============= approvalVO : {} ==============", approvalVO);
 			
