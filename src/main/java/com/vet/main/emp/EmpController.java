@@ -21,9 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.vet.main.commons.Pager;
 import com.vet.main.dept.DeptVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @Controller
 @RequestMapping("/emp/*")
+@Slf4j
 public class EmpController {
 
 	@Autowired
@@ -57,15 +60,22 @@ public class EmpController {
 
 	@PostMapping("pwUpdate")
 	public String pwUpdate(@Valid PwVO pwVO, BindingResult bindingResult) throws Exception {
-	    boolean check = empService.getPwError(pwVO, bindingResult);
+	   // boolean check = empService.getPwError(pwVO, bindingResult);
 	    int result = empService.pwUpdate(pwVO);
-
-	    if (check == false) {
-	        pwVO.setRandomPw(1);
-	        return "redirect:/emp/login"; 
-	    } else {
-	        return "emp/pwUpdate";
+	    
+	    log.info("============{}", pwVO);
+	    if(result>0) {   	
+	    	pwVO.setRandomPw(1);
+	    	return "redirect:/emp/login";
+	    	
+	    }else {
+	    	return "emp/pwUpdate";
 	    }
+//	    if (check == false) {
+//	        return "redirect:/emp/login"; 
+//	    } else {
+//	        return "emp/pwUpdate";
+//	    }
 	}
 	
 	// 비밀번호 찾기
@@ -141,17 +151,28 @@ public class EmpController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/empList/empAdd", method = RequestMethod.POST)
-	public String empAdd(@Valid AddVO addVO, BindingResult bindingResult, Model model) throws Exception{
-		boolean check = empService.getEmpError(addVO, bindingResult);
-		    
-
-		    if (check) {
-		    	model.addAttribute("vo", addVO);
-		        return "emp/empList/empAdd"; 
-		    } 
-		    int result = empService.empAdd(addVO);
+	public String empAdd(EmpVO empVO, Model model) throws Exception{
 		
-		    return "redirect:./empList";
+		int result = empService.empAdd(empVO);
+		
+		if(result >0) {
+			empService.sendMailAdd(empVO.getEmail(), empVO.getUsername(), empVO.getPhone());
+		}
+		
+		return "redirect:./empList";
+		
+//		boolean check = empService.getEmpError(addVO, bindingResult);
+//		    
+//
+//		    if (check) {
+//		    	model.addAttribute("vo", addVO);
+//		        return "emp/empList/empAdd"; 
+//		    } 
+//		    int result = empService.empAdd(addVO);
+//		    
+//		    
+//		
+//		    return "redirect:./empList";
 //		if (bindingResult.hasErrors()) {
 //	        return "error"; // 폼 유효성 검사 실패 시 "error" 반환
 //	    }

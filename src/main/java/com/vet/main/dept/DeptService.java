@@ -66,8 +66,19 @@ public class DeptService {
 		return result;
 	}
 	
+	public int positionUpdate(DeptVO deptVO)throws Exception{
+		int result = deptDAO.positionUpdate(deptVO);
+		return result;
+	}
+	
 	public int deptDelete(DeptVO deptVO)throws Exception{
 		int result = deptDAO.deptDelete(deptVO);
+		
+		return result;
+	}
+	
+	public int positionDelete(DeptVO deptVO)throws Exception{
+		int result = deptDAO.positionDelete(deptVO);
 		
 		return result;
 	}
@@ -94,7 +105,9 @@ public class DeptService {
     }
     
     public int positionAdd(DeptVO deptVO)throws Exception{
-    	return deptDAO.positionAdd(deptVO);
+    	
+    	int result = deptDAO.positionAdd(deptVO);
+    	return result;
     }
     
 }

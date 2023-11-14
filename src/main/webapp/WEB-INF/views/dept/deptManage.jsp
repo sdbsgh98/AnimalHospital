@@ -35,37 +35,75 @@
 						              <!-- /Logo -->
 						              <h4 style="text-align: center;">부서관리</h4>
 										<div style="width: 100%;">
-											<form action="deptUpdate" method="post">
 												<div id="detail" style="width: 80%; height:75%; margin: auto;">
-													<input type="hidden" id="positionNohidden" value="${positionNo}">
+											<form action="deptUpdate" method="post">
 													<span>부서번호</span>
-													<input type="text" class="form-control" id="no" name="deptNo" value="${vo.deptNo}">
+													<input type="text" class="form-control deptNo1" id="no" name="deptNo" value="${vo.deptNo}" readonly="readonly">
 													<span>이름</span>
 													<input type="text" class="form-control" id="name" name="deptName" value="${vo.deptName}">
 													<span>상위부서</span>
 													<select class="form-control" name='parentNo' id="parentNoAdd" style="height: 35px;">										
 														<c:forEach items="${select}" var="dept">
-															<option value="${dept.deptNo}" selected>${dept.deptName}</option>
+															<option value="${dept.deptNo}">${dept.deptName}</option>
 														</c:forEach>
 													<option value=0>없음</option>
 													</select>
+													<button type="submit" class="btn btn-primary" id="ok2" style="float: right; margin-top: 10px;">부서수정</button><br><br>
+											</form>	
 													<span>직급</span>
-														<button id="addInput" class="btn" type="button">+</button>
+														<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button>
+															<input type="hidden" class="form-control" id="no3" name="deptNo" value="${vo.deptNo}" readonly="readonly">
+											
 														<c:forEach items="${deptPosition}" var="position">
 														    <div class="addContainer">
-														        <input type="hidden" class="positionNohidden" value="${positionNo}">
-														        <input type="text" class="form-control" id="position${position.positionNo}" name="positionName" value="${position.positionName}">
-														        <input type="button" class="btn btnRemove" value="X" style="width: 5%; float: right;">
+																<input type="hidden" class="positionNohidden2" value="${position.positionNo}">											
+														        <input type="text" class="form-control" id="positionNameList" name="positionName" value="${position.positionName}" readonly="readonly">
+														 		<a href="./positionDelete?positionNo=${position.positionNo}" type="button" class="btn btnRemove" style="width: 5%; float: right;">X</a>
 														    </div>
+													
 														</c:forEach>	
-														<div class="newContainer"></div>
+																								
+														       <br>		
+														       
+														  <a href="./deptList" class="btn btn-primary" type="button">목록</a>									        
+														<!-- <div class="newContainer"></div> -->
 														<!-- <button id="addInput" class="btn" type="button">+</button> -->					
-													<br>
-													<br>
-													<button type="submit" class="btn btn-primary" id="ok" style="float: right;">완료</button>
+												
 												</div>																																							
-											</form>
-											
+												<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												  <div class="modal-dialog">
+												    <div class="modal-content">
+												      <div class="modal-header">
+												        <h1 class="modal-title fs-5" id="exampleModalLabel">직급 추가</h1>
+												        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												      </div>
+												      <div class="modal-body">
+							
+												         <form action="positionAdd" method="post" enctype="multipart/form-data">
+												          <%-- <form:form modelAttribute="addVO" action="/emp/empList/empAdd" method="POST"> --%>
+												          <input type="hidden" class="form-control" id="no2" name="deptNo" value="${vo.deptNo}" readonly="readonly">
+															<div>
+																<span>이름</span>
+																<input type="text" class="form-control" id="name" name="deptName" value="${vo.deptName}" readonly="readonly">
+																<span>상위부서</span>
+																<input type="text" class="form-control" id="parentNo" name="parentNo" value="${vo.parentNo}" readonly="readonly">
+															</div>
+															<div class="addContainer">
+															  <input type="hidden" class="positionNohidden" value="${positionNo}">
+															  <span>직급명</span>
+															   <input type="text" class="form-control" id="positionName" name="positionName" placeholder="추가 할 직급명을 입력해주세요."/>
+															</div>
+															
+											          	<br>
+														      <div class="modal-footer">
+														        <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+														        <button class="btn btn-primary" id="addBtn">추가</button>
+														      </div>
+															</form>
+															</div>
+														  </div>
+														</div>
+													</div>											
 										</div>									
 						            </div>
 						          </div>
@@ -82,67 +120,99 @@
 	    	</div>
 	    </div>  
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+
+	<script type="text/javascript">
+    $("#addBtn").on("click", function() {
+        let positionNo = container.find('.positionNohidden2').val();
+        let positionName = $('#positionName').val();
+        let deptNo = $("#no2").val();
+
+        let data = {positionName: positionName, deptNo: deptNo};
+
+        $.ajax({
+            type: "POST",
+            url: "/dept/positionAdd",
+            data: data,
+            success: function(response) {
+                console.log(data);
+                location.href="./deptManage?deptNo="+$("#no2").val();
+                alert("성공적으로 추가되었습니다.");
+            },
+            error: function(error) {
+                alert("오류가 발생했습니다.");
+            }
+        });
+    });
+	</script>
+<!-- 	<script type="text/javascript">
+		$("#ok").on("click", function(){
+	        let deptNo = $('.no3').val();
+	        let positionName = $('#positionNameList').val();
+	        let positionNo = $(".positionNohidden2").val();
+	        
+	        let data = {positionName: positionName, positionNo: positionNo};
+	        
+	        $.ajax({
+	            type: "POST",
+	            url: "/dept/positionUpdate",
+	            data: data,
+	            success: function(data) {
+	            	console.log(data);
+	                alert("성공적으로 업데이트되었습니다.");
+	                location.href="/dept/deptManage?deptNo="+deptNo;
+	            },
+	            error: function(error) {
+	                alert("오류가 발생했습니다.");
+	            }
+	        });
+		})
+		
+	</script> -->
 	
 	<script type="text/javascript">
-	    $('#ok').on("click", function() {
-	        let deptNo = $("#no").val();
+		$("#ok2").on("click", function(){
+	        let deptNo = $('.deptNo1').val();
 	        let deptName = $('#name').val();
 	        let parentNo = $("#parentNoAdd").val();
-	
-	        let positions = [];
-	        $('.addContainer').each(function() {
-	            let positionNo = $(this).find('.positionNohidden').val();
-	            let positionName = $(this).find('input[name="positionName"]').val();
-	            let deptNo = $('#no').val();
-	            positions.push({positionNo, positionName, deptNo});
-	        });
-	
-	        let data = {
-	            deptNo: deptNo,
-	            deptName: deptName,
-	            parentNo: parentNo,
-	            positions: positions
-	        };
-	
+	        
+	        let data = {deptNo: deptNo, deptName: deptName, parentNo: parentNo};
+	        
 	        $.ajax({
 	            type: "POST",
 	            url: "/dept/deptUpdate",
 	            contentType: "application/json",
-	            data: JSON.stringify(data),
-	            success: function(response) {
+	            data: data,
+	            success: function(data) {
 	            	console.log(data);
-	                alert("데이터가 성공적으로 업데이트되었습니다.");
-	                location.href="./deptList";
+	                alert("성공적으로 업데이트되었습니다.");
+
 	            },
 	            error: function(error) {
-	                alert("데이터 업데이트 중 오류가 발생했습니다.");
+	                alert("오류가 발생했습니다.");
 	            }
 	        });
-	    });
+		})
+		
 	</script>
-			
-	<script type="text/javascript">
-	    $(document).ready(function () {
-	        $('#addInput').click(function () {
-	            $('.newContainer').html('');
 	
-	            $('.newContainer').append(
-	                '<div class="positionItem">' +
-	                '<input type="text" class="form-control positionName" name="positionName" id="position${position.positionNo}"> ' +
-	                '<input type="button" class="btn btnRemove" value="X" style="width: 5%; float: right;">' +
-	                '</div>'
-	            );
-	        });
-	
-	        $('.newContainer').on('click', '.btnRemove', function () {
-	            $(this).parent().remove();
-	        });
-	        
-	        $('.addContainer').on('click', '.btnRemove', function () {
-	            $(this).parent().remove(); 
-	        });
-	    });
-	</script>
 
+	<script type="text/javascript">
+	    $('.btnRemove').on("click", function (event) {
+	    	let deptNo = $('#no3').val();
+	    	let re = $('#no').val();
+	    	
+	        // confirm 대화상자에서 '확인'을 누르면 true, '취소'를 누르면 false를 반환
+	        if (!confirm("삭제하시겠습니까?")) {
+	            event.preventDefault(); 
+	            /* 삭제 취소 */
+	        }else{
+				alert("삭제롼료");	        	
+	            console.log(re);
+	            location.href="./deptDetail?deptNo="+$('#no').val();
+	        }
+	        
+	    });
+	</script>
+	
 </body>
 </html>

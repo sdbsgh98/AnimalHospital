@@ -74,19 +74,18 @@
 									<div class="input-group" style="width: 120px;">
 										<input type="hidden" value="${pager.page}" id="page" name="page">
 										<select name="kind" id="k" class="form-select"
-											data-kind="${pager.kind}" aria-label="Default select example" style="width: 50px;">
+											data-kind="${pager.kind}" aria-label="Default select example" style="width: 50px; margin-left: 20px; border-radius: 5px;">
 											<option class="kind" value="empName">이름</option>
 											<option class="kind" value="username">사원번호</option>
 											<option class="kind" value="state">상태</option>
 										</select>
 									</div> 
-									<input type="text" name="search" value="${pager.search}"
-										class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 150px;">
-										<button type="submit" class="btn btn-primary" style="width:100px;">검색</button>
+									<input class="form-control me-2" type="text" name="search" value="${pager.search}" style="border-radius: 5px; margin-left: 7px; width: 150px;"> 
+									<button class="btn" type="submit" style="border-radius: 5px; border-color: #d9dee3;"><img alt="" src="/resources/images/searchIcon.svg"></button>
 								</form>
 							</div>
 						</div>
-    					<div>
+    					<div style="margin-right: 300px;">
     						<!-- 페이징 -->
 							<nav aria-label="Page navigation example">
 								<ul class="pagination justify-content-center">
@@ -113,7 +112,9 @@
     					</div>
     					<div>
 							<!-- <a href="/emp/empAdd" class="btn btn-secondary">신규직원 등록</a> -->  
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">추가</button>  						
+							<c:if test="${user.positionNo == 1}">
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-right: 20px;">추가</button>  						
+							</c:if>
     					</div>
 					</div>
 							
@@ -140,7 +141,7 @@
 								   <div class="form-group">
 							            <label for="email">이메일</label>
 							            <input type="email" class="form-control" id="email" name="email" placeholder="ex) example@gmail.com">
-							            <input type="button" class="form-control" id="emailCheck" value="이메일 중복확인" style="background-color: rgb(255,239,222); margin-top: 5px;">
+							            <input type="button" class="form-control" id="emailCheck" value="이메일 중복확인" style="background-color: rgb(255,239,222); margin-top: 5px;" onclick='btnActive()'>
 							            <form:errors path="email" cssStyle="color: red; font-size: 12px;"/>
 							        </div>
 							        <br>
@@ -160,7 +161,7 @@
 				          	<br>
 							      <div class="modal-footer">
 							        <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-							        <button class="btn btn-primary" id="addBtn">추가</button>
+							        <button class="btn btn-primary" id="addBtn" disabled="disabled">추가</button>
 							      </div>
 								</div>
 							  </div>
@@ -235,7 +236,7 @@
 			}
 		});
 	 
-	    $.ajax({
+	   /*  $.ajax({
 	        url: "/emp/sendMailAdd", 
 	        type: "POST",
 	        data: {email: $("#email").val(), username: $("#username").val(), phone : $("#phone").val()},  
@@ -246,7 +247,7 @@
 	        error: function () {
 	            console.log("문제있음"); 
 	        }
-	    });  
+	    });  */ 
 	    
 		
 	});
@@ -254,6 +255,7 @@
 
 	<script type="text/javascript">
 	$('#emailCheck').on("click", function () {
+		let target = document.getElementById('addBtn');
 	    let email = $("#email").val();
 
 	    
@@ -262,6 +264,7 @@
 	        email.focus();
 	        return;
 	    }	
+
 	    
 	     $.ajax({
 		        url: "/emp/findEmail",
@@ -270,17 +273,20 @@
 		        success: function (data) {
 		            if (data === "success") {	        	    
 		                alert("사용할 수 없는 이메일입니다.");
+		                target.disabled = true;
 		                email.focus();
 						return;
 		            } else {
 		                alert("사용가능한 이메일입니다.");
 		                $("#email").prop("readonly", true);
+		                target.disabled = false;
 		            }
 		        },
 		        error: function () {
 		        	alert("오류발생");
 		        }
 		    });
+	 
 	     
 	});
 	</script>

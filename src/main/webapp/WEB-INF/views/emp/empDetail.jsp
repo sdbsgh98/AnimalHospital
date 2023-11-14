@@ -34,16 +34,18 @@
 					<h3>${vo.empName}&nbsp;${vo.positionName}의 상세페이지</h3>
 					<div class="card shadow mb-4" style="align-items: center;">
 								
-							<div>
-								<div style="width: 300px; float: left;">
-									<c:if test="${vo.originalFileName == null }">
-										<img alt="" src="/resources/images/default.jpeg" style="width: 250px; height: 250px; margin: 30px;">
-									</c:if>
-									<c:if test="${vo.originalFileName != null }">		
-										<img alt="" src="../files/emp/${vo.fileName}" style="width: 250px; height: 250px; margin: 30px;">
-									</c:if>
-								</div>
-							<div style="width: 550px; margin-top: 20px; margin-bottom: 20px; float: left;">
+							<div style="width:75%; margin-bottom: 30px;">
+                                <div style="width: 300px; float: left;">
+                                    <c:choose>
+                                        <c:when test="${empty vo.originalFileName}">
+                                            <img alt="" src="/resources/images/default.jpeg" class=" rounded-circle" style="width: 250px; height: 250px; margin: 30px;">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img alt="" src="../files/emp/${vo.fileName}"  class=" rounded-circle" style="width: 250px; height: 250px; margin: 30px;">
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+							<div style="width: 70%; margin-top: 20px; margin-bottom: 20px; margin-left:10px; float: left;">
 								
 								<table class="table" style="margin-top: 40px;">
 									<tr>
@@ -69,7 +71,7 @@
 								</table>							
 							</div>
 							<br>
-							<div>
+							<div style="margin-bottom: 70px;">
 								<table class="table">
 									<tr>
 										<td>입사일</td>
@@ -86,18 +88,17 @@
 									<tr>
 										<td>생년월일</td>
 										<td>${vo.birth}</td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-									</tr>
+									</tr>		
 								</table>
 							</div>
 						</div>
 				</div>
 				
 				<!-- Content wrapper -->
-					<a href="/emp/empUpdate?username=${vo.username}" class="btn btn-danger">수정</a>
+				<c:if test="${user.positionNo == 1}">
+					<a href="/emp/empUpdate?username=${vo.username}" class="btn btn-primary" style="float: right;">수정</a>
+				</c:if>
+				
 				</form>
 			</div>
 			<!-- / Layout page -->

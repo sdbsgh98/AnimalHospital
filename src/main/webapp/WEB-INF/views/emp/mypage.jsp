@@ -35,18 +35,18 @@
 					<h3>${user.empName}의 마이페이지</h3>
 													
 					<div class="card shadow mb-4" style="align-items: center;">
-							<div style="width:900px; margin-bottom: 30px;">
+							<div style="width:75%; margin-bottom: 30px;">
                                 <div style="width: 300px; float: left;">
                                     <c:choose>
                                         <c:when test="${empty vo.originalFileName}">
-                                            <img alt="" src="/resources/images/default.jpeg" style="width: 250px; height: 250px; margin: 30px;">
+                                            <img alt="" src="/resources/images/default.jpeg" class=" rounded-circle" style="width: 250px; height: 250px; margin: 30px;">
                                         </c:when>
                                         <c:otherwise>
-                                            <img alt="" src="../files/emp/${vo.fileName}" style="width: 250px; height: 250px; margin: 30px;">
+                                            <img alt="" src="../files/emp/${vo.fileName}"  class=" rounded-circle" style="width: 250px; height: 250px; margin: 30px;">
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
-							<div style="width: 550px; margin-top: 20px; margin-bottom: 20px; float: left;">
+							<div style="width: 70%; margin-top: 20px; margin-bottom: 20px; margin-left:10px; float: left;">
 								
 								<table class="table" style="margin-top: 40px;">
 
@@ -93,7 +93,7 @@
 									</tr>
 								</table>
 							</div>
-							<a href="/emp/mypageUpdate?username=${user.username}" class="btn btn-secondary" style=" margin-top: 10px; margin-left: 10px; float: right;">내 정보수정</a>
+							<a href="/emp/mypageUpdate?username=${user.username}" class="btn btn-primary" style=" margin-top: 10px; margin-left: 10px; float: right;">내 정보수정</a>
 							<a href="/emp/pwUpdate?username=${user.username}" class="btn btn-danger" style=" margin-top: 10px; float: right;">비밀번호 변경</a>
 							<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">추가</button>   -->
 						<div style="margin-top: 70px;">	
@@ -103,10 +103,10 @@
 								</c:if>
 
 								<c:if test="${not empty sign.uploadName}">
-								<div style="width: 200px; float: left;">
+								<div style="width: 30%; float: left;">
 									<img alt="" src="../files/sign/${sign.uploadName}" style="width: 120px; height: 120px; margin: 30px;">
 								</div>
-								<div style="width:700px; margin-top: 50px; float: left;">
+								<div style="width:65%; margin-top: 50px; float: left;">
 									<span style="text-align: center;">${sign.signName}</span><br>
 									<span style="text-align: center;">등록일 : ${sign.addDate}</span>
 									<a href="/emp/signAdd" style="float: right">수정</a>

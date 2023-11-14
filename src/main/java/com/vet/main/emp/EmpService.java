@@ -136,15 +136,16 @@ public class EmpService implements UserDetailsService{
 	
 	// 신규직원 등록
 	@Transactional(rollbackFor = Exception.class)
-	public int empAdd(AddVO addVO) throws Exception{
-		String pw = addVO.getPhone();
+	public int empAdd(EmpVO empVO) throws Exception{
+		String pw = empVO.getPhone();
 		
-		addVO.setPassword(passwordEncoder.encode(pw));
-		int result = empDAO.empAdd(addVO);
+		empVO.setPassword(passwordEncoder.encode(pw));
+		int result = empDAO.empAdd(empVO);
 		Map<String, Object> map = new HashMap<>();
 		map.put("roleNum", 2);
-		map.put("username", addVO.getUsername());
+		map.put("username", empVO.getUsername());
 		result = empDAO.empRole(map);
+		
 		
 		return result;
 	}
@@ -187,28 +188,28 @@ public class EmpService implements UserDetailsService{
 	}
 	
 	// 사원등록 오류
-	public boolean getEmpError(AddVO addVO ,BindingResult bindingResult)throws Exception{
-	    boolean check = bindingResult.hasErrors();
-
-	    Date currentDate = new Date();
-
-	    if (addVO.getEmpName().isBlank()) {
-	        check = true;
-	        bindingResult.rejectValue("empName", "이름은 필수 입력 항목입니다."); // 에러 메시지 추가
-	    } else if (addVO.getEmail().isBlank()) {
-	        check = true;
-	    } else if (addVO.getPhone().isBlank()) {
-	        check = true;
-	    } else if (!addVO.getBirth().before(currentDate)) {
-	        check = true;
-	    } else {
-	        check = false;
-	    }
-
-	    log.error("에러 발생: {}", bindingResult.getAllErrors()); // 에러 로깅 추가
-
-	    return check;
-	}
+//	public boolean getEmpError(AddVO addVO ,BindingResult bindingResult)throws Exception{
+//	    boolean check = bindingResult.hasErrors();
+//
+//	    Date currentDate = new Date();
+//
+//	    if (addVO.getEmpName().isBlank()) {
+//	        check = true;
+//	        bindingResult.rejectValue("empName", "이름은 필수 입력 항목입니다."); // 에러 메시지 추가
+//	    } else if (addVO.getEmail().isBlank()) {
+//	        check = true;
+//	    } else if (addVO.getPhone().isBlank()) {
+//	        check = true;
+//	    } else if (!addVO.getBirth().before(currentDate)) {
+//	        check = true;
+//	    } else {
+//	        check = false;
+//	    }
+//
+//	    log.error("에러 발생: {}", bindingResult.getAllErrors()); // 에러 로깅 추가
+//
+//	    return check;
+//	}
 	
 	// 직원 상세
 	public EmpVO empDetail(EmpVO empVO) throws Exception{

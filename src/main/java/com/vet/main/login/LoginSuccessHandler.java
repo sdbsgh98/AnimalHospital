@@ -28,7 +28,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
                 if (authentication.getPrincipal() instanceof EmpVO) {
                     EmpVO empVO = (EmpVO) authentication.getPrincipal();
                     if (empVO.getRandomPw() == 0) {
-                        response.sendRedirect("/emp/pwUpdate"); 
+                        response.sendRedirect("/emp/pwUpdate?username="+empVO.getUsername()); 
                     } else {
                         response.sendRedirect("/");
                     }

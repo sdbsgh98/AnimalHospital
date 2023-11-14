@@ -51,7 +51,6 @@ public class SecurityConfig {
 				.antMatchers("/emp/pwUpdate").permitAll() 
 				.antMatchers("/emp/empUpdate").hasRole("ADMIN")
 				.antMatchers("/dept/deptManage").hasRole("ADMIN")
-				.antMatchers("/emp/*").hasAnyRole("ADMIN", "USER") 
 				.antMatchers("/dept/*").hasAnyRole("ADMIN", "USER") 
 				.antMatchers("/").hasAnyRole("ADMIN", "USER") 
 				.and()

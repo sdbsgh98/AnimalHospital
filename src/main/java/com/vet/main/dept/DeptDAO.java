@@ -29,7 +29,11 @@ public interface DeptDAO {
 	
 	public int deptUpdate(DeptVO deptVO)throws Exception;
 	
+	public int positionUpdate(DeptVO deptVO)throws Exception;
+	
 	public int deptDelete(DeptVO deptVO)throws Exception;
+	
+	public int positionDelete(DeptVO deptVO)throws Exception;
 	
 	// 결재선
 	public List<DeptVO> getApLineDept() throws Exception;

@@ -33,18 +33,18 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 					<div class="card shadow mb-4" style="align-items: center;">
 			
-						<div style="width:900px; margin-bottom: 30px;">
+						<div style="width:75%; margin-bottom: 30px;">
 							<form action="mypageUpdate" method="post" enctype="multipart/form-data">
 								<div style="width: 300px; float: left;">
 									<c:if test="${vo.originalFileName == null }">
-										<img alt="" src="/resources/images/default.jpeg" style="width: 250px; height: 250px; margin: 30px;">
+										<img alt="" src="/resources/images/default.jpeg" class="rounded-circle" style="width: 230px; height: 230px; margin: 30px;">
 									</c:if>
 									<c:if test="${vo.originalFileName != null }">		
-										<img alt="" src="../files/emp/${vo.fileName}" style="width: 250px; height: 250px; margin: 30px;">
+										<img alt="" src="../files/emp/${vo.fileName}" class="rounded-circle" style="width: 230px; height: 230px; margin: 30px;">
 									</c:if>
 									<input type="file" class="form-control" name="files">
 								</div>
-							<div style="width: 550px; margin-top: 20px; margin-bottom: 20px; float: left;">
+							<div style="width: 70%; margin-top: 20px; margin-bottom: 20px; margin-left:10px; float: left;">
 								<input type="hidden" name="username" value="${vo.username}">
 								<input type="hidden" name="empName" value="${vo.empName}">
 								<input type="hidden" name="deptName" value="${vo.deptName}">
@@ -54,7 +54,7 @@
 								<input type="hidden" name="fileName" value="${vo.fileName}">
 								<input type="hidden" name="originalFileName" value="${vo.originalFileName}">
 								
-								<table class="table" style="margin-top: 40px;">
+								<table class="table" style="margin-top: 40px; margin-left: 10px;">
 									<tr>
 										<td>사번</td>
 										<td>${vo.username}</td>
@@ -74,9 +74,9 @@
 
 								</table>							
 							</div>
-							<br>
+							<br><br>
 							<div>
-								<table class="table">
+								<table class="table" style="margin-top: 20px;">
 									<tr>
 										<td>입사일</td>
 										<td>${vo.hireDate}</td>
@@ -109,7 +109,8 @@
 
 								</table>
 							</div>
-								<button class="btn btn-danger">수정완료</button>
+							<br>
+								<button class="btn btn-primary" style="float: right;">수정완료</button>
 								</form>
 						</div>
 					</div>

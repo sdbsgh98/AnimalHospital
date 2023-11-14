@@ -4,6 +4,7 @@
 <!-- jsp에서 properties 메세지를 사용할 수 있도록 하는 API -->
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
 	data-theme="theme-default" data-assets-path="/assets/"
@@ -34,13 +35,14 @@
 				<!-- Content wrapper -->
 
 				<div class="content-wrapper">
+					<sec:authentication property="Principal" var="user"/>
 					<div class="container-xxl flex-grow-1 container-p-y">
 					<h3>조직도 / 사원 목록</h3>
 					<form>
 					<div class="card shadow mb-4" style="width: 20%; float: left; height: 400px;">	
 					<div>
 					</div>
-					<a type="button" href="./deptList" class="btn" style="width: 100px; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left: 5px;">전체보기</a>
+					<a type="button" href="./deptList" class="btn" style="width: 95%; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left:4px;">전체보기</a>
 						<div id="jstree">
 						    <ul>
 						        <c:forEach items="${list}" var="vo">
@@ -82,10 +84,41 @@
 								<input type="text" class="form-control" readonly="readonly" value="${vo.deptName}">
 								<span>상위부서 번호</span>
 								<input type="text" class="form-control" readonly="readonly" value="${vo.parentNo}">
+								<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: ; background-color: rgb(255,239,222); font-size: 13px; margin-top: 15px;">직급확인하기</button>
+							<c:if test="${user.positionNo == 1}">
+								<a href="./deptManage?deptNo=${vo.deptNo}" type="button" class="btn" style="width: 100px; background-color: rgb(255,255,222); font-size: 13px; margin-top: 15px; margin-left: 5px; float: right;">수정</a>
+								<a href="./deptDelete?deptNo=${vo.deptNo}" type="button" class="btn" id="deleteBtn" style="width: 100px; background-color: rgb(255,255,222); font-size: 13px; margin-top: 15px; margin-left: 5px; float: right;">삭제</a>
+							</c:if>
 							</div>
-							<a href="./deptManage?deptNo=${vo.deptNo}" type="button" class="btn" style="width: 100px; background-color: rgb(255,255,222); font-size: 13px; margin-top: 5px; margin-left: 5px;">수정</a>
-							<a href="./deptDelete?deptNo=${vo.deptNo}" id="deleteBtn">삭제</a>
+					
 					</div>
+					
+					<!-- 직급 확인창 -->	
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					 <div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">직급 목록</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+								<div class="modal-body">														
+										<div class="mb-3">
+										    <label for="deptName" class="col-form-label">부서명:</label>
+										   	<input type="text" class="form-control" name="deptName" value="${vo.deptName}" readonly="readonly">
+										</div>
+										<div class="mb-3">
+													 <label for="deptName" class="col-form-label">직급:</label>										
+										    <c:forEach items="${deptPosition}" var="position">
+												<div class="addContainer">
+													<input type="text" class="form-control" id="positionNameList" name="positionName" value="${position.positionName}" readonly="readonly" style="margin-bottom: 10px;">
+											 	</div>
+											</c:forEach>
+										</div>
+															
+									</div>
+								</div>
+							 </div>
+						</div>
 										
 						<div class="card shadow mb-4" style="width:100%; height: 400px;">
 						
@@ -116,30 +149,39 @@
 							</table>
 						
 
-						<div class="d-flex justify-content-between mb-3" style="margin: auto;">
-    					<div>
+						<div class="justify-content-between mb-3" style="margin: auto;">
+						<div>
+
     						<!-- 페이징 -->
 							<nav aria-label="Page navigation example">
-								<ul class="pagination justify-content-center">
-									<c:if test="${pager.pre}">
-									<li class="page-item ${pager.pre?'':'disabled'}"><a
-										class="page-link"
-										href="./deptDetail?deptNo=${vo.deptNo}?page=${pager.startNum - 1}"
-										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-									</a></li>
-									</c:if>
-									<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
-										var="i">
-										<li class="page-item"><a class="page-link"
-											href="./deptDetail?deptNo=${vo.deptNo}?page=${i}">${i}</a></li>
-									</c:forEach>
-									<c:if test="${pager.next}">
-										<li class="page-item"><a class="page-link"
-											href="./deptDetail?deptNo=${vo.deptNo}?page=${pager.lastNum + 1}"
-											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-										</a></li>
-									</c:if>
-								</ul>
+							    <ul class="pagination justify-content-center">
+							        <c:if test="${pager.pre}">
+							            <li class="page-item ${pager.pre?'':'disabled'}">
+							                <a class="page-link"
+							                   href="./deptDetail?deptNo=${vo.deptNo}&page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}"
+							                   aria-label="Previous">
+							                    <span aria-hidden="true">&laquo;</span>
+							                </a>
+							            </li>
+							        </c:if>
+							        <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+							            <li class="page-item">
+							                <a class="page-link"
+							                   href="./deptDetail?deptNo=${vo.deptNo}&page=${i}&kind=${pager.kind}&search=${pager.search}">
+							                    ${i}
+							                </a>
+							            </li>
+							        </c:forEach>
+							        <c:if test="${pager.next}">
+							            <li class="page-item">
+							                <a class="page-link"
+							                   href="./deptDetail?deptNo=${vo.deptNo}&page=${pager.lastNum + 1}&kind=${pager.kind}&search=${pager.search}"
+							                   aria-label="Next">
+							                    <span aria-hidden="true">&raquo;</span>
+							                </a>
+							            </li>
+							        </c:if>
+							    </ul>
 							</nav>
     					</div>
     					<div> 						
@@ -179,11 +221,13 @@
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
 
 	<script type="text/javascript">
-	
-	$('#deleteBtn').on("click", function(){
-		confirm("삭제하시겠습니까?");
-	})
-	
+	    $('#deleteBtn').on("click", function (event) {
+	        // confirm 대화상자에서 '확인'을 누르면 true, '취소'를 누르면 false를 반환
+	        if (!confirm("삭제하시겠습니까?")) {
+	            event.preventDefault(); // 이벤트의 기본 동작(링크 이동)을 취소
+	            
+	        }
+	    });
 	</script>
 
 	<script>
