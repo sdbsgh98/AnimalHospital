@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vet.main.notice.NoticeDAO">
+
+	<select id="getTotal" parameterType="Pager" resultType="Long">
+		SELECT COUNT(NOTICENO) FROM NOTICE
+	</select>
+
+	<select id="getNoticeList" parameterType="com.vet.main.notice.NoticeVO">
+		SELECT * FROM NOTICE N INNER JOIN EMP E ON N.USERNAME = E.USERNAME
+	</select>
+
+</mapper>

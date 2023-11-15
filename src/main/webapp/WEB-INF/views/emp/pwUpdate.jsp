@@ -34,23 +34,27 @@
 						              </div>
 						              
 						              <!-- /Logo -->
-						              <h4 class="mb-2">비밀번호를 변경해주세요.🔐</h4>
+						              <h4 class="mb-2" style="margin-top: 10px;">비밀번호를 변경해주세요.</h4>
 						              <p class="mb-4">Please change your password!</p>
 										<div>
-											<form id="pwUpdateForm" action="pwUpdate" method="post" onsubmit="return validateForm()">
+										<%-- <form id="pwUpdateForm" action="pwUpdate" method="post" onsubmit="return validateForm()"> --%>
+										
+										<form id="pwUpdateForm" action="pwUpdate" method="post" onsubmit="return validateForm()">
 										<%-- <form:form modelAttribute="pwVO" action="/emp/pwUpdate" method="POST"> --%>
 											<input type="hidden" name="username" value="${vo.username}">
 											<input type="hidden" name="randomPw" value="${vo.randomPw}">
 
 												<label>새 비밀번호 등록</label>
-													 <input type="password" class="form-control" id="password" name="password">
+													 <input type="password" class="form-control" id="password" name="password" required>
 													 <div id="passwordError" style="font-size: 12px; color:red;"></div>
+													 <div id="passwordSuccess"style="float: right;"></div>
 													 <%-- <form:errors path="password" cssStyle="color: red; font-size: 12px;"/> --%>
 													 <br>
 												<label>새 비밀번호 확인</label>
-													 <input type="password" class="form-control" id="passwordCheck" name="passwordCheck">
+													 <input type="password" class="form-control" id="passwordCheck" name="passwordCheck" required>
 													 <%-- <form:errors path="passwordCheck" cssStyle="color: red; font-size: 12px;"/> --%>
-													<div id="passwordError" style="font-size: 12px; color:red;"></div>
+													<div id="passwordCheckError" style="font-size: 12px; color:red;"></div>
+													<div id="passwordCheckSuccess" style="float: right;"></div>
 											  <br><br>			  			  				  				          													  	  				  			  				  				          		
 											  <button type="submit" class="btn btn-primary" id="updateBtn" style="margin-top: 30px;">완료</button>
 							        		</form>
@@ -89,85 +93,55 @@
 	    	</div>
 	    </div>  
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-	<script type="text/javascript">
-	$(document).ready(function () {
-	    $('#password, #passwordCheck').on('keyup', function () {
-	        validateForm();
-	    });
 
-	    $('#updateBtn').on('submit', function (event) {
-	        if (!confirm('수정하시겠습니까?')) {
-	            event.preventDefault();
-	        }
-	    });
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#pwUpdateForm').on('submit', function (event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
 
-	    function validateForm() {
-	        const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-	        let password = $('#password').val();
-	        let passwordCheck = $('#passwordCheck').val();
+        $('#password, #passwordCheck').on('keyup', function () {
+            validatePassword();
+        });
 
-	        if (password == '') {
-	            $('#passwordError').text('변경 할 비밀번호를 입력해주세요.');
-	        } else {
-	            $('#passwordError').text('');
-	        }
+        function validateForm() {
+            const password = $("#password").val();
+            const passwordCheck = $("#passwordCheck").val();
 
-	        if (passwordCheck == '') {
-	            $('#passwordCheckError').text('비밀번호 확인란를 입력해주세요.');
-	        } else {
-	            $('#passwordCheckError').text('');
-	        }
-
-	        if (password != passwordCheck) {
-	            $('#passwordCheckError').text('비밀번호가 일치하지 않습니다.');
-	        } else {
-	            $('#passwordCheckError').text('');
-	        }
-
-	        if (!reg.test(password)) {
-	            $('#passwordError').text('비밀번호는 영어소문자+숫자 포함 8자리 이상입니다.');
-	        } else {
-	            $('#passwordError').text('');
-	        }
-	    }
-	});
-	</script>
-	<!-- <script type="text/javascript">
-    function validateForm() {
-        const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; /* 최소 8 자, 최소 하나의 문자 + 하나의 숫자 (특수문자X) */
-        let password = $("#password").val();
-        let passwordCheck = $("#passwordCheck").val();
-
-        if (password == "") {
-            alert("변경 할 비밀번호를 입력해주세요.");
-            $("#password").focus();
-            return false;
+            if (password !== passwordCheck) {
+                alert("비밀번호가 일치하지 않습니다.");
+                return false;
+            } else {
+                alert("비밀번호가 정상적으로 변경되었습니다.");
+                return true;
+            }
         }
-        if (passwordCheck == "") {
-            alert("비밀번호 확인란를 입력해주세요.");
-            $("#passwordCheck").focus();
-            return false;
-        }
-        if (password !== passwordCheck) {
-            alert("비밀번호가 일치하지 않습니다.");
-            return false;
-        }
-        if (!reg.test(password)) {
-            alert("비밀번호는 영어소문자+숫자 포함 8자리 이상입니다.");
-            return false;
-        } else {
-            alert("비밀번호가 정상적으로 입력되었습니다.");
-            return true;
-        }
-   	 }
 
-	    $('#updateBtn').on("click", function () {
-	        // confirm 대화상자에서 '확인'을 누르면 true, '취소'를 누르면 false를 반환
-	        if (!confirm("수정하시겠습니까?")) {
-	            event.preventDefault();
-	        }
-	    });
-	</script> -->
+        function validatePassword() {
+            const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+            const password = $("#password").val();
+            const passwordCheck = $("#passwordCheck").val();
+            
+            if (!reg.test(password)) {
+                $('#passwordError').text('비밀번호는 영어소문자+숫자 포함 8자리 이상입니다.');
+            } else if (password === passwordCheck && reg.test(password)) {
+                $('#passwordError').html('<img src="/resources/images/accept.png" style="width: 20px; height: 20px; float: right;">');
+            } else {
+            	$('#passwordError').text('');
+            }
+            
+            if (!reg.test(passwordCheck)) {
+                $('#passwordCheckError').text('비밀번호는 영어소문자+숫자 포함 8자리 이상입니다.');
+            } else if (password === passwordCheck && reg.test(password)) {
+                $('#passwordCheckError').html('<img src="/resources/images/accept.png" style="width: 20px; height: 20px; float: right;">');
+            } else {
+            	$('#passwordCheckError').text('');
+            }
+        }                   
+    });
+</script>
 
 </body>
 </html>
