@@ -140,10 +140,10 @@
 														readonly>
 														</div>
 														<div>
-															<input type="text" name="address" class="form-control" id="detailAddress" placeholder="상세주소입력">                
+															<input type="text" name="address" class="form-control address input" id="detailAddress" placeholder="상세주소입력">                
 														</div>
 													</div>
-													<div id="aMsg"></div>
+													<div id="aMsg" style="color: red;"></div>
 										    	</div>
 										</div>
 										
