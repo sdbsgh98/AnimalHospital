@@ -36,7 +36,7 @@
 					USERNAME = #{username},
 					MEDICINENO = #{medicineNo}
 					ON DUPLICATE KEY UPDATE
-					STOCK = #{stock} -->
+					STOCK = stock - #{count} -->
 		</insert>
 		
 		<!-- 사진첨부 -->

@@ -18,7 +18,7 @@ const addBtn = document.getElementById("addBtn");
 
 let phoneCheck = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 
-let checks = [false, false, false, false, false, false];
+let checks = [false, false, false, false, false];
 
 
 //주소찾기버튼 클릭했을때
@@ -116,14 +116,14 @@ for(p of phone){
   });
 }
 
-for(addressInput of address){
-  addressInput.addEventListener("blur", function () {
-      aMsg.innerHTML = '';
-      if (addressInput.value == '') {
-          aMsg.innerHTML = "주소를 입력하세요.";
-      }
-  })
-}
+// for(addressInput of address){
+//   addressInput.addEventListener("blur", function () {
+//       aMsg.innerHTML = '';
+//       if (addressInput.value == '') {
+//           aMsg.innerHTML = "주소를 입력하세요.";
+//       }
+//   })
+// }
 
 function emptyCheck(element) {
   if (element.value == null || element.value.length == 0) {

@@ -278,6 +278,12 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 		})
 
 	</script>
+	
+	<!-- <script>
+		$("#addBtn").click(funtion(){
+			
+		})
+	</script> -->
 
 </body>
 </html>
