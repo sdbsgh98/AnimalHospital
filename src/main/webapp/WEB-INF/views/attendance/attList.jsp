@@ -36,8 +36,12 @@
 	                        <div class="card-body">
 	                            <div class="table-responsive">
 	                            
-	                            	<button type="submit" class="btn btn-primary" id="attIn" style="width:100px;">출근</button>
-	                            	<button type="submit" class="btn btn-primary" id="attOut" style="width:100px;">퇴근</button>
+                         	        <%-- <input type="hidden" name="attNo" id="attNo" value="${list.attNo}"> --%>
+                               		<input type="hidden" name="username" id="username" value="${user.username}">
+                               		<input type="hidden" name="empName" id="empName" value="${user.empName}">
+	                            
+	                            	<button type="button" class="btn btn-primary" onclick="attIn()" style="width:100px;">출근</button>
+	                            	<button type="button" class="btn btn-primary" id="attOut" style="width:100px;">퇴근</button>
 	                                
 	                                <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
 	                                    <thead>
@@ -53,18 +57,14 @@
 	                                    </thead>
 	                                    <tbody>
 	                                    	<c:forEach items="${list}" var="at" varStatus="i">
-	                                    	
-	                                    		<input type="hidden" name="attNo" id="attNo" value="${at.attNo}">
-	                                    		<input type="hidden" name="username" id="username" value="${user.username}">
-	                                    		
 		                                        <tr>
 		                                        	<td>${i.index + 1}</td>
+		                                        	<td>${at.today}</td>
 		                                        	<td>${at.deptName}</td>
-		                                            <td>${at.deptName}</td>
 		                                            <td>${at.positionName}</td>
 		                                        	<td>${at.empName}</td>
-		                                            <td>${at.deptName}</td>
-		                                            <td>${at.deptName}</td>
+		                                            <td>${at.attIn}</td>
+		                                            <td>${at.attOut}</td>
 		                                        </tr>
 	                                        </c:forEach>
 	                                    </tbody>
@@ -73,7 +73,7 @@
 				    			
 
 						        <!-- 전체 페이지 수 -->
-						        <input type="hidden" name="totalPage" id="totalPage" value="${pager.totalPage}">
+						       <%--  <input type="hidden" name="totalPage" id="totalPage" value="${pager.totalPage}">
 						        
 								<div class="d-flex justify-content-between mb-3">
 								<div>
@@ -120,7 +120,7 @@
 										</ul>
 									</nav>
 		    					</div>
-							</div>
+							</div> --%>
 						        
 						        
 	    					</div>
@@ -141,28 +141,9 @@
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 	
-	<script>
-	$(document).ready(function() {
-	    $("#attIn").click(function() {
-	        // 현재 날짜와 시간을 가져오기
-	        var currentDate = new Date();
-	        var formattedDate = currentDate.toISOString().slice(0,19).replace("T", " ");
+	<script src="/js/attendance/attendance.js"></script>
 	
-	        // 서버로 데이터 전송
-	        $.ajax({
-	            type: "POST",
-	            url: "/insertDateAndTime", // Spring 컨트롤러의 매핑 주소
-	            data: { dateTime: formattedDate },
-	            success: function(response) {
-	                console.log("Data inserted successfully");
-	            },
-	            error: function(error) {
-	                console.error("Error inserting data: ", error);
-	            }
-	        });
-	    });
-	});
-	</script>	
+
 	
 </body>
 </html>

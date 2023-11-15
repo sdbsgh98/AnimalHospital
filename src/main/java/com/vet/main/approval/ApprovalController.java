@@ -446,6 +446,19 @@ public class ApprovalController {
 			return "approval/expenseUpdate";
 			
 		} else if (apKind.equals("휴가신청서")) {
+			String dayoffKind = approvalVO.getDayoffKind();
+			
+			if (dayoffKind.equals("반차")) {
+				String dayoffStartDate = approvalVO.getDayoffStartDate();
+				model.addAttribute("dayoffStartDate", dayoffStartDate);
+			} else {
+				String dayoffStartDate = approvalVO.getDayoffStartDate();
+				String dayoffEndDate = approvalVO.getDayoffEndDate();
+				
+				model.addAttribute("dayoffStartDate", dayoffStartDate);
+				model.addAttribute("dayoffEndDate", dayoffEndDate);
+			}
+
 			return "approval/dayoffUpdate";
 		}
 		
@@ -480,7 +493,14 @@ public class ApprovalController {
 			}
 
 		} else if (apKind.equals("휴가신청서")) {
-			int result = approvalService.setDayoffUpdate(approvalVO);
+			
+			if(approvalVO.getDayoffKind().equals("반차")) {
+				approvalVO.setDayoffEndDate(null);
+				int result = approvalService.setDayoffUpdate(approvalVO);
+			} else {
+				approvalVO.setDayoffTime(null);
+				int result = approvalService.setDayoffUpdate(approvalVO);
+			}
 			
 			for(int i=0; i<lineUsername.length; i++) {
 				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
@@ -494,7 +514,7 @@ public class ApprovalController {
 				approvalLineVO.setEmpName(lineEmpName[i]);
 				approvalLineVO.setAplStep(String.valueOf(i+1));
 				
-				result = approvalService.setApLine(approvalLineVO);
+				int result = approvalService.setApLine(approvalLineVO);
 			}
 
 		} else if (apKind.equals("휴직신청서")) {

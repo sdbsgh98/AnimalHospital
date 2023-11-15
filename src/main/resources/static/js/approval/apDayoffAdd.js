@@ -134,8 +134,7 @@ $(document).ready(function() {
 
 
 // 글 ADD
-addBtn.addEventListener("click", function(){
-
+function addSubmitBtn() {
     if(apTitle.value == "") {
         alert("제목을 입력해주세요.");
         apTitle.focus();
@@ -163,8 +162,42 @@ addBtn.addEventListener("click", function(){
     
     // 폼에 입력한 데이터를 서버로 전송
     addFrm.submit();
+}
+
+
+function updateSubmitBtn() {
+	let apTitle = document.getElementById("apTitle");			// 전자결재 양식 제목
+	
+    if(apTitle.value == "") {
+        alert("제목을 입력해주세요.");
+        apTitle.focus();
+        return;
+    }
+    if(apContents.value == "") {
+        alert("내용을 입력해주세요.");
+        apContents.focus();
+        return;
+    }
+    if(!isRadioChecked()) {
+		alert("휴가 구분을 선택해주세요.")
+	    dayoffKind.focus();
+    	return;
+	}
+    if(dayoffStartDate.value == "") {
+	    alert("날짜를 선택해주세요.");
+	    dayoffStartDate.focus();
+	    return;
+    }
+    if($("#firstLineUsername").val() == "") {
+		alert("결재자 선택은 필수입니다.");
+		return;
+	}
     
-});
+    let updateFrm = document.getElementById("updateFrm");
+    
+    // 폼에 입력한 데이터를 서버로 전송
+    updateFrm.submit();
+}
 
 
 // 취소 버튼
@@ -176,6 +209,9 @@ cancleBtn.addEventListener("click", function(){
 
 // 반차
 function halfDay() {
+    $('#dateFields').empty(); // 이전 필드 제거
+    let currentDate = new Date(); // 현재 날짜 가져오기
+    
 	$('#dateFields').append('<label for="dayoffStartDate">날짜:</label>');
     $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
     $('#dayoffStartDate').datepicker({
@@ -185,10 +221,21 @@ function halfDay() {
 
     $('#dateFields').append('<label for="dayoffTime">시간:</label>');
     $('#dateFields').append('<select id="dayoffTime" name="dayoffTime"><option value="오전">오전</option><option value="오후">오후</option></select>');
+    
+    let startDate = $("#startDate").val();
+    let dayoffTime = $("#dayoffTime").val();
+    let offTime = $("#offTime").val();
+    
+    $('#dayoffStartDate').val(startDate);
+	$('#dayoffTime').val(offTime);
+
 }
 
 // 연차
 function fullDay() {
+    $('#dateFields').empty(); // 이전 필드 제거
+    let currentDate = new Date(); // 현재 날짜 가져오기
+    
     $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
     $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
     $('#dayoffStartDate').datepicker({
@@ -208,10 +255,18 @@ function fullDay() {
             }
         }
     })
+    let startDate = $("#startDate").val();
+    let endDate = $("#endDate").val();
+    
+    $('#dayoffStartDate').val(startDate);
+    $('#dayoffEndDate').val(endDate);
 }
 
 // 병가
 function sickDay() {
+    $('#dateFields').empty(); // 이전 필드 제거
+    let currentDate = new Date(); // 현재 날짜 가져오기
+    
     // 병가 선택 시
     $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
     $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
@@ -232,9 +287,17 @@ function sickDay() {
             }
         }
     })
+    let startDate = $("#startDate").val();
+    let endDate = $("#endDate").val();
+    
+    $('#dayoffStartDate').val(startDate);
+    $('#dayoffEndDate').val(endDate);
 }
 
 function familyDay() {
+    $('#dateFields').empty(); // 이전 필드 제거
+    let currentDate = new Date(); // 현재 날짜 가져오기
+    
     // 경조사 선택 시
     $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
     $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
@@ -255,10 +318,18 @@ function familyDay() {
             }
         }
     })
+    let startDate = $("#startDate").val();
+    let endDate = $("#endDate").val();
+    
+    $('#dayoffStartDate').val(startDate);
+    $('#dayoffEndDate').val(endDate);
 }
 
 // 기타
 function etcDay() {
+    $('#dateFields').empty(); // 이전 필드 제거
+    let currentDate = new Date(); // 현재 날짜 가져오기
+    
     $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
     $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
     $('#dayoffStartDate').datepicker({
@@ -278,4 +349,9 @@ function etcDay() {
             }
         }
     })
+    let startDate = $("#startDate").val();
+    let endDate = $("#endDate").val();
+    
+    $('#dayoffStartDate').val(startDate);
+    $('#dayoffEndDate').val(endDate);
 }

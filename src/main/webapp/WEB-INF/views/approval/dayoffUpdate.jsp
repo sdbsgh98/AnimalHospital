@@ -56,12 +56,14 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 					
 						<div class="row">
-				    		<form action="dayoffAdd" id="addFrm" method="post">
+				    		<form action="update" id="updateFrm" method="post">
 				    		
 				    			<div class="mb-3">
 								  <label for="username" class="form-label"></label>
 								  <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
 								</div>
+								
+								<input type="hidden" id="apKind" name="apKind" value="${approvlVO.apKind}">
 								
 								<div class="firstApLineBox mb-2">
 								  <!-- controller에 정보 전달하기 위함 -->
@@ -125,6 +127,10 @@
 								
 								
 								<input type="hidden" id="dayoffValue" name="dayoffValue" value="${approvalVO.dayoffKind}">
+								
+								<input type="hidden" id="offTime" name="dayoffTime" value="${approvalVO.dayoffTime}">
+								<input type="hidden" id="startDate" name="dayoffStartDate" value="${dayoffStartDate}">
+								<input type="hidden" id="endDate" name="dayoffEndDate" value="${dayoffEndDate}">
 
 								<label for="dayoffKind" class="form-label">구분</label>
 								<div class="input-group-text mb-3" id="dayoffKind">
@@ -149,7 +155,7 @@
 								
 					    		<div class="row">
 									<div class="demo-inline-spacing">
-										<button type="button" class="btn btn-primary" id="addBtn">작성</button>
+										<button type="button" class="btn btn-primary" id="updateBtn" onclick="updateSubmitBtn()">작성</button>
 										<button type="button" class="btn btn-primary" id="cancleBtn">취소</button>
 									</div>
 	                            </div>
@@ -256,50 +262,30 @@
 			  	secondLineUsername.value = "";
 			  	secondLineEmpName.value = "";
 			  }
+		  
 		}
 	</script>
 	
 	<script type="text/javascript">
 	
 
-		$(document).ready(function(){
-			let selectedValue = document.getElementById("dayoffValue").value;
-		    $('input[name="dayoffKind"][value="' + selectedValue + '"]').prop('checked', true);
-		})
+	$(document).ready(function(){
+		let selectedValue = document.getElementById("dayoffValue").value;
+	    $('input[name="dayoffKind"][value="' + selectedValue + '"]').prop('checked', true);
 		
-		
-$(document).ready(function() {
-
-    let selectedRadioValue = $('input[name="dayoffKind"]:checked').val();
-    
-    $('input[name="dayoffKind"]').change(function() {
-    	let selectedValue = $(this).val();
-        $('#dateFields').empty(); // 이전 필드 제거
-        
-        let currentDate = new Date(); // 현재 날짜 가져오기
-
 
        if (selectedValue === '반차') {
             halfDay();
         } else if (selectedValue === '연차') {
-            fullDay();
+        	fullDay();
         } else if (selectedValue === '병가') {
             sickDay();
         } else if (selectedValue === '경조사') {
-            familyDay();
+        	familyDay();
         } else if (selectedValue === '기타') {
-            etcDay();
+        	etcDay();
         }
-         // 선택된 라디오 버튼의 값에 따라 필드 생성
-            if (selectedRadioValue) {
-                $('input[name="dayoffKind"][value="' + selectedRadioValue + '"]').prop('checked', true).change();
-            }
-
-            $('#dayoffStartDate').val(previousDayoffStartDate);
-            $('#dayoffEndDate').val(previousDayoffEndDate);
-    });
-});
-		
+    })
 
 
 	</script>

@@ -290,6 +290,8 @@
 		SET APTITLE = #{apTitle},
 			DAYOFFSTARTDATE = #{dayoffStartDate},
 			DAYOFFENDDATE = #{dayoffEndDate},
+			DAYOFFKIND = #{dayoffKind},
+			DAYOFFTIME = #{dayoffTime},
 			APCONTENTS = #{apContents}
 		WHERE APNO = #{apNo}
 	</update>

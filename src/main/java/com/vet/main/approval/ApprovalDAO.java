@@ -101,7 +101,7 @@ public interface ApprovalDAO {
 	
 	// 휴가신청서 수정
 	public int setDayoffUpdate(ApprovalVO approvalVO) throws Exception;
-
+	
 	// 지출항목 수정
 	public int setApExpenseUpdate(ApprovalVO approvalVO) throws Exception;
 	
