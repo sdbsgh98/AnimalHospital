@@ -263,6 +263,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 		    f = f + '<option value="${a.medicineNo}">${a.name}</option>'
 		    f = f + '</c:forEach>'
 		    f = f + '</select>'
+		    f = f + '<input type="text" class="form-control me-2" id="count'+idx+'" name="count" placeholder="수량" style="width:100px;">';
 		  	f = f + '<button type="button" id="medicineMinusBtn" name="medicineMinusBtn" class="btn btn-primary df" style="width:50px; height:38.94px;"> X </button>';
 			f = f + '</div>';    
 		    idx++;

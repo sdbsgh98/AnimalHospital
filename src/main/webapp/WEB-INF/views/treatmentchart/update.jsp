@@ -107,7 +107,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											<div>
 												<c:forEach items="${vo.fileVOs}" var="f">
 													<div class="alert alert-warning delets df" data-num="${f.fileNo}">
-														${f.originalFileName}
+														첨부파일: ${f.originalFileName}
 													</div>
 													<%-- <div>
 													<button class="delets df btn btn-danger" data-num="${f.fileNo}">삭제</button>
