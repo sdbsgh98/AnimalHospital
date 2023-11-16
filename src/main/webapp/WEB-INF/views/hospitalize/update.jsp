@@ -10,12 +10,14 @@
 
         <head>
           <c:import url="/WEB-INF/views/layout/headCSS.jsp"></c:import>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>      
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+          <link href='/fullcalendar/main.css' rel='stylesheet' />
+          <script src='/fullcalendar/main.js'></script>
 
           <meta charset="UTF-8">
           <title>Insert title here</title>
         </head>
-
+        
         <body>
 
           <!-- Layout wrapper -->
@@ -30,22 +32,26 @@
                   <!-- Content -->
 
                   <!-- 내용부분-->
+                  
                   <div class="container-xxl flex-grow-1 container-p-y">
-                    <h3>입원동물 등록</h3>
-                
+                    <h3>입원동물 수정</h3>
+                    <form action="./update" method="post">
                     <table class="table align-items-center mb-0">
                       <tbody>
-                      <input type="hidden" id="customerNo" name="customerNo">
-                      <input type="hidden" id="username" name="username">
+                      <input type="hidden" id="customerNo" value=${vo.customerNo}>
+                      <input type="hidden" id="username" value=${vo.username}>
+                      <input type="hidden" id="historyNo" name="historyNo" value=${param.historyNo}>
                         <tr>
                           <td class="align-middle text-center text-sm">
                             <span class="text-secondary text-xs font-weight-bold">입원실번호 </span>
                           </td>
-                          
-                          
                           <td class="align-middle text-center text-sm">
                             <span class="text-secondary text-xs font-weight-bold">
-                            	<input type="text" readonly name="cageNo" id="cageNo" class="form-control-plaintext" value=${param.cageNo}>
+                                <select name="cageNo" id="cageNo" class="form-select form-select-sm" aria-label="Small select example">
+                                <option value="${vo.cageNo}" selected="selected">${vo.cageNo}</option>
+                                  <c:forEach var="i" begin="1" end="12">                                 
+                                  <option value="${i}">${i}</option>
+                                 </c:forEach>                                 
                             </span>
                           </td>                         
                         </tr>       
@@ -56,13 +62,10 @@
                           </td>
                           <td class="align-middle text-center text-sm">
                             <span class="text-secondary text-xs font-weight-bold">
-                              <input type="text" class="form-control" name="animalName" id="animalName">
+                              <input type="text" readonly class="form-control" name="animalName" id="animalName" value=${vo.animalName}>
                             </span>
                           </td>
-                          <td class="align-middle text-center text-sm">
-                            <span class="text-secondary text-xs">
-                              <button type="button" id="customerSearch" class="btn btn-primary">검색</button>
-                            </span>
+                          <td class="align-middle text-center text-sm">                           
                           </td>
                         </tr> 
                         
@@ -72,7 +75,7 @@
                           </td>
                           <td class="align-middle text-center text-sm">
                             <span class="text-secondary text-xs font-weight-bold">
-                              <input type="text" readonly class="form-control-plaintext" name="gender" id="gender">
+                              <input type="text" readonly class="form-control-plaintext" name="gender" id="gender" value=${vo.gender}>
                             </span>
                           </td>
                           <td class="align-middle text-center text-sm">                            
@@ -85,7 +88,7 @@
                           </td>
                           <td class="align-middle text-center text-sm">
                             <span class="text-secondary text-xs font-weight-bold">
-                              <input type="text" readonly class="form-control-plaintext" name="weight" id="weight">
+                              <input type="text" readonly class="form-control-plaintext" name="weight" id="weight" value=${vo.weight}>
                             </span>
                           </td>
                           <td class="align-middle text-center text-sm">                            
@@ -98,7 +101,7 @@
                           </td>
                           <td class="align-middle text-center text-sm">
                             <span class="text-secondary text-xs font-weight-bold">
-                              <input type="text" class="form-control" name="disease" id="disease">
+                              <input type="text" class="form-control" name="disease" id="disease" value=${vo.disease}>
                             </span>
                           </td>
                           <td class="align-middle text-center text-sm">                            
@@ -111,54 +114,26 @@
                           </td>
                           <td class="align-middle text-center text-sm">
                             <span class="text-secondary text-xs font-weight-bold">
-                             입원시작일 <input type="date"  class="form-control" name="startDate" id="startDate">
+                             입원시작일 <input type="date"  class="form-control" name="startDate" id="startDate" value=${vo.startDate}>
                             </span>
                             <span class="text-secondary text-xs font-weight-bold">
-                             퇴원예정일 <input type="date"  class="form-control" name="lastDate" id="lastDate">
+                             퇴원예정일 <input type="date"  class="form-control" name="lastDate" id="lastDate" value=${vo.lastDate}>
                              </span>
                           </td>
                           <td class="align-middle text-center text-sm">                            
                           </td>
                         </tr> 
 
-                      </tbody>
-                    </table>
+                      </tbody>                      
+                    </table> 
                     <div style=" text-align: center; margin: 30px;">
-                    	<button type="button" id="addHos" class="btn btn-primary">등록</button>
-                  </div>
-          
-                    
-                    <!--list modal -->
-                    <div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-                    <div class="modal-dialog modal-sm">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">보호자이름</h1>
-                          <button type="button" id="closeBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-    	                    <div class="modal-body">
-    		                    <div class="table-responsive p-0">
-    		                        <table class="table align-items-center mb-0">
-    		                          <thead>
-    		                            <tr>									
-    		                              <th class="text-center text-secondary opacity-7">보호자이름</th>                                
-    		                            </tr>
-    		                          </thead>
-    		                          <tbody>           
-    		                        	 <tr id="customer">
-    		                    	 </tbody>
-    	                             </table>							 
-                                </div>
-    	                    </div>
-                        <div class="modal-footer">
-                          <button type="button" id="closeBtn"class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" id="submit" class="btn btn-primary" >확인</button>
-                        </div>
-                      </div>
+                    	<button type="submit" id="updateHos" class="btn btn-primary">수정등록</button>             
                     </div>
-                  </div>
+                    </form>
                     
-                  
+
+                   
+
                   </div>
                   <!-- / Content -->
                   <c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>

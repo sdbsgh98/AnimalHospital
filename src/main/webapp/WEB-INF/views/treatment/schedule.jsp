@@ -35,8 +35,7 @@
                <!-- 내용부분-->               
                <div class="container-xxl flex-grow-1 container-p-y">
                  
-               <select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example"> 
-	           	   <option selected>선택해주세요</option>
+               <select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example"> 	           	   
 	           	   <option value="300">전체</option>
 	               <option value="400">내과</option>
 	               <option value="500">외과</option>
@@ -123,9 +122,10 @@
                       <div class="modal-body">
                       
                       <input type="hidden" id="treatmentNo" name="treatmentNo">
+                      <input type="hidden" id="getusername" name="username">
                       <table class="table align-items-center mb-0">								
                       	<tbody>
-                      
+                      	
                         <tr>
 							<td class="align-middle text-center text-sm">
 								<span class="text-secondary text-xs font-weight-bold">이름: </span>

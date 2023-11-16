@@ -51,6 +51,13 @@ public class SurgeryController {
 			hash.put("start", list.get(i).getSurgeryStart());
 			hash.put("end", list.get(i).getSurgeryEnd());
 			hash.put("id", list.get(i).getSurgeryNo());
+			
+			String surRoom = list.get(i).getSurgeryRoom();
+			if(surRoom.equals("수술실1")) {
+				hash.put("color", "#FE9A2E");
+			}else {
+				hash.put("color", "#BE81F7");
+			}
 				
 			jsonObj = new JSONObject(hash);
 			jsonArr.add(jsonObj);

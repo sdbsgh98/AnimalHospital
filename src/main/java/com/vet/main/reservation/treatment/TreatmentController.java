@@ -1,5 +1,6 @@
 package com.vet.main.reservation.treatment;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -56,50 +57,49 @@ public class TreatmentController {
 	//전체 예약스케줄
 	@PostMapping("schedule")
 	@ResponseBody
-	public List<Map<String,Object>> getScheduleList()throws Exception{
-		List<TreatmentVO> list = treatmentService.getScheduleList();
+	public List<Map<String,Object>> getScheduleList(String deptNo)throws Exception{
 		
 		JSONObject jsonObj = new JSONObject();
 		JSONArray jsonArr = new JSONArray();
 		HashMap<String, Object> hash = new HashMap<>();
-		
-		for(int i=0; i < list.size(); i++) {
-			hash.put("title", list.get(i).getAnimalName());		
-			hash.put("start", list.get(i).getTreatmentDate());			
-			hash.put("id", list.get(i).getTreatmentNo());
-		
-			jsonObj = new JSONObject(hash); 
-			jsonArr.add(jsonObj);		
-		}
-		
-		log.info("jsonArrCheck:{}", jsonArr);
-		
-		return jsonArr;		
-	}
+		LocalDate date1 = LocalDate.now();
+		List<TreatmentVO> list = treatmentService.getScheduleList(deptNo);
 	
-	//부서별스케줄
-	@PostMapping("scheduledept")
-	@ResponseBody
-	public List<Map<String,Object>> getDeptScheduleList(@RequestBody TreatmentVO treatmentVO)throws Exception{
-		List<TreatmentVO> list = treatmentService.getDeptScheduleList(treatmentVO);
-		
-		JSONObject jsonObj = new JSONObject();
-		JSONArray jsonArr = new JSONArray();
-		HashMap<String, Object> hash = new HashMap<>();
-		
 		for(int i=0; i < list.size(); i++) {
 			hash.put("title", list.get(i).getAnimalName());		
 			hash.put("start", list.get(i).getTreatmentDate());			
 			hash.put("id", list.get(i).getTreatmentNo());
+			
+			LocalDateTime date2 = list.get(i).getTreatmentDate();
+			String dept = list.get(i).getDeptNo();
+			  
+			if(date2.toLocalDate().isBefore(date1)){ 
+				hash.put("color", "#F7819F"); 
+			}
+			else { 				
+				if(dept.equals("400")) {
+					hash.put("color", "#A9F5A9");
+				}else if(dept.equals("500")){
+					hash.put("color", "#81DAF5");
+				}else if(dept.equals("600")) {
+					hash.put("color", "#9F81F7");
+				}
+				
+			}		
 		
 			jsonObj = new JSONObject(hash); 
 			jsonArr.add(jsonObj);		
-		}
+		}		
 		
 		log.info("jsonArrCheck:{}", jsonArr);
 		
-		return jsonArr;		 
-	}
+		return jsonArr;	
+		
+	
+	
+			
+	}	
+	
 	
 	//예약추가
 	@PostMapping("scheduleAdd")

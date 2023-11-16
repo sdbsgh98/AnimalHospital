@@ -1,6 +1,6 @@
 
-$("#customerSearch").on("click", function(){
-	var animalName=$("#animalName").val();				
+	$("#customerSearch").on("click", function(){
+		var animalName=$("#animalName").val();				
 							
 				$.ajax({
 					url:"/hospitalize/customerList",
@@ -37,29 +37,48 @@ $("#customerSearch").on("click", function(){
 									})
 								});
 
-	 							//보호자선택하고 등록 눌렀을때
-								  $('#submit').click(function() {
-									var customerNo =  $("input[type=radio][name=cusCheck]:checked").val();
-									console.log(customerNo);
-       								
-       								$("#customerNo").val(customerNo);
+	//보호자선택하고 등록 눌렀을때
+	$('#submit').click(function() {
+		var customerNo =  $("input[type=radio][name=cusCheck]:checked").val();
+		console.log(customerNo);
+		       								
+		$("#customerNo").val(customerNo);
        								
        											
-									$.ajax({
-										url:"/hospitalize/customer",
-										data:{
-											customerNo:customerNo
-										},
-										method: "POST",
-										success : function(data){
-		       								$("#gender").val(data.gender);
-		       								$("#weight").val(data.weight);
-		       								$("#disease").val(data.disease);
-		       								$("#username").val(data.username);
-		       								
-		       								$("#listModal").modal("hide");
-       								
-			        						}
-										});
+		$.ajax({
+			url:"/hospitalize/customer",
+			data:{
+			customerNo:customerNo
+			},
+			method: "POST",
+			success : function(data){
+			console.log(data.gender);
+														
+			$("#gender").val(data.gender);
+			$("#weight").val(data.weight);		       								
+			$("#username").val(data.username);
+					       								
+			$("#listModal").modal("hide");
+	       									
+			}
+		});	
+	})
 	
-									})
+	$("#addHos").on("click",function(){
+		var param = {"customerNo":$("#customerNo").val(), "username":$("#username").val(),
+					"startDate":$("#startDate").val(),"lastDate":$("#lastDate").val(), 
+					"cageNo":$("#cageNo").val(), "disease":$("#disease").val()}
+		
+		
+		$.ajax({
+			url:"/hospitalize/add",
+			data: param,
+			method:"POST",
+			success: function(data){
+				console.log("성공이다!")
+				location.href="/hospitalize/list"
+			}
+			
+		})		
+		
+	})

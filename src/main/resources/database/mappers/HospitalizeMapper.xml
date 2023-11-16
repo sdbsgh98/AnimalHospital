@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.vet.main.hostpitalize.HospitalizeDAO">
+<mapper namespace="com.vet.main.hospitalize.HospitalizeDAO">
 	
 	<insert id="setHospitalize" parameterType="HospitalizeVO">
 		INSERT INTO HOSPITALIZE VALUES(NULL, #{customerNo}, #{username}, #{startDate}, #{lastDate},
-									#{cageNo}, 1)
+									#{cageNo}, 1, #{disease})
 	</insert>
 	
 	<select id="getCustomerList" parameterType="String" resultType="CustomerVO">
@@ -17,14 +17,44 @@
 	</select>
 		
 	<select id="getCustomer" parameterType="CustomerVO" resultType="CustomerVO">
-		SELECT C.*,T.DISEASE, T.USERNAME
+		SELECT C.*, T.USERNAME
 			  FROM CUSTOMER C
 			    INNER JOIN TREATMENTCHART T 
 			         	ON C.CUSTOMERNO = T.CUSTOMERNO
-			 WHERE CUSTOMERNO = #{customerNo}
+			 WHERE C.CUSTOMERNO = #{customerNo}
 	</select>
 	
+	<select id="getHospitalize" resultType="HospitalizeVO">
+		SELECT H.*, C.WEIGHT, C.GENDER, C.ANIMALNAME
+		  FROM HOSPITALIZE H
+		 	   INNER JOIN  CUSTOMER C
+		 	   ON H.CUSTOMERNO = C.CUSTOMERNO 
+		 WHERE H.STATE=1		
+	</select>
 
+	<select id="getDetail" parameterType="HospitalizeVO" resultType="HospitalizeVO">
+		SELECT H.*, C.WEIGHT, C.GENDER, C.ANIMALNAME
+		  FROM HOSPITALIZE H
+		 	   INNER JOIN  CUSTOMER C
+		 	   ON H.CUSTOMERNO = C.CUSTOMERNO 
+		 WHERE H.HISTORYNO=#{historyNo}
+	</select>
 	
+	<update id="setUpdate" parameterType="HospitalizeVO">
+		UPDATE HOSPITALIZE
+		   SET CAGENO=#{cageNo},
+		       DISEASE=#{disease},
+		       STARTDATE=#{startDate},
+		       LASTDATE=#{lastDate}		           
+		 WHERE HISTORYNO=#{historyNo}		
+	</update>
+
+	<update id="setDelete" parameterType="HospitalizeVO">
+		UPDATE HOSPITALIZE
+		   SET STATE=0,
+		   	   LASTDATE=NOW()
+		 WHERE HISTORYNO=#{historyNo}
+	</update>
+
 	
 </mapper>

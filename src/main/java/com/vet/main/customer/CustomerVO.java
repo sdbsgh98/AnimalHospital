@@ -19,7 +19,8 @@ public class CustomerVO {
 	private String name;
 	private String phone;
 	private String address;
-	
+
+	private String username;
 	public List<CustomerFileVO> fileVO;
 	
 }
