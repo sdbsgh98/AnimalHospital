@@ -30,6 +30,7 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
+						<sec:authentication property="Principal" var="user"/>
 					
 					<form>
 					<h3>공지사항</h3>
@@ -77,7 +78,7 @@
 								</form>
 							</div>
 						</div>
-    					<div style="margin-right: 680px;">
+    					<div style="margin-right: 250px;">
     						<!-- 페이징 -->
 							<nav aria-label="Page navigation example">
 								<ul class="pagination justify-content-center">
@@ -102,9 +103,14 @@
 								</ul>
 							</nav>
     					</div>
+							<div style="margin-right: 20px;">
+								<!-- <a href="./noticeAdd" class="btn btn-primary" style="float: right; margin-right: 10px; height: 40px;">등록</a> -->	
+								<c:if test="${user.positionNo == 1}">
+									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">추가</button>  						
+								</c:if>
+							</div>
 					</div>													
 				</div>
-							<a href="./noticeAdd" class="btn btn-primary" style="float: right;">등록</a>	
 
 						<!-- </form> -->
 					</div>
