@@ -7,7 +7,8 @@
 
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
-   data-theme="theme-default" data-assets-path="/assets/"
+   data-theme="theme-default" data-asset
+   s-path="/assets/"
    data-template="vertical-menu-template-free">
 <head>
 <c:import url="/WEB-INF/views/layout/headCSS.jsp"></c:import>
@@ -61,7 +62,7 @@
 			                        </td>
 			                        <td class="align-middle text-center text-sm">
 									<span class="text-secondary text-xs">
-										<button type="submit" id="customerSearch" class="btn btn-primary">검색</button>
+										<button type="submit" id="customerSearch" class="btn btn-primary" style="width:80px;">검색</button>
 									</span>
 									</td>
 		                     </tr>
@@ -89,8 +90,8 @@
 									</td> 
 									<td class="align-middle text-center text-sm">
 										<select name='surgeryRoom' id="surgeryRoom" class="form-select form-select-sm" aria-label="Small select example"> 
-		                                    <option value="1">수술실1</option>
-		                                    <option value="2">수술실2</option>
+		                                    <option value="수술실1">수술실1</option>
+		                                    <option value="수술실2">수술실2</option>
 	                                    </select> 
 									</td>
 									<td class="align-middle text-center text-sm">
@@ -305,8 +306,8 @@
                       <td class="align-middle text-center text-sm">
                         <span class="text-secondary text-xs font-weight-bold">
                         <select name='surgeryRoom' id="upsurno" class="form-select form-select-sm" aria-label="Small select example"> 
-	                        <option value="1">수술실1</option>
-	                        <option value="2">수술실2</option>
+	                        <option value="수술실1">수술실1</option>
+	                        <option value="수술실2">수술실2</option>
                         </select> 
                         </span>
                       </td>                                                     

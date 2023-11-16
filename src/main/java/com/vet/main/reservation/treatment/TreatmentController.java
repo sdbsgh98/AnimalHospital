@@ -1,5 +1,6 @@
 package com.vet.main.reservation.treatment;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -81,20 +82,57 @@ public class TreatmentController {
 	@PostMapping("scheduledept")
 	@ResponseBody
 	public List<Map<String,Object>> getDeptScheduleList(@RequestBody TreatmentVO treatmentVO)throws Exception{
-		List<TreatmentVO> list = treatmentService.getDeptScheduleList(treatmentVO);
+		
+		String dept = treatmentVO.getDeptNo();
+		
 		
 		JSONObject jsonObj = new JSONObject();
 		JSONArray jsonArr = new JSONArray();
 		HashMap<String, Object> hash = new HashMap<>();
-		
-		for(int i=0; i < list.size(); i++) {
-			hash.put("title", list.get(i).getAnimalName());		
-			hash.put("start", list.get(i).getTreatmentDate());			
-			hash.put("id", list.get(i).getTreatmentNo());
-		
-			jsonObj = new JSONObject(hash); 
-			jsonArr.add(jsonObj);		
+		LocalDate date1 = LocalDate.now();	
+	
+		if(dept==null) {
+			List<TreatmentVO> list = treatmentService.getScheduleList();
+			for(int i=0; i < list.size(); i++) {
+				hash.put("title", list.get(i).getAnimalName());		
+				hash.put("start", list.get(i).getTreatmentDate());			
+				hash.put("id", list.get(i).getTreatmentNo());
+				
+				LocalDateTime date2 = list.get(i).getTreatmentDate();
+				
+				if(date2.toLocalDate().isBefore(date1)){
+					hash.put("color", "#FA5858");
+				}else {
+					hash.put("color", "#81BEF7");
+				}
+				
+				
+				jsonObj = new JSONObject(hash); 
+				jsonArr.add(jsonObj);		
+			}
+			
+		}else {
+			List<TreatmentVO> list = treatmentService.getDeptScheduleList(treatmentVO);
+			for(int i=0; i < list.size(); i++) {
+				hash.put("title", list.get(i).getAnimalName());		
+				hash.put("start", list.get(i).getTreatmentDate());			
+				hash.put("id", list.get(i).getTreatmentNo());
+				
+				LocalDateTime date2 = list.get(i).getTreatmentDate();
+				
+				if(date2.toLocalDate().isBefore(date1)){
+					hash.put("color", "#FA5858");
+				}else {
+					hash.put("color", "#81BEF7");
+				}
+				
+				
+				jsonObj = new JSONObject(hash); 
+				jsonArr.add(jsonObj);		
+			}
 		}
+		
+		
 		
 		log.info("jsonArrCheck:{}", jsonArr);
 		

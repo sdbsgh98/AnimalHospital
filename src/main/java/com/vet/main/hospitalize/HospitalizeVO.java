@@ -15,8 +15,12 @@ public class HospitalizeVO {
 	private Date startDate;
 	private Date lastDate;
 	private Long cageNo;
+	private String disease;
 	private Character state;	
 	
 	private String username;
-	private Long customerNo;	
+	private Long customerNo;
+	private String animalName;
+	private Long weight;
+	private String gender;
 }

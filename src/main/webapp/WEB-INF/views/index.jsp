@@ -8,9 +8,12 @@
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
 	data-theme="theme-default" data-assets-path="/assets/"
 	data-template="vertical-menu-template-free">
+
 <head>
 <c:import url="/WEB-INF/views/layout/headCSS.jsp"></c:import>
-</head>
+<link href='/fullcalendar/main.css' rel='stylesheet' />
+<script src='/fullcalendar/main.js'></script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -28,6 +31,7 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
+					<div id="calendar"> </div>				
 					<sec:authentication property="Principal" var="user"/>	
 						<sec:authorize access="isAuthenticated()">
 							<a href="/emp/logout" class="btn btn-danger" style="">로그아웃</a>	
@@ -48,6 +52,7 @@
 	</div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+	<script src="/js/main/schedule.js"></script>
 
 </body>
 </html>
