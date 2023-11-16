@@ -209,7 +209,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="extended-ui-perfect-scrollbar.html" class="menu-link">
+                  <a href="/attendance/list" class="menu-link">
                     <div data-i18n="Perfect Scrollbar">근태관리</div>
                   </a>
                 </li>
