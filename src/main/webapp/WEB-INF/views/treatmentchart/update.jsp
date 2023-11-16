@@ -48,7 +48,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<div class="card shadow mb-4" style="align-items: center;">
-							<form action="./update" method="POST" enctype="multipart/form-data">
+							<form action="./update" method="POST" id="frm" enctype="multipart/form-data">
 								<input type="hidden" name="customerNo" value="${cus.customerNo}">
 								<input type="hidden" name="chartNo" value="${vo.chartNo}">
 								<div>
@@ -117,7 +117,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											</div>
 
 										</div>
-										<button class="btn btn-primary" style="float: right; margin-bottom: 20px; margin-right: 20px;">진료차트수정</button>
+										<button type="button" id="updateBtn" class="btn btn-primary" style="float: right; margin-bottom: 20px; margin-right: 20px;">진료차트수정</button>
 									</div>
 								</div>
 							</form>
@@ -222,6 +222,26 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 
 	});
 	
+	</script>
+	
+	<script>
+		document.getElementById('updateBtn').addEventListener('click', function(event){
+			let notDisease = document.querySelector('input[name="disease"]');	
+			let notContents = document.querySelector('textarea[name="contents"]');
+
+			if(notDisease.value.trim() === ''){
+				event.preventDefault();
+				alert("병명은 필수입니다.");
+				notDisease.focus();
+			}else{
+				if(notContents.value.trim() === '') {
+					event.preventDefault();
+					alert("내용은 필수입니다.");
+				}else{
+					document.getElementById('frm').submit();
+				}
+			}
+		});
 	</script>
 
 

@@ -48,7 +48,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<div class="card shadow mb-4" style="align-items: center;">
-							<form action="./add" method="POST" enctype="multipart/form-data">
+							<form action="./add" method="POST" id="frm" enctype="multipart/form-data">
 								<input type="hidden" id="customerNo" name="customerNo" value="${vo.customerNo}"> 
 								<input type="hidden" id="username" name="username" value="${user.username}">
 								<div>
@@ -142,7 +142,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 						                    </div>
 											
 										</div>
-										<button type="submit" class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">진료차트등록</button>
+										<button type="button" id="addBtn" class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">진료차트등록</button>
 									</div>
 								</div>
 							</form>
@@ -278,6 +278,34 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 		    count--;
 		})
 
+	</script>
+	
+	<script>
+		document.getElementById('addBtn').addEventListener('click', function(event){
+			let checkResults = [false, false];
+			let notDisease = document.querySelector('input[name="disease"]');	
+			let notContents = document.querySelector('textarea[name="contents"]');
+
+			if(notDisease.value.trim() === ''){
+				event.preventDefault();
+				alert("병명은 필수입니다.");
+				notDisease.focus();
+				checkResults[0] = false;
+			}else{
+				checkResults[0] = true;
+				if(notContents.value.trim() === '') {
+					event.preventDefault();
+					alert("내용은 필수입니다.");
+					checkResults[1] = false;
+				}else{
+					checkResults[1] = true;
+					let c = checkResults.includes(false);
+					if(!c){
+						document.getElementById('frm').submit();
+					}
+				}
+			}
+		});
 	</script>
 	
 	<!-- <script>
