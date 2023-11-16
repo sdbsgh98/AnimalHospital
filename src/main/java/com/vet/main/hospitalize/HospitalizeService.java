@@ -25,4 +25,20 @@ public class HospitalizeService {
 	public CustomerVO getCustomer(CustomerVO customerVO)throws Exception{
 		return hospitalizeDAO.getCustomer(customerVO);
 	}
+	
+	public List<HospitalizeVO> getHospitalize()throws Exception{
+		return hospitalizeDAO.getHospitalize();
+	}
+	
+	public HospitalizeVO getDetail(Long historyNo)throws Exception{
+		return hospitalizeDAO.getDetail(historyNo);
+	}
+	
+	public int setUpdate(HospitalizeVO hospitalizeVO)throws Exception{
+		return hospitalizeDAO.setUpdate(hospitalizeVO);
+	}
+	
+	public int setDelete(HospitalizeVO hospitalizeVO)throws Exception{
+		return hospitalizeDAO.setDelete(hospitalizeVO);
+	}
 }
