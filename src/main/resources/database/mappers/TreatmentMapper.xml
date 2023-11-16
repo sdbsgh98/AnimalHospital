@@ -6,17 +6,18 @@
 <mapper namespace="com.vet.main.reservation.treatment.TreatmentDAO">
 	
 	<select id="getScheduleList" resultType="TreatmentVO">
-			SELECT T.TREATMENTDATE, T.TREATMENTNO, C.ANIMALNAME, E.EMPNAME 
+			SELECT T.TREATMENTDATE, T.TREATMENTNO, C.ANIMALNAME, E.EMPNAME, E.DEPTNO
 	  		  FROM TREATMENT T 
 					INNER JOIN CUSTOMER C
 	  						ON T.CUSTOMERNO=C.CUSTOMERNO
 	  				INNER JOIN EMP E 
 	  						ON T.USERNAME=E.USERNAME
 	  				INNER JOIN DEPARTMENT D
-	  						ON E.DEPTNO = D.DEPTNO	  					
+	  						ON E.DEPTNO = D.DEPTNO	 
+	  				  					
 	</select>
 	
-	<select id="getDeptScheduleList" parameterType="TreatmentVO" resultType="TreatmentVO">
+	<select id="getDeptScheduleList" parameterType="String" resultType="TreatmentVO">
 			SELECT T.TREATMENTDATE, T.TREATMENTNO, C.ANIMALNAME, E.EMPNAME, E.DEPTNO 
 	  		  FROM TREATMENT T 
 					INNER JOIN CUSTOMER C

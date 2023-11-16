@@ -35,8 +35,7 @@
                <!-- 내용부분-->               
                <div class="container-xxl flex-grow-1 container-p-y">
                  
-               <select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example"> 
-	           	   <option selected>선택해주세요</option>
+               <select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example"> 	           	   
 	           	   <option value="300">전체</option>
 	               <option value="400">내과</option>
 	               <option value="500">외과</option>

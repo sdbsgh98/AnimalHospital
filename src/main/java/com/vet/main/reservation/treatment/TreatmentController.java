@@ -57,87 +57,49 @@ public class TreatmentController {
 	//전체 예약스케줄
 	@PostMapping("schedule")
 	@ResponseBody
-	public List<Map<String,Object>> getScheduleList()throws Exception{
-		List<TreatmentVO> list = treatmentService.getScheduleList();
+	public List<Map<String,Object>> getScheduleList(String deptNo)throws Exception{
 		
 		JSONObject jsonObj = new JSONObject();
 		JSONArray jsonArr = new JSONArray();
 		HashMap<String, Object> hash = new HashMap<>();
-		
+		LocalDate date1 = LocalDate.now();
+		List<TreatmentVO> list = treatmentService.getScheduleList(deptNo);
+	
 		for(int i=0; i < list.size(); i++) {
 			hash.put("title", list.get(i).getAnimalName());		
 			hash.put("start", list.get(i).getTreatmentDate());			
 			hash.put("id", list.get(i).getTreatmentNo());
+			
+			LocalDateTime date2 = list.get(i).getTreatmentDate();
+			String dept = list.get(i).getDeptNo();
+			  
+			if(date2.toLocalDate().isBefore(date1)){ 
+				hash.put("color", "#F7819F"); 
+			}
+			else { 				
+				if(dept.equals("400")) {
+					hash.put("color", "#A9F5A9");
+				}else if(dept.equals("500")){
+					hash.put("color", "#81DAF5");
+				}else if(dept.equals("600")) {
+					hash.put("color", "#9F81F7");
+				}
+				
+			}		
 		
 			jsonObj = new JSONObject(hash); 
 			jsonArr.add(jsonObj);		
-		}
+		}		
 		
 		log.info("jsonArrCheck:{}", jsonArr);
 		
-		return jsonArr;		
-	}
+		return jsonArr;	
+		
 	
-	//부서별스케줄
-	@PostMapping("scheduledept")
-	@ResponseBody
-	public List<Map<String,Object>> getDeptScheduleList(@RequestBody TreatmentVO treatmentVO)throws Exception{
-		
-		String dept = treatmentVO.getDeptNo();
-		
-		
-		JSONObject jsonObj = new JSONObject();
-		JSONArray jsonArr = new JSONArray();
-		HashMap<String, Object> hash = new HashMap<>();
-		LocalDate date1 = LocalDate.now();	
 	
-		if(dept==null) {
-			List<TreatmentVO> list = treatmentService.getScheduleList();
-			for(int i=0; i < list.size(); i++) {
-				hash.put("title", list.get(i).getAnimalName());		
-				hash.put("start", list.get(i).getTreatmentDate());			
-				hash.put("id", list.get(i).getTreatmentNo());
-				
-				LocalDateTime date2 = list.get(i).getTreatmentDate();
-				
-				if(date2.toLocalDate().isBefore(date1)){
-					hash.put("color", "#FA5858");
-				}else {
-					hash.put("color", "#81BEF7");
-				}
-				
-				
-				jsonObj = new JSONObject(hash); 
-				jsonArr.add(jsonObj);		
-			}
 			
-		}else {
-			List<TreatmentVO> list = treatmentService.getDeptScheduleList(treatmentVO);
-			for(int i=0; i < list.size(); i++) {
-				hash.put("title", list.get(i).getAnimalName());		
-				hash.put("start", list.get(i).getTreatmentDate());			
-				hash.put("id", list.get(i).getTreatmentNo());
-				
-				LocalDateTime date2 = list.get(i).getTreatmentDate();
-				
-				if(date2.toLocalDate().isBefore(date1)){
-					hash.put("color", "#FA5858");
-				}else {
-					hash.put("color", "#81BEF7");
-				}
-				
-				
-				jsonObj = new JSONObject(hash); 
-				jsonArr.add(jsonObj);		
-			}
-		}
-		
-		
-		
-		log.info("jsonArrCheck:{}", jsonArr);
-		
-		return jsonArr;		 
-	}
+	}	
+	
 	
 	//예약추가
 	@PostMapping("scheduleAdd")
