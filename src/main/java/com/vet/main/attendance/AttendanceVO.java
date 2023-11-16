@@ -13,10 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 public class AttendanceVO {
 	private Long attNo;
 	private String username;
-	private String today;
+	private String attDate;
 	private String attIn;
 	private String attOut;
-	private Integer attState;
+	private String attState;
 	private Double atDayoffCount;
 	
 	private String positionName;

@@ -12,5 +12,7 @@ public interface AttendanceDAO {
 	public int setAttIn(AttendanceVO attendanceVO) throws Exception;
 	
 	public int setAttOut(AttendanceVO attendanceVO) throws Exception;
+	
+	public AttendanceVO checkDate(AttendanceVO attendanceVO) throws Exception;
 
 }

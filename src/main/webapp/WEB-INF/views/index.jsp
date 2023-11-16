@@ -33,6 +33,28 @@
 							<a href="/emp/logout" class="btn btn-danger" style="">로그아웃</a>	
 							<a href="/emp/pwUpdate?username=${user.username}" class="btn btn-danger" style="">비밀번호 변경</a>	
 						</sec:authorize>
+						
+						<br><br>
+						<input type="hidden" id="username" name="username" value="${user.username}">
+						<input type="hidden" id="empName" name="empName" value="${user.empName}">
+						
+						<c:choose>
+							<c:when test="${empty att}">
+								<button type="button" class="btn btn-primary" onclick="attIn()" style="width:100px;">출근</button>
+								<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
+		                    </c:when>
+		                    <c:when test="${att.attState eq 1 and att.attOut eq null}">
+								<button type="button" class="btn btn-primary" onclick="attIn()" style="width:100px;" disabled>출근</button>
+								<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;">퇴근</button>
+			                </c:when>
+			                <c:otherwise>
+								<button type="button" class="btn btn-primary" onclick="attIn()" style="width:100px;" disabled>출근</button>
+								<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
+			                </c:otherwise>
+	                    </c:choose>
+
+						
+						
 					</div>
 					<!-- / Content -->
 					<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
@@ -48,6 +70,6 @@
 	</div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-
+	<script src="/js/attendance/attendance.js"></script>
 </body>
 </html>

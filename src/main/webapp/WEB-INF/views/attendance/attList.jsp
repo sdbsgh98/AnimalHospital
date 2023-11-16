@@ -36,13 +36,10 @@
 	                        <div class="card-body">
 	                            <div class="table-responsive">
 	                            
-                         	        <%-- <input type="hidden" name="attNo" id="attNo" value="${list.attNo}"> --%>
+
                                		<input type="hidden" name="username" id="username" value="${user.username}">
                                		<input type="hidden" name="empName" id="empName" value="${user.empName}">
-	                            
-	                            	<button type="button" class="btn btn-primary" onclick="attIn()" style="width:100px;">출근</button>
-	                            	<button type="button" class="btn btn-primary" id="attOut" style="width:100px;">퇴근</button>
-	                                
+
 	                                <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
 	                                    <thead>
 											<tr>
@@ -56,15 +53,15 @@
 											</tr>
 	                                    </thead>
 	                                    <tbody>
-	                                    	<c:forEach items="${list}" var="at" varStatus="i">
+	                                    	<c:forEach items="${att}" var="att" varStatus="i">
 		                                        <tr>
 		                                        	<td>${i.index + 1}</td>
-		                                        	<td>${at.today}</td>
-		                                        	<td>${at.deptName}</td>
-		                                            <td>${at.positionName}</td>
-		                                        	<td>${at.empName}</td>
-		                                            <td>${at.attIn}</td>
-		                                            <td>${at.attOut}</td>
+		                                        	<td>${att.attDate}</td>
+		                                        	<td>${att.deptName}</td>
+		                                            <td>${att.positionName}</td>
+		                                        	<td>${att.empName}</td>
+		                                            <td>${att.attIn}</td>
+		                                            <td>${att.attOut}</td>
 		                                        </tr>
 	                                        </c:forEach>
 	                                    </tbody>
@@ -140,9 +137,6 @@
 	</div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-	
-	<script src="/js/attendance/attendance.js"></script>
-	
 
 	
 </body>

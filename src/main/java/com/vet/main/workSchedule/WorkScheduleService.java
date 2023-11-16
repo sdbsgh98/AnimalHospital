@@ -1,5 +1,7 @@
 package com.vet.main.workSchedule;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,5 +29,12 @@ public class WorkScheduleService {
 	public WorkScheduleVO getWorkSchedule(WorkScheduleVO workScheduleVO) throws Exception {
 		return workScheduleDAO.getWorkSchedule(workScheduleVO);
 	}
+		
+	public List<WorkScheduleVO> getWorkList() throws Exception {
+		return workScheduleDAO.getWorkList();
+	}
 	
+	public int delWorkSchedule(WorkScheduleVO workScheduleVO) throws Exception {
+		return workScheduleDAO.delWorkSchedule(workScheduleVO);
+	}
 }

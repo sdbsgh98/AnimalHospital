@@ -438,6 +438,13 @@
 						<c:forEach items="${line}" var="line">
 							<c:if test="${user.username eq line.username}">
 								<c:choose>
+									<c:when test="${line.apState eq '반려'}">
+										<div class="row" style="float:right;">
+											<div class="demo-inline-spacing">
+					                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+											</div>
+			                        	</div>
+						            </c:when>
 						            <c:when test="${line.aplStep eq 1 and line.apConfirmState eq 0}">
 										<div class="row" style="float:right;">
 											<div class="demo-inline-spacing">
@@ -481,28 +488,7 @@
 											</div>
 			                        	</div>
 						            </c:when>
-						            <c:when test="${line.aplStep eq 1 and approvalVO.apState eq '반려'}">
-										<div class="row" style="float:right;">
-											<div class="demo-inline-spacing">
-					                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
-											</div>
-			                        	</div>
-						            </c:when>
-						           <c:when test="${line.aplStep eq 2 and approvalVO.apState eq '반려'}">
-										<div class="row" style="float:right;">
-											<div class="demo-inline-spacing">
-					                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
-											</div>
-			                        	</div>
-						            </c:when>
 						        </c:choose>
-								<!-- <div class="row" style="float:right;">
-									<div class="demo-inline-spacing">
-										<button type="button" class="btn btn-primary" id="approveBtn" data-url="update">결재</button>
-										<button type="button" class="btn btn-warning" id="rejectBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">반려</button>
-			                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
-									</div>
-	                        	</div> -->
                        		</c:if>
                        	</c:forEach>
 					</div>

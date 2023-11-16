@@ -33,5 +33,7 @@ public class ApprovalLineVO {
 	private Long aplCount;
 	private Long notSign;
 	
+	private String apState;
+	
 	
 }

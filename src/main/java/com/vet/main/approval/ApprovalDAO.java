@@ -62,9 +62,6 @@ public interface ApprovalDAO {
 	
 	// pager 관련 (해당 유저에게 전달된 결재의 총 수를 구하기 위함)
 	public Long getApproverTotal(Pager pager) throws Exception;
-		
-	// file
-	public int setApFileAdd(FileVO fileVO) throws Exception;
 	
 	// 결재선 설정에 부서 클릭시 파라미터를 받기위함
 	public List<EmpVO> selectDept(String deptName) throws Exception;
@@ -107,4 +104,13 @@ public interface ApprovalDAO {
 	
 	// 지출결의서 수정
 	public int setExpenseUpdate(ApprovalExpenseVO approvalExpenseVO) throws Exception;
+	
+	// file
+	public int setApFileAdd(FileVO fileVO) throws Exception;
+	
+	public List<ApprovalFileVO> getApFileList(FileVO fileVO) throws Exception;
+	
+	public int setApFileDelete(FileVO fileVO) throws Exception;
+	
+	public ApprovalFileVO getApFileDetail(FileVO fileVO) throws Exception;
 }
