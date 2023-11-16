@@ -77,7 +77,7 @@
 								</form>
 							</div>
 						</div>
-    					<div style="margin-right: 550px;">
+    					<div style="margin-right: 680px;">
     						<!-- 페이징 -->
 							<nav aria-label="Page navigation example">
 								<ul class="pagination justify-content-center">
