@@ -71,6 +71,7 @@
 			<result column="EXPENSENO" property="expenseNo"/>
 		</collection>
 		<collection property="apLineList" resultMap="apLineMap" />
+		<collection property="fileList" resultMap="getApFile" />
 	</resultMap>
 	
 	<!-- 기안 상세페이지 -->
@@ -100,6 +101,13 @@
 			<result column="DEPTNAME" property="deptName"/>
 			<result column="POSITIONNAME" property="positionName"/>
 			<result column="EMPNAME" property="empName"/>
+	</resultMap>
+	
+	<resultMap type="ApprovalFileVO" id="getApFile">
+		<id column="APNO" property="apNo"/>
+			<result column="FILENO" property="fileNo"/>
+			<result column="FILENAME" property="fileName"/>
+			<result column="ORIGINALFILENAME" property="originalFileName"/>
 	</resultMap>
 	
   	<select id="getApUser" parameterType="com.vet.main.emp.EmpVO" resultMap="userMap">
@@ -186,9 +194,11 @@
 	<!-- 지출항목 추가 -->
 	<insert id="setExpenseAdd" parameterType="ApprovalExpenseVO">
 		INSERT INTO APEXPENSE
-			(APNO, EXPENSENAME, EXPENSEAMOUNT, EXPENSEPRICE, EXPENSEBIGO, EXPENSENO)
+			(APNO, EXPENSENAME, EXPENSEAMOUNT, EXPENSEPRICE, EXPENSEBIGO)
 		VALUES
-            (#{apNo}, #{expenseName}, #{expenseAmount}, #{expensePrice}, #{expenseBigo}, NEXTVAL(EXPENSE_SEQ))
+            (#{apNo}, #{expenseName}, #{expenseAmount}, #{expensePrice}, #{expenseBigo})
+        ON DUPLICATE KEY UPDATE
+        	APNO = #{apNo} AND EXPENSENAME = #{expenseName}
 	</insert>
 	
   	<!-- 수정페이지에서 지출항목 삭제 -->
@@ -288,6 +298,8 @@
 		SET APTITLE = #{apTitle},
 			DAYOFFSTARTDATE = #{dayoffStartDate},
 			DAYOFFENDDATE = #{dayoffEndDate},
+			DAYOFFKIND = #{dayoffKind},
+			DAYOFFTIME = #{dayoffTime},
 			APCONTENTS = #{apContents}
 		WHERE APNO = #{apNo}
 	</update>
@@ -307,18 +319,7 @@
 		SET APTITLE = #{apTitle}
 		WHERE APNO = #{apNo}
 	</insert>
-			
-	<!-- ************ FILE ************ -->
-	<insert id="setApFileAdd" parameterType="ApprovalFileVO">
-		INSERT INTO APFILE
-		VALUES (NULL, #{apNo}, #{fileName}, #{originalFileName})
-	</insert>
-	
-	<select id="getApFileDetail" parameterType="FileVO" resultType="ApprovalFileVO">
-		SELECT * FROM APFILE
-		WHERE FILENO = #{fileNo}
-	</select>
-	
+
 	
 	<!-- 모든 부서 -->
 	<select id="selectDept" parameterType="DeptVO" resultType="EmpVO">
@@ -361,18 +362,28 @@
 		DELETE FROM APLINE
 		WHERE APNO = #{apNo}
 	</delete>
+	
+	<update id="updateApLine" parameterType="Long">
+		UPDATE APLINE
+		SET
+		USERNAME = #{username},
+		EMPNAME = #{empName}
+		WHERE APNO = #{apNo}
+	</update>
 
 	<!-- 상세페이지에 결재자 출력-->
 	<select id="getApLinePerson" parameterType="Long" resultType="ApprovalLineVO">
-		SELECT APL.*, P.POSITIONNAME, S.*
+		SELECT APL.*, P.POSITIONNAME, S.*, A.APSTATE
 		FROM APLINE APL INNER JOIN EMP E
 			ON APL.USERNAME = E.USERNAME
 			INNER JOIN POSITION P
 			ON P.POSITIONNO = E.POSITIONNO
 			LEFT OUTER JOIN SIGNFILE S
 			ON APL.USERNAME = S.USERNAME
+			INNER JOIN APPROVAL A
+			ON A.APNO = APL.APNO
 		WHERE APL.APNO = #{apNo}
-		ORDER BY APL.APLSTEP ASC
+		ORDER BY APL.APLSTEP ASC;
 	</select>
 	
 	<!-- 도장 조회 -->
@@ -418,8 +429,33 @@
 	<update id="setApprover" parameterType="ApprovalLineVO">
 		UPDATE APLINE
 		SET
-		APCONFIRMSTATE = ${apConfirmState}
+		APCONFIRMSTATE = #{apConfirmState},
+		APCONFIRMDATE = NOW()
 		WHERE APNO = #{apNo}
 		AND USERNAME = #{username}
 	</update>
+
+			
+	<!-- ************ FILE ************ -->
+	<!-- FILE LIST -->
+	<select id="getApFileList" resultType="ApprovalFileVO" parameterType="ApprovalVO">
+		SELECT * FROM APFILE
+		WHERE APNO = #{apNo}
+	</select>
+
+	<insert id="setApFileAdd" parameterType="ApprovalFileVO">
+  		INSERT INTO APFILE (APNO, FILENO, FILENAME, ORIGINALFILENAME)
+  		VALUES (#{apNo}, #{fileNo}, #{fileName}, #{originalFileName})
+	</insert>
+	
+	<select id="getApFileDetail" parameterType="FileVO" resultType="ApprovalFileVO">
+		SELECT * FROM APFILE
+		WHERE FILENO = #{fileNo}
+	</select>
+	
+  	<!-- FILE DELETE -->
+  	<delete id="setApFileDelete" parameterType="ApprovalFileVO">
+  		DELETE APFILE WHERE FILENO=#{fileNo}
+  	</delete>
+
 </mapper>

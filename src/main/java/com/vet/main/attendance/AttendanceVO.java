@@ -1,18 +1,25 @@
 package com.vet.main.attendance;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 @Setter
 @Getter
-@ToString
+@Slf4j
 public class AttendanceVO {
+	private Long attNo;
 	private String username;
-	private LocalDateTime attIn;
-	private LocalDateTime attOut;
-	private Integer attState;
+	private String attDate;
+	private String attIn;
+	private String attOut;
+	private String attState;
 	private Double atDayoffCount;
+	
+	private String positionName;
+	private String deptName;
+	private String empName;
 }

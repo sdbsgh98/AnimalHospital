@@ -256,6 +256,9 @@ public class ApprovalController {
 	public String getApDetail(ApprovalVO approvalVO, Model model) throws Exception {
 		
 		approvalVO = approvalService.getApDetail(approvalVO);
+		
+		log.info("=============== 기안서 번호 가져오는지 확인 approvalVO : {} ===============", approvalVO);
+		
 		Long apNo = approvalVO.getApNo();
 		
 		// 결재자 조회
@@ -433,7 +436,7 @@ public class ApprovalController {
 		List<ApprovalLineVO> line = approvalService.getApLinePerson(apNo);
 		model.addAttribute("line", line);
 
-		if (apKind.equals("품의서") || apKind.equals("휴가신청서") || apKind.equals("퇴직신청서")) {
+		if (apKind.equals("품의서") || apKind.equals("휴직신청서") || apKind.equals("퇴직신청서")) {
 			return "approval/update";
 		} else if (apKind.equals("지출결의서")) {
 			ApprovalVO approvalVO2 = new ApprovalVO();
@@ -443,6 +446,19 @@ public class ApprovalController {
 			return "approval/expenseUpdate";
 			
 		} else if (apKind.equals("휴가신청서")) {
+			String dayoffKind = approvalVO.getDayoffKind();
+			
+			if (dayoffKind.equals("반차")) {
+				String dayoffStartDate = approvalVO.getDayoffStartDate();
+				model.addAttribute("dayoffStartDate", dayoffStartDate);
+			} else {
+				String dayoffStartDate = approvalVO.getDayoffStartDate();
+				String dayoffEndDate = approvalVO.getDayoffEndDate();
+				
+				model.addAttribute("dayoffStartDate", dayoffStartDate);
+				model.addAttribute("dayoffEndDate", dayoffEndDate);
+			}
+
 			return "approval/dayoffUpdate";
 		}
 		
@@ -457,7 +473,6 @@ public class ApprovalController {
 		String username = approvalVO.getUsername();
 		
 		approvalService.resetApLine(apNo);
-		
 		
 		if (apKind.equals("품의서")) {
 			int result = approvalService.setApUpdate(approvalVO);
@@ -478,7 +493,14 @@ public class ApprovalController {
 			}
 
 		} else if (apKind.equals("휴가신청서")) {
-			int result = approvalService.setDayoffUpdate(approvalVO);
+			
+			if(approvalVO.getDayoffKind().equals("반차")) {
+				approvalVO.setDayoffEndDate(null);
+				int result = approvalService.setDayoffUpdate(approvalVO);
+			} else {
+				approvalVO.setDayoffTime(null);
+				int result = approvalService.setDayoffUpdate(approvalVO);
+			}
 			
 			for(int i=0; i<lineUsername.length; i++) {
 				// 2차 결재자가 없을 경우엔 반복문에서 나와지도록
@@ -492,7 +514,7 @@ public class ApprovalController {
 				approvalLineVO.setEmpName(lineEmpName[i]);
 				approvalLineVO.setAplStep(String.valueOf(i+1));
 				
-				result = approvalService.setApLine(approvalLineVO);
+				int result = approvalService.setApLine(approvalLineVO);
 			}
 
 		} else if (apKind.equals("휴직신청서")) {
@@ -539,7 +561,7 @@ public class ApprovalController {
 	@PostMapping("update/expenseUpdate")
 	public String setApUpdate(@RequestParam("apNo") Long apNo, @RequestParam("username") String username, @RequestParam("apTitle") String apTitle, @RequestParam("expenseName") String[] expenseName,
 			@RequestParam("expenseAmount") Long[] expenseAmount, @RequestParam("expensePrice") Long[] expensePrice,
-			@RequestParam("expenseBigo") String[] expenseBigo, @RequestParam("expenseNo") Long[] expenseNo, @RequestParam("lineUsername") String[] lineUsername
+			@RequestParam("expenseBigo") String[] expenseBigo, @RequestParam("lineUsername") String[] lineUsername
 			, @RequestParam("lineEmpName") String[] lineEmpName) throws Exception {
 
 		ApprovalVO approvalVO = new ApprovalVO();
@@ -547,20 +569,21 @@ public class ApprovalController {
 		approvalVO.setApTitle(apTitle);
 		
 		approvalService.setApExpenseUpdate(approvalVO);
+		
+		approvalService.resetApLine(apNo);
 
 		log.info("============= approvalVO : {} ==============", approvalVO);
 			
 		// 지출내역을 update
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i < expenseName.length; i++) {
 			ApprovalExpenseVO expenseVO = new ApprovalExpenseVO();
 			expenseVO.setApNo(apNo);
 			expenseVO.setExpenseName(expenseName[i]);
 			expenseVO.setExpenseAmount(expenseAmount[i]);
 			expenseVO.setExpensePrice(expensePrice[i]);
 			expenseVO.setExpenseBigo(expenseBigo[i]);
-			expenseVO.setExpenseNo(expenseNo[i]);
 
-			approvalService.setExpenseUpdate(expenseVO);
+			approvalService.setExpenseAdd(expenseVO);
 
 			log.info("============= expenseVO : {} ==============", expenseVO);
 		}

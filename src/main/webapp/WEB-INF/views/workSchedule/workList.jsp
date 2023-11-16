@@ -55,7 +55,7 @@
 			    
 			    	<!-- 일정추가 모달창 -->
 				    <!-- modal 추가 -->
-				    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 				        aria-hidden="true">
 				        <div class="modal-dialog" role="document">
 				            <div class="modal-content">
@@ -121,35 +121,35 @@
 		                                </div>
 			                            <div class="row mb-3">
 		                                	<label class="form-label">부서명
-			                                	<span class="form-control deptName" id="deptName">${scheduleVO.deptName}</span>
+			                                	<span class="form-control deptName" id="getDeptName">${scheduleVO.deptName}</span>
 		                                	</label>
 		                                </div>
 			                            <div class="row mb-3">
 		                                	<label class="form-label">직급명
-			                                	<span class="form-control positionName" id="positionName">${scheduleVO.positionName}</span>
+			                                	<span class="form-control positionName" id="getPositionName">${scheduleVO.positionName}</span>
 		                                	</label>
 		                                </div>
 			                            <div class="row mb-3">
 		                                	<label class="form-label">직원명
-			                                	<span class="form-control empName" id="empName">${scheduleVO.empName}</span>
+			                                	<span class="form-control empName" id="getEmpName">${scheduleVO.empName}</span>
 		                                	</label>
 		                                </div>
 			                            <div class="row mb-3">
 		                                	<label class="form-label">날짜
-			                                	<span class="form-control workDate" id="workDate">${scheduleVO.workDate}</span>
+			                                	<span class="form-control workDate" id="getWorkDate">${scheduleVO.workDate}</span>
 		                                	</label>
 		                                </div>
 			                            <div class="row mb-3">
 		                                	<label class="form-label"> 근무시간
-			                                	<span class="form-control workTime" id="workTime">${scheduleVO.workTime}</span>
+			                                	<span class="form-control workTime" id="getWorkTime">${scheduleVO.workTime}</span>
 			                                	<span> ~ </span>
-			                                	<span class="form-control homeTime" id="homeTime">${scheduleVO.homeTime}</span>
+			                                	<span class="form-control homeTime" id="getHomeTime">${scheduleVO.homeTime}</span>
 		                                	</label>
 		                                </div>
 					                </div>
 					            </div>
 					            <div class="modal-footer">
-	                                <button type="button" class="btn btn-primary" id="updateBtn">수정</button>
+	                                <button type="button" class="btn btn-primary" id="modifyBtn">수정</button>
 	                                <button type="button" class="btn btn-primary" id="deleteBtn">삭제</button>
 						            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">닫기</button>
 					            </div>
@@ -171,26 +171,30 @@
 				                        <input type="hidden" class="form-control" id="username" name="username">
 				                        
 				                        <label for="deptName" class="form-label">부서명</label>
-				                        <input type="text" class="form-control" id="deptName" name="deptName" value="${user.deptName}" readonly>
+				                        <input type="text" class="form-control" id="upDeptName" name="deptName" value="${user.deptName}" readonly>
 				                        
 				                        <label for="positionName" class="form-label">직급명</label>
-				                        <input type="text" class="form-control" id="positionName" name="positionName" value="${user.positionName}" readonly>
+				                        <input type="text" class="form-control" id="upPositionName" name="positionName" value="${user.positionName}" readonly>
 				                        
 				                        <label for="empName" class="form-label">직원명</label>
-				                        <input type="text" class="form-control" id="empName" name="empName" value="${user.empName}" readonly>
+				                        <input type="text" class="form-control" id="upEmpName" name="empName" value="${user.empName}" readonly>
 				                        
 				                        <label for="workDate" class="form-label">날짜</label>
-				                        <input type="date" class="form-control" id="workDate" name="workDate" value="${scheduleVO.workDate}">
+				                        <input type="date" class="form-control" id="upWorkDate" name="workDate" value="${scheduleVO.workDate}">
 				                        
 				                        <label for="workTime" class="form-label">출근시간</label>
-				                        <input type="time" class="form-control" id="workTime" name="workTime" value="${scheduleVO.workTime}">
+				                        <input type="time" class="form-control" id="upWorkTime" name="workTime" value="${scheduleVO.workTime}">
 				                        
 				                        <label for="homeTime" class="form-label">퇴근시간</label>
-				                        <input type="time" class="form-control" id="homeTime" name="homeTime" value="${scheduleVO.homeTime}">
+				                        <input type="time" class="form-control" id="upHomeTime" name="homeTime" value="${scheduleVO.homeTime}">
 				                        
 				                    	<input type="hidden" id="workNo" name="workNo">
 				                    </div>
 				                </div>
+							      <div class="modal-footer">
+			                        <button type="button" id="closeBtn"class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			                        <button type="button" id="updateBtn" class="btn btn-primary">Update</button>
+			                      </div>
 				            </div>
 				        </div>
 				    </div>
@@ -213,7 +217,7 @@
 	</div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-	<script src="/js/workSchedule/workSchedule.js"></script>
+	<script src="/js/workSchedule/workSchedule2.js"></script>
 	
 </body>
 </html>
