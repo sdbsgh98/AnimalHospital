@@ -1,6 +1,7 @@
 package com.vet.main.treatmentchart;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class TreatmentChartVO {
 	private Long customerNo;
 	private Long username;
 	private Long medicineNo;
+	private Long count;
 	
 	private String name;
 	private String empName;

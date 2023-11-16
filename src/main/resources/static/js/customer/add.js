@@ -4,6 +4,7 @@ const age = document.getElementsByClassName("age");
 const weight = document.getElementsByClassName("weight");
 const nameI = document.getElementsByClassName("name");
 const phone = document.getElementsByClassName("phone");
+const address = document.getElementsByClassName("address");
 const addressSearch = document.getElementById("addressSearch");
 const input = document.getElementsByClassName("input");
 
@@ -52,6 +53,7 @@ addressSearch.addEventListener("click", function () {
         document.getElementById("address").value = addr;
         document.getElementById("detailAddress").value = "";
         document.getElementById("detailAddress").focus();
+        checks[5] = true;
       },
     }).open();
 });
@@ -117,12 +119,12 @@ for(p of phone){
 }
 
 for(addressInput of address){
-  addressInput.addEventListener("blur", function () {
-      aMsg.innerHTML = '';
-      if (addressInput.value == '') {
-          aMsg.innerHTML = "주소를 입력하세요.";
-      }
-  })
+    addressInput.addEventListener("blur", function () {
+        aMsg.innerHTML = '';
+        if (addressInput.value == '') {
+            aMsg.innerHTML = "상세주소를 입력하세요.";
+        }
+    });
 }
 
 function emptyCheck(element) {
