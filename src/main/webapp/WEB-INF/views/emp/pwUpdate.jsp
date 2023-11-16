@@ -34,27 +34,48 @@
 						              </div>
 						              
 						              <!-- /Logo -->
-						              <h4 class="mb-2">비밀번호를 변경해주세요.🔐</h4>
+						              <h4 class="mb-2" style="">비밀번호를 변경해주세요.</h4>
 						              <p class="mb-4">Please change your password!</p>
 										<div>
-											<%-- <form action="pwUpdate" method="post"> --%>
+										<%-- <form id="pwUpdateForm" action="pwUpdate" method="post" onsubmit="return validateForm()"> --%>
+										
+										<form id="pwUpdateForm" action="pwUpdate" method="post" onsubmit="return validateForm()">
+										<%-- <form:form modelAttribute="pwVO" action="/emp/pwUpdate" method="POST"> --%>
+											<input type="hidden" name="username" value="${vo.username}">
+											<input type="hidden" name="randomPw" value="${vo.randomPw}">
+
+												<label>새 비밀번호 등록</label>
+													 <input type="password" class="form-control" id="password" name="password" required>
+													 <div id="passwordError" style="font-size: 12px; color:red;"></div>
+													 <div id="passwordSuccess"style="float: right;"></div>
+													 <%-- <form:errors path="password" cssStyle="color: red; font-size: 12px;"/> --%>
+													 <br>
+												<label>새 비밀번호 확인</label>
+													 <input type="password" class="form-control" id="passwordCheck" name="passwordCheck" required>
+													 <%-- <form:errors path="passwordCheck" cssStyle="color: red; font-size: 12px;"/> --%>
+													<div id="passwordCheckError" style="font-size: 12px; color:red;"></div>
+													<div id="passwordCheckSuccess" style="float: right;"></div>
+											  <br><br>			  			  				  				          													  	  				  			  				  				          		
+											  <button type="submit" class="btn btn-primary" id="updateBtn" style="margin-top: 30px;">완료</button>
+							        		</form>
+							        		<%-- </form:form>  --%>
 																	
-											<form:form modelAttribute="pwVO" action="/emp/pwUpdate" method="POST">
-			
-												<form:label path="password">새 비밀번호 등록</form:label>
-												<form:password path="password" cssClass="form-control"/>
-												<form:errors path="password"></form:errors>
-												
-												<form:label path="passwordCheck">새 비밀번호 등록</form:label>
-												<form:password path="passwordCheck" cssClass="form-control"/>
-												<form:errors path="passwordCheck"></form:errors>
+											<%-- <form:form modelAttribute="pwVO" action="/emp/pwUpdate" method="POST">
+											    <form:label path="password">새 비밀번호 등록</form:label>
+											    <form:password path="password" cssClass="form-control"/>
+											    <form:errors path="password" cssStyle="color: red; font-size: 12px;"/>
 											
-											  <br>		  			  				  				          													  	  				  			  				  				          		
-											  <button type="submit" class="btn btn-primary" style="margin-top: 10px;">완료</button>
-											</form:form>						
-																					
-								
-							        		<%-- </form> --%>
+											    <br>
+											
+											    <form:label path="passwordCheck">새 비밀번호 확인</form:label>
+											    <form:password path="passwordCheck" cssClass="form-control"/>
+											    <form:errors path="passwordCheck" cssStyle="color: red; font-size: 12px;"/>
+											
+											    <br>
+											
+											    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">완료</button>
+											</form:form> --%>						
+																													
 										</div>
 						
 						            </div>
@@ -72,5 +93,55 @@
 	    	</div>
 	    </div>  
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#pwUpdateForm').on('submit', function (event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
+
+        $('#password, #passwordCheck').on('keyup', function () {
+            validatePassword();
+        });
+
+        function validateForm() {
+            const password = $("#password").val();
+            const passwordCheck = $("#passwordCheck").val();
+
+            if (password !== passwordCheck) {
+                alert("비밀번호가 일치하지 않습니다.");
+                return false;
+            } else {
+                alert("비밀번호가 정상적으로 변경되었습니다.");
+                return true;
+            }
+        }
+
+        function validatePassword() {
+            const reg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+            const password = $("#password").val();
+            const passwordCheck = $("#passwordCheck").val();
+            
+            if (!reg.test(password)) {
+                $('#passwordError').text('비밀번호는 영어소문자+숫자 포함 8자리 이상입니다.');
+            } else if (password === passwordCheck && reg.test(password)) {
+                $('#passwordError').html('<img src="/resources/images/accept.png" style="width: 20px; height: 20px; float: right;">');
+            } else {
+            	$('#passwordError').text('');
+            }
+            
+            if (!reg.test(passwordCheck)) {
+                $('#passwordCheckError').text('비밀번호는 영어소문자+숫자 포함 8자리 이상입니다.');
+            } else if (password === passwordCheck && reg.test(password)) {
+                $('#passwordCheckError').html('<img src="/resources/images/accept.png" style="width: 20px; height: 20px; float: right;">');
+            } else {
+            	$('#passwordCheckError').text('');
+            }
+        }                   
+    });
+</script>
+
 </body>
 </html>

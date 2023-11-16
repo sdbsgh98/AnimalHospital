@@ -1,5 +1,7 @@
 package com.vet.main.emp;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,6 +146,7 @@ public class EmpService implements UserDetailsService{
 		map.put("username", empVO.getUsername());
 		result = empDAO.empRole(map);
 		
+		
 		return result;
 	}
 	
@@ -161,21 +164,52 @@ public class EmpService implements UserDetailsService{
         sendMailAdd(email, username, phone);
     }
 	
-	
+	//비밀번호 오류 
 	public boolean getPwError(PwVO pwVO ,BindingResult bindingResult)throws Exception{
-		boolean check = false; // false면 error 없음, true면 error 있음 (검증실패)
+		boolean check = bindingResult.hasErrors(); // false면 error 없음, true면 error 있음 (검증실패)
 		
 		//password 일치여부 검증
 		if(!pwVO.getPassword().equals(pwVO.getPasswordCheck())) {
 			check = true;
 			
-			bindingResult.rejectValue("passwordCheck", "pwVO.password.equalCheck");
+			bindingResult.rejectValue("passwordCheck", "비밀번호가 일치하지 않습니다.");
+			
+		}else if(pwVO.getPassword().isBlank() || pwVO.getPasswordCheck().isBlank()){
+			check = true;
+		}else if(pwVO.getPassword().length()<6 || pwVO.getPassword().length()>12) {
+			check = true;
+		}else {
+			check = false;
 		}
-		
+			
+		log.info("============= check : {}", check);
 		
 		return check;
 	}
 	
+	// 사원등록 오류
+//	public boolean getEmpError(AddVO addVO ,BindingResult bindingResult)throws Exception{
+//	    boolean check = bindingResult.hasErrors();
+//
+//	    Date currentDate = new Date();
+//
+//	    if (addVO.getEmpName().isBlank()) {
+//	        check = true;
+//	        bindingResult.rejectValue("empName", "이름은 필수 입력 항목입니다."); // 에러 메시지 추가
+//	    } else if (addVO.getEmail().isBlank()) {
+//	        check = true;
+//	    } else if (addVO.getPhone().isBlank()) {
+//	        check = true;
+//	    } else if (!addVO.getBirth().before(currentDate)) {
+//	        check = true;
+//	    } else {
+//	        check = false;
+//	    }
+//
+//	    log.error("에러 발생: {}", bindingResult.getAllErrors()); // 에러 로깅 추가
+//
+//	    return check;
+//	}
 	
 	// 직원 상세
 	public EmpVO empDetail(EmpVO empVO) throws Exception{

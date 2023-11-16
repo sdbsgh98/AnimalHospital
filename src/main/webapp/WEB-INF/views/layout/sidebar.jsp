@@ -280,7 +280,7 @@
               </a>
               <ul class="menu-sub">            
             <li class="menu-item">
-              <a href="cards-basic.html" class="menu-link">
+              <a href="/notice/noticeList" class="menu-link">
                 <div data-i18n="Basic">공지사항</div>
               </a>
             </li> 

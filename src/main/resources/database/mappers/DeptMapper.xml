@@ -47,13 +47,15 @@
 			LIMIT #{startRow}, #{lastRow}
 	</select>
 	
-	<select id="detailEmp" parameterType="com.vet.main.dept.DeptVO" resultMap="getDetailResult">
+	<select id="detailEmp" parameterType="com.vet.main.commons.DeptPager" resultMap="getDetailResult">
 		SELECT * 
 		FROM EMP E INNER JOIN DEPARTMENT D
 		ON E.DEPTNO = D.DEPTNO
 		INNER JOIN POSITION P
 		ON E.POSITIONNO = P.POSITIONNO
-		WHERE E.DEPTNO = #{deptNo} OR E.DEPTNO = #{parentNo}
+		WHERE E.DEPTNO = #{deptNo}
+		ORDER BY E.USERNAME DESC
+		LIMIT #{startRow}, #{perPage}
 	</select>
 	
 	<select id="deptList" parameterType="com.vet.main.dept.DeptVO">
@@ -109,24 +111,42 @@
 		VALUES (#{deptNo}, #{deptName}, #{parentNo}, #{depth})
 	</insert>
 
+<!-- 	<update id="deptUpdate" parameterType="com.vet.main.dept.DeptVO">
+		UPDATE DEPARTMENT D
+		INNER JOIN POSITION P ON D.DEPTNO = P.DEPTNO
+		SET
+		    D.DEPTNO = #{deptNo},
+		    D.DEPTNAME = #{deptName},
+		    D.PARENTNO = #{parentNo},
+		    P.POSITIONNO = #{positionNo},
+		    P.POSITIONNAME = #{positionName}
+		WHERE D.DEPTNO = #{deptNo} AND P.POSITIONNO = #{positionNo}
+	</update> -->
+
 	<update id="deptUpdate" parameterType="com.vet.main.dept.DeptVO">
-	    UPDATE DEPARTMENT D
-	    INNER JOIN POSITION P
-	    ON D.DEPTNO = P.DEPTNO
-	    SET
-	    D.DEPTNO = #{deptNo},
-	    D.DEPTNAME = #{deptName},
-	    D.PARENTNO = #{parentNo},
-	    P.POSITIONNO = #{positionNo},
-	    P.POSITIONNAME = #{positionName}
-	    WHERE D.DEPTNO = #{deptNo} AND P.POSITIONNO = #{positionNo}
+		UPDATE DEPARTMENT SET 
+			DEPTNAME = #{deptName},
+			PARENTNO = #{parentNo}
+		WHERE DEPTNO = #{deptNo}
 	</update>
+	
+	<!-- 없는 직깁이면 insert / 있으면 이름 수정 -->
+	<update id="positionUpdate" parameterType="com.vet.main.dept.DeptVO">
+		UPDATE POSITION SET 
+			POSITIONNAME = #{positionName}
+		WHERE POSITIONNO = #{positionNo}
+	</update>
+	
 
 	<delete id="deptDelete" parameterType="com.vet.main.dept.DeptVO">
 		DELETE FROM DEPARTMENT
 		WHERE DEPTNO = #{deptNo}
 	</delete>
 	
+	<delete id="positionDelete" parameterType="com.vet.main.dept.DeptVO">
+		DELETE FROM POSITION
+		WHERE POSITIONNO = #{positionNo}
+	</delete>
 	
 	<!-- 결재선 설정 시 조회되는 부서목록 -->
 	<select id="getApLineDept" parameterType="com.vet.main.dept.DeptVO">

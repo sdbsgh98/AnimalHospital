@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vet.main.commons.DeptPager;
-import com.vet.main.commons.Pager;
+import com.vet.main.commons.DeptPager2;
 
 @Service
 public class DeptService {
@@ -16,9 +16,10 @@ public class DeptService {
 	
 	
 	public List<DeptVO> getEmpList(DeptPager deptPager)throws Exception{
+		deptPager.setPerPage(5L);
+		deptPager.makeRowNum();
 		Long totalCount = deptDAO.getTotal(deptPager);
-		deptPager.makeNum(totalCount);
-		deptPager.makeStartRow();
+		deptPager.makePageNum(totalCount);
 
 /*	public List<DeptVO> getEmpList(Pager pager)throws Exception{
 		pager.setPerPage(10L);
@@ -32,12 +33,13 @@ public class DeptService {
 		return deptDAO.getEmpList(deptPager);
 	}
 	
-	public List<DeptVO> detailEmp(DeptPager deptPager)throws Exception{
-		Long totalCount = deptDAO.getTotal2(deptPager);
-		deptPager.makeNum(totalCount);
-		deptPager.makeStartRow();
+	public List<DeptVO> detailEmp(DeptPager2 deptPager2)throws Exception{
+		Long totalCount = deptDAO.getTotal2(deptPager2);
+		deptPager2.makePageNum(totalCount);
+		deptPager2.setPerPage(5L);
+		deptPager2.makeRowNum();
 		
-		return deptDAO.detailEmp(deptPager);
+		return deptDAO.detailEmp(deptPager2);
 	}
 	
 	public List<DeptVO> deptList()throws Exception{
@@ -64,8 +66,19 @@ public class DeptService {
 		return result;
 	}
 	
+	public int positionUpdate(DeptVO deptVO)throws Exception{
+		int result = deptDAO.positionUpdate(deptVO);
+		return result;
+	}
+	
 	public int deptDelete(DeptVO deptVO)throws Exception{
 		int result = deptDAO.deptDelete(deptVO);
+		
+		return result;
+	}
+	
+	public int positionDelete(DeptVO deptVO)throws Exception{
+		int result = deptDAO.positionDelete(deptVO);
 		
 		return result;
 	}
@@ -92,7 +105,9 @@ public class DeptService {
     }
     
     public int positionAdd(DeptVO deptVO)throws Exception{
-    	return deptDAO.positionAdd(deptVO);
+    	
+    	int result = deptDAO.positionAdd(deptVO);
+    	return result;
     }
     
 }

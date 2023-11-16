@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vet.main.notice.NoticeDAO">
+	
+	<sql id="forPager">
+	  	<choose>
+	  		<when test="kind == 'title'">
+	  			title
+	  		</when>
+	  		<otherwise>
+	 			contents
+	  		</otherwise>
+	  	</choose>
+	  </sql>
+
+	<select id="getTotal" parameterType="Pager" resultType="Long">
+		<bind name="pattern" value="'%'+_parameter.getSearch()+'%'"/>
+		SELECT COUNT(NOTICENO) 
+		FROM NOTICE 
+		WHERE <include refid="forPager"></include>
+	  	Like #{pattern}
+	</select>
+
+	<select id="getNoticeList" parameterType="com.vet.main.notice.NoticeVO">
+		SELECT * 
+		FROM NOTICE N INNER JOIN EMP E 
+		ON N.USERNAME = E.USERNAME
+		WHERE
+			<include refid="forPager"></include>
+			LIKE CONCAT('%', #{search}, '%')
+			ORDER BY NOTICENO DESC
+			LIMIT #{startRow}, #{lastRow}
+	</select>
+
+	<insert id="noticeAdd" parameterType="com.vet.main.notice.NoticeVO">
+	<selectKey keyProperty="noticeNo" resultType="Long" order="BEFORE">
+	        select NEXTVAL(notice_seq) from dual
+	</selectKey>
+		INSERT INTO NOTICE 
+		VALUES(#{noticeNo}, #{username}, #{title}, NOW(), NULL, #{contents}, 0, #{important})
+	</insert>
+	
+	<insert id="setFileAdd" parameterType="com.vet.main.notice.NoticeFileVO">
+		INSERT INTO NOTICEFILE
+		VALUES(NULL, #{noticeNo}, #{originalName}, #{fileName})
+	</insert>
+	
+	<select id="noticeDetail" parameterType="com.vet.main.notice.NoticeVO" resultMap="getDetailResult">
+		SELECT N.*, NF.*, E.*
+		FROM NOTICE N
+		LEFT JOIN NOTICEFILE NF ON N.NOTICENO = NF.NOTICENO
+		INNER JOIN EMP E ON N.USERNAME = E.USERNAME
+		WHERE N.NOTICENO = #{noticeNo}
+	</select>
+	
+		<resultMap type="com.vet.main.notice.NoticeVO" id="getDetailResult">
+			<id column="NOTICENO" property="noticeNo"/>
+			<result column="USERNAME" property="username"/>
+			<result column="TITLE" property="title"/>
+			<result column="CREATEDATE" property="createDate"/>
+			<result column="MODIFYDATE" property="modifyDate"/>
+			<result column="CONTENTS" property="contents"/>
+			<result column="HIT" property="hit"/>
+			<result column="IMPORTANT" property="important"/>
+			<result column="EMPNAME" property="empName"/>			
+			<collection property="fileVO" javaType="java.util.List" ofType="com.vet.main.notice.NoticeFileVO">
+				<id column="FILENO" property="fileNo"/>
+				<result column="FILENAME" property="fileName"/>
+				<result column="ORIGINALNAME" property="originalName"/>
+			</collection>
+		</resultMap>
+	
+	<update id="hitUpdate">
+		UPDATE NOTICE
+		SET HIT = #{hit} + 1
+		WHERE NOTICENO = #{noticeNo}
+	</update>
+	
+	<update id="noticeUpdate" parameterType="com.vet.main.notice.NoticeVO">
+		UPDATE NOTICE SET
+			TITLE = #{title},
+			MODIFYDATE = NOW(),
+			CONTENTS = #{contents},
+			IMPORTANT = #{important}
+		WHERE NOTICENO = #{noticeNo}			
+	</update>
+	
+	<delete id="noticeDelete" parameterType="com.vet.main.notice.NoticeVO">
+		DELETE FROM NOTICE WHERE NOTICENO = #{noticeNo}
+	</delete>
+	
+	<select id="fileDelete" parameterType="com.vet.main.notice.NoticeVO" resultType="com.vet.main.notice.NoticeFileVO">
+		SELECT * FROM NOTICEFILE WHERE NOTICENO = #{noticeNo}
+	</select>
+	
+	<delete id="fileUpdateDelete" parameterType="com.vet.main.notice.NoticeFileVO">
+		DELETE FROM NOTICEFILE WHERE FILENO = #{fileNo}
+	</delete>
+	
+</mapper>

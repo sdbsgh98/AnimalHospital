@@ -164,6 +164,7 @@
 		                
 		            } else {
 		                alert("일치하는 사용자가 없습니다.");
+		               	console.log(data)
 		                btn_check(0);
 		            }
 		        },

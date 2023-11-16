@@ -21,9 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.vet.main.commons.Pager;
 import com.vet.main.dept.DeptVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @Controller
 @RequestMapping("/emp/*")
+@Slf4j
 public class EmpController {
 
 	@Autowired
@@ -48,25 +51,32 @@ public class EmpController {
 	
 	// 비밀번호 수정페이지
 	@GetMapping("pwUpdate")
-	public String pwUpdate(Model model) throws Exception {
+	public String pwUpdate(EmpVO empVO, Model model) throws Exception {
+		empVO = empService.mypage(empVO);
+		model.addAttribute("vo",empVO);
 	    model.addAttribute("pwVO", new PwVO());
 	    return "emp/pwUpdate";
 	}
 
 	@PostMapping("pwUpdate")
 	public String pwUpdate(@Valid PwVO pwVO, BindingResult bindingResult) throws Exception {
-	    boolean check = empService.getPwError(pwVO, bindingResult);
-
-	    if (bindingResult.hasErrors() || check) {
-	        return "emp/login";
-	    }
-
-	    pwVO.setRandomPw(true);
-
+	   // boolean check = empService.getPwError(pwVO, bindingResult);
 	    int result = empService.pwUpdate(pwVO);
-	    return "emp/login";
+	    
+	    log.info("============{}", pwVO);
+	    if(result>0) {   	
+	    	pwVO.setRandomPw(1);
+	    	return "redirect:/emp/login";
+	    	
+	    }else {
+	    	return "emp/pwUpdate";
+	    }
+//	    if (check == false) {
+//	        return "redirect:/emp/login"; 
+//	    } else {
+//	        return "emp/pwUpdate";
+//	    }
 	}
-
 	
 	// 비밀번호 찾기
 	@GetMapping("findUser")
@@ -141,10 +151,38 @@ public class EmpController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/empList/empAdd", method = RequestMethod.POST)
-	public String empAdd(@Valid EmpVO empVO, BindingResult bindingResult) throws Exception{
+	public String empAdd(EmpVO empVO, Model model) throws Exception{
 		
 		int result = empService.empAdd(empVO);
+		
+		if(result >0) {
+			empService.sendMailAdd(empVO.getEmail(), empVO.getUsername(), empVO.getPhone());
+		}
+		
 		return "redirect:./empList";
+		
+//		boolean check = empService.getEmpError(addVO, bindingResult);
+//		    
+//
+//		    if (check) {
+//		    	model.addAttribute("vo", addVO);
+//		        return "emp/empList/empAdd"; 
+//		    } 
+//		    int result = empService.empAdd(addVO);
+//		    
+//		    
+//		
+//		    return "redirect:./empList";
+//		if (bindingResult.hasErrors()) {
+//	        return "error"; // 폼 유효성 검사 실패 시 "error" 반환
+//	    }
+//		int result = empService.empAdd(empVO);
+//		
+//	    if (result > 0) {
+//	        return "success"; // 등록 성공 시 "success" 반환
+//	    } else {
+//	        return "fail"; // 등록 실패 시 "fail" 반환
+//	    }
 	}
 	
 	@RequestMapping(value = "/emp/sendMailAdd", method = RequestMethod.POST)

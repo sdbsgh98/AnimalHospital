@@ -74,8 +74,8 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">Admin</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block">${vo.empName}</span>
+                            <small class="text-muted">${vo.positionName}</small>
                           </div>
                         </div>
                       </a>

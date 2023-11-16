@@ -4,6 +4,7 @@
 <!-- jsp에서 properties 메세지를 사용할 수 있도록 하는 API -->
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
 	data-theme="theme-default" data-assets-path="/assets/"
@@ -34,13 +35,19 @@
 				<!-- Content wrapper -->
 
 				<div class="content-wrapper">
+					<sec:authentication property="Principal" var="user"/>
 					<div class="container-xxl flex-grow-1 container-p-y">
 					<h3>조직도 / 사원 목록</h3>
 					<form>
 					<div class="card shadow mb-4" style="width: 20%; float: left; height: 400px;">	
 					<div>
 					</div>
-					<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 100px; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left: 5px;">부서등록</button>
+					<c:if test="${user.positionNo == 1}">
+					<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 95%; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left:6px;">부서등록</button>
+					</c:if>	
+					<c:if test="${user.positionNo != 1}">
+					<button type="button" class="btn" style="width: 95%; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left:4px;">전체부서</button>
+					</c:if>
 						<div id="jstree">
 						    <ul>
 						        <c:forEach items="${list}" var="vo">
@@ -148,27 +155,27 @@
 							</table>
 						
 
-						<div class="d-flex justify-content-between mb-3" style="margin-top: 20px;">
+						<div class="d-flex justify-content-between mb-3" style="margin-top: 50px;">
 						<div>
 							<!-- 검색 -->
-							<div class="input-group mb-3">
+							<div class="input-group mb-3" style="float: right;">
 								<form action="./deptList" method="get" class="d-flex align-items-center" id="frm">
 									<div class="input-group" style="width: 120px;">
 										<input type="hidden" value="${pager.page}" id="page" name="page">
 										<select name="kind" id="k" class="form-select"
-											data-kind="${pager.kind}" aria-label="Default select example" style="width: 50px;">
+											data-kind="${pager.kind}" aria-label="Default select example" style="width: 50px; margin-left: 20px; border-radius: 5px;">
 											<option class="kind" value="empName">이름</option>
 											<option class="kind" value="deptName">부서</option>
 											<option class="kind" value="positionName">직급</option>
 										</select>
-									</div> 
-									<input type="text" name="search" value="${pager.search}"
-										class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 150px;">
-										<button type="submit" class="btn btn-primary" style="width:100px;">검색</button>
+									</div>
+									<input class="form-control me-2" type="text" name="search" value="${pager.search}" style="border-radius: 5px; margin-left: 7px; width: 150px;"> 
+									
+									<button class="btn" type="submit" style="border-radius: 5px; border-color: #d9dee3;"><img alt="" src="/resources/images/searchIcon.svg"></button>
 								</form>
 							</div>
 						</div>
-    					<div>
+    					<div style="margin-right: 350px;">
     						<!-- 페이징 -->
 							<nav aria-label="Page navigation example" >
 								<ul class="pagination justify-content-center">

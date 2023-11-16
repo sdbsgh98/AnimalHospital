@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DeptPager {
+public class DeptPager2 {
 	// 시작 인덱스 번호 (limit)
 	private Long startRow;
 	// 가져올 갯수 (limit)
@@ -92,7 +92,7 @@ public class DeptPager {
 		}
 		public Long getLastRow() {
 			if(this.lastRow == null || this.lastRow<0) {
-				return 5L;
+				return 10L;
 			}
 			return this.lastRow;
 		}
@@ -110,7 +110,7 @@ public class DeptPager {
 		}
 		public Long getPerPage() {
 			if(this.perPage==null) {
-				this.perPage=5L;
+				this.perPage=10L;
 			}
 			return perPage;
 		}

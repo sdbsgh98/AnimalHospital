@@ -15,12 +15,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vet.main.commons.DeptPager;
+import com.vet.main.commons.DeptPager2;
 import com.vet.main.commons.Pager;
 import com.vet.main.emp.EmpService;
 import com.vet.main.emp.EmpVO;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
 @RequestMapping("/dept/*")
+@Slf4j
 public class DeptController {
 
 	@Autowired
@@ -56,12 +60,20 @@ public class DeptController {
 	}
 	
 	//부서 수정
-	
-	@PostMapping("deptUpdate")
+
+	@RequestMapping(value = "/dept/deptUpdate", method = RequestMethod.POST)
 	public String deptUpdate(DeptVO deptVO)throws Exception{
+		log.info("==================={}", deptVO);
 		int result = deptService.deptUpdate(deptVO);
-		return "redirect:./deptDetail?deptNo="+deptVO.getDeptNo();
+//		return "redirect:./deptManage?deptNo="+deptVO.getDeptNo();
+		return "redirect:./deptList";
 	}
+	
+//	@RequestMapping(value = "/dept/positionUpdate", method = RequestMethod.POST)
+//	public String positionUpdate(DeptVO deptVO)throws Exception{
+//		int result = deptService.positionUpdate(deptVO);
+//		return "redirect:./deptDetail?deptNo="+deptVO.getDeptNo();
+//	}
 	
 	// 부서 삭제
 	
@@ -72,18 +84,25 @@ public class DeptController {
 		return "redirect:./deptList";
 	}
 
+	// 직급 삭제
+	
+	@GetMapping("positionDelete")
+	public String positionDelete(DeptVO deptVO) throws Exception {
+	    int result = deptService.positionDelete(deptVO);
+
+	    return "redirect:./deptManage?deptNo=" + deptVO.getDeptNo();
+	}
+	
 	//부서 관리 페이지
 	
 	@GetMapping("deptManage")
-	public String deptManage(DeptVO deptVO, Model model, DeptPager deptPager) throws Exception{
+	public String deptManage(DeptVO deptVO, Model model) throws Exception{
 		List<DeptVO> ar = empService.getDeptNo(deptVO);
-		List<DeptVO> emp = deptService.getEmpList(deptPager);
 		List<DeptVO> select = deptService.selectDept();
 		List<DeptVO> deptPosition = deptService.getDeptPosition(deptVO);
 
 		deptVO = deptService.deptDetail(deptVO);
 		model.addAttribute("dept", ar);
-		model.addAttribute("emp", emp);
 		model.addAttribute("select", select);
 		model.addAttribute("vo", deptVO);
 		model.addAttribute("deptPosition", deptPosition);
@@ -91,28 +110,28 @@ public class DeptController {
 	}
 
 	@GetMapping("deptDetail")
-	public String deptDetail(DeptVO deptVO, Model model, DeptPager deptPager)throws Exception{
+	public String deptDetail(DeptVO deptVO, Model model, DeptPager2 deptPager2)throws Exception{
 		List<DeptVO> ar = deptService.deptList(); //조직도
-		List<DeptVO> emp = deptService.detailEmp(deptPager); //사원list
+		List<DeptVO> emp = deptService.detailEmp(deptPager2); //사원list
 		List<DeptVO> dept = deptService.selectDept();
-		List<DeptVO> position = deptService.deptPosition();
+		List<DeptVO> deptPosition = deptService.getDeptPosition(deptVO);
 		
 		deptVO = deptService.deptDetail(deptVO);
 		model.addAttribute("dept", dept);
 		model.addAttribute("emp", emp);
 		model.addAttribute("list", ar);
 		model.addAttribute("vo", deptVO);
-		model.addAttribute("po", position);
-		model.addAttribute("pager", deptPager);
+		model.addAttribute("deptPosition", deptPosition);
+		model.addAttribute("pager", deptPager2);
 		return "dept/deptDetail";
 	}
 
 	// 직급추가
 	
-	@ResponseBody
 	@RequestMapping(value = "/dept/positionAdd", method = RequestMethod.POST)
 	public String positionAdd(DeptVO deptVO)throws Exception{
 		int result = deptService.positionAdd(deptVO);
+	
 		return "redirect:./deptManage?deptNo="+deptVO.getDeptNo();
 	}
 

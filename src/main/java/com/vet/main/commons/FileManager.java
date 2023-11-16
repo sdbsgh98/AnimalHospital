@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.vet.main.customer.CustomerFileVO;
 import com.vet.main.file.FileVO;
+import com.vet.main.notice.NoticeFileVO;
 import com.vet.main.treatmentchart.TreatmentChartFileVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -79,4 +80,19 @@ public class FileManager {
 		return file.delete();
 		
 	}
+	
+	// notice 파일삭제
+	public boolean fileDelete(NoticeFileVO noticeFileVO, String path) {
+		
+		log.info(path);
+		log.info(noticeFileVO.getFileName());
+		File file = new File(path, noticeFileVO.getFileName());
+		
+		//로그 추가 file에 입력된 절대 경로 리턴
+		log.info("========== Delete file: {} ==========", file.getAbsolutePath());
+		
+		return file.delete();
+		
+	}
+	
 }

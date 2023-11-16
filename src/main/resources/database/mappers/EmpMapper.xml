@@ -169,7 +169,7 @@
   		UPDATE EMP 
   		SET
   		PASSWORD = #{password},
-  		RANDOMPW = #{randomPw}	
+  		RANDOMPW = 1	
   		WHERE USERNAME=#{username}
   	</update>
   	
