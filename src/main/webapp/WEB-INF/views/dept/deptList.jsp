@@ -43,7 +43,7 @@
 					<div>
 					</div>
 					<c:if test="${user.positionNo == 1}">
-					<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 95%; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left:4px;">부서등록</button>
+					<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 95%; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left:6px;">부서등록</button>
 					</c:if>	
 					<c:if test="${user.positionNo != 1}">
 					<button type="button" class="btn" style="width: 95%; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left:4px;">전체부서</button>

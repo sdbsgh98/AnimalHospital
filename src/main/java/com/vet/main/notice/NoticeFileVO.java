@@ -9,6 +9,10 @@ import lombok.Setter;
 @Setter
 public class NoticeFileVO extends FileVO{
 
+	private String username;
+	
 	private Long noticeNo;
+	
+	private String originalName;
 	
 }

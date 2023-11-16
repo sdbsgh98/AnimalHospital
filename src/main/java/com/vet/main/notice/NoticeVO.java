@@ -15,8 +15,8 @@ public class NoticeVO {
 	private Long noticeNo;
 	private String username;
 	private String title;
-	private Date createDate;
-	private Date modifyDate;
+	private String createDate;
+	private String modifyDate;
 	private String contents;
 	private Long hit;
 	private boolean important;

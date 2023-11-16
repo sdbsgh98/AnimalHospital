@@ -41,17 +41,17 @@
 								<thead style="height: 70px;">
 									<tr>
 										<th>번호</th>
-										<th>작성자</th>
 										<th>제목</th>
+										<th>작성자</th>
 										<th>작성일</th>
 										<th>조회수</th>
 								</thead>
 								<tbody style="height: 35px;">
 							<c:forEach items="${list}" var="vo">
 									<tr>
-										<td><a href="./notice?noticeNo=${vo.noticeNo}" style="color: #697a8d;">${vo.noticeNo}</a></td>
-										<td><a href="./notice?noticeNo=${vo.noticeNo}" style="color: #697a8d;">${vo.empName}</a></td>
-										<td>${vo.title}</td>
+										<td><a href="./noticeDetail?noticeNo=${vo.noticeNo}" style="color: #697a8d;">${vo.noticeNo}</a></td>
+										<td><a href="./noticeDetail?noticeNo=${vo.noticeNo}" style="color: #697a8d;">${vo.title}</a></td>
+										<td>${vo.empName}</td>
 										<td>${vo.createDate}</td>
 										<td>${vo.hit}</td>
 									</tr>
@@ -63,14 +63,13 @@
 						<div>
 							<!-- 검색 -->
 							<div class="input-group mb-3">
-								<form action="./empList" method="get" class="d-flex align-items-center" id="frm">
+								<form action="./noticeList" method="get" class="d-flex align-items-center" id="frm">
 									<div class="input-group" style="width: 120px;">
 										<input type="hidden" value="${pager.page}" id="page" name="page">
 										<select name="kind" id="k" class="form-select"
 											data-kind="${pager.kind}" aria-label="Default select example" style="width: 50px; margin-left: 20px; border-radius: 5px;">
-											<option class="kind" value="empName">이름</option>
-											<option class="kind" value="username">사원번호</option>
-											<option class="kind" value="state">상태</option>
+											<option class="kind" value="title">제목</option>
+											<option class="kind" value="contents">내용</option>
 										</select>
 									</div> 
 									<input class="form-control me-2" type="text" name="search" value="${pager.search}" style="border-radius: 5px; margin-left: 7px; width: 150px;"> 
@@ -85,32 +84,26 @@
 									<c:if test="${pager.pre}">
 									<li class="page-item ${pager.pre?'':'disabled'}"><a
 										class="page-link"
-										href="./empList?page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}"
+										href="./noticeList?page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}"
 										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 									</a></li>
 									</c:if>
 									<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
 										var="i">
 										<li class="page-item"><a class="page-link"
-											href="./empList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+											href="./noticeList?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
 									</c:forEach>
 									<c:if test="${pager.next}">
 										<li class="page-item"><a class="page-link"
-											href="./empList?page=${pager.lastNum + 1}&kind=${pager.kind}&search=${pager.search}"
+											href="./noticeList?page=${pager.lastNum + 1}&kind=${pager.kind}&search=${pager.search}"
 											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 										</a></li>
 									</c:if>
 								</ul>
 							</nav>
     					</div>
-    					<div>
-							<!-- <a href="/emp/empAdd" class="btn btn-secondary">신규직원 등록</a> -->  
-							<c:if test="${user.positionNo == 1}">
-								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-right: 20px;">추가</button>  						
-							</c:if>
-    					</div>
 					</div>													
-						</div>
+				</div>
 							<a href="./noticeAdd" class="btn btn-primary" style="float: right;">등록</a>	
 
 						<!-- </form> -->

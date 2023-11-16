@@ -65,7 +65,8 @@ public class DeptController {
 	public String deptUpdate(DeptVO deptVO)throws Exception{
 		log.info("==================={}", deptVO);
 		int result = deptService.deptUpdate(deptVO);
-		return "redirect:./deptManage?deptNo="+deptVO.getDeptNo();
+//		return "redirect:./deptManage?deptNo="+deptVO.getDeptNo();
+		return "redirect:./deptList";
 	}
 	
 //	@RequestMapping(value = "/dept/positionUpdate", method = RequestMethod.POST)

@@ -4,6 +4,7 @@
 <!-- jsp에서 properties 메세지를 사용할 수 있도록 하는 API -->
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
 	data-theme="theme-default" data-assets-path="/assets/"
@@ -30,7 +31,7 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-					
+					<sec:authentication property="Principal" var="user"/>
 					<form>
 					<h3>사원 목록</h3>
 					<div class="card shadow mb-4">
@@ -134,27 +135,28 @@
 								<input type="hidden" class="form-control" name="password" id="password">
 								   <div class="form-group">
 							            <label for="empName">이름</label>
-							            <input type="text" class="form-control" id="empName" name="empName" placeholder="ex) 홍길동">
-							            <form:errors path="empName" cssStyle="color: red; font-size: 12px;"/>
+							            <input type="text" class="form-control" id="empName" name="empName" placeholder="ex) 홍길동" required="required">
+							            <div id="empNameError" style="font-size: 12px; color:red;"></div>
 							        </div>
 							        <br>
 								   <div class="form-group">
 							            <label for="email">이메일</label>
 							            <input type="email" class="form-control" id="email" name="email" placeholder="ex) example@gmail.com">
-							            <input type="button" class="form-control" id="emailCheck" value="이메일 중복확인" style="background-color: rgb(255,239,222); margin-top: 5px;" onclick='btnActive()'>
-							            <form:errors path="email" cssStyle="color: red; font-size: 12px;"/>
+							            <div id="emailError" style="font-size: 12px; color:red;"></div>
+							            <input type="button" class="form-control" id="emailCheck" value="이메일 중복확인" style="background-color: rgb(255,239,222); margin-top: 5px;" onclick='btnActive()' required="required">
+							        	<div id="emailCheckError" style="font-size: 12px; color:red;"></div>
 							        </div>
 							        <br>
 								   <div class="form-group">
 							            <label for="phone">연락처</label>
-							            <input type="text" class="form-control" id="phone" name="phone" placeholder="ex) 01012345678">
-							            <form:errors path="phone" cssStyle="color: red; font-size: 12px;"/>
+							            <input type="text" class="form-control" id="phone" name="phone" placeholder="ex) 01012345678" required="required">
+							            <div id="phoneError" style="font-size: 12px; color:red;"></div>
 							        </div>
 							        <br>
 								   <div class="form-group">
 							            <label for="birth">생년월일</label>
-							            <input type="date" class="form-control" id="birth" name="birth" placeholder="ex) 1900-01-01">
-							            <form:errors path="birth" cssStyle="color: red; font-size: 12px;"/>
+							            <input type="date" class="form-control" id="birth" name="birth" placeholder="ex) 1900-01-01" required="required">
+							            <div id="birthError" style="font-size: 12px; color:red;"></div>
 							        </div>							        							        							        
 									</form:form>
 								<%-- </form> --%>
@@ -181,46 +183,26 @@
 		<div class="layout-overlay layout-menu-toggle"></div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-	
+	<script type="text/javascript">
+		let now_utc = Date.now() // 지금 날짜를 밀리초로
+		// getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환
+		let timeOff = new Date().getTimezoneOffset()*60000;// 분단위를 밀리초로 변환
+		let today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+		document.getElementById("birth").setAttribute("max", today);
+	</script>
 	<script type="text/javascript">
 	
 	$('#addBtn').on("click", function(){
 		let empName = $("#empName").val();
 		let email = $("#email").val();
 		let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		let phoneRegex = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/
 		let phone = $("#phone").val();
 		let birth = $("#birth").val();
 		let username = $("#username").val();
 		
 		let data = {username:username, empName:empName, email:email, phone:phone, birth:birth};
-		
-		if(empName == ""){
-	        alert("이름은 필수입력사항입니다."); 
-	        /* empName.focus(); */
-	        return;
-	    }
-	    if(email == ""){
-	        alert("이메일은 필수입력사항입니다."); 
-	        email.focus(); 
-	        return;
-	    }
-		if (!emailRegex.test(email)) {
-		    alert("이메일 형식이 올바르지 않습니다.");
-		    return;
-		}
-		
-	    if(phone == ""){
-	        alert("연락처는 필수입력사항입니다.");
-	        phone.focus();
-	        return;
-	    }
-	    if(birth == ""){
-	        alert("생일은 필수입력사항입니다."); 
-	        birth.focus();
-	        return;
-	    }
-
-	    
+			    
 	    $.ajax({
 			url:"/emp/empList/empAdd",
             data: data,
@@ -235,21 +217,7 @@
 				alert("관리자에게 문의해주세요.");
 			}
 		});
-	 
-	   /*  $.ajax({
-	        url: "/emp/sendMailAdd", 
-	        type: "POST",
-	        data: {email: $("#email").val(), username: $("#username").val(), phone : $("#phone").val()},  
-	        success: function () {
-	            alert("인증메일 발송완료"); 
-	            console.log(data);
-	        },
-	        error: function () {
-	            console.log("문제있음"); 
-	        }
-	    });  */ 
-	    
-		
+	   		
 	});
 	</script>
 
@@ -257,14 +225,26 @@
 	$('#emailCheck').on("click", function () {
 		let target = document.getElementById('addBtn');
 	    let email = $("#email").val();
+		let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 	    
-	    if (email === "") {
-	        alert("이메일을 입력해주세요.");
-	        email.focus();
-	        return;
-	    }	
+        if (email == "") {
+            $("#emailError").text('이메일을 입력해주세요.');
+            email.focus();
+            return;
+        } else if (!emailRegex.test(email)) {
+            $("#emailError").text('이메일 형식이 올바르지 않습니다.');
+            email.focus();
+            return;
+        } else {
+            $("#emailError").text('');
+        }
 
+        if (target.disabled = false) {
+            $("#emailCheckError").text('이메일 중복확인을 해주세요.');
+        } else {
+            $("#emailCheckError").text('');
+        }
 	    
 	     $.ajax({
 		        url: "/emp/findEmail",
@@ -290,6 +270,35 @@
 	     
 	});
 	</script>
+	
+	<script type="text/javascript">
+	 $(document).ready(function () {
+		let empName = $("#empName").val();
+		let email = $("#email").val();
+		let phoneRegex = /^[0-9]/g;
+		let phone = $("#phone").val();
+	
+		 $("#empNameError").text('이름을 입력해주세요.');
+		 $("#emailError").text('이메일을 입력해주세요.');
+		 $("#phoneError").text('연락처는 숫자만 입력해주세요.');
+		 
+	    $('#empName').on('input', function () {
+		    $("#empNameError").text('');
 
+	    });
+	
+	    $('#email').on('input', function () {
+		    $("#emailError").text('');
+		    
+	    });
+	    
+	    $('#phone').on('input', function () {
+	    	$("#phoneError").text('');
+	    	
+	    });
+	    
+	 });
+	</script>
+	
 </body>
 </html>

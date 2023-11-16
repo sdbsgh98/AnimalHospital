@@ -48,8 +48,7 @@
 														</c:forEach>
 													<option value=0>없음</option>
 													</select>
-													<button type="submit" class="btn btn-primary" id="ok2" style="float: right; margin-top: 10px;">부서수정</button><br><br>
-											</form>	
+													<br><br>
 													<span>직급</span>
 														<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">+</button>
 															<input type="hidden" class="form-control" id="no3" name="deptNo" value="${vo.deptNo}" readonly="readonly">
@@ -64,8 +63,9 @@
 														</c:forEach>	
 																								
 														       <br>		
-														       
-														  <a href="./deptList" class="btn btn-primary" type="button">목록</a>									        
+														<a href="./deptList" class="btn btn-primary" type="button">목록</a>									        
+														<button type="submit" class="btn btn-primary" id="ok2" style="">수정완료</button>														       
+												</form> 	
 														<!-- <div class="newContainer"></div> -->
 														<!-- <button id="addInput" class="btn" type="button">+</button> -->					
 												
@@ -180,12 +180,11 @@
 	        $.ajax({
 	            type: "POST",
 	            url: "/dept/deptUpdate",
-	            contentType: "application/json",
+	            contentType:"application/json",
 	            data: data,
 	            success: function(data) {
 	            	console.log(data);
 	                alert("성공적으로 업데이트되었습니다.");
-
 	            },
 	            error: function(error) {
 	                alert("오류가 발생했습니다.");

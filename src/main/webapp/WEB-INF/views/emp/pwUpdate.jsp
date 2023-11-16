@@ -34,7 +34,7 @@
 						              </div>
 						              
 						              <!-- /Logo -->
-						              <h4 class="mb-2" style="margin-top: 10px;">비밀번호를 변경해주세요.</h4>
+						              <h4 class="mb-2" style="">비밀번호를 변경해주세요.</h4>
 						              <p class="mb-4">Please change your password!</p>
 										<div>
 										<%-- <form id="pwUpdateForm" action="pwUpdate" method="post" onsubmit="return validateForm()"> --%>
