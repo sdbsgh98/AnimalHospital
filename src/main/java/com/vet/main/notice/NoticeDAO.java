@@ -29,4 +29,7 @@ public interface NoticeDAO {
 	public List<NoticeFileVO> fileDelete(NoticeVO noticeVO) throws Exception;
 
 	public int hitUpdate(NoticeVO noticeVO)throws Exception;
+	
+	public NoticeFileVO fileDetail(NoticeFileVO noticeFileVO)throws Exception;
+	
 }

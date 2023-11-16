@@ -2,6 +2,7 @@ package com.vet.main.notice;
 
 import java.util.List;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,6 +107,18 @@ public class NoticeService {
 		int result = noticeDAO.fileUpdateDelete(noticeFileVO);
 		
 		return result;
+		
+//		noticeFileVO = noticeDAO.fileDetail(noticeFileVO);
+//		boolean check = fileManger.fileDelete(noticeFileVO, uploadPath);
+//		
+//		if(check) {
+//			return noticeDAO.fileUpdateDelete(noticeFileVO);
+//		}
+//		return 0;
+	}
+	
+	public NoticeFileVO noticeFileDown(NoticeFileVO noticeFileVO)throws Exception{
+		return noticeDAO.fileDetail(noticeFileVO);
 	}
 	
 }

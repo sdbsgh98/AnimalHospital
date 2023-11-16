@@ -100,4 +100,8 @@
 		DELETE FROM NOTICEFILE WHERE FILENO = #{fileNo}
 	</delete>
 	
+	<select id="fileDetail" parameterType="com.vet.main.notice.NoticeFileVO" resultType="com.vet.main.notice.NoticeFileVO">
+		SELECT * FROM NOTICEFILE WHERE FILENO = #{fileNo}
+	</select>
+	
 </mapper>

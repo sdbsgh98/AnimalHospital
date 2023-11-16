@@ -2,6 +2,7 @@ package com.vet.main.notice;
 
 import java.util.List;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,13 +75,23 @@ public class NoticeController {
 		return "redirect:./noticeList";
 	}
 	
-	@PostMapping("fileDelete")
-	public String fileUpdateDelete(NoticeFileVO noticeFileVO, Model model)throws Exception{
+	@GetMapping("fileDelete")
+	public String fileUpdateDelete(NoticeFileVO noticeFileVO, Model model, NoticeVO noticeVO)throws Exception{
 		int result = noticeService.fileUpdateDelete(noticeFileVO);
 
 		model.addAttribute("result", result);
 		
 		return "commons/ajaxResult";
+//		return "redirect:./noticeUpdate?noticeNo="+noticeVO.getNoticeNo();
+	}
+	
+	@GetMapping("fileDown")
+	public String noticeFileDown(NoticeFileVO noticeFileVO, Model model)throws Exception{
+		noticeFileVO = noticeService.noticeFileDown(noticeFileVO);
+		model.addAttribute("file", noticeFileVO);
+		
+		return "FileManager";
+		
 	}
 	
 }
