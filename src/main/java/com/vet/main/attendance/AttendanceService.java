@@ -34,13 +34,18 @@ public class AttendanceService {
 	
 	// 한사람의 근태정보 조회
 	public AttendanceVO checkDate(AttendanceVO attendanceVO) throws Exception {
-//		SecurityContext context = SecurityContextHolder.getContext();
-//		Authentication authentication = context.getAuthentication();
-//		String name = authentication.getName();
-		
-//		log.info("=============== getName : {} ==================", name);
-
 		return attendanceDAO.checkDate(attendanceVO);
 	}
+	
+	// 연차 갯수 구하기
+	public String getHireDate(String username) throws Exception {
+		return attendanceDAO.getHireDate(username);
+	}
+	
+	// 오늘 날짜 구하기
+	public String getCurDate() throws Exception {
+		return attendanceDAO.getCurDate();
+	}
+	
 	
 }

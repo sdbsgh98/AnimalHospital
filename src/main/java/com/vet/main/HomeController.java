@@ -26,7 +26,7 @@ public class HomeController {
 	@Autowired
 	private AttendanceService attendanceService;
 	
-	
+	// 메인페이지 갈 때마다 해당 일자의 출퇴근 여부 체크
 	@GetMapping("/")
 	public String indexAtt(AttendanceVO attendanceVO, Model model) throws Exception {
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -40,12 +40,14 @@ public class HomeController {
 		return "index";
 	}
 	
+	// 출근
 	@PostMapping("attIn")
 	public String setAttIn(@RequestBody AttendanceVO attendanceVO) throws Exception {
 		attendanceService.setAttIn(attendanceVO);
 		return "redirect:/";
 	}
 	
+	// 퇴근
 	@PostMapping("attOut")
 	public String setAttOut(@RequestBody AttendanceVO attendanceVO) throws Exception {
 		AttendanceVO username = new AttendanceVO();
@@ -66,6 +68,13 @@ public class HomeController {
 			String error = "에러가 발생했습니다.\n관리자에게 문의해주세요.";
 			return error;
 		}
+	}
+	
+	@GetMapping("/")
+	public String getDayoffCount(AttendanceVO attendanceVO, Model model) throws Exception {
+		String nowDate = attendanceService.getCurDate();
+		log.info("====================== nowDate : {} =====================", nowDate);
+		return null;
 	}
 	
 }

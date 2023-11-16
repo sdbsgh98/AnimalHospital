@@ -22,14 +22,6 @@
 		</choose>
 	</sql>
 	
-	<!-- pager 관련 -->
-	<select id="getAttTotal" parameterType="Pager" resultType="Long">
-		<bind name="pattern" value="'%' +_parameter.getSearch() + '%'"/>
-		SELECT COUNT(ATTNO) FROM ATTENDANCE
-		WHERE USERNAME = #{username}
-		  AND <include refid="forPager"></include>
-		 LIKE #{pattern}
-	</select>
 
 	<insert id="setAttIn" parameterType="AttendanceVO">
 		INSERT INTO ATTENDANCE
@@ -67,6 +59,17 @@
 			    CASE WHEN ASCII(SUBSTRING(E.EMPNAME, 1, 1)) < 123 THEN 2 ELSE 1 END,
 			    E.EMPNAME
 		]]>
+	</select>
+	
+	<select id="getHireDate" parameterType="String">
+		SELECT DATE_FORMAT(HIREDATE, '%Y-%m-%d')
+		FROM EMP
+		WHERE USERNAME = #{username};
+	</select>
+	
+	<select id="getCurDate">
+		SELECT CAST(DATE_ADD(NOW(), INTERVAL 9 HOUR)AS date)
+		FROM DUAL
 	</select>
 
 </mapper>

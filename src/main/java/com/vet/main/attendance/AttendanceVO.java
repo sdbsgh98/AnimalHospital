@@ -22,4 +22,6 @@ public class AttendanceVO {
 	private String positionName;
 	private String deptName;
 	private String empName;
+	
+	private String hireDate;
 }

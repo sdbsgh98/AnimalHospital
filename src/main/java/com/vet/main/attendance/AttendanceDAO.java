@@ -14,5 +14,9 @@ public interface AttendanceDAO {
 	public int setAttOut(AttendanceVO attendanceVO) throws Exception;
 	
 	public AttendanceVO checkDate(AttendanceVO attendanceVO) throws Exception;
+	
+	public String getHireDate(String username) throws Exception;
+	
+	public String getCurDate() throws Exception;
 
 }
