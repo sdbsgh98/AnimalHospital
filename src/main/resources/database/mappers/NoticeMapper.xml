@@ -73,6 +73,12 @@
 			</collection>
 		</resultMap>
 	
+	<update id="hitUpdate">
+		UPDATE NOTICE
+		SET HIT = #{hit} + 1
+		WHERE NOTICENO = #{noticeNo}
+	</update>
+	
 	<update id="noticeUpdate" parameterType="com.vet.main.notice.NoticeVO">
 		UPDATE NOTICE SET
 			TITLE = #{title},
@@ -91,7 +97,7 @@
 	</select>
 	
 	<delete id="fileUpdateDelete" parameterType="com.vet.main.notice.NoticeFileVO">
-		DELETE FROM NOTICEFILE WHERE NOTICENO = #{noticeNo}
+		DELETE FROM NOTICEFILE WHERE FILENO = #{fileNo}
 	</delete>
 	
 </mapper>

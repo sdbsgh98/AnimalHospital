@@ -31,7 +31,8 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<div class="card shadow mb-4" style="align-items: center;">
 							<div style="width:75%; margin-bottom: 30px; margin-top: 30px;">
-								<form action="./noticeUpdate" method="post" enctype="multipart/form-data">
+								<form action="noticeUpdate" method="post" enctype="multipart/form-data">
+									<input type="hidden" name="noticeNo" value="${vo.noticeNo}">
 									  <div class="mb-3">
 									  	<input type="radio" name="important" id="important" value="1"><span>중요</span>
 									  	<input type="radio" name="important" id="important" value="0" checked="checked"><span>일반</span>
@@ -49,16 +50,17 @@
 									    <label for="contents" class="form-label">Contents</label>
 									    <textarea class="form-control" name="contents" id="contents" style="height: 200px;">${vo.contents}</textarea>
 									  </div>
+									<div id="fileList">
 									 <c:forEach items="${vo.fileVO}" var="f">
 									 	<img alt="" src="../files/notice/${f.fileName}" style="width: 300px; height: 300px;"><!-- files 까지가 upload라는 폴더까지 -->
 										<a href="./fileDown?fileNo=${f.fileNo}">${f.originalName}</a>
+										<button type="button" data-file="${f.fileName}" data-num="${f.fileNo}">X</button>
 									</c:forEach>
+									</div>  
 									<br><br>
-									  <div class="mb-3">
+									  <div class="mb-3" id="fileAdd">
 									    <input type="file" class="form-control" name="files">
-									  </div>
-									  <div class="mb-3">
-									    <input type="file" class="form-control" name="files">
+									    <button type="button" class="btn btn-primary" id="fileAdd">파일추가</button>
 									  </div>
 									  <button class="btn btn-primary">작성완료</button>
 		        				</form>
@@ -79,6 +81,51 @@
 	</div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+
+<script type="text/javascript">
+const fileList = document.getElementById("fileList");
+const fileAdd = document.getElementById("fileAdd");
+/* let fileNo = $('#fileNo');
+let fileName = $('#fileName'); */
+
+$('#fileList').on("click",'.x2',function(){
+	if(confirm("삭제시 복원이 불가능 합니다.")){
+    	let num = $(this).attr("data-num");
+    	let name = $(this).attr("data-file");
+    	
+		fileDelete(num, name);
+		
+		$(this).parent().remove();
+    	count --;
+    	
+	}
+})
+
+function fileDelete(fileNo, fileName){
+	$.ajax({
+		type:"post",
+		url:"./fileDelete",
+		data:{
+			"fileNo":fileNo,
+			"fileName":fileName
+		},
+		success:function(response){
+			r=response.trim();
+			console.log(r);
+			if(r>0){
+				alert("삭제되었습니다.");
+			}else{
+				alert("삭제 실패");
+			}
+			
+		},
+		error:function(){
+			console.log("ajax 실패");
+		}
+	})
+}
+
+</script>
 
 </body>
 </html>

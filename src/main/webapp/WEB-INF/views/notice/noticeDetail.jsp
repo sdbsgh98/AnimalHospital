@@ -30,7 +30,7 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 					<div class="card shadow mb-4" style="align-items: center;">
 						<div style="width:65%; margin-bottom: 30px; margin-top: 30px;">
-							
+							<input type="hidden" name="noticeNo" value="${vo.noticeNo}">
 							<table class="table">
 							
 							    <tr>
@@ -47,7 +47,7 @@
 							    </tr>
 							    <tr>
 							        <th style="width:10%;">Hit</th>
-							        <td style="width:85%; text-align: center; font-size: 15px;">${vo.hit}</td>
+							        <td style="width:85%; text-align: center; font-size: 15px;">${vo.hit+1}</td>
 							    </tr>
 						 
 							</table>

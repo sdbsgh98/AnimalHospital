@@ -34,42 +34,70 @@
 					<h3>${vo.empName}&nbsp;${vo.positionName}의 상세페이지</h3>
 					<div class="card shadow mb-4" style="align-items: center;">
 								
-							<div style="width:75%; margin-bottom: 30px;">
-							<div style="width: 70%; margin-top: 20px; margin-bottom: 20px; margin-left:10px; float: left;">
+							<div>
+								<div style="width: 300px; float: left;">
+									<c:if test="${vo.originalFileName == null }">
+										<img alt="" src="/resources/images/default.jpeg" style="width: 250px; height: 250px; margin: 30px;">
+									</c:if>
+									<c:if test="${vo.originalFileName != null }">		
+										<img alt="" src="../files/emp/${vo.fileName}" style="width: 250px; height: 250px; margin: 30px;">
+									</c:if>
+								</div>
+							<div style="width: 550px; margin-top: 20px; margin-bottom: 20px; float: left;">
 								
-									<div class="mb-3">
-									  	<input type="radio" name="important" id="important" value="1"><span>중요</span>
-									  	<input type="radio" name="important" id="important" value="0" checked="checked"><span>일반</span>
-									  </div>
-			        				  <div class="mb-3">
-									    <label for="title" class="form-label">Title</label>
-									    <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력하세요.">
-									  </div>
-			        				  <div class="mb-3">
-									    <label for="username" class="form-label">Writer</label>
-									    <input type="text" class="form-control" id="empName" value="${vo.empName}" readonly="readonly">
-									  </div>
-									 <div class="mb-3">
-									    <label for="contents" class="form-label">Contents</label>
-									    <textarea class="form-control" name="contents" id="contents" placeholder="내용을 입력하세요."></textarea>
-									  </div>
-									  <div class="mb-3">
-									    <input type="file" class="form-control" name="files">
-									  </div>
-									  <div class="mb-3">
-									    <input type="file" class="form-control" name="files">
-									  </div>							
+								<table class="table" style="margin-top: 40px;">
+									<tr>
+										<td>사번</td>
+										<td>${vo.username}</td>
+									</tr>
+									<tr>
+										<td>이름</td>
+										<td>${vo.empName}</td>
+									</tr>
+									<tr>
+										<td>부서</td>
+										<td>${vo.deptName}</td>
+									</tr>
+									<tr>
+										<td>직급</td>
+										<td>${vo.positionName}</td>
+									</tr>
+									<tr>
+										<td>상태</td>
+										<td>${vo.state}</td>
+									</tr>
+								</table>							
 							</div>
 							<br>
-
+							<div>
+								<table class="table">
+									<tr>
+										<td>입사일</td>
+										<td>${vo.hireDate}</td>
+									</tr>
+									<tr>
+										<td>이메일</td>
+										<td>${vo.email}</td>
+									</tr>
+									<tr>
+										<td>연락처</td>
+										<td>${vo.phone}</td>
+									</tr>
+									<tr>
+										<td>생년월일</td>
+										<td>${vo.birth}</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+									</tr>
+								</table>
+							</div>
 						</div>
 				</div>
 				
 				<!-- Content wrapper -->
-				<c:if test="${user.positionNo == 1}">
-					<a href="/emp/empUpdate?username=${vo.username}" class="btn btn-primary" style="float: right;">수정</a>
-				</c:if>
-				
+					<a href="/emp/empUpdate?username=${vo.username}" class="btn btn-danger">수정</a>
 				</form>
 			</div>
 			<!-- / Layout page -->

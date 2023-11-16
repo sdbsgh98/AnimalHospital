@@ -79,6 +79,12 @@ public class NoticeService {
 		return result;
 	}
 	
+	public int hitUpdate(NoticeVO noticeVO)throws Exception{
+		return noticeDAO.hitUpdate(noticeVO);
+	}
+	
+	
+	
 	public int noticeDelete(NoticeVO noticeVO)throws Exception{
 		List<NoticeFileVO> list = noticeDAO.fileDelete(noticeVO);
 		

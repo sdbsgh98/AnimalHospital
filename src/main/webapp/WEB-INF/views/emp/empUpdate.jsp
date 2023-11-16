@@ -168,7 +168,7 @@ document.getElementById("deptNo").addEventListener("change", function () {
             });
         },
         error: function () {
-            console.error("Failed to load positions.");
+            console.error("실패");
         }
     });
 });

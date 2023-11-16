@@ -40,11 +40,11 @@
 							<table class="table" style="text-align: center; width:auto; margin: 20px; ">
 								<thead style="height: 70px;">
 									<tr>
-										<th>번호</th>
-										<th>제목</th>
-										<th>작성자</th>
-										<th>작성일</th>
-										<th>조회수</th>
+										<th style="width: 10%;">번호</th>
+										<th style="width: 60%;">제목</th>
+										<th style="width: 10%">작성자</th>
+										<th style="width: 12%">작성일</th>
+										<th style="width: 8%">조회수</th>
 								</thead>
 								<tbody style="height: 35px;">
 							<c:forEach items="${list}" var="vo">
@@ -77,7 +77,7 @@
 								</form>
 							</div>
 						</div>
-    					<div style="margin-right: 300px;">
+    					<div style="margin-right: 550px;">
     						<!-- 페이징 -->
 							<nav aria-label="Page navigation example">
 								<ul class="pagination justify-content-center">
