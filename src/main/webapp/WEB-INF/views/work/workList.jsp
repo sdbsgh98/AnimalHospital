@@ -44,12 +44,12 @@
 					
 				    <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
 				    
-					<!-- <select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example"> 	           	   
+					<select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example"> 	           	   
 			           	   <option value="300">전체</option>
 			               <option value="400">내과</option>
 			               <option value="500">외과</option>
 			               <option value="600">영상과</option>       
-			          </select>  -->
+			          </select>
 
 					<div class="card shadow mb-4">
 	                <div class="card-body">
@@ -193,13 +193,13 @@
 			                        <label for="empName" class="form-label">직원명</label>
 			                        <input type="text" class="form-control" id="upEmpName" name="empName" value="" readonly>
 			                        
-			                        <label for="upWorkStart" class="form-label">출근</label>
-			                        <input type="datetime-local" class="form-control" id="upWorkStart" name="upWorkStart" value="">
+			                        <label for="workStart" class="form-label">출근</label>
+			                        <input type="datetime-local" class="form-control" id="upWorkStart" name="workStart" value="">
 			                        
-			                        <label for="upWorkEnd" class="form-label">퇴근</label>
-			                        <input type="datetime-local" class="form-control" id="upWorkEnd" name="upWorkEnd" value="">
+			                        <label for=""workEnd"" class="form-label">퇴근</label>
+			                        <input type="datetime-local" class="form-control" id="upWorkEnd" name="workEnd" value="">
 			                        
-			                    	<input type="hidden" id="workNo" name="workNo" value="">
+			                    	<input type="hidden" id="workNo" name="workNo">
 			                    </div>
 			                </div>
 						      <div class="modal-footer">

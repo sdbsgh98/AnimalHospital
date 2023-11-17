@@ -6,8 +6,10 @@ $(function(){
 			
 		var request = $.ajax({				
 			url:"/work/workList",
-		    method:"POST",			
-			dataType:"json"
+			data: {
+				deptNo:deptNo
+			},
+			method: "POST"	
 		});		
 
 			
@@ -36,6 +38,9 @@ $(function(){
 					text:"일정 등록",
 					click : function(){
 						$('#addModal').modal("show");
+						
+						var deptNo = $("#deptNo").val();
+						console.log(deptNo);
 						
 						//현재날짜를 min으로 설정
 						let dateElement = document.getElementById('workStart');
@@ -94,7 +99,7 @@ $(function(){
 			headerToolbar: {
 				left: 'prev,next,today,myCustomButton',
 				center: 'title',
-				right: 'dayGridMonth,timeGridWeek'
+				right: 'dayGridMonth,listWeek'
 			},
 			initialView:'dayGridMonth',
 			events: data,
@@ -149,9 +154,17 @@ $(function(){
 					
 						    console.log(daterst);
 						    
+
 							if(daterst==true){							
 								$("#detailModal").modal("hide");
 								$("#updateModal").modal("show");
+								
+								//현재날짜를 min으로 설정
+								let dateElement = document.getElementById('getWorkStart');
+								let dateElement2 = document.getElementById('getWorkEnd');
+								      					
+		       					dateElement.setAttribute("min", nowDate);
+		       					dateElement2.setAttribute("min", nowDate);
 								
 								$("#workNo").val(detail.workNo);
 								$("#upDeptName").val(detail.deptName);
@@ -162,12 +175,6 @@ $(function(){
 
 							}
 							
-							//현재날짜를 min으로 설정
-							let dateElement = document.getElementById('getWorkStart');
-							let dateElement2 = document.getElementById('getWorkEnd');
-							      					
-	       					dateElement.setAttribute("min", nowDate);
-	       					dateElement2.setAttribute("min", nowDate);
 							
 					   })		
 											            													
@@ -225,14 +232,14 @@ $(function(){
 							
 							console.log(param);
 							$.ajax({
-										url:"/work/workUpdate",
-										data:JSON.stringify(param),
-										method:"POST",
-										contentType: "application/json",
-										success : function(data){
-											console.log("일정 수정이 완료되었습니다.")					
-											location.href="/work/workList";
-										}							 
+									url:"/work/workUpdate",
+									data:JSON.stringify(param),
+									method:"POST",
+									contentType: "application/json",
+									success : function(data){
+										console.log("일정 수정이 완료되었습니다.")					
+										location.href="/work/workList";
+									}							 
 						 	})		   
 								
 				 })		
@@ -280,10 +287,23 @@ $(function(){
             alert("퇴근일자에 출근일자보다 이전의 시간은 올 수 없습니다!\n다시 확인해주세요!!");
         }
     });
+    
+	$("#deptNo").on("change", function () {
+		var deptNo = this.value;
+		
+		console.log(deptNo);
+		
+		var request = $.ajax({
+			url: "/work/workList",
+			data: {
+				deptNo:deptNo
+			},
+			method: "POST"				
+		})
 
 	request.fail(function(jqXHR, textStatus){
 		alert("Request failed: " + textStatus);
 
 	});
-	
+	});
 });

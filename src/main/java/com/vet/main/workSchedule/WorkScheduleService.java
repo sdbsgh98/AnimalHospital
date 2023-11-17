@@ -21,11 +21,19 @@ public class WorkScheduleService {
 	
 	
 	public List<WorkScheduleVO> getScheduleList(String deptNo) throws Exception {
-		return workScheduleDAO.getScheduleList();
+		if (deptNo.equals("300")) {
+			return workScheduleDAO.getScheduleList();
+		} else {
+			return workScheduleDAO.getDeptScheduleList(deptNo);
+		}
 	}
 	
 	public List<WorkScheduleVO> getDeptScheduleList(String deptNo) throws Exception {
-		return workScheduleDAO.getDeptScheduleList(deptNo);
+		  if(deptNo.equals("300")) {
+			  return workScheduleDAO.getScheduleList(); 
+		  }else { 
+			  return workScheduleDAO.getDeptScheduleList(deptNo); 
+		  }
 	}
 	
 	public int setWorkAdd(WorkScheduleVO scheduleVO) throws Exception {
