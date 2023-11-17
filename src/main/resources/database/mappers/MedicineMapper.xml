@@ -46,9 +46,7 @@
 		<!-- 약품수정 -->
 		<update id="setUpdate" parameterType="MedicineVO">
 			UPDATE MEDICINE SET 
-				STOCK = #{stock},
-				MEDICINEDATE = #{medicineDate},
-				EXPIRATIONDATE = #{expirationDate}
+				STOCK = #{stock}
 			WHERE MEDICINENO = #{medicineNo}
 		</update>
 		

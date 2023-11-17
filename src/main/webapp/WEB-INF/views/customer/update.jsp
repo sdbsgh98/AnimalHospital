@@ -202,24 +202,6 @@
 		})
     }
 
-	/* $('.deletes').click(function(){
-	    let num = $(this).attr("data-delete-num");
-	    let check = confirm("삭제시 복구 불가");
-	   
-	     if(check){
-	     $.ajax({
-	          type:'post',
-	           url:'./fileDelete?fileNo='+num,
-	           success:function(r){
-	                if(r.trim()=='1'){
-	                   $(this).remove();
-	                        count--;
-	                    }
-	           }
-	     })
-	     }
-	}) */
-
 	let max = 1;
 	let count = 0;
 

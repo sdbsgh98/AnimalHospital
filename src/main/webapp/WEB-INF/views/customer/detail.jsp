@@ -33,14 +33,14 @@
 								<c:if test="${!empty vo.fileVO}">
 									<div style="width: 300px; float: left;">
 										<c:forEach items="${vo.fileVO}" var="f">
-											<img alt="" src="../files/customer/${f.fileName}"
+											<img alt="" src="../files/customer/${f.fileName}" class=" rounded-circle"
 											style="width: 250px; height: 250px; margin: 30px;">
 										</c:forEach>
 									</div>
 								</c:if>
 								<c:if test="${empty vo.fileVO}">
 									<div style="width: 300px; float: left;">
-											<img alt="" src="/resources/images/default.jpeg"
+											<img alt="" src="/resources/images/default.jpeg" class=" rounded-circle"
 											style="width: 250px; height: 250px; margin: 30px;">
 									</div>
 								</c:if>
