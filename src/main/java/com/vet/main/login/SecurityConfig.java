@@ -53,6 +53,7 @@ public class SecurityConfig {
 				.antMatchers("/dept/deptManage").hasRole("ADMIN")
 				.antMatchers("/dept/*").hasAnyRole("ADMIN", "USER") 
 				.antMatchers("/notice/*").hasAnyRole("ADMIN", "USER") 
+				.antMatchers("/customer/*").hasAnyRole("ADMIN", "USER") 
 				.antMatchers("/").hasAnyRole("ADMIN", "USER") 
 				.and()
 			.formLogin()

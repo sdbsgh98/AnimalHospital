@@ -110,4 +110,7 @@ public class DeptService {
     	return result;
     }
     
+    public int positionDeleteSelect(DeptVO deptVO)throws Exception{
+    	return deptDAO.positionDeleteSelect(deptVO);
+    }
 }

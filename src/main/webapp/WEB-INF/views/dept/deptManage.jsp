@@ -205,9 +205,10 @@
 	            event.preventDefault(); 
 	            /* 삭제 취소 */
 	        }else{
-				alert("삭제롼료");	        	
+				alert("삭제완료");	        	
 	            console.log(re);
-	            location.href="./deptDetail?deptNo="+$('#no').val();
+	            console.log(deptNo);
+	            location.replace="redirect:./deptDetail?deptNo="+deptNo; 
 	        }
 	        
 	    });

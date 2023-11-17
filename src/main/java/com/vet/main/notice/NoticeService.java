@@ -63,10 +63,11 @@ public class NoticeService {
 	public int noticeUpdate(NoticeVO noticeVO, MultipartFile[] files, HttpSession session)throws Exception{
 		int result = noticeDAO.noticeUpdate(noticeVO);
 		
-		for(MultipartFile multipartFile:files) {
-			if(multipartFile.isEmpty()) {
-				continue;
-			}
+		if (files != null) {
+		    for(MultipartFile multipartFile:files) {
+		        if(multipartFile.isEmpty()) {
+		            continue;
+		        }
 			
 			NoticeFileVO fileVO = new NoticeFileVO();
 			String fileName = fileManger.save(this.uploadPath + this.username, multipartFile);
@@ -74,6 +75,7 @@ public class NoticeService {
 			fileVO.setOriginalName(multipartFile.getOriginalFilename());
 			fileVO.setFileName(fileName);
 			result = noticeDAO.setFileAdd(fileVO);
+		    }
 		}
 		
 		
@@ -107,14 +109,6 @@ public class NoticeService {
 		int result = noticeDAO.fileUpdateDelete(noticeFileVO);
 		
 		return result;
-		
-//		noticeFileVO = noticeDAO.fileDetail(noticeFileVO);
-//		boolean check = fileManger.fileDelete(noticeFileVO, uploadPath);
-//		
-//		if(check) {
-//			return noticeDAO.fileUpdateDelete(noticeFileVO);
-//		}
-//		return 0;
 	}
 	
 	public NoticeFileVO noticeFileDown(NoticeFileVO noticeFileVO)throws Exception{

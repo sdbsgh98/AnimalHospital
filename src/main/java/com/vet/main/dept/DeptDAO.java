@@ -49,5 +49,7 @@ public interface DeptDAO {
 	public List<DeptVO> getDeptPosition(DeptVO deptVO)throws Exception;
 	
 	public int positionAdd(DeptVO deptVO)throws Exception;
+	
+	public int positionDeleteSelect(DeptVO deptVO)throws Exception;
 }
 

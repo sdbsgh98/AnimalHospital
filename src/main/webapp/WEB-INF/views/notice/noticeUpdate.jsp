@@ -9,12 +9,28 @@
 	data-theme="theme-default" data-assets-path="/assets/"
 	data-template="vertical-menu-template-free">
 <head>
+
+<!-- include summernote -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg=" crossorigin="anonymous">	  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
+integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
+
+<!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js) -->
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.js"></script>
+
+<!-- include summernote css/js-->
+<link href="summernote.css">
+<script src="summernote.js"></script>
+
 <c:import url="/WEB-INF/views/layout/headCSS.jsp"></c:import>
 </head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-</head>
 <body>
 	<!-- Layout wrapper -->
 	<div class="layout-wrapper layout-content-navbar">
@@ -50,28 +66,27 @@
 									    <label for="contents" class="form-label">Contents</label>
 									    <textarea class="form-control" name="contents" id="contents" style="height: 200px;">${vo.contents}</textarea>
 									  </div>
-<%-- 									<div id="fileList">
-									 <c:forEach items="${vo.fileVO}" var="f">
-									 	<img alt="" src="../files/notice/${f.fileName}" style="width: 300px; height: 300px;"><!-- files 까지가 upload라는 폴더까지 -->
-										<a href="./fileDown?fileNo=${f.fileNo}">${f.originalName}</a>
-										<a  href="./fileDelete?fileNo=${f.fileNo}" data-file="${f.fileName}" data-num="${f.fileNo}">X</a>										
-										<a href="./fileDelete?fileNo=${f.fileNo}" class="deletes" data-delete-num="${f.fileNo}">XXX</a>
-									</c:forEach>
-									</div>   --%>
+
 									<div id="fileList" class="my-5">
-											 <c:forEach items="${vo.fileVO}" var="f">
+										<c:forEach items="${vo.fileVO}" var="f">
 											       <div class="file-item mb-2">
 											           <span class="alert alert-primary me-2" role="alert" id="${f.originalFileName}">
 											             첨부파일: ${f.originalName}
 											           </span>
-											      <button class="delets x2 btn btn-danger" data-file="${f.fileName}" data-num="${f.fileNo}">삭제</button>
+											      <button class="delets x2 btn btn-danger" type="button" data-file="${f.fileName}" data-num="${f.fileNo}">삭제</button>
 											  </div>
 										</c:forEach>
 									</div>
 									<br><br>
 									  <div class="mb-3" id="fileAdd">
 									    <!-- <input type="file" class="form-control" name="files"> -->
-									    <button type="button" class="btn btn-primary" id="fileAdd">파일추가</button>
+									    <button type="button" class="btn btn-primary" id="fileAdd">파일추가</button>									   
+									  </div>
+									  <div class="mb-3">
+									    <input type="file" class="form-control" name="files">
+									  </div>
+									  <div class="mb-3">
+									    <input type="file" class="form-control" name="files">
 									  </div>
 									  <button class="btn btn-primary">작성완료</button>
 		        				</form>
@@ -91,73 +106,76 @@
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
 	<!-- / Layout wrapper -->
-	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-
-<script type="text/javascript">
-const fileList = document.getElementById("fileList");
-const fileAdd = document.getElementById("fileAdd");
-const deletes = document.getElementsByClassName("deletes");
-
-$('#fileList').on("click",'.x2',function(){
-	if(confirm("삭제시 복원이 불가능 합니다.")){
-    	let num = $(this).attr("data-num");
-    	let name = $(this).attr("data-file");
-    	
-		fileDelete(num, name);
-		
-		$(this).parent().remove();
-    	count --;
-    	
-	}
-})
-
- function fileDelete(fileNo, fileName){
-	$.ajax({
-		type:"get",
-		url:"./fileDelete?fileNo="+fileNo,
-		data:{
-			"fileNo":fileNo,
-			"fileName":fileName
-		},
-		success:function(response){
-			r=response.trim();
-			console.log(r);
-			if(r>0){
-				alert("삭제되었습니다.");
-			}else{
-				alert("삭제 실패");
-			}
+	<!-- summernote -->
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"
+	integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"
+	integrity="sha256-5slxYrL5Ct3mhMAp/dgnb5JSnTYMtkr4dHby34N10qw=" crossorigin="anonymous"></script>
+	
+	<!-- language pack -->
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"
+	integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="anonymous"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>	
+	<script>
+	$('#contents').summernote({
+	  tabsize: 2,
+	  height: 500,
+	  codemirror: { // codemirror options
+		    theme: 'monokai'
+		  },
+	  lang: 'ko-KR', // default: 'en-US'
+	});
+	
+	$("#contents").summernote('code'); 
+	</script>
+	
+	<script type="text/javascript">
+	const fileList = document.getElementById("fileList");
+	const fileAdd = document.getElementById("fileAdd");
+	const deletes = document.getElementsByClassName("deletes");
+	
+	$('#fileList').on("click",'.x2',function(){
+		if(confirm("삭제시 복원이 불가능 합니다.")){
+	    	let num = $(this).attr("data-num");
+	    	let name = $(this).attr("data-file");
+	    	
+			fileDelete(num, name);
 			
-		},
-		error:function(){
-			console.log("ajax 실패");
-			console.log(data);
+			$(this).parent().remove();
+	    	count --;
+	    	
 		}
-	}) 
-}
+	})
+	
+	 function fileDelete(fileNo, fileName){
+		$.ajax({
+			type:"get",
+			url:"./fileDelete?fileNo="+fileNo,
+			data:{
+				"fileNo":fileNo,
+				"fileName":fileName
+			},
+			success:function(response){
+				r=response.trim();
+				console.log(r);
+				if(r>0){
+					alert("삭제되었습니다.");
+				}else{
+					alert("삭제 실패");
+				}
+				
+			},
+			error:function(){
+				console.log("ajax 실패");
+				console.log(data);
+			}
+		}) 
+	}
+	
+	</script>
 
-</script>
-<!-- <script type="text/javascript">
-const deletes = document.getElementsByClassName("deletes");
-
-for (del of deletes) { 
-    del.addEventListener("click", function () {
-        let num = this.getAttribute("data-delete-num");
-        let check = confirm("정말로 삭제하시겠습니까? 삭제 시 복구 불가합니다.");
-
-        if (check) {
-            fetch("./fileDelete?fileNo=" + num, { method: "get" })
-                .then((result) => { return result.text() })
-                .then((r) => {
-                    if (r.trim() == '1') {
-                        this.previousSibling.previousSibling.remove();
-                        this.remove();
-                        count--;
-                    }
-                })
-        }
-    })
-}
-</script> -->
 </body>
 </html>

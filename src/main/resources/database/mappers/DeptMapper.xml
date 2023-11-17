@@ -143,6 +143,10 @@
 		WHERE DEPTNO = #{deptNo}
 	</delete>
 	
+	<select id="positionDeleteSelect" parameterType="com.vet.main.dept.DeptVO">
+		SELECT * FROM POSITION WHERE DEPTNO=#{deptNo}
+	</select>
+	
 	<delete id="positionDelete" parameterType="com.vet.main.dept.DeptVO">
 		DELETE FROM POSITION
 		WHERE POSITIONNO = #{positionNo}

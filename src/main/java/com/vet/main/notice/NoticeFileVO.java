@@ -15,4 +15,7 @@ public class NoticeFileVO extends FileVO{
 	
 	private String originalName;
 	
+	
+	
+	private byte[] fileData;
 }
