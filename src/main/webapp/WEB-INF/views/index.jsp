@@ -41,22 +41,37 @@
 						<br><br>
 						<input type="hidden" id="username" name="username" value="${user.username}">
 						<input type="hidden" id="empName" name="empName" value="${user.empName}">
+						<input type="hidden" id="hireDate" name="hireDate" value="${user.hireDate}">
+					
 						
-						<c:choose>
-							<c:when test="${empty att}">
-								<button type="button" class="btn btn-primary" onclick="attIn()" style="width:100px;">출근</button>
-								<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
-		                    </c:when>
-		                    <c:when test="${att.attState eq 1 and att.attOut eq null}">
-								<button type="button" class="btn btn-primary" onclick="attIn()" style="width:100px;" disabled>출근</button>
-								<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;">퇴근</button>
-			                </c:when>
-			                <c:otherwise>
-								<button type="button" class="btn btn-primary" onclick="attIn()" style="width:100px;" disabled>출근</button>
-								<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
-			                </c:otherwise>
-	                    </c:choose>
-
+						<div>
+							<div class="col-md-6 col-lg-2 mb-3">
+			                  <div class="card text-center">
+			                    <div class="card-header"></div>
+			                    <div class="card-body">
+			                      <p class="card-text">[${user.empName}]님의 연차현황</p>
+			                      <h5 class="card-title" id="dayoffCount">무려 연차가 ${dayoff} 개</h5>
+				                      <div class="divider">
+				                      </div>
+										<c:choose>
+											<c:when test="${empty att}">
+												<button type="button" class="btn btn-primary mt-2 mb-3" onclick="attIn()" style="width:100px;">출근</button><br>
+												<button type="button" class="btn btn-outline-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
+						                    </c:when>
+						                    <c:when test="${att.attState eq 1 and att.attOut eq null}">
+												<button type="button" class="btn btn-outline-primary mb-3" onclick="attIn()" style="width:100px;" disabled>출근</button><br>
+												<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;">퇴근</button>
+							                </c:when>
+							                <c:otherwise>
+												<button type="button" class="btn btn-outline-primary mb-3" onclick="attIn()" style="width:100px;" disabled>출근</button><br>
+												<button type="button" class="btn btn-outline-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
+							                </c:otherwise>
+					                    </c:choose>
+				                </div>
+			                    <div class="card-footer text-muted">2 days ago</div>
+			                  </div>
+			                </div>
+						</div>
 						
 						
 					</div>
@@ -77,7 +92,6 @@
 
 	<script src="/js/attendance/attendance.js"></script>
 
-	<script src="/js/main/schedule.js"></script>
 
 </body>
 </html>

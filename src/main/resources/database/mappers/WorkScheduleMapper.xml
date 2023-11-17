@@ -4,50 +4,75 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.vet.main.workSchedule.WorkScheduleDAO">
-	
+
 	<!-- 일정 목록 -->
-	<select id="getWorkList" resultType="WorkScheduleVO">
-			SELECT W.*, E.EMPNAME, D.DEPTNAME, P.POSITIONNAME 
-	  		  FROM WORKSCHEDULE W
-					INNER JOIN EMP E
-	  						ON W.USERNAME = E.USERNAME
-	  				INNER JOIN DEPARTMENT D 
-	  						ON E.DEPTNO = E.DEPTNO
-	  				INNER JOIN POSITION P
-	  						ON E.POSITIONNO = P.POSITIONNO	
+	<select id="getScheduleList" resultType="WorkScheduleVO">
+		SELECT W.WORKNO, W.WORKSTART, W.WORKEND, E.EMPNAME, D.DEPTNO, D.DEPTNAME, P.POSITIONNAME 
+ 		  FROM WORKSCHEDULE W
+			INNER JOIN EMP E
+					ON W.USERNAME = E.USERNAME
+			INNER JOIN DEPARTMENT D 
+					ON E.DEPTNO = E.DEPTNO
+			INNER JOIN POSITION P
+					ON E.POSITIONNO = P.POSITIONNO
+	</select>
+	
+	
+	<!-- 부서별 일정목록 -->
+	<select id="getDeptScheduleList" parameterType="String" resultType="WorkScheduleVO">
+		SELECT W.*, E.EMPNAME, D.DEPTNO, D.DEPTNAME, P.POSITIONNAME 
+		  FROM WORKSCHEDULE W
+				INNER JOIN EMP E
+					ON W.USERNAME = E.USERNAME
+				INNER JOIN DEPARTMENT D 
+					ON E.DEPTNO = E.DEPTNO
+				INNER JOIN POSITION P
+					ON E.POSITIONNO = P.POSITIONNO
+ 		WHERE D.DEPTNO = #{deptNo}
+	</select>
+	
+	<!-- 일정 추가 -->
+	<insert id="setWorkAdd" parameterType="WorkScheduleVO">
+		INSERT INTO WORKSCHEDULE
+		VALUES
+		(NULL, #{username}, DATE_FORMAT(#{workStart}, '%Y-%m-%d %H:%i:%s'), DATE_FORMAT(#{workEnd}, '%Y-%m-%d %H:%i:%s'), #{deptName}, #{positionName}, #{empName})
+	</insert>
+
+	<!-- 부서목록 가져오기 -->
+	<select id="getDeptList" resultType="DeptVO">
+		SELECT DEPTNO, DEPTNAME
+		FROM DEPARTMENT	
 	</select>
 	
 	<!-- 일정 상세 -->
-	<select id="getWorkSchedule" resultType="WorkScheduleVO" parameterType="WorkScheduleVO">
-		SELECT W.*, E.EMPNAME, D.DEPTNAME, P.POSITIONNAME 
-  		  FROM WORKSCHEDULE W
+	<select id="getDetail" parameterType="WorkScheduleVO" resultType="WorkScheduleVO">
+		SELECT W.*, E.EMPNAME, D.DEPTNO, D.DEPTNAME, P.POSITIONNAME
+ 		  FROM WORKSCHEDULE W
 				INNER JOIN EMP E
-  						ON W.USERNAME = E.USERNAME
-  				INNER JOIN DEPARTMENT D 
-  						ON E.DEPTNO = E.DEPTNO
-  				INNER JOIN POSITION P
-  						ON E.POSITIONNO = P.POSITIONNO	
-	  	 WHERE WORKNO = #{workNo} 		
+ 						ON W.USERNAME = E.USERNAME
+				INNER JOIN DEPARTMENT D 
+						ON E.DEPTNO = D.DEPTNO
+				INNER JOIN POSITION P
+						ON E.POSITIONNO = P.POSITIONNO
+ 		WHERE WORKNO = #{workNo}		
 	</select>
-
-	<insert id="addWorkSchedule" parameterType="WorkScheduleVO">
-		INSERT INTO WORKSCHEDULE
-		VALUES
-		(NULL, #{username}, #{workDate}, #{workTime}, #{homeTime}, #{deptName}, #{positionName}, #{empName})	
-	</insert>
 	
-	<update id="updateWorkSchedule" parameterType="WorkScheduleVO">
+	<update id="setUpdate" parameterType="WorkScheduleVO">
 		UPDATE WORKSCHEDULE
 		SET
-		WORKDATE = #{workDate},
-		WORKTIME = #{workTime},
-		HOMETIME = #{homeTime}
+		WORKDATE = #{workStart},
+		WORKTIME = #{workEnd}
 		WHERE WORKNO = #{workNo}
 	</update>
 	
-	<delete id="delWorkSchedule" parameterType="WorkScheduleVO">
-		DELETE FROM SURGERY
+	<delete id="setDelete" parameterType="WorkScheduleVO">
+		DELETE FROM WORKSCHEDULE
 		WHERE WORKNO = #{workNo};		
 	</delete>
-
+	
+	<select id="checkSch" parameterType="WorkScheduleVO" resultType="Integer">
+		SELECT COUNT(*)
+		FROM WORKSCHEDULE
+		WHERE WORKDATE = #{workDate} AND USERNAME=#{username}
+	</select>
 </mapper>

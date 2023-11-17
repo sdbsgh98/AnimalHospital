@@ -26,26 +26,34 @@ public class HomeController {
 	@Autowired
 	private AttendanceService attendanceService;
 	
-	
+
 	@GetMapping("/")
-	public String indexAtt(AttendanceVO attendanceVO, Model model) throws Exception {
+	public String index(AttendanceVO attendanceVO, Model model) throws Exception {
+		// 현재 로그인한 사람의 username 정보 가져오기
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-		attendanceVO.setUsername(authentication.getName());	// 로그인한 사람 아이디(username)
+		// 메인페이지 갈 때마다 해당 일자의 출퇴근 여부 체크
+		String username = authentication.getName();
+		attendanceVO.setUsername(username);	// 로그인한 사람 아이디(username)
 		
 		AttendanceVO attendanceVO2 = new AttendanceVO();
 		attendanceVO2 = attendanceService.checkDate(attendanceVO);
 		model.addAttribute("att", attendanceVO2);
 		
+		Double dayoffCount = attendanceService.getDayoffCount(username);
+		model.addAttribute("dayoff", dayoffCount);
+		
 		return "index";
 	}
 	
+	// 출근
 	@PostMapping("attIn")
 	public String setAttIn(@RequestBody AttendanceVO attendanceVO) throws Exception {
 		attendanceService.setAttIn(attendanceVO);
 		return "redirect:/";
 	}
 	
+	// 퇴근
 	@PostMapping("attOut")
 	public String setAttOut(@RequestBody AttendanceVO attendanceVO) throws Exception {
 		AttendanceVO username = new AttendanceVO();
@@ -67,5 +75,8 @@ public class HomeController {
 			return error;
 		}
 	}
+	
+	
+
 	
 }
