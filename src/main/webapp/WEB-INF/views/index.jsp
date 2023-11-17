@@ -45,27 +45,29 @@
 					
 						
 						<div>
-							<div class="col-md-6 col-lg-3 mb-3">
+							<div class="col-md-6 col-lg-2 mb-3">
 			                  <div class="card text-center">
 			                    <div class="card-header"></div>
 			                    <div class="card-body">
 			                      <p class="card-text">[${user.empName}]님의 연차현황</p>
-			                      <h5 class="card-title" id="dayoffCount">Special title treatment</h5>
-									<c:choose>
-										<c:when test="${empty att}">
-											<button type="button" class="btn btn-primary mb-3" onclick="attIn()" style="width:100px;">출근</button><br>
-											<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
-					                    </c:when>
-					                    <c:when test="${att.attState eq 1 and att.attOut eq null}">
-											<button type="button" class="btn btn-primary mb-3" onclick="attIn()" style="width:100px;" disabled>출근</button><br>
-											<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;">퇴근</button>
-						                </c:when>
-						                <c:otherwise>
-											<button type="button" class="btn btn-primary mb-3" onclick="attIn()" style="width:100px;" disabled>출근</button><br>
-											<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
-						                </c:otherwise>
-				                    </c:choose>
-			                    </div>
+			                      <h5 class="card-title" id="dayoffCount">무려 연차가 ${dayoff} 개</h5>
+				                      <div class="divider">
+				                      </div>
+										<c:choose>
+											<c:when test="${empty att}">
+												<button type="button" class="btn btn-primary mt-2 mb-3" onclick="attIn()" style="width:100px;">출근</button><br>
+												<button type="button" class="btn btn-outline-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
+						                    </c:when>
+						                    <c:when test="${att.attState eq 1 and att.attOut eq null}">
+												<button type="button" class="btn btn-outline-primary mb-3" onclick="attIn()" style="width:100px;" disabled>출근</button><br>
+												<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;">퇴근</button>
+							                </c:when>
+							                <c:otherwise>
+												<button type="button" class="btn btn-outline-primary mb-3" onclick="attIn()" style="width:100px;" disabled>출근</button><br>
+												<button type="button" class="btn btn-outline-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
+							                </c:otherwise>
+					                    </c:choose>
+				                </div>
 			                    <div class="card-footer text-muted">2 days ago</div>
 			                  </div>
 			                </div>
@@ -90,34 +92,6 @@
 
 	<script src="/js/attendance/attendance.js"></script>
 
-	<script src="/js/main/schedule.js"></script>
-	
-	<script type="text/javascript">
-	function calculateVacation() {
-		  var currentYear = new Date().getFullYear();
-		  var hireDate = $('#hireDate').val();
-		  var yearsOfWork = currentYear - hireDate;
-		  var vacationDays = calculateVacationDays(yearsOfWork);
-		  $('#result').text('휴가 갯수: ' + vacationDays + '일');
-		}
-
-		function calculateVacationDays(years) {
-		  if (years <= 5) {
-		    return 10 + years;
-		  } else if (years <= 10) {
-		    return 17 + Math.floor((years - 5) / 5);
-		  } else {
-		    return 20;
-		  }
-		}
-
-	
-	$(function () {
-		var hireDate = $('#hireDate').val();
-		
-	    $("#dayoffCount").text();
-	});
-	</script>
 
 </body>
 </html>

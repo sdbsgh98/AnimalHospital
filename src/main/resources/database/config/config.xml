@@ -37,6 +37,7 @@
 		<typeAlias type="com.vet.main.hospitalize.HospitalizeVO" alias="HospitalizeVO"/>
 		<typeAlias type="java.util.Map" alias="Map"/>
 		<typeAlias type="java.lang.String" alias="String" />
+		<typeAlias type="java.lang.Double" alias="Double" />
 		
 	</typeAliases>
 

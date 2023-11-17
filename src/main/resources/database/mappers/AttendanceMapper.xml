@@ -62,14 +62,35 @@
 	</select>
 	
 	<select id="getHireDate" parameterType="String">
-		SELECT DATE_FORMAT(HIREDATE, '%Y-%m-%d')
+		SELECT DATE_FORMAT(HIREDATE, '%Y')
 		FROM EMP
-		WHERE USERNAME = #{username};
+		WHERE USERNAME = #{username}
 	</select>
 	
 	<select id="getCurDate">
-		SELECT CAST(DATE_ADD(NOW(), INTERVAL 9 HOUR)AS date)
+		SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL 9 HOUR), '%Y')
 		FROM DUAL
+	</select>
+	
+	<!-- 연차갯수 업데이트 -->
+	<update id="setDayoffCount" parameterType="EmpVO">
+		UPDATE EMP
+		SET
+		DAYOFFCOUNT = #{dayoffCount}
+		WHERE USERNAME = #{username}
+	</update>
+	
+	<select id="getDayoffCount" parameterType="String">
+		SELECT DAYOFFCOUNT FROM EMP
+		WHERE USERNAME = #{username}
+	</select>
+	
+	<select id="getEmpList">
+		SELECT E.*, P.POSITIONNAME, D.DEPTNAME
+		FROM EMP E INNER JOIN POSITION P
+		ON E.POSITIONNO = P.POSITIONNO
+		INNER JOIN DEPARTMENT D
+		ON E.DEPTNO = D.DEPTNO
 	</select>
 
 </mapper>

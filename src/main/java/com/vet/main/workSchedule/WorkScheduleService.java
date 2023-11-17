@@ -1,10 +1,14 @@
 package com.vet.main.workSchedule;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.vet.main.approval.ApprovalDAO;
+import com.vet.main.dept.DeptVO;
+import com.vet.main.reservation.treatment.TreatmentVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,16 +20,36 @@ public class WorkScheduleService {
 	private WorkScheduleDAO workScheduleDAO;
 	
 	
-	public int addWorkSchedule(WorkScheduleVO workScheduleVO) throws Exception {
-		return workScheduleDAO.addWorkSchedule(workScheduleVO);
+	public List<WorkScheduleVO> getScheduleList(String deptNo) throws Exception {
+		return workScheduleDAO.getScheduleList();
 	}
 	
-	public int updateWorkSchedule(WorkScheduleVO workScheduleVO) throws Exception {
-		return workScheduleDAO.updateWorkSchedule(workScheduleVO);
+	public List<WorkScheduleVO> getDeptScheduleList(String deptNo) throws Exception {
+		return workScheduleDAO.getDeptScheduleList(deptNo);
 	}
 	
-	public WorkScheduleVO getWorkSchedule(WorkScheduleVO workScheduleVO) throws Exception {
-		return workScheduleDAO.getWorkSchedule(workScheduleVO);
+	public int setWorkAdd(WorkScheduleVO scheduleVO) throws Exception {
+		return workScheduleDAO.setWorkAdd(scheduleVO);
+	}
+
+	public List<DeptVO> getDeptList() throws Exception {
+		return workScheduleDAO.getDeptList();
+	}
+	
+	public WorkScheduleVO getDetail(WorkScheduleVO scheduleVO) throws Exception {
+		return workScheduleDAO.getDetail(scheduleVO);
+	}
+	
+	public int setDelete(WorkScheduleVO scheduleVO) throws Exception {
+		return workScheduleDAO.setDelete(scheduleVO);
+	}
+	
+	public int setUpdate(WorkScheduleVO scheduleVO) throws Exception {
+		return workScheduleDAO.setUpdate(scheduleVO);
+	}
+	
+	public int checkSch(WorkScheduleVO scheduleVO) throws Exception {
+		return workScheduleDAO.checkSch(scheduleVO);
 	}
 	
 }

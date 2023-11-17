@@ -17,7 +17,6 @@ public class AttendanceVO {
 	private String attIn;
 	private String attOut;
 	private String attState;
-	private Double atDayoffCount;
 	
 	private String positionName;
 	private String deptName;

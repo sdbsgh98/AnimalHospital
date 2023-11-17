@@ -13,6 +13,9 @@
 </head>
 <meta charset="UTF-8">
 <title>근태관리</title>
+  
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 
 </head>
 <body>
@@ -32,11 +35,84 @@
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<!-- DataTales Example -->
+						<div class="card shadow mb-4">
+	                        <div class="card-body">
+	                            <form>
+								<!-- search -->
+								<table class="searchBox">
+									<caption>조회</caption>
+									<colgroup>
+										<col width="123px">
+										<col width="*">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>조회기간</th>
+											<td>
+												<ul class="searchDate">
+													<li>
+														<span class="chkbox2">
+															<input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')">
+															<label for="dateType1">당일</label>
+														</span>
+													</li>
+													<li>
+														<span class="chkbox2">
+															<input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('3d')">
+															<label for="dateType2">3일</label>
+														</span>
+													</li>
+													<li>
+														<span class="chkbox2">
+															<input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('1w')">
+															<label for="dateType3">1주</label>
+														</span>
+													</li>
+													<li>
+														<span class="chkbox2">
+															<input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('2w')">
+															<label for="dateType4">2주</label>
+														</span>
+													</li>
+													<li>
+														<span class="chkbox2">
+															<input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('1m')">
+															<label for="dateType5">1개월</label>
+														</span>
+													</li>
+													<li>
+														<span class="chkbox2">
+															<input type="radio" name="dateType" id="dateType6" onclick="setSearchDate('3m')">
+															<label for="dateType6">3개월</label>
+														</span>
+													</li>
+													<li>
+														<span class="chkbox2">
+															<input type="radio" name="dateType" id="dateType7" onclick="setSearchDate('6m')">
+															<label for="dateType7">6개월</label>
+														</span>
+													</li>
+												</ul>
+												
+												<div class="clearfix">
+													<!-- 시작일 -->
+											        <label for="searchStartDate">시작 날짜:</label>
+											        <input type="text" id="searchStartDate" name="searchStartDate">
+											        
+											        <label for="searchEndDate">종료 날짜:</label>
+											        <input type="text" id="searchEndDate" name="searchEndDate">
+												</div>	
+											</td>
+										</tr>
+						
+									</tbody><tbody>
+								</tbody></table>
+								</form>
+	                        </div>
+	                    </div>
 	                    <div class="card shadow mb-4">
 	                        <div class="card-body">
 	                            <div class="table-responsive">
-	                            
-
                                		<input type="hidden" name="username" id="username" value="${user.username}">
                                		<input type="hidden" name="empName" id="empName" value="${user.empName}">
 
@@ -138,6 +214,24 @@
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 
+	<!-- datepicker 사용하기 위함 -->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+	
+	<script type="text/javascript">
+	    $('#searchStartDate').datepicker({
+	        dateFormat: 'yy/mm/dd' // 날짜 형식 설정
+	        })
+	   
+	    $('#searchEndDate').datepicker({
+	        dateFormat: 'yy/mm/dd', // 날짜 형식 설정
+	        beforeShow: function(input) {
+	            let searchStartDate = $('#searchStartDate').datepicker('getDate');
+	            if (searchStartDate) {
+	                return { minDate: searchStartDate };
+	            }
+	        }
+	    })
+	</script>
 	
 </body>
 </html>

@@ -42,5 +42,5 @@ public class AttendanceController {
 		
 		return "attendance/attList";
 	}
-
+	
 }

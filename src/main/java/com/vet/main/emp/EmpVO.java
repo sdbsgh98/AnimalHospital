@@ -127,4 +127,6 @@ public class EmpVO implements UserDetails{
 		// false    : 계정 잠김, 로그인 안됨
 		return true;
 	}
+	
+	private Double dayoffCount;
 }
