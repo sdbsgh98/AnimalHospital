@@ -43,19 +43,19 @@
 					      	</div>	                           
 					          </div>
 				          </div>
-					]
+					
 					<sec:authentication property="Principal" var="user"/>	
-						<sec:authorize access="isAuthenticated()">
+<%-- 						<sec:authorize access="isAuthenticated()">
 							<a href="/emp/logout" class="btn btn-danger" style="">로그아웃</a>	
 							<a href="/emp/pwUpdate?username=${user.username}" class="btn btn-danger" style="">비밀번호 변경</a>	
 						</sec:authorize>
 						
-						<br><br>
+						<br><br> --%>
 						<input type="hidden" id="username" name="username" value="${user.username}">
 						<input type="hidden" id="empName" name="empName" value="${user.empName}">
 						<input type="hidden" id="hireDate" name="hireDate" value="${user.hireDate}">
 					
-						
+						<br>
 						<div>
 							<div class="col-md-6 col-lg-2 mb-3">
 			                  <div class="card text-center">
