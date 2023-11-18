@@ -63,7 +63,7 @@
 								  <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
 								</div>
 								
-								<input type="hidden" id="apKind" name="apKind" value="${approvlVO.apKind}">
+								<input type="hidden" id="apKind" name="apKind" value="휴가신청서">
 								
 								<div class="firstApLineBox mb-2">
 								  <!-- controller에 정보 전달하기 위함 -->
@@ -126,11 +126,11 @@
 								</div>
 								
 								
-								<input type="hidden" id="dayoffValue" name="dayoffValue" value="${approvalVO.dayoffKind}">
+								<input type="hidden" id="dayoffValue" value="${approvalVO.dayoffKind}">
 								
-								<input type="hidden" id="offTime" name="dayoffTime" value="${approvalVO.dayoffTime}">
-								<input type="hidden" id="startDate" name="dayoffStartDate" value="${dayoffStartDate}">
-								<input type="hidden" id="endDate" name="dayoffEndDate" value="${dayoffEndDate}">
+								<input type="hidden" id="offTime" value="${approvalVO.dayoffTime}">
+								<input type="hidden" id="startDate" value="${dayoffStartDate}">
+								<input type="hidden" id="endDate" value="${dayoffEndDate}">
 
 								<label for="dayoffKind" class="form-label">구분</label>
 								<div class="input-group-text mb-3" id="dayoffKind">

@@ -12,7 +12,7 @@
 			INNER JOIN EMP E
 					ON W.USERNAME = E.USERNAME
 			INNER JOIN DEPARTMENT D 
-					ON E.DEPTNO = E.DEPTNO
+					ON E.DEPTNO = D.DEPTNO
 			INNER JOIN POSITION P
 					ON E.POSITIONNO = P.POSITIONNO
 	</select>
@@ -20,12 +20,12 @@
 	
 	<!-- 부서별 일정목록 -->
 	<select id="getDeptScheduleList" parameterType="String" resultType="WorkScheduleVO">
-		SELECT W.*, E.EMPNAME, D.DEPTNO, D.DEPTNAME, P.POSITIONNAME 
+		SELECT W.WORKNO, W.WORKSTART, W.WORKEND, E.EMPNAME, D.DEPTNO, D.DEPTNAME, P.POSITIONNAME                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 		  FROM WORKSCHEDULE W
 				INNER JOIN EMP E
 					ON W.USERNAME = E.USERNAME
 				INNER JOIN DEPARTMENT D 
-					ON E.DEPTNO = E.DEPTNO
+					ON E.DEPTNO = D.DEPTNO
 				INNER JOIN POSITION P
 					ON E.POSITIONNO = P.POSITIONNO
  		WHERE D.DEPTNO = #{deptNo}
@@ -60,8 +60,8 @@
 	<update id="setUpdate" parameterType="WorkScheduleVO">
 		UPDATE WORKSCHEDULE
 		SET
-		WORKDATE = #{workStart},
-		WORKTIME = #{workEnd}
+		WORKSTART = #{workStart},
+		WORKEND = #{workEnd}
 		WHERE WORKNO = #{workNo}
 	</update>
 	
@@ -73,6 +73,7 @@
 	<select id="checkSch" parameterType="WorkScheduleVO" resultType="Integer">
 		SELECT COUNT(*)
 		FROM WORKSCHEDULE
-		WHERE WORKDATE = #{workDate} AND USERNAME=#{username}
+		WHERE WORKDATE = #{workDate}
+		AND USERNAME=#{username}
 	</select>
 </mapper>
