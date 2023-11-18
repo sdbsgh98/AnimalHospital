@@ -42,7 +42,7 @@
 					<div class="card shadow mb-4" style="width: 20%; float: left; height: 400px;">	
 					<div>
 					</div>
-					<a type="button" href="./deptList" class="btn" style="width: 95%; background-color: rgb(255,239,222); font-size: 13px; margin-top: 5px; margin-left:6px;">전체부서</a>
+					<a type="button" href="./deptList" class="btn btn-primary" style="width: 95%; font-size: 13px; margin-top: 5px; margin-left:6px;">전체부서</a>
 						<div id="jstree">
 						    <ul>
 						        <c:forEach items="${list}" var="vo">
@@ -84,10 +84,10 @@
 								<input type="text" class="form-control" readonly="readonly" value="${vo.deptName}">
 								<span>상위부서 번호</span>
 								<input type="text" class="form-control" readonly="readonly" value="${vo.parentNo}">
-								<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: ; background-color: rgb(255,239,222); font-size: 13px; margin-top: 15px;">직급확인하기</button>
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: ; font-size: 13px; margin-top: 15px;">직급확인하기</button>
 							<c:if test="${user.positionNo == 1}">
-								<a href="./deptManage?deptNo=${vo.deptNo}" type="button" class="btn" style="width: 100px; background-color: rgb(255,255,222); font-size: 13px; margin-top: 15px; margin-left: 5px; float: right;">수정</a>
-								<a href="./deptDelete?deptNo=${vo.deptNo}" type="button" class="btn" id="deleteBtn" style="width: 100px; background-color: rgb(255,255,222); font-size: 13px; margin-top: 15px; margin-left: 5px; float: right;">삭제</a>
+								<a href="./deptManage?deptNo=${vo.deptNo}" type="button" class="btn btn-primary" style="width: 100px; font-size: 13px; margin-top: 15px; margin-left: 5px; float: right;">수정</a>
+								<a href="./deptDelete?deptNo=${vo.deptNo}" type="button" class="btn btn-outline-primary" id="deleteBtn" style="width: 100px;font-size: 13px; margin-top: 15px; margin-left: 5px; float: right;">삭제</a>
 							</c:if>
 							</div>
 					

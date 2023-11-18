@@ -229,11 +229,11 @@ input[type=checkbox] {
 								<div id="passwordSuccess"style="float: right;"></div>
 									 <br>
 
-						<input type="password" class="" id="passwordCheck" name="passwordCheck" placeholder="변경 할 비밀번호를 한번 더 입력하세요." required>
+						<input type="password" class="" id="passwordCheck" name="passwordCheck" placeholder="비밀번호를 한번 더 입력하세요." required>
 							<div id="passwordCheckError" style="font-size: 12px; color:red;"></div>
 							<div id="passwordCheckSuccess" style="float: right;"></div>
 							<br>			  			  				  				          													  	  				  			  				  				          		
-						<button type="submit" class="btn btn-primary" id="updateBtn" style="margin-top: 30px;">완료</button>
+						<button type="submit" class="btn btn-primary" id="updateBtn" style="margin-top: 20px;">완료</button>
 					</form>					
 		</div>
 	</div>

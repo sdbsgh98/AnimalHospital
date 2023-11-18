@@ -227,7 +227,7 @@ input[type=checkbox] {
 						<button type="button" class="button" id="sendBtn" style="margin: auto;" onclick="btn_mail(1)">인증번호 전송</button>
 					</div>
 					<div id="mailDiv" name="mail_number">
-						<input type="text" class="" name="number" id="number"  placeholder="인증번호를 입력하세요.">
+						<input type="text" class="" name="number" id="number"  placeholder="인증번호 입력">
 						<button type="button" class="button" name="confirmBtn" id="confirmBtn" >확인</button>
 					</div>									
 				</div>								        		
@@ -246,7 +246,7 @@ input[type=checkbox] {
 			<input type="password" id="password2" name="password" placeholder="비밀번호를 입력하세요." value=""/>
 			<div id="passwordError" style="font-size: 12px; color:red;"></div>
 			<div class="checkbox">
-				<input type="checkbox" class="form-check-input" id="remember-me" name="remember-me"/><label for="remember">remember me</label>
+				<input type="checkbox" class="form-check-input" id="remember-me" name="remember-me" checked="checked"/><label for="remember">remember me</label>
 			</div>			
 			 <button type="submit" class="btn button" style="margin-top: 80px;" id="login">login</button>
 
