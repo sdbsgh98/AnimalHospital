@@ -60,7 +60,14 @@
 		                                            <td>${ap.empName}</td>
 		                                            <td>${ap.deptName}</td>
 		                                            <td>${ap.apCDate}</td>
-		                                            <td>${ap.apState}</td>
+		                                            <c:choose>
+			                                            <c:when test="${ap.apState eq '반려'}">
+			                                            	<td>${ap.apState}</td>
+			                                            </c:when>
+			                                            <c:otherwise>
+			                                            	<td>${ap.apState}</td>
+			                                            </c:otherwise>
+		                                            </c:choose>
 		                                        </tr>
 	                                        </c:forEach>
 	                                    </tbody>

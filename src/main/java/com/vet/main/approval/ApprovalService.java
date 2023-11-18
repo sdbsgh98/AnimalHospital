@@ -67,8 +67,23 @@ public class ApprovalService {
 	}
 	
 	// 지출결의서 작성폼
-	public int setApExpenseAdd(ApprovalVO approvalVO) throws Exception {
-    	int result = approvalDAO.setApExpenseAdd(approvalVO);		
+	public int setApExpenseAdd(ApprovalVO approvalVO, MultipartFile[] files) throws Exception {
+    	int result = approvalDAO.setApExpenseAdd(approvalVO);
+    	
+		for(MultipartFile multipartFile : files) {
+		
+		if(multipartFile.isEmpty()) {
+			continue;
+		}
+		
+		ApprovalFileVO fileVO = new ApprovalFileVO();
+		String fileName = fileManager.save(this.uploadPath + this.apKind, multipartFile);
+		fileVO.setApNo(approvalVO.getApNo());
+		fileVO.setFileName(fileName);
+		fileVO.setOriginalFileName(multipartFile.getOriginalFilename());
+		
+		result = approvalDAO.setApFileAdd(fileVO);
+	}
 		return result;
 	}
 	
@@ -191,5 +206,9 @@ public class ApprovalService {
 	// 지출결의서 수정
 	public int setExpenseUpdate(ApprovalExpenseVO approvalExpenseVO) throws Exception{
 		return approvalDAO.setExpenseUpdate(approvalExpenseVO);
+	}
+	
+	public int setApFileDelete(ApprovalFileVO noticeFileVO) throws Exception {
+		return approvalDAO.setApFileDelete(noticeFileVO);
 	}
 }

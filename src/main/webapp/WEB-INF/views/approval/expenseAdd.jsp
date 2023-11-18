@@ -40,7 +40,7 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 					
 						<div class="row">
-				    		<form action="expenseAdd" id="addFrm" method="post">
+				    		<form action="expenseAdd" id="addFrm" method="post" enctype="multipart/form-data">
 				    		
 				    			<div class="mb-3">
 								  <label for="username" class="form-label"></label>
@@ -125,6 +125,21 @@
 									    <input type="text" class="form-control me-2" id="expenseBigo0" name="expenseBigo" placeholder="비고" style="width:200px;">
 									</div> 
 			                    </div>
+			                    
+			                    
+			                    
+			                    <!-- Upload file *************************************** -->
+			                    <div class="mb-1" style="margin:0 auto; width:fit-content;">
+			                        <button type="button" class="btn btn-primary" id="filePlus">File 추가</button>
+			                    </div>
+			        
+			                    <!-- 파일첨부 추가되는 영역 -->
+			                    <div id="fileList" class="my-5">
+			                        <div class="input-group mb-3">
+			                            <input type="file" name="files" class="form-control">
+			                        </div>
+			        
+			                    </div>
 								
 					    		<div class="row">
 									<div class="demo-inline-spacing">
@@ -168,6 +183,7 @@
 	
 	
 	<script src="/js/approval/apExpenseAdd.js"></script>
+	<script src="/js/approval/apFileAdd.js"></script>
 	<script src="/js/approval/apLineSelect.js"></script>
 	
 	<script>

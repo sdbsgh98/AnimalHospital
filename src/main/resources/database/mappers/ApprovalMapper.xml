@@ -211,12 +211,14 @@
 	
 	<!-- 지출결의서 상세 -->
 	<select id="getApExpenseDetail" parameterType="ApprovalVO" resultMap="getExpenseResult">
-		SELECT A.*, AE.*,
+		SELECT A.*, AE.*, AF.*,
 				(SELECT SUM(EXPENSEPRICE) FROM APEXPENSE
 				 WHERE APNO = A.APNO) AS PRICESUM
 		FROM
 			APPROVAL A LEFT OUTER JOIN APEXPENSE AE
 			ON A.APNO = AE.APNO
+			LEFT OUTER JOIN APFILE AF
+			ON A.APNO = AF.APNO
 		WHERE A.APNO = #{apNo};
 	</select>
 	

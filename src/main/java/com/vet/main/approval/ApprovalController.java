@@ -31,6 +31,7 @@ import com.vet.main.commons.Pager;
 import com.vet.main.dept.DeptService;
 import com.vet.main.dept.DeptVO;
 import com.vet.main.emp.EmpVO;
+import com.vet.main.notice.NoticeFileVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -175,7 +176,7 @@ public class ApprovalController {
 			@RequestParam("apTitle") String apTitle, @RequestParam("expenseName") String[] expenseName,
 			@RequestParam("expenseAmount") Long[] expenseAmount, @RequestParam("expensePrice") Long[] expensePrice,
 			@RequestParam("expenseBigo") String[] expenseBigo, @RequestParam("lineUsername") String[] lineUsername
-			, @RequestParam("lineEmpName") String[] lineEmpName) throws Exception {
+			, @RequestParam("lineEmpName") String[] lineEmpName, MultipartFile[] files) throws Exception {
 
 		ApprovalVO approvalVO = new ApprovalVO();
 
@@ -185,7 +186,7 @@ public class ApprovalController {
 		approvalVO.setEmpName(empName);
 		approvalVO.setApTitle(apTitle);
 
-		approvalService.setApExpenseAdd(approvalVO);
+		approvalService.setApExpenseAdd(approvalVO, files);
 
 		log.info("============= approvalVO : {} ==============", approvalVO);
 			
@@ -220,6 +221,15 @@ public class ApprovalController {
 		}
 
 		return "redirect:../draftList/" + username;
+	}
+	
+	@GetMapping("fileDelete")
+	public String setApFileDelete(ApprovalFileVO noticeFileVO, Model model)throws Exception{
+		int result = approvalService.setApFileDelete(noticeFileVO);
+
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
 	}
 
 	// 작성버튼 클릭 시 나오는 양식 선택 리스트
