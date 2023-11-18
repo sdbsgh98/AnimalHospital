@@ -85,6 +85,37 @@
 			                </div>
 						</div>
 						
+						<div class="card" style="width: 50rem;">
+						  <div class="card-body">
+						  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+						  	<a href="notice/noticeList" class="btn btn-primary" type="button" style="margin-right: 20px;">더보기</a>
+						  </div>
+						  	<table class="table" style="text-align: center;">
+								<thead style="height: 70px;">
+									<tr>
+										<th>번호</th>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>작성일</th>
+										<th>조회수</th>
+								</thead>
+								<tbody style="height: 35px;">
+									<c:forEach items="${list}" var="vo">
+											<tr>
+												<td>${vo.noticeNo}</td>
+												<td>${vo.title}</td>
+												<td>${vo.empName}</td>
+												<td>${vo.createDate}</td>
+												<td>${vo.hit}</td>
+											</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						  </div>
+						</div>
+						
+						
+						
 						
 					</div>
 					<!-- / Content -->
