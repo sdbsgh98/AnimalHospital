@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.vet.main.commons.Pager;
 import com.vet.main.emp.EmpVO;
 
 @Mapper
 public interface AttendanceDAO {
 	
-	public List<AttendanceVO> getAttList(AttendanceVO attendanceVO) throws Exception;
+	public List<AttendanceVO> getAttList(Pager pager) throws Exception;
+	
+	public Long getAttTotal(Pager pager) throws Exception;
 	
 	public int setAttIn(AttendanceVO attendanceVO) throws Exception;
 	

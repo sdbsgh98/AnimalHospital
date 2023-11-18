@@ -37,77 +37,63 @@
 						<!-- DataTales Example -->
 						<div class="card shadow mb-4">
 	                        <div class="card-body">
-	                            <form>
-								<!-- search -->
-								<table class="searchBox">
-									<caption>조회</caption>
-									<colgroup>
-										<col width="123px">
-										<col width="*">
-									</colgroup>
-									<tbody>
-										<tr>
-											<th>조회기간</th>
-											<td>
-												<ul class="searchDate">
-													<li>
-														<span class="chkbox2">
-															<input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')">
-															<label for="dateType1">당일</label>
-														</span>
-													</li>
-													<li>
-														<span class="chkbox2">
-															<input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('3d')">
-															<label for="dateType2">3일</label>
-														</span>
-													</li>
-													<li>
-														<span class="chkbox2">
-															<input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('1w')">
-															<label for="dateType3">1주</label>
-														</span>
-													</li>
-													<li>
-														<span class="chkbox2">
-															<input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('2w')">
-															<label for="dateType4">2주</label>
-														</span>
-													</li>
-													<li>
-														<span class="chkbox2">
-															<input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('1m')">
-															<label for="dateType5">1개월</label>
-														</span>
-													</li>
-													<li>
-														<span class="chkbox2">
-															<input type="radio" name="dateType" id="dateType6" onclick="setSearchDate('3m')">
-															<label for="dateType6">3개월</label>
-														</span>
-													</li>
-													<li>
-														<span class="chkbox2">
-															<input type="radio" name="dateType" id="dateType7" onclick="setSearchDate('6m')">
-															<label for="dateType7">6개월</label>
-														</span>
-													</li>
-												</ul>
-												
-												<div class="clearfix">
-													<!-- 시작일 -->
-											        <label for="searchStartDate">시작 날짜:</label>
-											        <input type="text" id="searchStartDate" name="searchStartDate">
-											        
-											        <label for="searchEndDate">종료 날짜:</label>
-											        <input type="text" id="searchEndDate" name="searchEndDate">
-												</div>	
-											</td>
-										</tr>
-						
-									</tbody><tbody>
-								</tbody></table>
-								</form>
+						        <!-- 전체 페이지 수 -->
+						        <input type="hidden" name="totalPage" id="totalPage" value="${pager.totalPage}">
+						        
+								<div class="d-flex justify-content-between mb-3">
+									<div>
+										<!-- 검색 -->
+										<div class="input-group mb-3">
+											<form action="./list" method="get" class="d-flex align-items-center" id="frm">
+												<div class="input-group" style="width: 120px;">
+													<input type="hidden" value="${pager.page}" id="page" name="page">
+													<select name="kind" id="k" class="form-select"
+														data-kind="${pager.kind}" aria-label="Default select example" style="width: 50px;">
+														<option class="kind" value="empName">사원명</option>
+														<option class="kind" value="positionName">직급명</option>
+														<option class="kind" value="deptName">부서명</option>
+													</select>
+												</div> 
+												<input type="text" name="search" value="${pager.search}"
+													class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 150px;">
+													
+													<!-- Date Range Search -->
+									                <label for="startDate" class="ms-2 me-1">시작일:</label>
+									                <input type="date" id="startDate" name="startDate" class="form-control" style="width: 150px;">
+									                <label for="endDate" class="ms-2 me-1">종료일:</label>
+									                <input type="date" id="endDate" name="endDate" class="form-control" style="width: 150px;">
+									                
+													<button type="submit" class="btn btn-primary" style="width:100px;">검색</button>
+													
+											</form>
+										</div>
+									</div>
+			    					<div>
+			    						<!-- 페이징 -->
+										<nav aria-label="Page navigation example">
+											<ul class="pagination justify-content-center">
+												<c:if test="${pager.pre}">
+												<li class="page-item ${pager.pre?'':'disabled'}"><a
+													class="page-link"
+													href="./attendance/list?page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}&startDate=${pager.startDate}&endDate=${pager.endDate}"
+													aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+												</a></li>
+												</c:if>
+												<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
+													var="i">
+													<li class="page-item"><a class="page-link"
+														href="./attendance/list?page=${i}&kind=${pager.kind}&search=${pager.search}&startDate=${pager.startDate}&endDate=${pager.endDate}">${i}</a></li>
+												</c:forEach>
+												<c:if test="${pager.next}">
+													<li class="page-item"><a class="page-link"
+														href="./attendance/list?page=${pager.startNum + 1}&kind=${pager.kind}&search=${pager.search}&startDate=${pager.startDate}&endDate=${pager.endDate}"
+														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+													</a></li>
+												</c:if>
+											</ul>
+										</nav>
+			    					</div>
+								</div>
 	                        </div>
 	                    </div>
 	                    <div class="card shadow mb-4">
@@ -143,59 +129,6 @@
 	                                    </tbody>
 	                                </table>  
 				    			</div>
-				    			
-
-						        <!-- 전체 페이지 수 -->
-						       <%--  <input type="hidden" name="totalPage" id="totalPage" value="${pager.totalPage}">
-						        
-								<div class="d-flex justify-content-between mb-3">
-								<div>
-									<!-- 검색 -->
-									<div class="input-group mb-3">
-										<form action="../attList}" method="get" class="d-flex align-items-center" id="frm">
-											<div class="input-group" style="width: 120px;">
-												<input type="hidden" value="${pager.page}" id="page" name="page">
-												<select name="kind" id="k" class="form-select"
-													data-kind="${pager.kind}" aria-label="Default select example" style="width: 50px;">
-													<option class="kind" value="apTitle">제목</option>
-													<option class="kind" value="apContents">내용</option>
-													<option class="kind" value="apKind">기안종류</option>
-												</select>
-											</div> 
-											<input type="text" name="search" value="${pager.search}"
-												class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 150px;">
-												<button type="submit" class="btn btn-primary" style="width:100px;">검색</button>
-										</form>
-									</div>
-								</div>
-		    					<div>
-		    						<!-- 페이징 -->
-									<nav aria-label="Page navigation example">
-										<ul class="pagination justify-content-center">
-											<c:if test="${pager.pre}">
-											<li class="page-item ${pager.pre?'':'disabled'}"><a
-												class="page-link"
-												href="/approval/draftList/${user.username}?page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}"
-												aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-											</a></li>
-											</c:if>
-											<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
-												var="i">
-												<li class="page-item"><a class="page-link"
-													href="/approval/draftList/${user.username}?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
-											</c:forEach>
-											<c:if test="${pager.next}">
-												<li class="page-item"><a class="page-link"
-													href="/approval/draftList/${user.username}?page=${pager.lastNum + 1}&kind=${pager.kind}&search=${pager.search}"
-													aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-												</a></li>
-											</c:if>
-										</ul>
-									</nav>
-		    					</div>
-							</div> --%>
-						        
-						        
 	    					</div>
 	    				</div>
 					</div>

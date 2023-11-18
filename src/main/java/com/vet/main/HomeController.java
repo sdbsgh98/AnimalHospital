@@ -74,6 +74,7 @@ public class HomeController {
 			String error = "에러가 발생했습니다.\n관리자에게 문의해주세요.";
 			return error;
 		}
+		
 	}
 	
 	

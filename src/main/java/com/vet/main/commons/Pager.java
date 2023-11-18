@@ -36,6 +36,9 @@ public class Pager {
 
 	private String username;
 	private Long customerNo;
+	
+    private String startDate;  // 시작일
+    private String endDate;    // 종료일
 
 
 	// 1. 보여질 data 갯수

@@ -235,16 +235,19 @@
 
 	<!-- 기안함 -->
 	<select id="getDraftList" parameterType="Pager" resultType="ApprovalVO">
-		SELECT A.*, E.USERNAME, E.EMPNAME, D.DEPTNAME
-			FROM APPROVAL A INNER JOIN EMP E
-			ON A.USERNAME = E.USERNAME
-			INNER JOIN DEPARTMENT D
-			ON E.DEPTNO = D.DEPTNO
-		WHERE E.USERNAME = #{username}
-		  AND <include refid="forPager"></include>
-		 LIKE CONCAT('%', #{search}, '%')
-		ORDER BY A.APNO DESC
-		LIMIT #{startRow}, #{lastRow}
+	    SELECT A.*, E.USERNAME, E.EMPNAME, D.DEPTNAME
+	    FROM APPROVAL A INNER JOIN EMP E
+	    ON A.USERNAME = E.USERNAME
+	    INNER JOIN DEPARTMENT D
+	    ON E.DEPTNO = D.DEPTNO
+	    WHERE E.USERNAME = #{username}
+	      AND <include refid="forPager"></include>
+	     LIKE CONCAT('%', #{search}, '%')
+      <if test="startDate != null and endDate != null">
+          AND DATE(A.APCDATE) BETWEEN #{startDate} AND #{endDate}
+      </if>
+	    ORDER BY A.APNO DESC
+	    LIMIT #{startRow}, #{lastRow}
 	</select>
 	
 	<!-- 결재함  -->
@@ -259,17 +262,23 @@
 		WHERE APL.USERNAME = #{username}
 		  AND <include refid="forPager"></include>
 		 LIKE CONCAT('%', #{search}, '%')
+      <if test="startDate != null and endDate != null">
+          AND DATE(A.APCDATE) BETWEEN #{startDate} AND #{endDate}
+      </if>
 		ORDER BY A.APNO DESC
 		LIMIT #{startRow}, #{lastRow}
 	</select>
 	
 	<!-- pager 관련 (해당 유저 기안함의 총 게시글 수를 구하기 위함) -->
 	<select id="getDraftTotal" parameterType="Pager" resultType="Long">
-		<bind name="pattern" value="'%' +_parameter.getSearch() + '%'"/>
-		SELECT COUNT(APNO) FROM APPROVAL
-		WHERE USERNAME = #{username}
-		  AND <include refid="forPager"></include>
-		 LIKE #{pattern}
+	    <bind name="pattern" value="'%' +_parameter.getSearch() + '%'"/>
+	    SELECT COUNT(APNO) FROM APPROVAL
+	    WHERE USERNAME = #{username}
+	      AND <include refid="forPager"></include>
+	     LIKE #{pattern}
+      <if test="startDate != null and endDate != null">
+          AND DATE(APCDATE) BETWEEN #{startDate} AND #{endDate}
+      </if>
 	</select>
 	
 	<!-- pager 관련 (해당 유저에게 전달된 결재의 총 수를 구하기 위함) -->
@@ -281,6 +290,9 @@
 		WHERE APL.USERNAME = #{username}
 		  AND <include refid="forPager"></include>
 		 LIKE #{pattern}
+	  <if test="startDate != null and endDate != null">
+          AND DATE(APCDATE) BETWEEN #{startDate} AND #{endDate}
+      </if>
 	</select>
 	
 	<delete id="setApDelete" parameterType="ApprovalVO">

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.vet.main.commons.Pager;
 import com.vet.main.emp.EmpVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +37,8 @@ public class AttendanceController {
 	
 	
 	@GetMapping("list")
-	public String getAttList (AttendanceVO attendanceVO, Model model) throws Exception {
-		List<AttendanceVO> attendanceVOs = attendanceService.getAttList(attendanceVO);
+	public String getAttList (Pager pager, Model model) throws Exception {
+		List<AttendanceVO> attendanceVOs = attendanceService.getAttList(pager);
 		model.addAttribute("att", attendanceVOs);
 		
 		return "attendance/attList";

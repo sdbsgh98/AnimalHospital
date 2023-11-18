@@ -42,8 +42,7 @@ public class WorkScheduleController {
 			rst = workScheduleService.setWorkAdd(scheduleVO);	
 		}else {
 			rst=0;
-		}
-		
+		}	
 		return rst;
 	}
 	

@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.vet.main.commons.Pager;
 import com.vet.main.emp.EmpVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +23,14 @@ public class AttendanceService {
 	private AttendanceDAO attendanceDAO;
 	
 	// 리스트
-	public List<AttendanceVO> getAttList(AttendanceVO attendanceVO) throws Exception {
-		return attendanceDAO.getAttList(attendanceVO);
+	public List<AttendanceVO> getAttList(Pager pager) throws Exception {
+		pager.setPerPage(10L);
+		pager.makeRowNum();
+		Long totalCount = attendanceDAO.getAttTotal(pager);
+		pager.makePageNum(totalCount);
+//		pager.makeNum(totalCount);
+//		pager.makeStartRow();
+		return attendanceDAO.getAttList(pager);
 	}
 	
 	// 출근시간
