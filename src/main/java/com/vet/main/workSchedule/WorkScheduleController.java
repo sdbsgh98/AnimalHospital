@@ -34,9 +34,16 @@ public class WorkScheduleController {
 
 	
 	@PostMapping("addWork")
-	public String addWorkSchedule(@RequestBody WorkScheduleVO scheduleVO) throws Exception {
-		workScheduleService.setWorkAdd(scheduleVO);		
-		return "redirect:./workList";
+	public int addWorkSchedule(@RequestBody WorkScheduleVO scheduleVO) throws Exception {
+		int result = workScheduleService.checkSch(scheduleVO);
+		int rst = 0;
+		
+		if(result==0) {
+			rst = workScheduleService.setWorkAdd(scheduleVO);	
+		}else {
+			rst=0;
+		}	
+		return rst;
 	}
 	
 	@GetMapping("workList")
@@ -66,10 +73,25 @@ public class WorkScheduleController {
 			
 			LocalDateTime date2 = list.get(i).getWorkStart();
 			String dept = list.get(i).getDeptNo();
+			
+			if(date2.toLocalDate().isBefore(date1)){ 
+				hash.put("color", "#F7819F"); 
+			}
+			else { 				
+				if(dept.equals("400")) {
+					hash.put("color", "#A9F5A9");
+				}else if(dept.equals("500")){
+					hash.put("color", "#81DAF5");
+				}else if(dept.equals("600")) {
+					hash.put("color", "#9F81F7");
+				}
+				
+			}
+
+			jsonObj = new JSONObject(hash); 
+			jsonArr.add(jsonObj);		
 		}
 		
-		jsonObj = new JSONObject(hash); 
-		jsonArr.add(jsonObj);		
 		
 		log.info("jsonArrCheck:{}", jsonArr);
 		
@@ -82,10 +104,6 @@ public class WorkScheduleController {
 	public WorkScheduleVO getDetail(Model model, @RequestBody WorkScheduleVO scheduleVO) throws Exception{
 
 		scheduleVO = workScheduleService.getDetail(scheduleVO);
-		log.info("=======getEmpName======={}",scheduleVO.getEmpName());
-		log.info("=======getWorkStart======={}",scheduleVO.getWorkStart());
-		log.info("=======getWorkEnd======={}",scheduleVO.getWorkEnd());
-		log.info("=====VO확인{}=======", scheduleVO);
 		model.addAttribute("vo", scheduleVO);
 				
 		return scheduleVO;

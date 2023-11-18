@@ -118,14 +118,8 @@
 			        
 			                    <!-- 지출결의서 폼이 추가되는 곳 -->
 			                    <div id="addList" class="my-5">
-									<!-- <div class="expense row g-3 mb-2" id="expense[0]" name="expense">
-									    <input type="text" class="form-control me-2" id="expenseName0" name="expenseName" placeholder="항목" style="width:350px;">
-									    <input type="text" class="form-control me-2" id="expenseAmount0" name="expenseAmount" placeholder="수량"
-									    		style="width:100px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');">
-									    <input type="text" class="form-control me-2" id="expensePrice0" name="expensePrice" placeholder="금액"
-									    		style="width:150px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');">
-									    <input type="text" class="form-control me-2" id="expenseBigo0" name="expenseBigo" placeholder="비고" style="width:200px;">
-									</div> --> 
+
+
 			                    </div>
 			                    
 								<div>		
@@ -140,6 +134,31 @@
 										    <input type="hidden" class="form-control me-2" id="expenseNo${ee.index}" name="expenseNo" style="width:200px;" value="${e.expenseNo}">
 										    <button type="button" id="expenseMinusBtn" name="expenseMinusBtn" class="btn btn-primary deletes" data-delete-num="${e.apNo}" data-delete-name="${e.expenseName}" style="width:50px; height:38.94px;"> X </button>
 										</div> 
+			                        </c:forEach>
+			                    </div>
+			                    
+			                    <!-- Upload file *************************************** -->
+			                    <div class="mb-1" style="margin:0 auto; width:fit-content;">
+			                        <button type="button" class="btn btn-primary" id="filePlus">File 추가</button>
+			                    </div>
+			        
+			                    <!-- 파일첨부 추가되는 영역 -->
+			                    <div id="fileList" class="my-5">
+			                        <div class="input-group mb-3">
+			                            <input type="file" name="files" class="form-control">
+			                        </div>
+			        
+			                    </div>
+			        
+			                    <!-- 첨부되어있는 파일 -->
+			                    <div>		
+			                        <c:forEach items="${approvalVO.fileList}" var="f">
+			                            <div class="alert alert-primary" role="alert" style="display: flex;overflow: hidden;align-items: center;">
+			                                <span style="width:100%;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
+			                                    ${f.originalFileName}
+			                                </span>
+			                                <button type="button" class="btn btn-primary fdeletes" data-delete-fileNo="${f.fileNo}" style="flex:none;"> X </button>
+			                            </div>
 			                        </c:forEach>
 			                    </div>
 								

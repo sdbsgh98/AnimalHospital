@@ -457,9 +457,16 @@
 							</tr>
 						</tbody>
 					</table>
-					<p align="center" style="margin: 0px 0px 10px;line-height: 107%;font-size:10pt;font-family:맑은 고딕;text-align:center">
-						<span style="font-family:나눔고딕">&nbsp;</span>
-					</p>
+					<br>
+					<table style="border: 1px solid black; padding: 0px 7px; height: 200px; width: 616px; vertical-align: top;">
+						<tbody>
+							<c:forEach items="${approvalVO.fileList}" var="f">
+								<tr>
+									<td>${f.fileName}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 
 					</div>
 					</div>
