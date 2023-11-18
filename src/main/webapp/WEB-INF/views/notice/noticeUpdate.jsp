@@ -31,6 +31,8 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 </head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+</head>
 <body>
 	<!-- Layout wrapper -->
 	<div class="layout-wrapper layout-content-navbar">
@@ -106,9 +108,9 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 		<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
 	<!-- / Layout wrapper -->
+	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 	<!-- summernote -->
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"
-	integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
 	
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"
 	integrity="sha256-5slxYrL5Ct3mhMAp/dgnb5JSnTYMtkr4dHby34N10qw=" crossorigin="anonymous"></script>
@@ -118,7 +120,52 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="anonymous"></script>
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>	
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+	
+<script type="text/javascript">
+const fileList = document.getElementById("fileList");
+const fileAdd = document.getElementById("fileAdd");
+const deletes = document.getElementsByClassName("deletes");
+
+$('#fileList').on("click",'.x2',function(){
+	if(confirm("삭제시 복원이 불가능 합니다.")){
+    	let num = $(this).attr("data-num");
+    	let name = $(this).attr("data-file");
+    	
+		fileDelete(num, name);
+		
+		$(this).parent().remove();
+    	count --;
+    	
+	}
+})
+
+ function fileDelete(fileNo, fileName){
+	$.ajax({
+		type:"get",
+		url:"./fileDelete?fileNo="+fileNo,
+		data:{
+			"fileNo":fileNo,
+			"fileName":fileName
+		},
+		success:function(response){
+			r=response.trim();
+			console.log(r);
+			if(r>0){
+				alert("삭제되었습니다.");
+			}else{
+				alert("삭제 실패");
+			}
+			
+		},
+		error:function(){
+			console.log("ajax 실패");
+			console.log(data);
+		}
+	}) 
+}
+
+</script>
 	<script>
 	$('#contents').summernote({
 	  tabsize: 2,
@@ -131,51 +178,5 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	
 	$("#contents").summernote('code'); 
 	</script>
-	
-	<script type="text/javascript">
-	const fileList = document.getElementById("fileList");
-	const fileAdd = document.getElementById("fileAdd");
-	const deletes = document.getElementsByClassName("deletes");
-	
-	$('#fileList').on("click",'.x2',function(){
-		if(confirm("삭제시 복원이 불가능 합니다.")){
-	    	let num = $(this).attr("data-num");
-	    	let name = $(this).attr("data-file");
-	    	
-			fileDelete(num, name);
-			
-			$(this).parent().remove();
-	    	count --;
-	    	
-		}
-	})
-	
-	 function fileDelete(fileNo, fileName){
-		$.ajax({
-			type:"get",
-			url:"./fileDelete?fileNo="+fileNo,
-			data:{
-				"fileNo":fileNo,
-				"fileName":fileName
-			},
-			success:function(response){
-				r=response.trim();
-				console.log(r);
-				if(r>0){
-					alert("삭제되었습니다.");
-				}else{
-					alert("삭제 실패");
-				}
-				
-			},
-			error:function(){
-				console.log("ajax 실패");
-				console.log(data);
-			}
-		}) 
-	}
-	
-	</script>
-
 </body>
 </html>

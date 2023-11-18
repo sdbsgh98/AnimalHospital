@@ -35,7 +35,7 @@ public class EmpController {
 	// 로그인 페이지
 	
 	@GetMapping("login")
-	public String getLogin(@ModelAttribute EmpVO empVO)throws Exception{
+	public String getLogin(@ModelAttribute EmpVO empVO, FindVO findVO)throws Exception{
 		//SecurityContext context = SecurityContextHolder.getContext();
 
 		return "emp/login";
@@ -80,9 +80,9 @@ public class EmpController {
 	
 	// 비밀번호 찾기
 	@GetMapping("findUser")
-	public String findUser(FindVO findVO, Model model) throws Exception{
+	public String findUser(FindVO findVO, Model model, EmpVO empVO) throws Exception{
 				
-		return "emp/findUser";
+		return "emp/login";
 	}
 	
 	@ResponseBody

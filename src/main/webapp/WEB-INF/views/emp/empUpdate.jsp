@@ -38,14 +38,16 @@
 							<input type="hidden" name="email" value="${vo.email}">
 							<input type="hidden" name="phone" value="${vo.phone}">
 							<input type="hidden" name="birth" value="${vo.birth}">
-								<div style="width: 300px; float: left;">
-									<c:if test="${vo.originalFileName == null }">
-										<img alt="" src="/resources/images/default.jpeg" style="width: 250px; height: 250px; margin: 30px;">
-									</c:if>
-									<c:if test="${vo.originalFileName != null }">		
-										<img alt="" src="../files/emp/${vo.fileName}" style="width: 250px; height: 250px; margin: 30px;">
-									</c:if>
-								</div>
+                                <div style="width: 300px; float: left;">
+                                    <c:choose>
+                                        <c:when test="${empty vo.originalFileName}">
+                                            <img alt="" src="/resources/images/default.jpeg" class=" rounded-circle" style="width: 250px; height: 250px; margin: 30px;">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img alt="" src="../files/emp/${vo.fileName}"  class=" rounded-circle" style="width: 250px; height: 250px; margin: 30px;">
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
 							<div style="width: 550px; margin-top: 20px; margin-bottom: 20px; float: left;">
 								
 								<table class="table" style="">
