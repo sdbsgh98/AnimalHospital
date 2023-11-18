@@ -74,6 +74,7 @@ public class CustomerService {
 	public int setUpdate(CustomerVO customerVO, MultipartFile[] files, HttpSession session) throws Exception {
 		int result = customerDAO.setUpdate(customerVO);
 		
+		if(files != null) {
 		for(MultipartFile multipartFile:files) {
 			if(multipartFile.isEmpty()) {
 				continue;
@@ -85,6 +86,7 @@ public class CustomerService {
 			fileVO.setFileName(fileName);
 			fileVO.setOriginalFileName(multipartFile.getOriginalFilename());
 			result = customerDAO.setFileAdd(fileVO);
+			}
 		}
 		
 		return result;
