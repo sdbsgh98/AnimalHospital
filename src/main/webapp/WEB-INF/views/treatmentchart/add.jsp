@@ -134,6 +134,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 												<div class="medicine row g-3 mb-2" id="medicine" name="medicine">
 												    <select class="form-select" id="medicineNo" name="medicineNo" style="width:350px;">
 												    	<c:forEach items="${med}" var="a">
+												    		<option selected>사용할 약물을 선택해주세요.</option>
 															<option value="${a.medicineNo}">${a.name}</option>
 														</c:forEach>
 												    </select>
@@ -306,6 +307,13 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 				}
 			}
 		});
+	</script>
+	
+	<script>
+		var now_utc = Date.now()
+		var timeOff = new Date().getTimezoneOffset()*60000;
+		var today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+		document.getElementById("date").setAttribute("min", today);
 	</script>
 	
 	<!-- <script>
