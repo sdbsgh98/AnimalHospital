@@ -130,7 +130,7 @@ $(function(){
 				center: 'title',
 				right: 'dayGridMonth,timeGridWeek'
 			},
-			initialView:'dayGridMonth',
+			initialView:'timeGridWeek',
 			events: data,
 			navLinks: true,
 			navLinkDayClick:function(date,jsEvent){
@@ -140,7 +140,7 @@ $(function(){
 			},
 			editable: false,
 			selectable: true,
-			locale: 'ko',
+			locale: 'en',
 			dateClick: function() {  
 				//달력안에 클릭하면 				 
  			},

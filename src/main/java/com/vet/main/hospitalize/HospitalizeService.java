@@ -13,8 +13,13 @@ public class HospitalizeService {
 	@Autowired
 	private HospitalizeDAO hospitalizeDAO;
 	
+	public int searchReserved(HospitalizeVO hospitalizeVO) throws Exception{
+		return hospitalizeDAO.searchReserved(hospitalizeVO);
+	}
+	
+	
 	public int setHospitalize(HospitalizeVO hospitalizeVO) throws Exception{
-		
+				
 		return hospitalizeDAO.setHospitalize(hospitalizeVO);
 	}
 	
@@ -41,4 +46,6 @@ public class HospitalizeService {
 	public int setDelete(HospitalizeVO hospitalizeVO)throws Exception{
 		return hospitalizeDAO.setDelete(hospitalizeVO);
 	}
+	
+	
 }

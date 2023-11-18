@@ -16,4 +16,5 @@ public interface HospitalizeDAO {
 	public HospitalizeVO getDetail(Long historyNo);
 	public int setUpdate(HospitalizeVO hospitalizeVO);
 	public int setDelete(HospitalizeVO hospitalizeVO);
+	public int searchReserved(HospitalizeVO hospitalizeVO);
 }

@@ -54,7 +54,7 @@ public class SurgeryController {
 			
 			String surRoom = list.get(i).getSurgeryRoom();
 			if(surRoom.equals("수술실1")) {
-				hash.put("color", "#FE9A2E");
+				hash.put("color", "#FA8258");
 			}else {
 				hash.put("color", "#BE81F7");
 			}

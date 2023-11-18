@@ -2,15 +2,8 @@
 
 $(function () {
 
-	/*var request = $.ajax({				
-	url:"/treatment/schedule",
-	method:"POST",			
-	dataType:"json"	
-	});*/
-	
 	var deptNo =$("#deptNo").val();
 	console.log(deptNo)
-
 	
 		var request = $.ajax({
 			url: "/treatment/schedule",
@@ -20,26 +13,6 @@ $(function () {
 			method: "POST"				
 		})
 	
-	
-
-
-	/*$("#deptNo").on("change", function () {
-		var deptNo = this.value;
-		console.log(deptNo)
-		var param = { "deptNo": deptNo }
-		console.log(param)
-
-
-		var request = $.ajax({
-			url: "/treatment/scheduledept",
-			data: JSON.stringify(param),
-			method: "POST",
-			contentType: "application/json"
-
-		})
-
-		console.log(request)*/
-
 		request.done(function (data) {
 
 
@@ -54,7 +27,7 @@ $(function () {
 				expandRows: true,
 				customButtons: {
 					myCustomButton: {
-						text: "예약 등록하기",
+						text: "진료예약",
 						click: function () {
 							$('#userdept').html('');
 							$('#addModal').modal("show");
@@ -168,9 +141,9 @@ $(function () {
 					}
 				},
 				headerToolbar: {
-					left: 'prev,next,today,myCustomButton',
+					left: 'prev,next',
 					center: 'title',
-					right: 'dayGridMonth'
+					right: 'myCustomButton,dayGridMonth'
 				},
 				initialView: 'dayGridMonth',
 				events: data,
@@ -181,7 +154,7 @@ $(function () {
 				},
 				editable: false,
 				selectable: true,
-				locale: 'ko',
+				locale: 'en',
 				dateClick: function () {
 
 				},
@@ -249,10 +222,10 @@ $(function () {
 							$("#modifyBtn").on("click", function () {
 								var treatdate = $("#getdate").val();
 
-								var daterst = treatdate >= nowDate
+								var daterst = (treatdate >= nowDate)
 
 								console.log(daterst);
-								if (daterst == true) {
+								//if (daterst == true) {
 									$("#detailModal").modal("hide");
 									$("#updateModal").modal("show");
 									console.log(detail.username);
@@ -260,7 +233,7 @@ $(function () {
 									$("#updateName").val($("#getanimalName").val());
 									$("#updateusername").val($("#getusername").val());
 									$("#modifyDate").val($("#getdate").val());
-								}
+								
 
 							})
 
@@ -270,6 +243,10 @@ $(function () {
 
 					//삭제버튼클릭시
 					$("#deleteBtn").on("click", function () {
+						if(!confirm('정말로 삭제하시겠습니까??')){
+          					 return false;
+       					}
+						
 						console.log(param);
 						$.ajax({
 							url: "/treatment/scheduleDelete",
@@ -278,7 +255,9 @@ $(function () {
 							contentType: "application/json",
 							success: function (data) {
 								console.log("delete");
-
+								
+       							 
+   								
 								$("#detailModal").modal("hide");
 
 								location.href = "/treatment/schedule";
@@ -404,7 +383,7 @@ $(function () {
 				expandRows: true,
 				customButtons: {
 					myCustomButton: {
-						text: "예약 등록하기",
+						text: "진료예약",
 						click: function () {
 							$('#userdept').html('');
 							$('#addModal').modal("show");
@@ -518,9 +497,9 @@ $(function () {
 					}
 				},
 				headerToolbar: {
-					left: 'prev,next,today,myCustomButton',
+					left: 'prev,next',
 					center: 'title',
-					right: 'dayGridMonth'
+					right: 'myCustomButton,dayGridMonth'
 				},
 				initialView: 'dayGridMonth',
 				events: data,
@@ -531,7 +510,7 @@ $(function () {
 				},
 				editable: false,
 				selectable: true,
-				locale: 'ko',
+				locale: 'en',
 				dateClick: function () {
 
 				},
@@ -602,7 +581,7 @@ $(function () {
 								var daterst = treatdate >= nowDate
 
 								console.log(daterst);
-								if (daterst == true) {
+								//if (daterst == true) {
 									$("#detailModal").modal("hide");
 									$("#updateModal").modal("show");
 									console.log(detail.username);
@@ -610,7 +589,7 @@ $(function () {
 									$("#updateName").val($("#getanimalName").val());
 									$("#updateusername").val($("#getusername").val());
 									$("#modifyDate").val($("#getdate").val());
-								}
+								
 
 							})
 
