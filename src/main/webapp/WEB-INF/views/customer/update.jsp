@@ -118,7 +118,7 @@
 				                          </div>
 				                        </div>
 										 
-										 <div class="mb-3 row">
+										<div class="mb-3 row">
 										 	<label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">사진</label>
 										    	<div class="col-sm-10">
 										      		<div class="mb-3">
@@ -135,7 +135,7 @@
 											         	</c:forEach>
 											         </div>
 										    	</div>
-										 </div>
+										</div>
 										
 										<button class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">수정</button>
 									</div>
@@ -201,24 +201,6 @@
 			}
 		})
     }
-
-	/* $('.deletes').click(function(){
-	    let num = $(this).attr("data-delete-num");
-	    let check = confirm("삭제시 복구 불가");
-	   
-	     if(check){
-	     $.ajax({
-	          type:'post',
-	           url:'./fileDelete?fileNo='+num,
-	           success:function(r){
-	                if(r.trim()=='1'){
-	                   $(this).remove();
-	                        count--;
-	                    }
-	           }
-	     })
-	     }
-	}) */
 
 	let max = 1;
 	let count = 0;

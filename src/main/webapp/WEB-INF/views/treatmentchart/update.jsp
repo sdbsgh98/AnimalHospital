@@ -48,7 +48,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<div class="card shadow mb-4" style="align-items: center;">
-							<form action="./update" method="POST" enctype="multipart/form-data">
+							<form action="./update" method="POST" id="frm" enctype="multipart/form-data">
 								<input type="hidden" name="customerNo" value="${cus.customerNo}">
 								<input type="hidden" name="chartNo" value="${vo.chartNo}">
 								<div>
@@ -70,24 +70,30 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											</table>
 											<div>
 												<br><h3>반려동물</h3>
-												<table class="table">
-													<tr>
-														<td>이름</td>
-														<td>${cus.animalName}</td>
-													</tr>
-													<tr>
-														<td>성별</td>
-														<td>${cus.gender}</td>
-													</tr>
-													<tr>
-														<td>나이</td>
-														<td>${cus.age}</td>
-													</tr>
-													<tr>
-														<td>병명</td>
-														<td><input type="text" name="disease" class="form-control" id="disease" value="${vo.disease}"></td>
-													</tr>
-												</table>
+												<div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">이름</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="animalName" value="${cus.animalName}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">성별</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="gender" value="${cus.gender}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">나이</label>
+													    <div class="col-sm-10">
+													      <input type="text" readonly class="form-control-plaintext" id="age" value="${cus.age}">
+													    </div>
+												  </div>
+												  <div class="mb-3 row">
+												    <label for="disease" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">병명</label>
+													    <div class="col-sm-10">
+													      <input type="text" name="disease" class="form-control" id="disease" value="${vo.disease}">
+													    </div>
+												  </div>
 											</div>
 
 											<div class="mb-3">
@@ -117,7 +123,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											</div>
 
 										</div>
-										<button class="btn btn-primary" style="float: right; margin-bottom: 20px; margin-right: 20px;">진료차트수정</button>
+										<button type="button" id="updateBtn" class="btn btn-primary" style="float: right; margin-bottom: 20px; margin-right: 20px;">진료차트수정</button>
 									</div>
 								</div>
 							</form>
@@ -222,6 +228,26 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 
 	});
 	
+	</script>
+	
+	<script>
+		document.getElementById('updateBtn').addEventListener('click', function(event){
+			let notDisease = document.querySelector('input[name="disease"]');	
+			let notContents = document.querySelector('textarea[name="contents"]');
+
+			if(notDisease.value.trim() === ''){
+				event.preventDefault();
+				alert("병명은 필수입니다.");
+				notDisease.focus();
+			}else{
+				if(notContents.value.trim() === '') {
+					event.preventDefault();
+					alert("내용은 필수입니다.");
+				}else{
+					document.getElementById('frm').submit();
+				}
+			}
+		});
 	</script>
 
 

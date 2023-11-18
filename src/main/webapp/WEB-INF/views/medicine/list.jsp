@@ -72,7 +72,7 @@
 														</div> 
 														<input type="text" name="search" value="${pager.search}"
 															class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 150px; margin-left: 5px;">
-															<button type="submit" class="btn btn-primary" style="width:100px; margin-left: 5px;">검색</button>
+															<button class="btn" type="submit" style="border-radius: 5px; border-color: #d9dee3;"><img alt="" src="/resources/images/searchIcon.svg"></button>
 													</form>
 												</div>
 											</div>

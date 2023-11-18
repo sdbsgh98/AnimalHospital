@@ -49,13 +49,13 @@
 											<div class="mb-3 row">
 											    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">입고일</label>
 												    <div class="col-sm-10">
-												      <input type="date" name="medicineDate" class="form-control" id="medicineDate" value="${vo.medicineDate}">
+												      <input type="date" name="medicineDate" readonly class="form-control-plaintext" id="medicineDate" value="${vo.medicineDate}">
 												    </div>
 											</div>
 											<div class="mb-3 row">
 											    <label for="label" class="col-sm-2 col-form-label" style="text-align: center; font-weight: bold; font-size: medium;">유통기한</label>
 												    <div class="col-sm-10">
-												      <input type="date" name="expirationDate" class="form-control" id="expirationDate" value="${vo.expirationDate}">
+												      <input type="date" name="expirationDate" readonly class="form-control-plaintext" id="expirationDate" value="${vo.expirationDate}">
 												    </div>
 											</div>
 											<button class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 20px; margin-right: 10px;">수정</button>
