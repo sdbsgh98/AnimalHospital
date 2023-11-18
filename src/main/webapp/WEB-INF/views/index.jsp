@@ -17,6 +17,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<style>
+	.fc-button{
+		color:#FE9A2E
+	}
+</style>
 </head>
 <body>
 	<!-- Layout wrapper -->
@@ -31,7 +36,14 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-					<div id="calendar" style="height=300px"> </div>				
+					   <div class="card" style="width:40%" >				       
+					       <div class="card-content">
+					      	<div id="calendar" style="padding:30px"> 
+					      
+					      	</div>	                           
+					          </div>
+				          </div>
+					]
 					<sec:authentication property="Principal" var="user"/>	
 						<sec:authorize access="isAuthenticated()">
 							<a href="/emp/logout" class="btn btn-danger" style="">로그아웃</a>	

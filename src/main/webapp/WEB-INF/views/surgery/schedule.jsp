@@ -35,10 +35,20 @@
                
                <!-- 내용부분-->               
                <div class="container-xxl flex-grow-1 container-p-y">
-           
-               <div id="calendar"></div>                           
-               
-               
+               <div class="row">
+               <div class="col-md-10 col-md-offset-1">
+              
+               	<div style="padding: 0 0 10px" >	              
+		        </div>
+		        
+		          <div class="card">
+		          	<div id="calendar">
+		          	</div>
+			        <div class="card-content">				          		                           
+			        </div>
+		          </div>
+		       </div> 
+                
                <!-- add Modal -->
                <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                  <div class="modal-dialog">

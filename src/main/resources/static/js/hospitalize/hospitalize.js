@@ -75,10 +75,38 @@
 			data: param,
 			method:"POST",
 			success: function(data){
+				console.log(data)
 				console.log("성공이다!")
+				
 				location.href="/hospitalize/list"
 			}
 			
 		})		
 		
 	})
+	
+	
+	$("#updateHos").on("click",function(){
+		$.ajax({
+			url:"/hospitalize/update",
+			data: {
+				historyNo: $("#historyNo").val(),
+				cageNo: $("#cageNo").val(),
+				startDate: $("#startDate").val(),
+				lastDate: $("#lastDate").val(),
+				disease: $("#disease").val()
+			},
+			method: "POST",
+			success : function(rst){			
+				if(rst==0){
+					alert("이미 사용중인 입원실입니다!")
+					$("#cageNo").focus()
+				
+				}else{
+					location.href="/hospitalize/list";
+				}
+			}
+		})
+		
+	})
+	

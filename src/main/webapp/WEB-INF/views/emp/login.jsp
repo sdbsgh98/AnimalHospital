@@ -46,12 +46,12 @@
 											<form:form modelAttribute="empVO" action="/emp/login" method="POST">
 											  <div class="form-group">
 											  	<form:label path="username">사원번호</form:label>
-												<form:input  id="username" path="username" value="2023089" cssClass="form-control"/>					
+												<form:input  id="username" path="username" value="2023030" cssClass="form-control"/>					
 											 
 											  </div>
 											  <div class="form-group">
 											  	<form:label path="password">비밀번호</form:label>
-											    <form:password id="password" path="password" value="123456" cssClass="form-control"/>
+											    <form:password id="password" path="password" value="alsghalsgh12" cssClass="form-control"/>
 											  
 											  </div>
 											  <button type="submit" class="btn btn-primary" style="margin-top: 30px;">로그인</button>

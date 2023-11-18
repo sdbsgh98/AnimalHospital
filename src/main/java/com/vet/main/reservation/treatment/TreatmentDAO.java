@@ -26,4 +26,5 @@ public interface TreatmentDAO {
 	public int setUpdate(TreatmentVO treatmentVO);
 	public List<TreatmentVO> getTreatment();
 	public int reservedTreat(TreatmentVO treatmentVO);
+	public List<TreatmentVO> getPersonSchedule(String username);
 }

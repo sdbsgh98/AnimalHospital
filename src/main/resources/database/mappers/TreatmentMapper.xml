@@ -5,6 +5,14 @@
 
 <mapper namespace="com.vet.main.reservation.treatment.TreatmentDAO">
 	
+	<select id="getPersonSchedule" resultType="TreatmentVO">
+		SELECT T.TREATMENTDATE, T.TREATMENTNO, C.ANIMALNAME
+		  FROM TREATMENT T
+		  	   INNER JOIN CUSTOMER C
+		  	  		   ON T.CUSTOMERNO=C.CUSTOMERNO
+		 WHERE USERNAME=#{username}		
+	</select>
+	
 	<select id="getScheduleList" resultType="TreatmentVO">
 			SELECT T.TREATMENTDATE, T.TREATMENTNO, C.ANIMALNAME, E.EMPNAME, E.DEPTNO
 	  		  FROM TREATMENT T 

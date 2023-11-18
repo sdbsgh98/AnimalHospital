@@ -125,5 +125,9 @@ public class TreatmentService {
 	public int reservedTreat(TreatmentVO treatmentVO) throws Exception {
 		return treatmentDAO.reservedTreat(treatmentVO);
 	}
+	
+	public List<TreatmentVO> getPersonSchedule(String username)throws Exception{
+		return treatmentDAO.getPersonSchedule(username);		
+	}
 
 }

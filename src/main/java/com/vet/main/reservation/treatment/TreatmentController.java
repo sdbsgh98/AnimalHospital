@@ -79,10 +79,13 @@ public class TreatmentController {
 			else { 				
 				if(dept.equals("400")) {
 					hash.put("color", "#A9F5A9");
+					
 				}else if(dept.equals("500")){
 					hash.put("color", "#81DAF5");
+				
 				}else if(dept.equals("600")) {
 					hash.put("color", "#9F81F7");
+				
 				}
 				
 			}		

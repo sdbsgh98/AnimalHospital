@@ -35,7 +35,7 @@
                   
                   <div class="container-xxl flex-grow-1 container-p-y">
                     <h3>입원동물 수정</h3>
-                    <form action="./update" method="post">
+                   
                     <table class="table align-items-center mb-0">
                       <tbody>
                       <input type="hidden" id="customerNo" value=${vo.customerNo}>
@@ -126,14 +126,11 @@
 
                       </tbody>                      
                     </table> 
+                    
                     <div style=" text-align: center; margin: 30px;">
                     	<button type="submit" id="updateHos" class="btn btn-primary">수정등록</button>             
                     </div>
-                    </form>
-                    
-
-                   
-
+          
                   </div>
                   <!-- / Content -->
                   <c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
