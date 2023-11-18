@@ -11,4 +11,5 @@ public class FileVO {
 	private String fileName;
 	private String originalFileName;
 
+	private String originalName;
 }

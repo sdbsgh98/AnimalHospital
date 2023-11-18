@@ -2,6 +2,7 @@ package com.vet.main.notice;
 
 import java.util.List;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,10 +63,11 @@ public class NoticeService {
 	public int noticeUpdate(NoticeVO noticeVO, MultipartFile[] files, HttpSession session)throws Exception{
 		int result = noticeDAO.noticeUpdate(noticeVO);
 		
-		for(MultipartFile multipartFile:files) {
-			if(multipartFile.isEmpty()) {
-				continue;
-			}
+		if (files != null) {
+		    for(MultipartFile multipartFile:files) {
+		        if(multipartFile.isEmpty()) {
+		            continue;
+		        }
 			
 			NoticeFileVO fileVO = new NoticeFileVO();
 			String fileName = fileManger.save(this.uploadPath + this.username, multipartFile);
@@ -73,6 +75,7 @@ public class NoticeService {
 			fileVO.setOriginalName(multipartFile.getOriginalFilename());
 			fileVO.setFileName(fileName);
 			result = noticeDAO.setFileAdd(fileVO);
+		    }
 		}
 		
 		
@@ -106,6 +109,10 @@ public class NoticeService {
 		int result = noticeDAO.fileUpdateDelete(noticeFileVO);
 		
 		return result;
+	}
+	
+	public NoticeFileVO noticeFileDown(NoticeFileVO noticeFileVO)throws Exception{
+		return noticeDAO.fileDetail(noticeFileVO);
 	}
 	
 }

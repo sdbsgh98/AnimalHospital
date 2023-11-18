@@ -88,9 +88,12 @@ public class DeptController {
 	
 	@GetMapping("positionDelete")
 	public String positionDelete(DeptVO deptVO) throws Exception {
-	    int result = deptService.positionDelete(deptVO);
-
-	    return "redirect:./deptManage?deptNo=" + deptVO.getDeptNo();
+	    String no = deptVO.getDeptNo();
+		int result = deptService.positionDelete(deptVO);
+	    
+	    log.info("=========================={}",deptVO);
+	    return "redirect:./deptManage?deptNo=" + no;
+//	    return "redirect:./deptList"; 
 	}
 	
 	//부서 관리 페이지

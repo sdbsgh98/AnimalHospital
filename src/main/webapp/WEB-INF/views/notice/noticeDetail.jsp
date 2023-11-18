@@ -31,8 +31,7 @@
 					<div class="card shadow mb-4" style="align-items: center;">
 						<div style="width:65%; margin-bottom: 30px; margin-top: 30px;">
 							<input type="hidden" name="noticeNo" value="${vo.noticeNo}">
-							<table class="table">
-							
+							<table class="table">						
 							    <tr>
 							        <th style="width:10%;">Title</th>
 							        <td style="width:85%; text-align: center; font-size: 15px;">${vo.title}</td>
@@ -49,16 +48,19 @@
 							        <th style="width:10%;">Hit</th>
 							        <td style="width:85%; text-align: center; font-size: 15px;">${vo.hit+1}</td>
 							    </tr>
-						 
+						 		  <tr>
+							        <th >Files</th>
+									<td style="text-align: center;"> <c:forEach items="${vo.fileVO}" var="f">
+									 	<input type="hidden" name="fileNo" value="${f.fileNo}">
+										<a href="./fileDown?fileNo=${f.fileNo}" class="btn" style="font-size: 12px;">${f.originalName}</a><br>
+									</c:forEach></td>
+							    </tr>
 							</table>
 							<div class="mb-3">
 								<label for="contents" class="form-label"></label>
-								<textarea class="form-control" name="contents" id="contents" readonly="readonly" style="height: 200px;">${vo.contents}</textarea>
-							 </div>						 
-							 <c:forEach items="${vo.fileVO}" var="f">
-							 	<img alt="" src="../files/notice/${f.fileName}" style="width: 300px; height: 300px;"><!-- files 까지가 upload라는 폴더까지 -->
-								<a href="./fileDown?fileNo=${f.fileNo}">${f.originalName}</a>
-							</c:forEach>
+								 <div class="card-text">${vo.contents}</div>
+							 </div>	
+						 					 
 						</div>
 					</div>
 						<a class="btn btn-primary" href="./noticeUpdate?noticeNo=${vo.noticeNo}">수정</a>
@@ -79,7 +81,7 @@
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 	<script type="text/javascript">
-		
+
 	</script>
 </body>
 </html>

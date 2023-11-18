@@ -4,6 +4,7 @@
 <!-- jsp에서 properties 메세지를 사용할 수 있도록 하는 API -->
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
 	data-theme="theme-default" data-assets-path="/assets/"
@@ -26,11 +27,11 @@
 				<c:import url="/WEB-INF/views/layout/topbar.jsp"></c:import>
 				<!-- Content wrapper -->
 
+						<sec:authentication property="Principal" var="user"/>
 				<div class="content-wrapper">
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-						<sec:authentication property="Principal" var="user"/>
 					
 					<form>
 					<h3>공지사항</h3>
@@ -106,7 +107,7 @@
 							<div style="margin-right: 20px;">
 								<!-- <a href="./noticeAdd" class="btn btn-primary" style="float: right; margin-right: 10px; height: 40px;">등록</a> -->	
 								<c:if test="${user.positionNo == 1}">
-									<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">추가</button>  						
+									<a href="./noticeAdd" class="btn btn-primary" style="float: right; margin-right: 10px; height: 40px;">등록</a> 
 								</c:if>
 							</div>
 					</div>													
