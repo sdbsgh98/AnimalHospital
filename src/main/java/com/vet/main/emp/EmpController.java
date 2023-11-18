@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +32,9 @@ import lombok.extern.slf4j.Slf4j;
 public class EmpController {
 
 	@Autowired
+	private EmpDAO empDAO;
+	
+	@Autowired
 	private EmpService empService;
 	
 	// 로그인 페이지
@@ -41,6 +46,20 @@ public class EmpController {
 		return "emp/login";
 	}
 	
+//	@ResponseBody
+//	@RequestMapping(value = "/emp/loginCheck", method = RequestMethod.POST)
+//	public String loginCheck(@RequestParam String username, @RequestParam String password) {
+//	    // 여기서 실제 로그인 체크를 수행하고, 성공 여부에 따라 "success" 또는 "fail" 반환
+//	    boolean loginSuccess = performLoginCheck(username, password);
+//	    return loginSuccess ? "success" : "fail";
+//	}
+//	
+//    private boolean performLoginCheck(String username, String password) {
+//        // 여기에 실제 로그인 체크 로직을 구현
+//        // 성공하면 true, 실패하면 false 반환
+//        return "correctUsername".equals(username) && "correctPassword".equals(password);
+//    }
+	
 	@GetMapping("logout")
 	public String getLogout(HttpSession session) throws Exception {
 
@@ -48,6 +67,20 @@ public class EmpController {
 		
 		return "redirect:../";
 	}
+	
+//	@GetMapping("login")
+//	public String getLogin(@ModelAttribute EmpVO empVO, FindVO findVO)throws Exception{
+//		SecurityContext context = SecurityContextHolder.getContext();
+//		
+//		String check = context.getAuthentication().getPrincipal().toString();
+//		
+//		log.info("======= Context : {} =========", context.getAuthentication().getPrincipal().toString());
+//		
+//		if(!check.equals("anonymousUser")) {
+//			return "redirect:/";
+//		}
+//		return "emp/login";
+//	}
 	
 	// 비밀번호 수정페이지
 	@GetMapping("pwUpdate")

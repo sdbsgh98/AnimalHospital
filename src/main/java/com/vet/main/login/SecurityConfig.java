@@ -23,6 +23,7 @@ public class SecurityConfig {
 	private EmpService empService;
 	
 	
+	
 	@Bean
 	WebSecurityCustomizer webSecurityCustomizer() {
 		
@@ -52,7 +53,10 @@ public class SecurityConfig {
 				.antMatchers("/emp/empUpdate").hasRole("ADMIN")
 				.antMatchers("/dept/deptManage").hasRole("ADMIN")
 				.antMatchers("/dept/*").hasAnyRole("ADMIN", "USER") 
-				.antMatchers("/notice/*").hasAnyRole("ADMIN", "USER") 
+				.antMatchers("/notice/*").hasAnyRole("ADMIN", "USER")
+				.antMatchers("/notice/noticeAdd").hasRole("ADMIN")
+				.antMatchers("/notice/noticeUpdate").hasRole("ADMIN")
+				.antMatchers("/notice/noticeDelete").hasRole("ADMIN")
 				.antMatchers("/customer/*").hasAnyRole("ADMIN", "USER") 
 				.antMatchers("/treatmentchart/*").hasAnyRole("ADMIN", "USER")
 				.antMatchers("/medicine/*").hasAnyRole("ADMIN", "USER")
@@ -68,7 +72,7 @@ public class SecurityConfig {
 			.formLogin()
 				.loginPage("/emp/login")
 				.successHandler(successHandler)
-				.failureUrl("/emp/login")
+				.failureHandler(getFailHandler())
 				.permitAll()
 				.and()
 			.logout()
@@ -79,7 +83,8 @@ public class SecurityConfig {
 				.permitAll()
 				.and()
 				.rememberMe()
-					.tokenValiditySeconds(60)
+					.rememberMeParameter("remember-me")
+					.tokenValiditySeconds(3600) // 쿠키의 만료시간 설정(초), default: 14일
 					.key("rememberKey")
 					.userDetailsService(empService)
 					.authenticationSuccessHandler(successHandler)
@@ -90,7 +95,10 @@ public class SecurityConfig {
 		return httpSecurity.build();
 					
 	}
-
+	
+	private LoginFailureHandler getFailHandler() {
+		return new LoginFailureHandler();
+	}
 	
 }
 

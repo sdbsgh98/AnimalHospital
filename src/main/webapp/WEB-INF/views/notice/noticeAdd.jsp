@@ -54,10 +54,8 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 
 			        				  <div class="mb-3">
 									    <label for="title" class="form-label" style="font-size: 15px; margin-right: 10px;">Title</label>
-									    <select>
-									  		<option name="important" id="important" value="0">일반</option>
-									  		<option name="important" id="important" value="1">중요</option>									  		
-									  	</select>
+									  	<input type="radio" name="important" id="important" value="중요"><span>중요</span>
+									  	<input type="radio" name="important" id="important" value="일반" checked="checked"><span>일반</span>
 									    <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력하세요.">
 									  </div>
 			        				  <div class="mb-3">
@@ -75,8 +73,8 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 									  </div>
 									  <div class="mb-3">
 									    <input type="file" class="form-control" name="files">
-									  </div>
-									  <button class="btn btn-primary" style="float: right;">작성완료</button>
+									  </div>									  
+									  <button class="btn btn-primary" id="addBtn" style="float: right;">작성완료</button>
 		        				</form>
 	        				</div>
 						</div>
@@ -112,7 +110,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	<script>
 	$('#contents').summernote({
 	  tabsize: 2,
-	  height: 500,
+	  height: 300,
 	  codemirror: { // codemirror options
 		    theme: 'monokai'
 		  },
@@ -120,6 +118,26 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	});
 	
 	$("#contents").summernote('code'); 
+	</script>
+	
+	<script type="text/javascript">
+		$("#addBtn").on("click", function(){
+			let title = $("#title").val();
+			let contents = $("#contents").val();
+			
+			if(title == ""){
+				event.preventDefault();
+				alert("제목을 입력해주세요.")
+				title.focus();
+			}
+			
+			if(contents == ""){
+				event.preventDefault();
+				alert("내용을 입력해주세요.")
+				contents.focus();
+			}
+			
+		})
 	</script>
 </body>
 </html>

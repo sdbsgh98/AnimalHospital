@@ -21,5 +21,7 @@ public class FindVO {
     private String email;
     
 	private int randomPw;
+
+	private String password;
 	
 }

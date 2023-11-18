@@ -31,7 +31,7 @@
 		WHERE
 			<include refid="forPager"></include>
 			LIKE CONCAT('%', #{search}, '%')
-			ORDER BY NOTICENO DESC
+			ORDER BY IMPORTANT DESC, NOTICENO DESC
 			LIMIT #{startRow}, #{lastRow}
 	</select>
 

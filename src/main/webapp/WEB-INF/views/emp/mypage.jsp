@@ -94,7 +94,7 @@
 								</table>
 							</div>
 							<a href="/emp/mypageUpdate?username=${user.username}" class="btn btn-primary" style=" margin-top: 10px; margin-left: 10px; float: right;">내 정보수정</a>
-							<a href="/emp/pwUpdate?username=${user.username}" class="btn btn-danger" style=" margin-top: 10px; float: right;">비밀번호 변경</a>
+							<a href="/emp/pwUpdate?username=${user.username}" class="btn btn-outline-primary" style=" margin-top: 10px; float: right;">비밀번호 변경</a>
 							<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">추가</button>   -->
 						<div style="margin-top: 70px;">	
 								<p style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;내 전자서명 관리</p>

@@ -19,6 +19,7 @@
 	<!-- Layout wrapper -->
 	<div class="layout-wrapper layout-content-navbar">
 		<div class="layout-container">
+		<sec:authentication property="Principal" var="user"/>
 			<c:import url="/WEB-INF/views/layout/sidebar.jsp"></c:import>
 			<!-- Layout container -->
 			<div class="layout-page">
@@ -58,13 +59,16 @@
 							</table>
 							<div class="mb-3">
 								<label for="contents" class="form-label"></label>
-								 <div class="card-text">${vo.contents}</div>
+								 <div class="card-text" style="height: auto;">${vo.contents}</div>
 							 </div>	
 						 					 
 						</div>
 					</div>
-						<a class="btn btn-primary" href="./noticeUpdate?noticeNo=${vo.noticeNo}">수정</a>
-						<a class="btn btn-danger" href="./noticeDelete?noticeNo=${vo.noticeNo}">삭제</a>    		
+						<c:if test="${user.positionNo == 1}">
+							<a class="btn btn-primary" href="./noticeUpdate?noticeNo=${vo.noticeNo}">수정</a>
+							<a class="btn btn-outline-primary" id="delBtn" href="./noticeDelete?noticeNo=${vo.noticeNo}">삭제</a>    									
+						</c:if>						
+						<a class="btn btn-primary" href="./noticeList" style="float: right;">목록</a> 
 					<!-- / Content -->
 					<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
 					<div class="content-backdrop fade"></div>
@@ -80,8 +84,14 @@
 </div>	
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-	<script type="text/javascript">
-
-	</script>
+<script type="text/javascript">
+    $("#delBtn").on("click", function(event) {
+        if (!confirm("삭제하시겠습니까?")) {
+            event.preventDefault(); /* 삭제 취소 */
+        } else {
+            alert("삭제되었습니다.");
+        }
+    });
+</script>
 </body>
 </html>

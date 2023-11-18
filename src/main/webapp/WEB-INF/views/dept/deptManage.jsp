@@ -44,7 +44,7 @@
 													<span>상위부서</span>
 													<select class="form-control" name='parentNo' id="parentNoAdd" style="height: 35px;">										
 														<c:forEach items="${select}" var="dept">
-															<option value="${dept.deptNo}">${dept.deptName}</option>
+															<option value="${dept.deptNo}" selected>${dept.deptName}</option>
 														</c:forEach>
 													<option value=0>없음</option>
 													</select>
@@ -83,7 +83,7 @@
 												          <%-- <form:form modelAttribute="addVO" action="/emp/empList/empAdd" method="POST"> --%>
 												          <input type="hidden" class="form-control" id="no2" name="deptNo" value="${vo.deptNo}" readonly="readonly">
 															<div>
-																<span>이름</span>
+																<span>부서명</span>
 																<input type="text" class="form-control" id="name" name="deptName" value="${vo.deptName}" readonly="readonly">
 																<span>상위부서</span>
 																<input type="text" class="form-control" id="parentNo" name="parentNo" value="${vo.parentNo}" readonly="readonly">

@@ -67,12 +67,11 @@
 									<tr>
 									    <td>부서</td>
 									    <td>
-									        <select class="form-control" name='deptNo' id="deptNo" style="height: 35px">
-									            <option value="${vo.deptNo}" selected="selected">${vo.deptName}</option>
-									            <c:forEach items="${dept}" var="dept">
-									                <option value="${dept.deptNo}">${dept.deptName}</option>
-									            </c:forEach>
-									        </select>
+											<select class="form-control" name='deptNo' id="deptNo" style="height: 35px">
+											    <c:forEach items="${dept}" var="dept">
+											        <option value="${dept.deptNo}" ${dept.deptNo eq vo.deptNo ? 'selected' : ''}>${dept.deptName}</option>
+											    </c:forEach>
+											</select>
 									    </td>
 									</tr>
 									<tr>
@@ -131,7 +130,7 @@
 							</div>
 						</div>
 				</div>
-					<button class="btn btn-danger">수정완료</button>
+					<button class="btn btn-outline-primary">수정완료</button>
 			</form>							
 				<!-- Content wrapper -->
 			</div>

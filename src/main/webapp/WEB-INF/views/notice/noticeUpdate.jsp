@@ -52,20 +52,20 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 								<form action="noticeUpdate" method="post" enctype="multipart/form-data">
 									<input type="hidden" name="noticeNo" value="${vo.noticeNo}">
 									  <div class="mb-3">
-									  	<input type="radio" name="important" id="important" value="1"><span>중요</span>
-									  	<input type="radio" name="important" id="important" value="0" checked="checked"><span>일반</span>
+									  	<input type="radio" name="important" id="important" value="중요"><span>중요</span>
+									  	<input type="radio" name="important" id="important" value="일반" checked="checked"><span>일반</span>
 									  </div>
 			        				  <div class="mb-3">
-									    <label for="title" class="form-label">Title</label>
+									    <label for="title" class="form-label" style="font-size: 15px;">Title</label>
 									    <input type="text" class="form-control" name="title" id="title" value="${vo.title}">
 									  </div>
 			        				  <div class="mb-3">
-									    <label for="username" class="form-label">Writer</label>
+									    <label for="username" class="form-label" style="font-size: 15px;">Writer</label>
 									    <input type="hidden" class="form-control" name="username" id="username" value="${user.username}">
 									    <input type="text" class="form-control" id="empName" value="${vo.empName}" readonly="readonly">
 									  </div>
 									 <div class="mb-3">
-									    <label for="contents" class="form-label">Contents</label>
+									    <label for="contents" class="form-label" style="font-size: 15px;">Contents</label>
 									    <textarea class="form-control" name="contents" id="contents" style="height: 200px;">${vo.contents}</textarea>
 									  </div>
 
@@ -75,22 +75,22 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 											           <span class="alert alert-primary me-2" role="alert" id="${f.originalFileName}">
 											             첨부파일: ${f.originalName}
 											           </span>
-											      <button class="delets x2 btn btn-danger" type="button" data-file="${f.fileName}" data-num="${f.fileNo}">삭제</button>
+											      <button class="delets x2 btn btn-outline-primary" type="button" data-file="${f.fileName}" data-num="${f.fileNo}">삭제</button>
 											  </div>
 										</c:forEach>
 									</div>
-									<br><br>
-									  <div class="mb-3" id="fileAdd">
-									    <!-- <input type="file" class="form-control" name="files"> -->
-									    <button type="button" class="btn btn-primary" id="fileAdd">파일추가</button>									   
-									  </div>
+									<label for="contents" class="form-label" style="font-size: 15px;">Files</label>
+
 									  <div class="mb-3">
 									    <input type="file" class="form-control" name="files">
 									  </div>
 									  <div class="mb-3">
 									    <input type="file" class="form-control" name="files">
 									  </div>
-									  <button class="btn btn-primary">작성완료</button>
+									  <div class="mb-3">
+									    <input type="file" class="form-control" name="files">
+									  </div>									  
+									  <button id="updateBtn" class="btn btn-primary">작성완료</button>
 		        				</form>
 	        				</div>
 						</div>
@@ -169,7 +169,7 @@ $('#fileList').on("click",'.x2',function(){
 	<script>
 	$('#contents').summernote({
 	  tabsize: 2,
-	  height: 500,
+	  height: 300,
 	  codemirror: { // codemirror options
 		    theme: 'monokai'
 		  },
@@ -178,5 +178,27 @@ $('#fileList').on("click",'.x2',function(){
 	
 	$("#contents").summernote('code'); 
 	</script>
+	
+		<script type="text/javascript">
+		$("#updateBtn").on("click", function(){
+			let title = $("#title").val();
+			let contents = $("#contents").val();
+			
+			if(title == ""){
+				event.preventDefault();
+				alert("제목을 입력해주세요.")
+				title.focus();
+			}
+			
+			if(contents == ""){
+				event.preventDefault();
+				alert("내용을 입력해주세요.")
+				contents.focus();
+			}
+			
+			alert("수정완료되었습니다.")
+		})
+	</script>
+	
 </body>
 </html>

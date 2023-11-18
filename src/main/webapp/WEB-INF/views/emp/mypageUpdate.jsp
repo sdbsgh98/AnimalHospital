@@ -87,13 +87,13 @@
 											<div class="form-group">
 												<input type="email" class="form-control"  name="email" id="email" value="${vo.email}" required="required"/>
 												<div id="emailError" style="font-size: 12px; color:red;"></div>
-												<input type="button" class="form-control" id="emailCheck" value="이메일 중복확인" style="background-color: rgb(255,239,222); margin-top: 5px;" onclick='btnActive()'>
-												<a class="btn form-control" id="sendBtn" style="background-color: rgb(255,239,222); margin-top: 10px; margin-bottom: 10px; display: none;" onclick="btn_mail(1)">인증번호 전송</a>
+												<!-- <input type="button" class="form-control" id="emailCheck" value="이메일 중복확인" style="background-color: rgb(255,239,222); margin-top: 5px;" onclick='btnActive()'> -->
+												<!-- <a class="btn form-control" id="sendBtn" style="background-color: rgb(255,239,222); margin-top: 10px; margin-bottom: 10px; display: none;" onclick="btn_mail(1)">인증번호 전송</a>
 												<div id="mailDiv" name="mail_number">
 										            <input type="text" class="form-control" name="number" id="number" style="margin-top: 10px;width: 73%;float: left; display: none;" placeholder="인증번호 입력">
-										            <button type="button" class="form-control" style="width: 25%; background-color: rgb(255,239,222); margin-top: 10px; float: right; display: none;" name="confirmBtn" id="confirmBtn" >확인</button>
-									        	</div>
-											</div>
+										            <button type="button" class="form-control" style="width: 25%; background-color: rgb(255,239,222); margin-top: 10px; float: right; display: none;" name="confirmBtn" id="confirmBtn" >확인</button> -->
+									        </div>
+										
 										</td>
 									</tr>
 									<tr>
@@ -134,7 +134,7 @@
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 <script type="text/javascript">
-$('#emailCheck').on("click", function () {
+/* $('#emailCheck').on("click", function () {
 	let target = document.getElementById('updateBtn');
 	let emailbtn = document.getElementById('emailCheck');
 	let email = $("#email").val();
@@ -145,9 +145,9 @@ $('#emailCheck').on("click", function () {
         $("#emailCheckError").text('이메일 중복확인을 해주세요.');
     } else {
         $("#emailCheckError").text('');
-    }
+    } */
 	
-    $.ajax({
+/*     $.ajax({
         url: "/emp/findEmail",
         type: "POST",
         data: {email: email},
@@ -167,10 +167,10 @@ $('#emailCheck').on("click", function () {
         error: function () {
         	alert("오류발생");
         }
-    });
+    }); */
 });
 </script>
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript">
  
 	$('#sendBtn').on("click", function(){	
 		document.getElementById("number").style.display = "";
@@ -194,9 +194,9 @@ $('#emailCheck').on("click", function () {
 	    
 	});
 		
-	</script>
+	</script> -->
 
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript">
     $('#confirmBtn').on("click", function () {
         let code = $("#number").val();
 		let username = $("#username").val();
@@ -226,7 +226,7 @@ $('#emailCheck').on("click", function () {
       });
 
 
-	</script>
+	</script> -->
 
 <script type="text/javascript">
 

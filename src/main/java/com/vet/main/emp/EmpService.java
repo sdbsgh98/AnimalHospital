@@ -269,4 +269,9 @@ public class EmpService implements UserDetailsService{
 		
 		return result;
 	}
+	
+    public FindVO loginCheck(FindVO findVO) throws Exception{
+        return empDAO.loginCheck(findVO);
+    }
+    
 }

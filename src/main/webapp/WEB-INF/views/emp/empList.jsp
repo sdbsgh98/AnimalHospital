@@ -143,7 +143,7 @@
 							            <label for="email">이메일</label>
 							            <input type="email" class="form-control" id="email" name="email" placeholder="ex) example@gmail.com">
 							            <div id="emailError" style="font-size: 12px; color:red;"></div>
-							            <input type="button" class="form-control" id="emailCheck" value="이메일 중복확인" style="background-color: rgb(255,239,222); margin-top: 5px;" onclick='btnActive()' required="required">
+							            <input type="button" class="form-control btn-primary" id="emailCheck" value="이메일 중복확인" style="/* background-color: rgb(255,239,222); */ margin-top: 5px;" onclick='btnActive()' required="required">
 							        	<div id="emailCheckError" style="font-size: 12px; color:red;"></div>
 							        </div>
 							        <br>
@@ -162,7 +162,7 @@
 								<%-- </form> --%>
 				          	<br>
 							      <div class="modal-footer">
-							        <button class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+							        <button class="btn btn-outline-primary" data-bs-dismiss="modal">취소</button>
 							        <button class="btn btn-primary" id="addBtn" disabled="disabled">추가</button>
 							      </div>
 								</div>

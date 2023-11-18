@@ -19,7 +19,7 @@ public class NoticeVO {
 	private String modifyDate;
 	private String contents;
 	private Long hit;
-	private boolean important;
+	private String important;
 	
 	public List<NoticeFileVO> fileVO;
 	

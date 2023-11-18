@@ -123,7 +123,7 @@
 	        select NEXTVAL(emp_seq) from dual
 	</selectKey>
 		INSERT INTO EMP 
-		VALUES (#{username}, #{password}, #{empName}, #{email}, #{phone}, NOW(), NULL, NULL, 12, 999, '재직', #{birth}, 0)
+		VALUES (#{username}, #{password}, #{empName}, #{email}, #{phone}, NOW(), NULL, NULL, 12, 999, '재직', #{birth}, 0, 10)
 	</insert>
 
 	<insert id="empRole" parameterType="java.util.Map">
@@ -164,6 +164,9 @@
   		SELECT COUNT(*) FROM EMP WHERE EMAIL = #{email}
   	</select>
   	
+  	<select id="loginCheck" resultType="com.vet.main.emp.FindVO" parameterType="com.vet.main.emp.FindVO">
+        SELECT * FROM EMP WHERE USERNAME=#{username} AND PASSWORD=#{password}
+    </select>
   	
   	<update id="pwUpdate" parameterType="com.vet.main.emp.PwVO">
   		UPDATE EMP 

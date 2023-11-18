@@ -133,8 +133,8 @@ button {
 .button {
     margin-top: 3%;
     background: white;
-    color: #EAC7CC;
-    border: solid 1px #EAC7CC;
+    color: rgb(166, 166, 255);
+    border: solid 1px rgb(231, 231, 255);
 }
 
 /* form styling */
@@ -163,7 +163,7 @@ input {
 input::placeholder {
     color: rgba(255, 255, 255, 1);
     letter-spacing: 2px;
-    font-size: 1.0em;
+    font-size: 0.8em;
     font-weight: 100;
 }
 
@@ -219,56 +219,82 @@ input[type=checkbox] {
 
 			<input type="email" id="email" name="email" class="" placeholder="이메일을 입력해주세요"/>					  
 				<div id="checkBtnDiv">
-					<button class="btn" type="button" id="checkBtn" onclick="btn_check(1)" style="background-color: rgb(255,239,222); margin-top: 10px;">사원조회</button>
+					<button class="button" type="button" id="checkBtn" onclick="btn_check(1)" style="margin-top: 15px;">사원조회</button>
 					<!-- <button class="btn" href="./login" style="background-color: rgb(255,255,222); margin-top: 10px; margin-right: 10px; float: left;">로그인</button> -->
 				</div>
 				<div id="mailBtn" style="display: none;">
 					<div id="mailBtnDiv">
-						<a class="btn form-control" id="sendBtn" style="background-color: rgb(255,239,222); margin-top: 10px; margin-bottom: 10px;" onclick="btn_mail(1)">인증번호 전송</a>
+						<button type="button" class="button" id="sendBtn" style="margin: auto;" onclick="btn_mail(1)">인증번호 전송</button>
 					</div>
 					<div id="mailDiv" name="mail_number">
-						<input type="text" class="form-control" name="number" id="number" style="margin-top: 10px;width: 73%;float: left;" placeholder="인증번호 입력">
-						<button type="button" class="form-control" style="width: 25%; background-color: rgb(255,239,222); margin-top: 10px; float: right;" name="confirmBtn" id="confirmBtn" >확인</button>
+						<input type="text" class="" name="number" id="number"  placeholder="인증번호를 입력하세요.">
+						<button type="button" class="button" name="confirmBtn" id="confirmBtn" >확인</button>
 					</div>									
 				</div>								        		
 		</form>		
       </div>
       <div class="signin">
         <h1>sign in</h1>
+         			<div>
+        				<spring:message code="${param.message}" var="msg"></spring:message>
+        				<p style="color: red;">${msg}</p>
+        			</div> 
 <%--   		<form action="login" method="post" class="more-padding" autocomplete="off"> --%>
 		<form:form modelAttribute="empVO" action="/emp/login" method="POST">
-			<form:input id="username" path="username" value="2023089"/>					
-
-			<form:password id="password" path="password" value="123456"/>
-
+			<input type="text" id="username2" name="username" placeholder="사원번호를 입력하세요." value=""/>					
+			<div id="usernameError" style="font-size: 12px; color:red;"></div>
+			<input type="password" id="password2" name="password" placeholder="비밀번호를 입력하세요." value=""/>
+			<div id="passwordError" style="font-size: 12px; color:red;"></div>
 			<div class="checkbox">
-				<input type="checkbox" id="remember" /><label for="remember">remember me</label>
+				<input type="checkbox" class="form-check-input" id="remember-me" name="remember-me"/><label for="remember">remember me</label>
 			</div>			
-			 <button type="submit" class="btn btn-primary" style="margin-top: 30px;">login</button>
+			 <button type="submit" class="btn button" style="margin-top: 80px;" id="login">login</button>
 
 		</form:form>
 <%-- 		</form> --%>
       </div>
     </div>
     <div class="leftbox">
-      <h2 class="title"><span>FIND</span><br>PASSWORD</h2>
-      <p class="desc">pick your perfect <span>bouquet</span></p>
-      <img class="flower smaller" src="https://image.ibb.co/d5X6pn/1357d638624297b.jpg" alt="1357d638624297b" border="0">
+      <h2 class="title">보&nbsp;&nbsp;듬</h2>
+      <p class="desc">Animal Hospital</p>
+      <img class="flower smaller" src="/resources/images/foot.png" style="margin-right: 20px;">
       <p class="account">have an account?</p>
       <button class="button" id="signin">login</button>
       
       
     </div>
     <div class="rightbox">
-      <h2 class="title"><span>Animal</span><br>Hospital</h2>
-      <img class="flower" src="/resources/images/findPassword.png"/>
+      <h2 class="title">보&nbsp;&nbsp;듬</h2>
+      <p class="desc">Animal Hospital</p>
+      <img class="flower" src="/resources/images/logo1.png" style="margin-left: 10px;"/>
       <p class="account">Forgot your password?</p>
       <button class="button" id="signup" name="findUser"><!-- <a href="/emp/findUser" style="text-decoration: none; te">Find Password</a> -->find password</button>
     </div>
   </div>
  </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#login').on("click", function () {
+            let username = $("#username2").val();
+            let password = $("#password2").val();
 
+            if (username === "") {
+                alert("사원번호를 입력해주세요.");
+                event.preventDefault();
+                $("#username2").focus();
+                return;
+            }
 
+            if (password === "") {
+                alert("비밀번호를 입력해주세요.");
+                event.preventDefault();
+                $("#password2").focus();
+                return;
+            }
+
+        });
+    });
+</script>
  <script type="text/javascript">
      $('#signup').click(function() {
          $('.pinkbox').css('transform', 'translateX(80%)');
@@ -319,10 +345,22 @@ input[type=checkbox] {
 	    let empName = $("#empName").val();
 	    let email = $("#email").val();
 
-	    if (username === "" || empName === "" || email === "") {
-	        alert("필수 입력 항목을 작성해주세요.");
-	        return;
-	    }
+        if (username === "") {
+            alert("사원번호는 필수입력사항입니다.");
+            $("#username").focus();
+            return;
+        }
+        
+        if (empName === "") {
+            alert("이름은 필수입력사항입니다.");
+            $("#empName").focus();
+            return;
+        }
+        if (email === "") {
+            alert("이메일은 필수입력사항입니다.");
+            $("#email").focus();
+            return;
+        }
 	    
 	    function btn_check(num){
 	    	if(num == '1'){
@@ -363,29 +401,31 @@ input[type=checkbox] {
 	</script>
 
 	<script type="text/javascript">
- 
-	$('#sendBtn').on("click", function(){	
-		document.getElementById("sendBtn").style.display = "none";
-		
+
+	
+	$('#sendBtn').on("click", function(event) {
+	    event.preventDefault();  // 이벤트 기본 동작 막기
+
+	    /* ("#sendBtn").style.display = "none"; */
+	    $(this).hide();
+
 	    let username = $("#username").val();
 	    let empName = $("#empName").val();
 	    let email = $("#email").val();
-        
+
 	    $.ajax({
-	        url: "/emp/sendMail", 
+	        url: "/emp/sendMail",
 	        type: "POST",
-	        data: { email: $("#email").val() },  
+	        data: { email: $("#email").val() },
 	        success: function () {
-	            alert("인증메일 발송완료"); 
+	            alert("인증메일 발송완료");
 	        },
 	        error: function () {
-	            console.log("문제있음"); 
+	            console.log("문제있음");
 	        }
-	    });  
-	  
-	    
+	    });
 	});
-		
+
 	</script>
 	<script type="text/javascript">
     $('#confirmBtn').on("click", function () {
