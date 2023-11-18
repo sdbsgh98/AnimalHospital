@@ -31,10 +31,14 @@ public class HospitalizeController {
 	
 	@PostMapping("add")
 	@ResponseBody
-	public String setHospitalize(HospitalizeVO hospitalizeVO)throws Exception{
-		int result = hospitalizeService.setHospitalize(hospitalizeVO);
-		
-		return "redirect:./list";		
+	public int setHospitalize(HospitalizeVO hospitalizeVO)throws Exception{
+		int result = hospitalizeService.searchReserved(hospitalizeVO);
+		int rst = 0;
+		if(result==0) {
+			rst = hospitalizeService.setHospitalize(hospitalizeVO);			
+		}		
+		return rst;
+			
 	}
 	
 	@PostMapping("customerList")
@@ -78,13 +82,19 @@ public class HospitalizeController {
 	}
 	
 	@PostMapping("update")
-	public String setUpdate(HospitalizeVO hospitalizeVO)throws Exception {
+	@ResponseBody
+	public int setUpdate(Model model,HospitalizeVO hospitalizeVO)throws Exception {
 		log.info("$$$$VO확인$$$$$${}", hospitalizeVO);
 		
-		int result = hospitalizeService.setUpdate(hospitalizeVO);
-		
+		int result = hospitalizeService.searchReserved(hospitalizeVO);
+		int rst=0;
+		if(result ==0) {
+			rst= hospitalizeService.setUpdate(hospitalizeVO);
+		}else {
+			rst=0;
+		}				
 
-		return "redirect:./list";
+		return rst;
 	}
 	
 	@GetMapping("delete")

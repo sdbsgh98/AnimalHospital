@@ -10,6 +10,13 @@
 									#{cageNo}, 1, #{disease})
 	</insert>
 	
+	<select id="searchReserved" parameterType="HospitalizeVO">
+		SELECT COUNT(*)
+	      FROM HOSPITALIZE
+		 WHERE CAGENO=${cageNo} 
+		   AND STATE=1
+	</select>
+	
 	<select id="getCustomerList" parameterType="String" resultType="CustomerVO">
 		SELECT CUSTOMERNO, ANIMALNAME, NAME
 		  FROM CUSTOMER

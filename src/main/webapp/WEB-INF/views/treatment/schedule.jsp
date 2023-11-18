@@ -34,15 +34,25 @@
                
                <!-- 내용부분-->               
                <div class="container-xxl flex-grow-1 container-p-y">
-                 
-               <select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example"> 	           	   
-	           	   <option value="300">전체</option>
-	               <option value="400">내과</option>
-	               <option value="500">외과</option>
-	               <option value="600">영상과</option>       
-	          </select> 
-               <div id="calendar"> </div>                           
-               
+	               <div class="row">
+	               <div class="col-md-10 col-md-offset-1">
+	              
+	               	<div style="padding: 0 0 10px" >
+		               <select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example"> 	           	   
+			           	   <option value="300">전체</option>
+			               <option value="400">내과</option>
+			               <option value="500">외과</option>
+			               <option value="600">영상과</option>       
+			          </select>
+			        </div>
+			        
+			          <div class="card">
+			          	<div id="calendar">
+			          	</div>
+				        <div class="card-content">				          		                           
+				        </div>
+			          </div>
+			       </div> 
                
                <!-- add Modal -->
                <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

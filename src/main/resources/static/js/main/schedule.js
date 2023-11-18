@@ -1,41 +1,76 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-		aspectRatio: 2,
-		height: '400px',
-        headerToolbar: {
-            left: 'prev,next',
-            center: 'title',
-            right: 'today'
-        },
-        
-         editable : true
-        , eventLimit : true
-        , events: [
-            
-            {
-                title : 'libft 과제이해',
-                start: '2021-01-26',
-                backgroundColor: "rgb(0, 185, 186)",
-                textColor : "#000000"
-            },
-            {
-                title : 'libft 코딩',
-                start: '2021-01-27',
-                backgroundColor: "rgb(0, 185, 186)",
-                textColor : "#000000"
-            },
-            {
-                title : 'libft 평가',
-                start: '2021-01-29',
-                backgroundColor: "rgb(0, 185, 186)",
-                textColor : "#000000"
-            },
-        ]
-    });
-        calendar.render();
+
+$(function () {
+
+		var username = $("#username").val();
+	
+		var request = $.ajax({
+			url: "/",
+			data: {
+				username:username
+			},
+			method: "POST"				
+		})
+		
+	
+		request.done(function (data) {
+			var calendarEl = document.getElementById('calendar');
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+
+				height: '400px',
+				expandRows: true,
+				customButtons: {
+					myCustomButton: {
+						
+					}
+				},
+				headerToolbar: {
+					left: 'title',				
+					right: 'prev,next,listWeek,dayGridMonth'			
+			
+				},
+				initialView: 'listWeek',
+				events: data,
+				navLinks: true,
+				navLinkDayClick: function (date, jsEvent) {
+			
+				},
+				editable: false,
+				selectable: true,
+				locale: 'en',
+				dateClick: function () {
+
+				},
+
+
+				//이벤트 클릭했을시 detail
+				eventClick: function (info) {
+		
+					
+				},
+
+				eventAdd: function (obj) {
+					console.log(obj)
+				},
+
+
+			});
+
+			calendar.render();
+		});
+		
+
+		request.fail(function (jqXHR, textStatus) {
+			alert("Request failed: " + textStatus);
+
+		});
+
+
+
 });
+
+
+
 
 	
 	
