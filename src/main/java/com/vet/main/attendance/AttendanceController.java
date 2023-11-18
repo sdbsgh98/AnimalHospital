@@ -40,6 +40,7 @@ public class AttendanceController {
 	public String getAttList (Pager pager, Model model) throws Exception {
 		List<AttendanceVO> attendanceVOs = attendanceService.getAttList(pager);
 		model.addAttribute("att", attendanceVOs);
+		model.addAttribute("pager", pager);
 		
 		return "attendance/attList";
 	}
