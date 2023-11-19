@@ -70,7 +70,7 @@
                   <!-- Content -->
 
                   <!-- 내용부분-->
-                  <div class="container-xxl flex-grow-1 container-p-y">
+                  <div class="container-xxl flex-grow-1 container-p-y" style="padding-left: 12.625rem;">
                     <h3>입원실 현황</h3>
                      
 

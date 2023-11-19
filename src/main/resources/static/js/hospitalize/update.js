@@ -64,6 +64,7 @@
 		});	
 	})
 	
+	//오늘 date형식
 	var today = new Date();
 	var year = today.getFullYear();
 	var month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -71,15 +72,12 @@
 
 	var dateString = year + '-' + month  + '-' + day;
 	
-	//현재날짜를 min으로 설정
-	let dateElement = document.getElementById('startDate');
-	dateElement.value = dateString;
-    dateElement.setAttribute("min", dateString);
-    
-    let dateElement2 = document.getElementById('lastDate');
-    dateElement2.value = dateString;
-    dateElement2.setAttribute("min", dateString);
-	
+
+	let start = $("#startDate").val();
+ 
+    let last = document.getElementById('lastDate');
+    last.setAttribute("min", dateString);
+  	
 	
 	$("#addHos").on("click",function(){
 		var param = {"customerNo":$("#customerNo").val(), "username":$("#username").val(),

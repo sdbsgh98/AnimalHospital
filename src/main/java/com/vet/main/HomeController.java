@@ -30,6 +30,8 @@ import com.vet.main.notice.NoticeService;
 import com.vet.main.notice.NoticeVO;
 import com.vet.main.reservation.treatment.TreatmentService;
 import com.vet.main.reservation.treatment.TreatmentVO;
+import com.vet.main.workSchedule.WorkScheduleService;
+import com.vet.main.workSchedule.WorkScheduleVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,8 +46,13 @@ public class HomeController {
 	@Autowired
 	private TreatmentService treatmentService;
 	
+
 	@Autowired 
 	private NoticeService noticeService;
+
+	@Autowired
+	private WorkScheduleService workScheduleService;
+
 	
 
 	@GetMapping("/")
@@ -102,6 +109,31 @@ public class HomeController {
 		return jsonArr;	
 	}
 	
+	@PostMapping("/deptSchedule")
+	@ResponseBody
+	public List<Map<String,Object>> getDeptSchedule(String deptNo)throws Exception{
+		JSONObject jsonObj = new JSONObject();
+		JSONArray jsonArr = new JSONArray();
+		HashMap<String, Object> hash = new HashMap<>();
+		
+		List<WorkScheduleVO> list = workScheduleService.getDeptScheduleList(deptNo);
+	
+		for(int i=0; i < list.size(); i++) {
+			hash.put("title", list.get(i).getEmpName());		
+			hash.put("start", list.get(i).getWorkStart());	
+			hash.put("end", list.get(i).getWorkEnd());	
+			hash.put("id", list.get(i).getWorkNo());		
+		
+			jsonObj = new JSONObject(hash); 
+			jsonArr.add(jsonObj);		
+		}		
+		
+		log.info("jsonArrCheck:{}", jsonArr);
+		
+		return jsonArr;	
+	}
+	
+
 	
 	
 	
