@@ -506,9 +506,11 @@
   	</select>
   	
   	<select id="getMainApprove" parameterType="String">
-		SELECT A.*, E.FILENAME
+		SELECT A.*, APL.*, E.FILENAME
 		FROM APPROVAL A INNER JOIN EMP E
 		ON A.USERNAME = E.USERNAME
+		INNER JOIN APLINE APL
+		ON APL.APNO = A.APNO
 		WHERE A.USERNAME = #{username}
 		ORDER BY A.APCDATE DESC
 		LIMIT 5;
