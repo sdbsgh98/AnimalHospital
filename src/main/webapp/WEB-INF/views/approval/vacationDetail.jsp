@@ -33,11 +33,11 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" style="align-items: center;">
                     <div class="card-body">
                     <div class="table-responsive">
                     
-                 	<table class="table">
+                 	<table class="table mt-4">
 	
 				    <tr>
 				        <th class="text-center" style="width: 100px;">제목</th>
@@ -47,6 +47,11 @@
 				    <tr>
 				        <th class="text-center" style="width: 100px;">작성일</th>
 				        <td>${approvalVO.apCDate}</td>
+				    </tr>
+				    
+				    <tr>
+				        <th class="text-center" style="width: 100px;">기안자</th>
+				        <td>${approvalVO.empName}</td>
 				    </tr>
 			 
 					</table>
@@ -64,7 +69,7 @@
 						<input type="hidden" class="approve" name="approve${status.index}" id="approve${status.index}" value="${line.username}">
 					</c:forEach>
 					
-					<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: none; width: 618px; height: 849px;" class="">
+					<table class="mt-5" border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: none; width: 618px; height: 849px;" class="">
 						<tbody>
 							<tr style="">
 								<td style="border: 1px solid black; padding: 0px 7px; height: 849px; width: 617px; vertical-align: top;">

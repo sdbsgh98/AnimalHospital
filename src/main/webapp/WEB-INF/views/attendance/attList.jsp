@@ -44,7 +44,7 @@
 									<div>
 										<!-- 검색 -->
 										<div class="input-group mb-3">
-											<form action="./list" method="get" class="d-flex align-items-center" id="frm">
+											<form onsubmit="return validateForm()" action="./list" method="get" class="d-flex align-items-center" id="frm">
 												<div class="input-group" style="width: 120px;">
 													<input type="hidden" value="${pager.page}" id="page" name="page">
 													<select name="kind" id="k" class="form-select"
@@ -75,18 +75,18 @@
 												<c:if test="${pager.pre}">
 												<li class="page-item ${pager.pre?'':'disabled'}"><a
 													class="page-link"
-													href="./attendance/list?page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}&startDate=${pager.startDate}&endDate=${pager.endDate}"
+													href="./attendance/list?page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}"
 													aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 												</a></li>
 												</c:if>
 												<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
 													var="i">
 													<li class="page-item"><a class="page-link"
-														href="./attendance/list?page=${i}&kind=${pager.kind}&search=${pager.search}&startDate=${pager.startDate}&endDate=${pager.endDate}">${i}</a></li>
+														href="./attendance/list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
 												</c:forEach>
 												<c:if test="${pager.next}">
 													<li class="page-item"><a class="page-link"
-														href="./attendance/list?page=${pager.startNum + 1}&kind=${pager.kind}&search=${pager.search}&startDate=${pager.startDate}&endDate=${pager.endDate}"
+														href="./attendance/list?page=${pager.startNum + 1}&kind=${pager.kind}&search=${pager.search}"
 														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 													</a></li>
 												</c:if>
@@ -165,6 +165,24 @@
 	        }
 	    })
 	</script>
+	
+	<script>
+		function validateForm() {
+		    var startDate = document.getElementById("startDate").value;
+		    var endDate = document.getElementById("endDate").value;
+		
+
+		    if (startDate === "") {
+		        document.getElementById("startDate").removeAttribute("name");
+		    }
+		
+		    if (endDate === "") {
+		        document.getElementById("endDate").removeAttribute("name");
+		    }
+		
+		    return true;
+		}
+	</script>	
 	
 </body>
 </html>

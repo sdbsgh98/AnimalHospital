@@ -112,6 +112,27 @@ public class ApprovalController {
 			}
 
 		} else if (apKind.equals("dayoffAdd")) {
+			
+			if (approvalVO.getDayoffEndDate() != null) {
+				String date1 = approvalVO.getDayoffEndDate();
+				String date2 = approvalVO.getDayoffStartDate();
+
+				Date format1 = new SimpleDateFormat("yyyy/MM/dd").parse(date1);
+				Date format2 = new SimpleDateFormat("yyyy/MM/dd").parse(date2);
+
+				long diffSec = (format1.getTime() - format2.getTime()) / 1000; // 초 차이
+				long diffMin = (format1.getTime() - format2.getTime()) / 60000; // 분 차이
+				long diffHor = (format1.getTime() - format2.getTime()) / 3600000; // 시 차이
+				long diffDays = diffSec / (24 * 60 * 60); // 일자수 차이
+				
+				double dayoff = (double) diffDays;
+				
+				approvalVO.setDayoffSelectDate(dayoff + 1);
+				
+			} else if (approvalVO.getDayoffKind().equals("반차")) {
+				approvalVO.setDayoffSelectDate(0.5);
+			}
+			
 			int result = approvalService.setApDayoffAdd(approvalVO);
 			
 			for(int i=0; i<lineUsername.length; i++) {
@@ -128,7 +149,7 @@ public class ApprovalController {
 				
 				result = approvalService.setApLine(approvalLineVO);
 			}
-
+			
 		} else if (apKind.equals("vacationAdd")) {
 			int result = approvalService.setApVacationAdd(approvalVO);
 			
@@ -176,7 +197,7 @@ public class ApprovalController {
 			@RequestParam("apTitle") String apTitle, @RequestParam("expenseName") String[] expenseName,
 			@RequestParam("expenseAmount") Long[] expenseAmount, @RequestParam("expensePrice") Long[] expensePrice,
 			@RequestParam("expenseBigo") String[] expenseBigo, @RequestParam("lineUsername") String[] lineUsername
-			, @RequestParam("lineEmpName") String[] lineEmpName, MultipartFile[] files) throws Exception {
+			, @RequestParam("lineEmpName") String[] lineEmpName) throws Exception {
 
 		ApprovalVO approvalVO = new ApprovalVO();
 
@@ -186,7 +207,7 @@ public class ApprovalController {
 		approvalVO.setEmpName(empName);
 		approvalVO.setApTitle(apTitle);
 
-		approvalService.setApExpenseAdd(approvalVO, files);
+		approvalService.setApExpenseAdd(approvalVO);
 
 		log.info("============= approvalVO : {} ==============", approvalVO);
 			
@@ -307,7 +328,7 @@ public class ApprovalController {
 				long diffMin = (format1.getTime() - format2.getTime()) / 60000; // 분 차이
 				long diffHor = (format1.getTime() - format2.getTime()) / 3600000; // 시 차이
 				long diffDays = diffSec / (24 * 60 * 60); // 일자수 차이
-
+				
 				model.addAttribute("day", diffDays);
 			}
 
@@ -411,11 +432,25 @@ public class ApprovalController {
 			
 			// 결재자 테이블에 해당 결재자의 결재상태 업데이트
 			approvalLineVO.setApConfirmState("1");
-	
 		}
+		
 			
 		approvalService.setApState(approvalVO);
 		approvalService.setApprover(approvalLineVO);
+		
+		ApprovalVO dayoffDetail = approvalService.getApDetail(approvalVO);
+
+		if(dayoffDetail.getApKind() == "휴가신청서" && dayoffDetail.getApState() == "결재완료") {
+			Double dayoff = approvalService.getDayoffCount(username);
+			
+			EmpVO empVO = new EmpVO();
+			empVO.setUsername(username);
+			Double empDayoff= approvalService.getApUser(empVO).getDayoffCount();
+			
+			dayoff = empDayoff - dayoff;
+			
+			approvalService.updateDayoff(dayoff);	
+		}
 		
 		return "redirect:./approverList/" + username;
 	}
@@ -506,9 +541,25 @@ public class ApprovalController {
 			
 			if(approvalVO.getDayoffKind().equals("반차")) {
 				approvalVO.setDayoffEndDate(null);
+				approvalVO.setDayoffSelectDate(0.5);
 				int result = approvalService.setDayoffUpdate(approvalVO);
 			} else {
+				String date1 = approvalVO.getDayoffEndDate();
+				String date2 = approvalVO.getDayoffStartDate();
+
+				Date format1 = new SimpleDateFormat("yyyy/MM/dd").parse(date1);
+				Date format2 = new SimpleDateFormat("yyyy/MM/dd").parse(date2);
+
+				long diffSec = (format1.getTime() - format2.getTime()) / 1000; // 초 차이
+				long diffMin = (format1.getTime() - format2.getTime()) / 60000; // 분 차이
+				long diffHor = (format1.getTime() - format2.getTime()) / 3600000; // 시 차이
+				long diffDays = diffSec / (24 * 60 * 60); // 일자수 차이
+				
+				double dayoff = (double) diffDays;
+				
+				approvalVO.setDayoffSelectDate(dayoff + 1);
 				approvalVO.setDayoffTime(null);
+				
 				int result = approvalService.setDayoffUpdate(approvalVO);
 			}
 			
@@ -625,5 +676,6 @@ public class ApprovalController {
 		int result = approvalService.setExpenseDelete(expenseVO);
 		return result;
 	}
+	
 	
 }

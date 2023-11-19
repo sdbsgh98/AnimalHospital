@@ -35,5 +35,7 @@ public class ApprovalLineVO {
 	
 	private String apState;
 	
+	private String fileName;
+	
 	
 }
