@@ -73,7 +73,7 @@
 	<select id="checkSch" parameterType="WorkScheduleVO" resultType="Integer">
 		SELECT COUNT(*)
 		FROM WORKSCHEDULE
-		WHERE WORKDATE = #{workDate}
+		WHERE WORKSTART = #{workStart}
 		AND USERNAME=#{username}
 	</select>	
 

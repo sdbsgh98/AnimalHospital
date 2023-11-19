@@ -19,13 +19,16 @@ function deleteBtn() {
 	}
 }
 
-
-
 function updateBtn() {
 	let frm = document.getElementById("frm");
     frm.method = "get";
     frm.action = "update";		
     frm.submit();
+}
+
+
+function cancleBtn() {
+	location.href = "/approval/draftList/"+username;
 }
 
 function updateSubmitBtn() {

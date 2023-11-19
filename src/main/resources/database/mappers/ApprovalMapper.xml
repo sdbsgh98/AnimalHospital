@@ -110,6 +110,27 @@
 			<result column="ORIGINALFILENAME" property="originalFileName"/>
 	</resultMap>
 	
+	<resultMap type="ApprovalVO" id="ApMainResult">
+		<id column="APNO" property="apNo"/>
+			<result column="USERNAME" property="username"/>
+			<result column="APFORMATNO" property="apFormatNo"/>
+			<result column="APTITLE" property="apTitle"/>
+			<result column="APCDATE" property="apCDate"/>
+			<result column="APUDATE" property="apUDate"/>
+			<result column="DAYOFFSTARTDATE" property="dayoffStartDate"/>
+			<result column="DAYOFFENDDATE" property="dayoffEndDate"/>
+			<result column="APCONTENTS" property="apContents"/>
+			<result column="APSTATE" property="apState"/>
+			<result column="APREJECTION" property="apRejection"/>
+			<result column="DAYOFFKIND" property="dayoffKind"/>
+			<result column="DAYOFFTIME" property="dayoffTime"/>
+			<result column="DAYOFFSELECTTIME" property="dayoffSelectTime"/>
+			<result column="APKIND" property="apKind"/>
+			<result column="EMPNAME" property="empName"/>
+			<result column="POSITIONNAME" property="positionName"/>
+			<result column="DEPTNAME" property="deptName"/>
+	</resultMap>
+	
   	<select id="getApUser" parameterType="com.vet.main.emp.EmpVO" resultMap="userMap">
   		SELECT E.*, P.*, D.* 
 		FROM EMP E INNER JOIN POSITION P 
@@ -244,7 +265,7 @@
 	      AND <include refid="forPager"></include>
 	     LIKE CONCAT('%', #{search}, '%')
       <if test="startDate != null and endDate != null">
-          AND DATE(A.APCDATE) BETWEEN #{startDate} AND #{endDate}
+          AND (DATE(A.APCDATE) BETWEEN #{startDate} AND #{endDate})
       </if>
 	    ORDER BY A.APNO DESC
 	    LIMIT #{startRow}, #{lastRow}
@@ -263,7 +284,7 @@
 		  AND <include refid="forPager"></include>
 		 LIKE CONCAT('%', #{search}, '%')
       <if test="startDate != null and endDate != null">
-          AND DATE(A.APCDATE) BETWEEN #{startDate} AND #{endDate}
+          AND (DATE(A.APCDATE) BETWEEN #{startDate} AND #{endDate})
       </if>
 		ORDER BY A.APNO DESC
 		LIMIT #{startRow}, #{lastRow}
@@ -277,7 +298,7 @@
 	      AND <include refid="forPager"></include>
 	     LIKE #{pattern}
       <if test="startDate != null and endDate != null">
-          AND DATE(APCDATE) BETWEEN #{startDate} AND #{endDate}
+          AND (DATE(APCDATE) BETWEEN #{startDate} AND #{endDate})
       </if>
 	</select>
 	
@@ -291,7 +312,7 @@
 		  AND <include refid="forPager"></include>
 		 LIKE #{pattern}
 	  <if test="startDate != null and endDate != null">
-          AND DATE(APCDATE) BETWEEN #{startDate} AND #{endDate}
+          AND (DATE(A.APCDATE) BETWEEN #{startDate} AND #{endDate})
       </if>
 	</select>
 	
@@ -312,9 +333,10 @@
 		SET APTITLE = #{apTitle},
 			DAYOFFSTARTDATE = #{dayoffStartDate},
 			DAYOFFENDDATE = #{dayoffEndDate},
+			APCONTENTS = #{apContents},
 			DAYOFFKIND = #{dayoffKind},
 			DAYOFFTIME = #{dayoffTime},
-			APCONTENTS = #{apContents}
+			DAYOFFSELECTDATE = #{dayoffSelectDate}
 		WHERE APNO = #{apNo}
 	</update>
 	
@@ -471,5 +493,33 @@
   	<delete id="setApFileDelete" parameterType="ApprovalFileVO">
   		DELETE APFILE WHERE FILENO=#{fileNo}
   	</delete>
+  	
+  	<update id="updateDayoff" parameterType="Double">
+  		UPDATE EMP
+  		SET
+  		DAYOFFCOUNT = #{dayoffCount}
+  	</update>
+  	
+  	<select id="getDayoffCount" parameterType="String">
+  		SELECT DAYOFFSELECTDATE
+  		FROM APPROVAL
+  	</select>
+  	
+  	<select id="getMainApprove" parameterType="String">
+		SELECT A.*, APL.*, E.FILENAME
+		FROM APPROVAL A INNER JOIN EMP E
+		ON A.USERNAME = E.USERNAME
+		INNER JOIN APLINE APL
+		ON APL.APNO = A.APNO
+		WHERE A.USERNAME = #{username}
+		ORDER BY A.APCDATE DESC
+		LIMIT 5;
+  	</select>
+  	
+  	<select id="getMainApLineInfo">
+		SELECT APL.*, E.FILENAME
+		FROM APLINE APL INNER JOIN EMP E
+		ON APL.USERNAME = E.USERNAME;
+  	</select>
 
 </mapper>

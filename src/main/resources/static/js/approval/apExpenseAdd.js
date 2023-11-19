@@ -10,7 +10,6 @@ let apContents = document.getElementById("apContents");		// 전자결재 양식 
 
 let addFrm = document.getElementById("addFrm");				// 작성폼
 let addBtn = document.getElementById("addBtn");				// 작성폼 제출 버튼
-let cancleBtn = document.getElementById("cancleBtn");		// 작성 취소 버튼
 
 
 const addList = document.getElementById("addList");
@@ -39,7 +38,7 @@ const deletes = document.getElementsByClassName("deletes");
  
  
 
-let max = 10;
+let max = 9;
 let count = 0;
 
 if(deletes != null) {
@@ -59,9 +58,9 @@ $("#expensePlusBtn").click(function(){
 
 
 	let f = '<div class="expense row g-3 mb-2" id="expense['+idx+']">'
-    f = f + '<input type="text" class="form-control me-2" id="expenseName'+idx+'" name="expenseName" placeholder="항목" style="width:350px;">';
-	f = f + '<input type="text" class="form-control me-2" id="expenseAmount'+idx+'" name="expenseAmount" placeholder="수량" style="width:100px;" oninput="this.value = this.value.replace(/[^0-9.]/g, \'\');"">';
-	f = f + '<input type="text" class="form-control me-2" id="expensePrice'+idx+'" name="expensePrice" placeholder="금액" style="width:150px;" oninput="this.value = this.value.replace(/[^0-9.]/g, \'\');"">';
+    f = f + '<input type="text" class="form-control me-2" id="expenseName'+idx+'" name="expenseName" placeholder="항목" style="width:300px;">';
+	f = f + '<input type="text" class="form-control me-2" id="expenseAmount'+idx+'" name="expenseAmount" placeholder="수량" style="width:80px;" oninput="this.value = this.value.replace(/[^0-9.]/g, \'\');"">';
+	f = f + '<input type="text" class="form-control me-2" id="expensePrice'+idx+'" name="expensePrice" placeholder="금액" style="width:120px;" oninput="this.value = this.value.replace(/[^0-9.]/g, \'\');"">';
     f = f + '<input type="text" class="form-control me-2" id="expenseBigo'+idx+'" name="expenseBigo" placeholder="비고" style="width:200px;">';
   	f = f + '<button type="button" id="expenseMinusBtn" name="expenseMinusBtn" class="btn btn-primary df" style="width:50px; height:38.94px;"> X </button>';
 	f = f + '</div>';
@@ -83,7 +82,7 @@ $("#addList").on("click", ".df", function(){
 
 
 // 글 ADD
-addBtn.addEventListener("click", function(){
+function addSubmitBtn() {
 	
 	let expenseName = document.getElementsByName("expenseName");
 	let expenseAmount = document.getElementsByName("expenseAmount");
@@ -101,14 +100,13 @@ addBtn.addEventListener("click", function(){
     
     // 폼에 입력한 데이터를 서버로 전송
     addFrm.submit();
-})
+}
 
 
-// 취소 버튼
-cancleBtn.addEventListener("click", function(){
-	/*location.href = "/approval/draftList/" + username;*/
-	location.href = "/approval/formatList";
-})
+function cancleBtn() {
+	location.href = "/approval/draftList/"+username;
+}
+
 
 
 // del 버튼 클릭하면 삭제하겠다
