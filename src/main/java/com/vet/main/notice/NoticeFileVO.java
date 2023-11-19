@@ -17,5 +17,5 @@ public class NoticeFileVO extends FileVO{
 	
 	
 	
-	private byte[] fileData;
+	/* private byte[] fileData; */
 }

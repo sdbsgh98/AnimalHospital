@@ -27,18 +27,22 @@ public class NoticeFileDown extends AbstractView{
 	@Value("${app.upload}")
 	private String filePath;
 
+	@Value("${app.notice}")
+	private String username; 
+	
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// 서버에서 파일을 찾아서 client로 전송
 		// 전송하기 위해서는 '어떤 파일? 어디에있는지?' 같은 정보가 필요함
 		// /GDJ68/upload/
-		String notice = (String)model.get("notice");
+		NoticeFileVO noticeFileVO = (NoticeFileVO)model.get("fileVO");
+		log.info("--------------------------------");
+		log.info("fileVO {} ", noticeFileVO);
+		String fileName = noticeFileVO.getFileName();
+		
 		// 어떤 파일?
-		FileVO fileVO = (NoticeFileVO) model.get("fileVO");
-
-	
-		File file = new File(filePath+notice, fileVO.getFileName());
+		File file = new File(username+filePath+fileName);
 		
 		// 한글 처리
 		response.setCharacterEncoding("UTF-8");
@@ -47,7 +51,7 @@ public class NoticeFileDown extends AbstractView{
 		response.setContentLengthLong(file.length());
 		
 		// 다운로드 시 파일의 이름을 인코딩
-		String downName = URLEncoder.encode(fileVO.getOriginalName(), "UTF-8");
+		String downName = URLEncoder.encode(noticeFileVO.getOriginalName(), "UTF-8");
 		
 		// Header 설정
 		response.setHeader("Content-Disposition", "attachment;filename=\""+downName+"\"");	// attachment : 첨부하다
@@ -66,6 +70,6 @@ public class NoticeFileDown extends AbstractView{
 		fi.close();
 		
 		log.info("============= File Down View =============");
-		log.info("Board:{}", notice);		
+		log.info("Board:{}", fileName);		
 	}
 }

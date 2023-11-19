@@ -88,9 +88,14 @@ public class NoticeController {
 	@GetMapping("fileDown")
 	public String noticeFileDown(NoticeFileVO noticeFileVO, Model model)throws Exception{
 		noticeFileVO = noticeService.noticeFileDown(noticeFileVO);
-		model.addAttribute("file", noticeFileVO);
+		model.addAttribute("fileVO", noticeFileVO);
 		
-		return "FileManager";
+		String result = "0";
+		if(noticeFileVO != null) {
+			result = "1";
+		}
+		
+		return "noticeFileDown";
 		
 	}
 	
