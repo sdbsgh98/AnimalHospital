@@ -40,25 +40,19 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-					   <div class="card" style="width:45%; margin-left: auto;">	
+					 <div class="card" style="width:45%; margin-left: auto;">	
 					 	
-					       <div class="card-content">
-					       <div style="padding:10px">
-					      
-
-					      	</div>	                           
-					          </div>
-				          </div>
-
-					       		<button id="deptcal" class="btn btn-primary">부서출퇴근</button>
-						       	<button id="treatmentcal" class="btn treat">진료일정</button>
-						     	<img src="/resources/images/menu/pet2.png" style="width:50px; height:50px; text-align:right">
-					       	</div>					      
-					      	<div id="calendar" style="padding:30px"> 					      	
-					      	</div>	 
-					    
-					       </div>
+				       <div class="card-content">
+				       <div style="padding:10px">
+				      	  	<button id="deptcal" class="btn btn-primary">부서출퇴근</button>
+					       	<button id="treatmentcal" class="btn treat">진료일정</button>
+					     	<img src="/resources/images/menu/pet2.png" style="width:50px; height:50px; text-align:right">
+				       	</div>					      
+				      	<div id="calendar" style="padding:30px"> 					      	
+				      	</div>	 
+				    
 				       </div>
+			       </div>
 
 					<sec:authentication property="Principal" var="user"/>	
 <%-- 						<sec:authorize access="isAuthenticated()">
