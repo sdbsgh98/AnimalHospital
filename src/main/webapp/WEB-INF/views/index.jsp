@@ -48,6 +48,7 @@
 						<input type="hidden" id="username" name="username" value="${user.username}">
 						<input type="hidden" id="empName" name="empName" value="${user.empName}">
 						<input type="hidden" id="hireDate" name="hireDate" value="${user.hireDate}">
+
 							<div style="width: 70%;">
 							    <div class="row">
 							        <div class="col-md-6 mb-3">
@@ -149,6 +150,7 @@
 													</div>
 												</div>
 												<!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
 						  	<a href="notice/noticeList" class="btn btn-primary" type="button" style="margin-right: 20px;">더보기</a>
 						  </div> -->
 												<table class="table" style="text-align: center;">

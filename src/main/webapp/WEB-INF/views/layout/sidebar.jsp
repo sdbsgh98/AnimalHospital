@@ -7,7 +7,7 @@
           <div class="app-brand demo">
             <a href="/" class="app-brand-link">
               <span class="app-brand-logo demo">
-              <img src="/resources/images/jisun3.png" alt="로고" style="width: 50px; height: 50px;">
+              
                <!--  <svg
                   width="25"
                   viewBox="0 0 25 42"
@@ -62,21 +62,24 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Animal<br>Hospital</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">
+              <img src="/resources/images/finallogo2.png" alt="로고" style="width: 250px; height: 110px;">
+              </span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
               <i class="bx bx-chevron-left bx-sm align-middle"></i>
             </a>
           </div>
-
+          <br>
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
               <a href="/" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+              <img src="/resources/images/menu/home2.png">
+              &nbsp&nbsp&nbsp&nbsp&nbsp
                 <div data-i18n="Analytics">HOME</div>
               </a>
             </li>
@@ -122,7 +125,8 @@
             </li> -->
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <img src="/resources/images/menu/team.png">
+                &nbsp&nbsp&nbsp&nbsp&nbsp
                 <div data-i18n="Account Settings">조직관리</div>
               </a>
               <ul class="menu-sub">
@@ -140,8 +144,8 @@
             </li>
             <li class="menu-item">
               	<a href="/apFormat/list" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                
+              	<img src="/resources/images/menu/clipboard.png">
+              	&nbsp&nbsp&nbsp&nbsp&nbsp
                 <div data-i18n="Authentications">전자결재관리</div>
               </a>
 <!--               <ul class="menu-sub">
@@ -171,14 +175,32 @@
             <!-- Cards -->
             <li class="menu-item">
               <a href="/customer/list" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
+              <img src="/resources/images/menu/catanddog.png">
+              &nbsp&nbsp&nbsp&nbsp&nbsp
                 <div data-i18n="Basic">고객관리</div>
               </a>
             </li>
+            
+            <!-- Components -->
+            <!-- <li class="menu-header small text-uppercase"><span class="menu-header-text">CATEGORY</span></li> -->
+            <!-- User interface -->
+            
+           <!--  <li class="menu-header small text-uppercase"><span class="menu-header-text">CATEGORY</span></li>   -->          
+            <!-- Cards -->
+            <li class="menu-item">
+              <a href="/hospitalize/list" class="menu-link">
+              <img src="/resources/images/menu/treat2.png">
+              &nbsp&nbsp&nbsp&nbsp&nbsp
+                <div data-i18n="Basic">입원실관리</div>
+              </a>
+            </li>
+            
+              
             <!-- Extended components -->
             <li class="menu-item">
               <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-copy"></i>
+              <img src="/resources/images/menu/needle.png">
+              &nbsp&nbsp&nbsp&nbsp&nbsp
                 <div data-i18n="Extended UI">예약</div>
               </a>
               <ul class="menu-sub">
@@ -191,20 +213,19 @@
                   <a href="/surgery/schedule" class="menu-link">
                     <div data-i18n="Text Divider">수술예약</div>
                   </a>
-                </li>
-                 <li class="menu-item">
-                  <a href="/hospitalize/list" class="menu-link">
-                    <div data-i18n="Text Divider">입원실 관리</div>
-                  </a>
-                </li>               
+                </li>                             
               </ul>
             </li>
+            
+             
+            
             <!-- <li class="menu-header small text-uppercase"><span class="menu-header-text">CATEGORY</span></li> -->
             
             <!-- Extended components -->
             <li class="menu-item">
               <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-copy"></i>
+              <img src="/resources/images/menu/calendar2.png">
+              &nbsp&nbsp&nbsp&nbsp&nbsp
                 <div data-i18n="Extended UI">근무</div>
               </a>
               <ul class="menu-sub">
@@ -244,7 +265,8 @@
             <li class="menu-item">
             <sec:authentication property="Principal" var="emp"/>
               <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-copy"></i>
+                <img src="/resources/images/menu/inbox.png">
+                &nbsp&nbsp&nbsp&nbsp&nbsp
                 <div data-i18n="Extended UI">전자결재</div>
               </a>
               <ul class="menu-sub">            
@@ -268,29 +290,27 @@
             <!-- <li class="menu-header small text-uppercase"><span class="menu-header-text">CATEGORY</span></li>  -->           
             <li class="menu-item">
               <a href="/medicine/list" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
+              	<img src="/resources/images/menu/pill.png">
+              	&nbsp&nbsp&nbsp&nbsp&nbsp
                 <div data-i18n="Basic">약품관리</div>
               </a>
-            </li>            
+            </li>   
             
-			<li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-copy"></i>
-                <div data-i18n="Extended UI">게시판</div>
-              </a>
-              <ul class="menu-sub">            
+            <!-- Components -->
+            <!-- <li class="menu-header small text-uppercase"><span class="menu-header-text">CATEGORY</span></li> -->
+            <!-- User interface -->
+            
+           <!--  <li class="menu-header small text-uppercase"><span class="menu-header-text">CATEGORY</span></li>   -->          
+            <!-- Cards -->
             <li class="menu-item">
               <a href="/notice/noticeList" class="menu-link">
+              <img src="/resources/images/menu/note.png">
+              &nbsp&nbsp&nbsp&nbsp&nbsp
                 <div data-i18n="Basic">공지사항</div>
               </a>
-            </li> 
-            <li class="menu-item">
-              <a href="cards-basic.html" class="menu-link">
-                <div data-i18n="Basic">익명게시판</div>
-              </a>
             </li>
-           	 </ul>
-            </li> 
+           
+			
           </ul>
         </aside>
         <!-- / Menu -->
