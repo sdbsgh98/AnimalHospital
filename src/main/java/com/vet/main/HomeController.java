@@ -46,12 +46,12 @@ public class HomeController {
 	@Autowired
 	private TreatmentService treatmentService;
 	
-
+	@Autowired
+	private ApprovalService approvalService;
+	
 	@Autowired 
 	private NoticeService noticeService;
 
-	@Autowired
-	private ApprovalService approvalService;
 	
 
 	@GetMapping("/")
