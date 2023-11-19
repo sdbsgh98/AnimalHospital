@@ -263,6 +263,10 @@ $(document).ready(function () {
 });
 
 </script>
-
+<script type="text/javascript">
+	$("#updateBtn").on("click", function(){
+		alert("수정이 완료되었습니다. 프로필 이미지는 재로그인 후 반영됩니다.")
+	})
+</script>
 </body>
 </html>

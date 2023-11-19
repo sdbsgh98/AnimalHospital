@@ -86,9 +86,6 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 									  </div>
 									  <div class="mb-3">
 									    <input type="file" class="form-control" name="files">
-									  </div>
-									  <div class="mb-3">
-									    <input type="file" class="form-control" name="files">
 									  </div>									  
 									  <button id="updateBtn" class="btn btn-primary">작성완료</button>
 		        				</form>

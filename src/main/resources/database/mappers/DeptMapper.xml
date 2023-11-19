@@ -40,7 +40,7 @@
 		ON E.DEPTNO = D.DEPTNO
 		INNER JOIN POSITION P
 		ON E.POSITIONNO = P.POSITIONNO
-		WHERE E.DEPTNO != 0 AND
+		WHERE E.DEPTNO != 0 AND E.STATE != '퇴사' AND
 		<include refid="forPager"></include>
 			LIKE CONCAT('%', #{search}, '%')
 			ORDER BY E.USERNAME DESC
@@ -53,7 +53,7 @@
 		ON E.DEPTNO = D.DEPTNO
 		INNER JOIN POSITION P
 		ON E.POSITIONNO = P.POSITIONNO
-		WHERE E.DEPTNO = #{deptNo}
+		WHERE E.DEPTNO = #{deptNo} AND E.STATE != '퇴사'
 		ORDER BY E.USERNAME DESC
 		LIMIT #{startRow}, #{perPage}
 	</select>

@@ -36,8 +36,8 @@ public class EmailService {
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 		
 		simpleMailMessage.setTo(email);
-		simpleMailMessage.setSubject("[동물병원] 인증번호 발송");
-		simpleMailMessage.setText("안녕하세요, 동물병원입니다. 인증번호는 "+number+" 입니다.");
+		simpleMailMessage.setSubject("[보듬 동물병원] 인증번호 발송");
+		simpleMailMessage.setText("안녕하세요. 보듬 동물병원입니다 :) 인증번호는 "+number+" 입니다.");
 		
 		javaMailSender.send(simpleMailMessage);
 	}

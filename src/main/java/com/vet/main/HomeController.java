@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.vet.main.attendance.AttendanceService;
 import com.vet.main.attendance.AttendanceVO;
 import com.vet.main.commons.Pager;
+import com.vet.main.emp.EmpService;
 import com.vet.main.emp.EmpVO;
 import com.vet.main.notice.NoticeService;
 import com.vet.main.notice.NoticeVO;
@@ -46,9 +47,11 @@ public class HomeController {
 	@Autowired 
 	private NoticeService noticeService;
 	
-
+	@Autowired
+	private EmpService empService;
+	
 	@GetMapping("/")
-	public String index(AttendanceVO attendanceVO, Model model, NoticeVO noticeVO, Pager pager) throws Exception {
+	public String index(AttendanceVO attendanceVO, Model model, NoticeVO noticeVO, Pager pager, EmpVO empVO) throws Exception {
 		// 현재 로그인한 사람의 username 정보 가져오기
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
@@ -67,6 +70,10 @@ public class HomeController {
 		List<NoticeVO> ar = noticeService.getNoticeList(pager);
 		model.addAttribute("list", ar);
 		model.addAttribute("pager", pager);
+		
+		//사원정보 
+//		empVO = empService.mypage(empVO);
+//		model.addAttribute("emp", empVO);
 		
 		return "index";
 	}

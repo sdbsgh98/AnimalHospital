@@ -52,7 +52,7 @@
 							<img src="/resources/images/default.jpeg" class="w-px-40 h-auto rounded-circle">
 						</c:if>
 						<c:if test="${vo.originalFileName != null }">
-							<img src="../files/emp/${vo.fileName}" class="w-px-40 h-auto rounded-circle">
+							<img src="../files/emp/${vo.fileName}" class="w-px-40 rounded-circle">
 						</c:if>
                       </sec:authorize>
                     </div>
