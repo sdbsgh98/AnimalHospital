@@ -211,4 +211,16 @@ public class ApprovalService {
 	public int setApFileDelete(ApprovalFileVO noticeFileVO) throws Exception {
 		return approvalDAO.setApFileDelete(noticeFileVO);
 	}
+	
+	public int updateDayoff(EmpVO empVO) throws Exception {
+		return approvalDAO.updateDayoff(empVO);
+	}
+	
+	public List<ApprovalVO> getMainApprove(String username) throws Exception {
+		return approvalDAO.getMainApprove(username);
+	}
+	
+	public List<ApprovalLineVO> getMainApLineInfo() throws Exception {
+		return approvalDAO.getMainApLineInfo();
+	}
 }

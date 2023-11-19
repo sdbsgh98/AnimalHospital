@@ -21,6 +21,27 @@
 	.fc-button{
 		color:#FE9A2E
 	}
+
+  .mainApproveTbl th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .avatar-group {
+    display: flex;
+  }
+
+  .avatar-group li {
+    list-style-type: none;
+  }
+
+  .avatar {
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
 </style>
 </head>
 <body>
@@ -43,7 +64,6 @@
 					      	</div>	                           
 					          </div>
 				          </div>
-					]
 					<sec:authentication property="Principal" var="user"/>	
 						<sec:authorize access="isAuthenticated()">
 							<a href="/emp/logout" class="btn btn-danger" style="">로그아웃</a>	
@@ -56,15 +76,12 @@
 						<input type="hidden" id="hireDate" name="hireDate" value="${user.hireDate}">
 					
 						
-						<div>
+							<div>
 							<div class="col-md-6 col-lg-2 mb-3">
 			                  <div class="card text-center">
-			                    <div class="card-header"></div>
-			                    <div class="card-body">
-			                      <p class="card-text">[${user.empName}]님의 연차현황</p>
-			                      <h5 class="card-title" id="dayoffCount">무려 연차가 ${dayoff} 개</h5>
-				                      <div class="divider">
-				                      </div>
+			                    <div class="card-header">
+				                    <div class="" id="date"></div>
+				                    <h1 class="mt-2 mb-4"></h1>
 										<c:choose>
 											<c:when test="${empty att}">
 												<button type="button" class="btn btn-primary mt-2 mb-3" onclick="attIn()" style="width:100px;">출근</button><br>
@@ -79,12 +96,54 @@
 												<button type="button" class="btn btn-outline-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
 							                </c:otherwise>
 					                    </c:choose>
+					                </div>
+			                    <div class="card-body">
+									<hr class="mb-4">
+						              <p class="card-text">[${user.empName}]님의 연차현황</p>
+				                      <h5 class="card-title" id="dayoffCount">연차 ${dayoff} 개</h5>
+				                  </div>
+			                    </div>
 				                </div>
-			                    <div class="card-footer text-muted">2 days ago</div>
-			                  </div>
-			                </div>
-						</div>
-						
+							</div>
+							
+                    
+			                    
+				<div class="card" style="width: 500px;">
+                <h5 class="card-header">결재대기함</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover" id="mainApproveTbl">
+                    <thead>
+                      <tr>
+                        <th>기안서</th>
+                        <th>결재자</th>
+                        <th>결재상태</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <c:forEach items="${md}" var="md">
+	                      <tr>
+	                        <td><strong>${md.apTitle}</strong></td>
+	                        <td>
+	                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+	                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="${md.empName}">
+	                              <img src="../files/emp/${md.fileName}" alt="Avatar" class="rounded-circle">
+	                            </li>
+	                            <c:forEach items="${ml}" var="ml">
+	                            	<c:if test="${md.apNo eq ml.apNo}">
+			                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="${ml.empName}">
+			                              <img src="../files/emp/${ml.fileName}" alt="Avatar" class="rounded-circle">
+			                            </li>
+		                            </c:if>
+	                            </c:forEach>
+	                          </ul>
+	                        </td>
+	                        <td><span class="badge bg-label-primary me-1">결재완료</span></td>
+	                      </tr>
+                      </c:forEach>
+                    </tbody>
+                  </table>
+                </div>
+              </div>					
 						
 					</div>
 					<!-- / Content -->
@@ -103,6 +162,7 @@
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 
 	<script src="/js/attendance/attendance.js"></script>
+	<script src="/js/attendance/clock.js"></script>
 
 
 </body>
