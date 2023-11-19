@@ -57,14 +57,24 @@
 			 
 					</table>
 					
-				    <c:if test="${approvalVO.apRejection ne null}">
-						<table class="mt-3" border="1" style="width: 618px; height: 100px;">
-							<tr>
-						        <td class="text-center" style="width: 100px; border-right: 1px solid black; background: rgb(208, 206, 206);"><strong>반려 사유</strong></td>
-						        <td class="text-center">${approvalVO.apRejection}</td>
-						    </tr>
-						</table>
-					</c:if>
+<%-- 					<c:choose>
+					    <c:when test="${approvalVO.apRejection ne null}">
+							<table class="mt-3" border="1" style="width: 618px; height: 100px;">
+								<tr>
+							        <td class="text-center" style="width: 100px; border-right: 1px solid black; background: rgb(208, 206, 206);"><strong>반려 사유</strong></td>
+							        <td class="text-center">${approvalVO.apRejection}</td>
+							    </tr>
+							</table>
+						</c:when>
+						<c:when test="${approvalVO.apRejection not empty}">
+							<table class="mt-3" border="1" style="width: 618px; height: 100px;">
+								<tr>
+							        <td class="text-center" style="width: 100px; border-right: 1px solid black; background: rgb(208, 206, 206);"><strong>반려 사유</strong></td>
+							        <td class="text-center">${approvalVO.apRejection}</td>
+							    </tr>
+							</table>
+						</c:when>
+					</c:choose> --%>
 					
 					<form action="" id="frm">
 						<input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
