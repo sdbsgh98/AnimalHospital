@@ -97,10 +97,10 @@ public class NoticeController {
 	
 	@GetMapping("fileDown")
 	public String noticeFileDown(NoticeFileVO noticeFileVO, Model model)throws Exception{
-		noticeFileVO = noticeService.noticeFileDown(noticeFileVO);
+		noticeFileVO = noticeService.noticeFileDetail(noticeFileVO);
 		model.addAttribute("file", noticeFileVO);
 		
-		return "FileManager";
+		return "fileDownView";
 		
 	}
 	

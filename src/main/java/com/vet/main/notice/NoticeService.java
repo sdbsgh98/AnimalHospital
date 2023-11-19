@@ -121,7 +121,7 @@ public class NoticeService {
 		return result;
 	}
 	
-	public NoticeFileVO noticeFileDown(NoticeFileVO noticeFileVO)throws Exception{
+	public NoticeFileVO noticeFileDetail(NoticeFileVO noticeFileVO)throws Exception{
 		return noticeDAO.fileDetail(noticeFileVO);
 	}
 	

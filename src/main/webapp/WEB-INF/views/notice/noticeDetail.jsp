@@ -51,7 +51,8 @@
 							    </tr>
 						 		  <tr>
 							        <th >Files</th>
-									<td style="text-align: center;"> <c:forEach items="${vo.fileVO}" var="f">
+									<td style="text-align: center;"> 
+									<c:forEach items="${vo.fileVO}" var="f">
 									 	<input type="hidden" name="fileNo" value="${f.fileNo}">
 										<a href="./fileDown?fileNo=${f.fileNo}" class="btn" style="font-size: 12px;">${f.originalName}</a><br>
 									</c:forEach></td>
