@@ -103,7 +103,7 @@
 									<c:forEach items="${list}" var="vo" end="4">
 											<tr>
 												<td>${vo.noticeNo}</td>
-												<td>${vo.title}</td>
+												<td><a href="notice/noticeDetail?noticeNo=${vo.noticeNo}" style="color: #697a8d;">${vo.title}</a></td>
 												<td>${vo.empName}</td>
 												<td>${vo.createDate}</td>
 												<td>${vo.hit}</td>
