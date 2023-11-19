@@ -112,7 +112,7 @@
 													<img src="/resources/images/menu/pet2.png"
 														style="width:50px; height:50px; text-align:right">
 												</div>
-												<div id="calendar" style="padding:30px">
+												<div id="calendar" style="padding:30px; height: 400px;">
 												</div>
 
 											</div>

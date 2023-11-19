@@ -142,8 +142,8 @@
 								<tbody style="height: 35px;">
 							<c:forEach items="${emp}" var="vo">
 									<tr>
-										<td><a href="/emp/empDetail?username=${vo.username}" style="color: #697a8d;">${vo.username}</a></td>
-										<td><a href="/emp/empDetail?username=${vo.username}" style="color: #697a8d;">${vo.empName}</a></td>
+										<td>${vo.username}</td>
+										<td>${vo.empName}</td>
 										<td>${vo.deptName}</td>
 										<td>${vo.positionName}</td>
 										<td>${vo.hireDate}</td>
