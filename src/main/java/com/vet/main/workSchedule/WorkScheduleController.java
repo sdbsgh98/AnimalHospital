@@ -34,6 +34,7 @@ public class WorkScheduleController {
 
 	
 	@PostMapping("addWork")
+	@ResponseBody
 	public int addWorkSchedule(@RequestBody WorkScheduleVO scheduleVO) throws Exception {
 		int result = workScheduleService.checkSch(scheduleVO);
 		int rst = 0;
@@ -71,23 +72,6 @@ public class WorkScheduleController {
 			hash.put("end", list.get(i).getWorkEnd());
 			hash.put("id", list.get(i).getWorkNo());
 			
-			LocalDateTime date2 = list.get(i).getWorkStart();
-			String dept = list.get(i).getDeptNo();
-			
-			if(date2.toLocalDate().isBefore(date1)){ 
-				hash.put("color", "#F7819F"); 
-			}
-			else { 				
-				if(dept.equals("400")) {
-					hash.put("color", "#A9F5A9");
-				}else if(dept.equals("500")){
-					hash.put("color", "#81DAF5");
-				}else if(dept.equals("600")) {
-					hash.put("color", "#9F81F7");
-				}
-				
-			}
-
 			jsonObj = new JSONObject(hash); 
 			jsonArr.add(jsonObj);		
 		}

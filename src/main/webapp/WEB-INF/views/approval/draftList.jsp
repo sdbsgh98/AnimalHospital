@@ -82,7 +82,7 @@
 								<div>
 									<!-- 검색 -->
 									<div class="input-group mb-3">
-										<form action="../draftList/${user.username}" method="get" class="d-flex align-items-center" id="frm">
+										<form onsubmit="return validateForm()" action="../draftList/${user.username}" method="get" class="d-flex align-items-center" id="frm">
 											<div class="input-group" style="width: 120px;">
 												<input type="hidden" value="${pager.page}" id="page" name="page">
 												<select name="kind" id="k" class="form-select"
@@ -95,36 +95,37 @@
 											<input type="text" name="search" value="${pager.search}"
 												class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 150px;">
 												
-												<!-- Date Range Search -->
-								                <label for="startDate" class="ms-2 me-1">시작일:</label>
-								                <input type="date" id="startDate" name="startDate" class="form-control" style="width: 150px;">
-								                <label for="endDate" class="ms-2 me-1">종료일:</label>
-								                <input type="date" id="endDate" name="endDate" class="form-control" style="width: 150px;">
-								                
+													<!-- Date Range Search -->
+									                <label for="startDate" class="ms-2 me-1">시작일:</label>
+									                <input type="date" id="startDate" name="startDate" class="form-control" style="width: 150px;">
+									                <label for="endDate" class="ms-2 me-1">종료일:</label>
+									                <input type="date" id="endDate" name="endDate" class="form-control" style="width: 150px;">
 												<button type="submit" class="btn btn-primary" style="width:100px;">검색</button>
 												
 										</form>
 									</div>
 								</div>
 		    					<div>
+		    					
+
 		    						<!-- 페이징 -->
 									<nav aria-label="Page navigation example">
 										<ul class="pagination justify-content-center">
 											<c:if test="${pager.pre}">
 											<li class="page-item ${pager.pre?'':'disabled'}"><a
 												class="page-link"
-												href="/approval/draftList/${user.username}?page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}&startDate=${pager.startDate}&endDate=${pager.endDate}"
+												href="/approval/draftList/${user.username}?page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}"
 												aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 											</a></li>
 											</c:if>
 											<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
 												var="i">
 												<li class="page-item"><a class="page-link"
-													href="/approval/draftList/${user.username}?page=${i}&kind=${pager.kind}&search=${pager.search}&startDate=${pager.startDate}&endDate=${pager.endDate}">${i}</a></li>
+													href="/approval/draftList/${user.username}?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
 											</c:forEach>
 											<c:if test="${pager.next}">
 												<li class="page-item"><a class="page-link"
-													href="/approval/draftList/${user.username}?page=${pager.lastNum + 1}&kind=${pager.kind}&search=${pager.search}&startDate=${pager.startDate}&endDate=${pager.endDate}"
+													href="/approval/draftList/${user.username}?page=${pager.lastNum + 1}&kind=${pager.kind}&search=${pager.search}"
 													aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 												</a></li>
 											</c:if>
@@ -151,6 +152,24 @@
 	</div>
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
+
+	<script>
+		function validateForm() {
+		    var startDate = document.getElementById("startDate").value;
+		    var endDate = document.getElementById("endDate").value;
+		
+
+		    if (startDate === "") {
+		        document.getElementById("startDate").removeAttribute("name");
+		    }
+		
+		    if (endDate === "") {
+		        document.getElementById("endDate").removeAttribute("name");
+		    }
+		
+		    return true;
+		}
+	</script>	
 	
 </body>
 </html>

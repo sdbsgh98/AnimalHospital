@@ -411,8 +411,11 @@ public class ApprovalController {
 			
 			// 결재자 테이블에 해당 결재자의 결재상태 업데이트
 			approvalLineVO.setApConfirmState("1");
-	
 		}
+		
+//		if(approvalVO.getApKind() == "휴가신청서" && approvalVO.getApState() == "결재완료") {
+//			if(approvalVO.getDayoffKind())
+//		}
 			
 		approvalService.setApState(approvalVO);
 		approvalService.setApprover(approvalLineVO);
@@ -625,5 +628,6 @@ public class ApprovalController {
 		int result = approvalService.setExpenseDelete(expenseVO);
 		return result;
 	}
+	
 	
 }
