@@ -133,8 +133,8 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 						                    <div id="addList" class="my-5">
 												<div class="medicine row g-3 mb-2" id="medicine" name="medicine">
 												    <select class="form-select" id="medicineNo" name="medicineNo" style="width:350px;">
+												    	<option selected>사용할 약물을 선택해주세요.</option>
 												    	<c:forEach items="${med}" var="a">
-												    		<option selected>사용할 약물을 선택해주세요.</option>
 															<option value="${a.medicineNo}">${a.name}</option>
 														</c:forEach>
 												    </select>
