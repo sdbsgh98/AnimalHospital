@@ -228,7 +228,7 @@
 						                    <tbody class="table-border-bottom-0 text-center">
 						                      <c:forEach items="${md}" var="md">
 							                      <tr>
-							                        <td><strong>${md.apTitle}</strong></td>
+							                        <td><a href="/approval/detail?apNo=${md.apNo}" style="color: #697a8d;"><strong>${md.apTitle}</strong></a></td>
 							                        <td>
 							                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center" style="justify-content: center;">
 							                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="${md.empName}">

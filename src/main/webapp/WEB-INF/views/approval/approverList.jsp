@@ -39,48 +39,48 @@
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
 					
-					<div class="row mt-4">
-            <!-- First small square card -->
+					<!-- <div class="row mt-4">
+            First small square card
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <!-- Content of the first small card -->
+                        Content of the first small card
                         Card 1
                     </div>
                 </div>
             </div>
 
-            <!-- Second small square card -->
+            Second small square card
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <!-- Content of the second small card -->
+                        Content of the second small card
                         Card 2
                     </div>
                 </div>
             </div>
 
-            <!-- Third small square card -->
+            Third small square card
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <!-- Content of the third small card -->
+                        Content of the third small card
                         Card 3
                     </div>
                 </div>
             </div>
             
 
-            <!-- Fourth small square card -->
+            Fourth small square card
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <!-- Content of the fourth small card -->
+                        Content of the fourth small card
                         Card 4
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         
 						<!-- DataTales Example -->
 						
