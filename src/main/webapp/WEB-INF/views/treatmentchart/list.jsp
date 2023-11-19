@@ -62,6 +62,7 @@
 									<div class="container text-center">
 										<div class="row row-cols-3">
 											<div class="col">
+											<button onclick="history.go(-2)" class="btn btn-primary" style="width: 150px; height: 40px; color: white; margin-right: 250px;">고객목록</button>
 												<%-- <!-- 검색 -->
 												<div class="input-group mb-3">
 													<form action="./list" method="get" class="d-flex align-items-center" id="frm">
