@@ -100,7 +100,7 @@
 										<th>조회수</th>
 								</thead>
 								<tbody style="height: 35px;">
-									<c:forEach items="${list}" var="vo">
+									<c:forEach items="${list}" var="vo" end="4">
 											<tr>
 												<td>${vo.noticeNo}</td>
 												<td>${vo.title}</td>
