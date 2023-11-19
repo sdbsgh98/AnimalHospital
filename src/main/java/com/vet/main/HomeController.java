@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.vet.main.approval.ApprovalLineVO;
+import com.vet.main.approval.ApprovalService;
+import com.vet.main.approval.ApprovalVO;
 import com.vet.main.attendance.AttendanceService;
 import com.vet.main.attendance.AttendanceVO;
 import com.vet.main.commons.DeptPager;
@@ -46,11 +49,13 @@ public class HomeController {
 
 	@Autowired
 	private TreatmentService treatmentService;
-	
 
 	@Autowired 
 	private NoticeService noticeService;
 
+	@Autowired
+	private ApprovalService approvalService;
+	
 	@Autowired
 	private WorkScheduleService workScheduleService;
 
@@ -69,10 +74,13 @@ public class HomeController {
 		String username = authentication.getName();
 		attendanceVO.setUsername(username);	// 로그인한 사람 아이디(username)
 		
+		
+		// 출근/퇴근 버튼
 		AttendanceVO attendanceVO2 = new AttendanceVO();
 		attendanceVO2 = attendanceService.checkDate(attendanceVO);
 		model.addAttribute("att", attendanceVO2);
 		
+		// 연차갯수
 		Double dayoffCount = attendanceService.getDayoffCount(username);
 		model.addAttribute("dayoff", dayoffCount);
 		
@@ -85,9 +93,18 @@ public class HomeController {
 		model.addAttribute("list", ar);
 		model.addAttribute("pager", deptPager);
 		
+		
 		//사원정보 
 //		empVO = empService.mypage(empVO);
 //		model.addAttribute("emp", empVO);
+
+		// index에 자신이 작성한 기안서 최근 5개 뽑기
+		List<ApprovalVO> mainDraft = approvalService.getMainApprove(username);
+		model.addAttribute("md", mainDraft);
+		
+		List<ApprovalLineVO> mainApLine = approvalService.getMainApLineInfo();
+		model.addAttribute("ml", mainApLine);
+
 		
 		return "index";
 	}

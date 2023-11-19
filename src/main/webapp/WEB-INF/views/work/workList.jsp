@@ -10,6 +10,9 @@
 	data-template="vertical-menu-template-free">
 <head>
 <c:import url="/WEB-INF/views/layout/headCSS.jsp"></c:import>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link href='/fullcalendar/main.css' rel='stylesheet'/>
+<script src='/fullcalendar/main.js'></script>
 
 	<style type="text/css">
 		.fc-event{
@@ -20,11 +23,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     
 </head>
 <body>
@@ -44,64 +42,109 @@
 					
 				    <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
 				    
-					<select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example"> 	           	   
-			           	   <option value="300">전체</option>
-			               <option value="400">내과</option>
-			               <option value="500">외과</option>
-			               <option value="600">영상과</option>       
+
+		    
+	               <div class="row">
+	               <div class="col-md-10 col-md-offset-1">
+	              
+	               	<div style="padding: 0 0 10px" >
+		               <select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example"> 	           	   
+						   <option value="300">전체</option>
+						   <option value="400">내과</option>
+			           	   <option value="500">외과</option>
+			               <option value="600">영상과</option>
+			               <option value="700">간호과</option>     
+			               <option value="100">인사행정</option>     
 			          </select>
-
-					<div class="card shadow mb-4">
-	                <div class="card-body">
-	                <div class="table-responsive">
-	                
-
-				    <div id="calendarBox">
-				        <div id="calendar"></div>
-				    </div>
-
-			    	<!-- 일정추가 모달창 -->
-				    <!-- modal 추가 -->
-				    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-				        aria-hidden="true">
-				        <div class="modal-dialog" role="document">
-				            <div class="modal-content">
-				                <div class="modal-header">
-				                    <h5 class="modal-title" id="exampleModalLabel">근무일정 등록</h5>
-				                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				                        <span aria-hidden="true">&times;</span>
-				                    </button>
-				                </div>
-				                <div class="modal-body">
-				                    <div class="form-group">
-				                        <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
-				                        
-				                        <label for="deptName" class="form-label">부서명</label>
-				                        <input type="text" class="form-control" id="deptName" name="deptName" value="${user.deptName}" readonly>
-				                        
-				                        <label for="positionName" class="form-label">직급명</label>
-				                        <input type="text" class="form-control" id="positionName" name="positionName" value="${user.positionName}" readonly>
-				                        
-				                        <label for="empName" class="form-label">직원명</label>
-				                        <input type="text" class="form-control" id="empName" name="empName" value="${user.empName}" readonly>
-			                        
-				                        <label for="workStart" class="form-label">출근</label>
-				                        <input type="datetime-local" class="form-control" id="workStart" name="workStart">
-				                        
-				                        <label for="workEnd" class="form-label">퇴근</label>
-				                        <input type="datetime-local" class="form-control" id="workEnd" name="workEnd">
-				                        
-				                    </div>
-				                </div>
-				                <div class="modal-footer">
-				                    <button type="button" class="btn btn-warning" id="addBtn">추가</button>
-				                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-				                        id="addclose">취소</button>
-				                </div>
-				    
-				            </div>
+			        </div>
+			        
+			          <div class="card">
+			          	<div id="calendar">
+			          	</div>
+				        <div class="card-content">				          		                           
 				        </div>
-				    </div>
+			          </div>
+			       </div> 
+
+
+              <!-- add Modal -->
+               <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal-dialog">
+                   <div class="modal-content">
+                     <div class="modal-header">
+                       <h1 class="modal-title fs-5" id="exampleModalLabel">근무일정 등록</h1>
+                       <button type="button" id="closeBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     </div>
+                     <div class="modal-body">
+	                     <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
+	                     <table class="table align-items-center mb-0">								
+		                   	<tbody>                   		
+			                     <tr>
+										<td class="align-middle text-center text-sm">
+											<span class="text-secondary text-xs font-weight-bold">부서명</span>
+										</td>
+				                        <td class="align-middle text-center text-sm">
+				                        <span class="text-secondary text-xs font-weight-bold">
+				                        	<input type="text" class="form-control" name="deptName" id="deptName" value="${user.deptName}" readonly> 
+										</span>	                        	                         
+				                        </td>
+										<td class="align-middle text-center text-sm">
+											<span class="text-secondary text-xs font-weight-bold"></span>
+										</td>
+			                     </tr>
+			                     <tr>
+										<td class="align-middle text-center text-sm">
+											<span class="text-secondary text-xs font-weight-bold">직급명</span>
+										</td> 
+										<td class="align-middle text-center text-sm">
+											<span class="text-secondary text-xs font-weight-bold">
+											 <input type="text" class="form-control" name="positionName" id="positionName" value="${user.positionName}" readonly>
+											</span>
+										</td>
+										<td class="align-middle text-center text-sm">
+											<span class="text-secondary text-xs font-weight-bold"></span>
+										</td>
+			                     </tr>
+			                     <tr>
+										<td class="align-middle text-center text-sm">
+											<span class="text-secondary text-xs font-weight-bold">직원명</span>
+										</td> 
+										<td class="align-middle text-center text-sm">
+											<span class="text-secondary text-xs font-weight-bold">
+											 <input type="text" class="form-control" name="empName" id="empName" value="${user.empName}" readonly> 
+											</span>
+										</td>
+										<td class="align-middle text-center text-sm">
+											<span class="text-secondary text-xs font-weight-bold"></span>
+										</td>
+			                     </tr>
+			                     <tr>
+									<td class="align-middle text-center text-sm">
+										<span class="text-secondary text-xs font-weight-bold">근무일정</span>
+									</td> 
+									<td class="align-middle text-center text-sm">
+								        <!-- 출근 -->
+								        <div class="d-flex align-items-center">
+								            <span class="text-secondary text-xs font-weight-bold me-3">출근</span>
+								            <input type="datetime-local" class="form-control" id="workStart" style="width:250px">
+								        </div>
+								        <!-- 퇴근 -->
+								        <div class="d-flex align-items-center mt-2">
+								            <span class="text-secondary text-xs font-weight-bold me-3">퇴근</span>
+								            <input type="datetime-local" class="form-control" id="workEnd" style="width:250px">
+								        </div>
+									</td>
+			                    </tr>	                              
+			                  </tbody>
+			               </table>
+			           </div>
+                       <div class="modal-footer">
+                       <button type="button" id="addclose"class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                       <button type="button" id="addBtn" class="btn btn-primary">Add</button>
+                      </div>
+                   </div>
+                 </div>
+               </div>
 				    
 				    
 				<!-- 상세보기 모달창 -->
@@ -145,7 +188,7 @@
 							</td> 
 							<td class="align-middle text-center text-sm">
 								<span class="text-secondary text-xs font-weight-bold">
-								<input type="text" readonly class="form-control-plaintext" id="getEmpName" value=""></div>
+								<input type="text" readonly class="form-control-plaintext" id="getEmpName" value="">
 								</span>
 							</td>                                                     
 	                    </tr>
@@ -196,7 +239,7 @@
 			                        <label for="workStart" class="form-label">출근</label>
 			                        <input type="datetime-local" class="form-control" id="upWorkStart" name="workStart" value="">
 			                        
-			                        <label for=""workEnd"" class="form-label">퇴근</label>
+			                        <label for="workEnd" class="form-label">퇴근</label>
 			                        <input type="datetime-local" class="form-control" id="upWorkEnd" name="workEnd" value="">
 			                        
 			                    	<input type="hidden" id="workNo" name="workNo">
@@ -209,11 +252,8 @@
 			            </div>
 			        </div>
 			    </div>
-				    
-		    		</div>
-			    	</div>
 					</div>
-					</div>
+				</div>
 					<!-- / Content -->
 					<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
 					<div class="content-backdrop fade"></div>
@@ -229,6 +269,5 @@
 	<!-- / Layout wrapper -->
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 	<script src="/js/work/workSchedule.js"></script>
-	
 </body>
 </html>

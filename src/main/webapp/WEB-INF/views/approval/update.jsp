@@ -52,7 +52,8 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-					
+	                    <div class="card shadow mb-4" style="align-items: center;">
+	                        <div class="card-body">
 						<div class="row">
 				    		<form action="update" id="updateFrm" method="post">
 				    		
@@ -64,7 +65,7 @@
 								</div>
 								
 								
-								<div class="firstApLineBox mb-2">
+								<div class="firstApLineBox mb-2" style="display: flex; align-items: center;">
 								  <!-- controller에 정보 전달하기 위함 -->
 								  <div id="apLine[0]">
 								  <input type="hidden" id="firstLineUsername" name="lineUsername" value="">
@@ -72,19 +73,15 @@
 								  </div>
 								  
 								  <label for="firstApLineInfo" class="form-label"></label>
-								  <input type="text" class="form-control firstApLineInfo mb-1" id="firstApLineInfo" readonly style="width:250px;">
-								  <button type="button" class="btn btn-primary" id="firstApLineSelect" name="firstApLineSelect" data-bs-target="#staticBackdrop1">1차 결재선 설정</button>
+								  <input type="text" class="form-control firstApLineInfo" id="firstApLineInfo" readonly style="width:250px;">
+								  <button type="button" class="btn btn-primary ms-2" id="firstApLineSelect" name="firstApLineSelect" data-bs-target="#staticBackdrop1">1차 결재선 설정</button>
+			                   
+								  <button type="button" class="btn btn-primary ms-3" id="deleteLineBtn" style="font-size: 20px; display: none;" onclick="toggleButtons2()">-</button>
+			                      <button type="button" class="btn btn-primary ms-3" id="addLineBtn" style="font-size: 20px;" onclick="toggleButtons2()">+</button>
 								</div>
 								
-								
-			                    <div>
-			                        <button type="button" class="btn btn-primary" id="addLineBtn" style="font-size: 20px;" onclick="toggleButtons()">+</button>
-			                    </div>
 			                    
-								<div class="secondApLineBox hidden mb-2" id="secondApLineBox">
-								
-								  <button type="button" class="btn btn-primary mb-2" id="deleteLineBtn" style="font-size: 20px;" onclick="toggleButtons()">-</button>
-								  
+								<div class="secondApLineBox hidden mb-4" id="secondApLineBox" style="align-items: center;">
 								  <!-- controller에 정보 전달하기 위함 -->
 								  <div id="apLine[1]">
 								  <input type="hidden" id="secondLineUsername" name="lineUsername" value="">
@@ -92,51 +89,56 @@
 								  </div>
 								  
 								  <label for="secondApLineSelect" class="form-label"></label>
-								  <input type="text" class="form-control secondApLineInfo mb-1" id="secondApLineInfo" style="width:250px;" value="" readonly>
-								  <button type="button" class="btn btn-primary" id="secondApLineSelect" name="secondApLineSelect" data-bs-target="#staticBackdrop2">2차 결재선 설정</button>
+								  <input type="text" class="form-control secondApLineInfo" id="secondApLineInfo" style="width:250px; display: inline-block;" value="" readonly>
+								  <button type="button" class="btn btn-primary" id="secondApLineSelect" name="secondApLineSelect" data-bs-target="#staticBackdrop2" style="display: inline-block; margin-left: 5px;">2차 결재선 설정</button>
 								</div>
 
 								
  								<jsp:include page="/WEB-INF/views/approval/apLineSelect.jsp"></jsp:include>
 								
+								
+ 								<div style="display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 800px;">
+ 								
 				    						    			
-				    			<div class="mb-3">
+				    			<div class="mb-3 inputGroup" style="width: 48%;">
 								  <label for="positionName" class="form-label">부서</label>
 								  <input type="text" class="form-control" id="positionName" name="positionName" value="${approvalVO.positionName}" readonly>
 								</div>
 								
-				    			<div class="mb-3">
+				    			<div class="mb-3 inputGroup" style="width: 48%;">
 								  <label for="deptName" class="form-label">직급</label>
 								  <input type="text" class="form-control" id="deptName" name="deptName" value="${approvalVO.deptName}" readonly>
 								</div>
 								
-				    			<div class="mb-3">
+				    			<div class="mb-3 inputGroup" style="width: 48%;">
 								  <label for="empName" class="form-label">성명</label>
 								  <input type="text" class="form-control" id="empName" name="empName" value="${approvalVO.empName}" readonly>
 								</div>
 								
-				    			<div class="mb-3">
+				    			<div class="mb-3 inputGroup" style="width: 48%;">
 								  <label for="apCDate" class="form-label">기안일자</label>
 								  <input type="text" class="form-control" id="apCDate" name="apCDate" value="${approvalVO.apCDate}" readonly>
 								</div>
 				    			
-				    			<div class="mb-3">
+				    			<div class="mb-3" style="width: 100%;">
 								  <label for="apTitle" class="form-label">제목</label>
 								  <input type="text" class="form-control" id="apTitle" name="apTitle" placeholder="제목을 입력하세요" value="${approvalVO.apTitle}">
 								</div>
 
-								<div class="mb-3">
+								<div class="mb-3" style="width: 100%;">
 								  <label for="apContents" class="form-label">내용</label>
 								  <textarea class="form-control" id="apContents" name="apContents" rows="3" placeholder="내용을 입력하세요">${approvalVO.apContents}</textarea>
 								</div>
 								
-					    		<div class="row">
-									<div class="demo-inline-spacing">
-										<button type="button" class="btn btn-primary" onclick="updateSubmitBtn()">수정</button>
-										<button type="button" class="btn btn-primary" id="cancleBtn">취소</button>
-									</div>
-	                            </div>
+								</div>
 								
+								
+					    		<div class="row">
+									<div class="demo-inline-spacing"  style="text-align: right;">
+										<button type="button" class="btn btn-primary" onclick="updateSubmitBtn()">수정</button>
+										<button type="button" class="btn btn-primary" onclick="cancleBtn()">취소</button>
+									</div>
+			                    </div>
 				    		</form>
 			    		</div>
 					
@@ -144,6 +146,9 @@
 					<!-- / Content -->
 					<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
 					<div class="content-backdrop fade"></div>
+					</div>
+					</div>
+				
 				</div>
 				<!-- Content wrapper -->
 			</div>
@@ -239,6 +244,28 @@
 			  	secondLineEmpName.value = "";
 			  }
 		}
+		
+	    function toggleButtons2() {
+	        var addLineBtn = document.getElementById('addLineBtn');
+	        var deleteLineBtn = document.getElementById('deleteLineBtn');
+	        var secondApLineBox = document.getElementById('secondApLineBox');
+	        var secondApLineInfo = document.getElementById('secondApLineInfo');
+	        var secondLineUsername = document.getElementById('secondLineUsername');
+	        var secondLineEmpName = document.getElementById('secondLineEmpName');
+
+	        if (addLineBtn.style.display !== 'none') {
+	            addLineBtn.style.display = 'none';
+	            deleteLineBtn.style.display = 'inline-block';
+	            secondApLineBox.style.display = 'inline-block';
+	            secondApLineInfo.value = "";
+	        } else {
+	            addLineBtn.style.display = 'inline-block';
+	            deleteLineBtn.style.display = 'none';
+	            secondApLineBox.style.display = 'none';
+	            secondLineUsername.value = "";
+	            secondLineEmpName.value = "";
+	        }
+	    }
 	</script>
 
 </body>

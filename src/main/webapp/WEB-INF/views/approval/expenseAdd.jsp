@@ -38,9 +38,10 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-					
+	                    <div class="card shadow mb-4" style="align-items: center;">
+	                        <div class="card-body">
 						<div class="row">
-				    		<form action="expenseAdd" id="addFrm" method="post" enctype="multipart/form-data">
+				    		<form action="expenseAdd" id="addFrm" method="post">
 				    		
 				    			<div class="mb-3">
 								  <label for="username" class="form-label"></label>
@@ -48,7 +49,7 @@
 								</div>
 								
 								
-								<div class="firstApLineBox mb-2">
+								<div class="firstApLineBox mb-2" style="display: flex; align-items: center;">
 								  <!-- controller에 정보 전달하기 위함 -->
 								  <div id="apLine[0]">
 								  <input type="hidden" id="firstLineUsername" name="lineUsername" value="">
@@ -56,19 +57,15 @@
 								  </div>
 								  
 								  <label for="firstApLineInfo" class="form-label"></label>
-								  <input type="text" class="form-control firstApLineInfo mb-1" id="firstApLineInfo" readonly style="width:250px;">
-								  <button type="button" class="btn btn-primary" id="firstApLineSelect" name="firstApLineSelect" data-bs-target="#staticBackdrop1">1차 결재선 설정</button>
+								  <input type="text" class="form-control firstApLineInfo" id="firstApLineInfo" readonly style="width:250px;">
+								  <button type="button" class="btn btn-primary ms-2" id="firstApLineSelect" name="firstApLineSelect" data-bs-target="#staticBackdrop1">1차 결재선 설정</button>
+			                   
+								  <button type="button" class="btn btn-primary ms-3" id="deleteLineBtn" style="font-size: 20px; display: none;" onclick="toggleButtons2()">-</button>
+			                      <button type="button" class="btn btn-primary ms-3" id="addLineBtn" style="font-size: 20px;" onclick="toggleButtons2()">+</button>
 								</div>
 								
-								
-			                    <div>
-			                        <button type="button" class="btn btn-primary" id="addLineBtn" style="font-size: 20px;" onclick="toggleButtons()">+</button>
-			                    </div>
 			                    
-								<div class="secondApLineBox hidden mb-2" id="secondApLineBox">
-								
-								  <button type="button" class="btn btn-primary mb-2" id="deleteLineBtn" style="font-size: 20px;" onclick="toggleButtons()">-</button>
-								  
+								<div class="secondApLineBox hidden mb-4" id="secondApLineBox" style="align-items: center;">
 								  <!-- controller에 정보 전달하기 위함 -->
 								  <div id="apLine[1]">
 								  <input type="hidden" id="secondLineUsername" name="lineUsername" value="">
@@ -76,77 +73,82 @@
 								  </div>
 								  
 								  <label for="secondApLineSelect" class="form-label"></label>
-								  <input type="text" class="form-control secondApLineInfo mb-1" id="secondApLineInfo" style="width:250px;" value="" readonly>
-								  <button type="button" class="btn btn-primary" id="secondApLineSelect" name="secondApLineSelect" data-bs-target="#staticBackdrop2">2차 결재선 설정</button>
+								  <input type="text" class="form-control secondApLineInfo" id="secondApLineInfo" style="width:250px; display: inline-block;" value="" readonly>
+								  <button type="button" class="btn btn-primary" id="secondApLineSelect" name="secondApLineSelect" data-bs-target="#staticBackdrop2" style="display: inline-block; margin-left: 5px;">2차 결재선 설정</button>
 								</div>
 
 								
  								<jsp:include page="/WEB-INF/views/approval/apLineSelect.jsp"></jsp:include>
+ 								
+ 								<div style="display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 800px;">
 								
 				    						    			
-				    			<div class="mb-3">
+				    			<div class="mb-3 inputGroup" style="width: 48%;">
 								  <label for="positionName" class="form-label">부서</label>
 								  <input type="text" class="form-control" id="positionName" name="positionName" value="${user.positionName}" readonly>
 								</div>
 								
-				    			<div class="mb-3">
+				    			<div class="mb-3 inputGroup" style="width: 48%;">
 								  <label for="deptName" class="form-label">직급</label>
 								  <input type="text" class="form-control" id="deptName" name="deptName" value="${user.deptName}" readonly>
 								</div>
 								
-				    			<div class="mb-3">
+				    			<div class="mb-3 inputGroup" style="width: 48%;">
 								  <label for="empName" class="form-label">성명</label>
 								  <input type="text" class="form-control" id="empName" name="empName" value="${user.empName}" readonly>
 								</div>
 								
-				    			<div class="mb-3">
+				    			<div class="mb-3 inputGroup" style="width: 48%;">
 								  <label for="cDate" class="form-label">기안일자</label>
 								  <input type="text" class="form-control" id="cDate" name="cDate" value="${date}" disabled>
 								</div>
 				    			
-				    			<div class="mb-3">
+				    			<div class="mb-3 inputGroup" style="width: 100%;">
 								  <label for="apTitle" class="form-label">제목</label>
 								  <input type="text" class="form-control" id="apTitle" name="apTitle" placeholder="제목을 입력하세요">
 								</div>
 
-			
-			                    <div class="mb-1" style="margin:0 auto; width:fit-content;">
+
+			                    <!-- <div class="mb-1" style="margin:0 auto; width:fit-content;">
 			                        <button type="button" class="btn btn-primary" id="expensePlusBtn">내역 추가</button>
-			                    </div>
+			                    </div> -->
 			        
 			                    <!-- 지출결의서 폼이 추가되는 곳 -->
-			                    <div id="addList" class="my-5">
+			                    <div id="addList" class="my-5" style="width: 100%;">
 									<div class="expense row g-3 mb-2" id="expense[0]" name="expense">
-									    <input type="text" class="form-control me-2" id="expenseName0" name="expenseName" placeholder="항목" style="width:350px;">
+									    <input type="text" class="form-control me-2" id="expenseName0" name="expenseName" placeholder="항목" style="width:300px;">
 									    <input type="text" class="form-control me-2" id="expenseAmount0" name="expenseAmount" placeholder="수량"
-									    		style="width:100px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');">
+									    		style="width:80px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');">
 									    <input type="text" class="form-control me-2" id="expensePrice0" name="expensePrice" placeholder="금액"
-									    		style="width:150px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');">
+									    		style="width:120px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '');">
 									    <input type="text" class="form-control me-2" id="expenseBigo0" name="expenseBigo" placeholder="비고" style="width:200px;">
+									    <button type="button" class="btn btn-primary" id="expensePlusBtn"  style="width:50px; height:38.94px;">+</button>
 									</div> 
 			                    </div>
 			                    
 			                    
 			                    
 			                    <!-- Upload file *************************************** -->
-			                    <div class="mb-1" style="margin:0 auto; width:fit-content;">
+			                    <!-- <div class="mb-1" style="margin:0 auto; width:fit-content;">
 			                        <button type="button" class="btn btn-primary" id="filePlus">File 추가</button>
 			                    </div>
 			        
-			                    <!-- 파일첨부 추가되는 영역 -->
+			                    파일첨부 추가되는 영역
 			                    <div id="fileList" class="my-5">
 			                        <div class="input-group mb-3">
 			                            <input type="file" name="files" class="form-control">
 			                        </div>
 			        
+			                    </div> -->
+			                    
 			                    </div>
 								
-					    		<div class="row">
-									<div class="demo-inline-spacing">
-										<button type="button" class="btn btn-primary" id="addBtn">작성</button>
-										<button type="button" class="btn btn-primary" id="cancleBtn">취소</button>
+								<div class="row">
+									<div class="demo-inline-spacing" style="text-align: right;">
+										<button type="button" class="btn btn-primary" onclick="addSubmitBtn()">작성</button>
+										<button type="button" class="btn btn-primary" onclick="cancleBtn()">취소</button>
 									</div>
-	                            </div>
+			                    </div>
 								
 				    		</form>
 			    		</div>
@@ -155,6 +157,9 @@
 					<!-- / Content -->
 					<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
 					<div class="content-backdrop fade"></div>
+					</div>
+					</div>
+					
 				</div>
 				<!-- Content wrapper -->
 			</div>
@@ -227,6 +232,29 @@
 			  	secondLineEmpName.value = "";
 			  }
 		}
+		
+		
+	    function toggleButtons2() {
+	        var addLineBtn = document.getElementById('addLineBtn');
+	        var deleteLineBtn = document.getElementById('deleteLineBtn');
+	        var secondApLineBox = document.getElementById('secondApLineBox');
+	        var secondApLineInfo = document.getElementById('secondApLineInfo');
+	        var secondLineUsername = document.getElementById('secondLineUsername');
+	        var secondLineEmpName = document.getElementById('secondLineEmpName');
+
+	        if (addLineBtn.style.display !== 'none') {
+	            addLineBtn.style.display = 'none';
+	            deleteLineBtn.style.display = 'inline-block';
+	            secondApLineBox.style.display = 'inline-block';
+	            secondApLineInfo.value = "";
+	        } else {
+	            addLineBtn.style.display = 'inline-block';
+	            deleteLineBtn.style.display = 'none';
+	            secondApLineBox.style.display = 'none';
+	            secondLineUsername.value = "";
+	            secondLineEmpName.value = "";
+	        }
+	    }
 	</script>
 
 

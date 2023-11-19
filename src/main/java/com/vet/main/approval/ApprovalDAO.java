@@ -113,4 +113,17 @@ public interface ApprovalDAO {
 	public int setApFileDelete(FileVO fileVO) throws Exception;
 	
 	public ApprovalFileVO getApFileDetail(FileVO fileVO) throws Exception;
+	
+	public int updateDayoff(Double dayoff) throws Exception;
+	
+	public List<ApprovalVO> getMainApprove(String username) throws Exception;
+
+	public List<ApprovalLineVO> getMainApLineInfo() throws Exception;
+	
+	public Double getDayoffCount(String username) throws Exception;
+	
+	public List<ApprovalVO> apCountBtn01(String username) throws Exception;
+	public List<ApprovalVO> apCountBtn02(String username) throws Exception;
+	public List<ApprovalVO> apCountBtn03(String username) throws Exception;
+	public List<ApprovalVO> apCountBtn04(String username) throws Exception;
 }

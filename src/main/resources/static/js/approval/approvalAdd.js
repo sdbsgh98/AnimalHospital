@@ -5,14 +5,13 @@ let apContents = document.getElementById("apContents");		// 전자결재 양식 
 
 let addFrm = document.getElementById("addFrm");				// 작성폼
 let addBtn = document.getElementById("addBtn");				// 작성폼 제출 버튼
-let cancleBtn = document.getElementById("cancleBtn");		// 작성 취소 버튼
 
 let firstLineUsername = document.getElementById("firstLineUsername");
 
 
 
 // 글 ADD
-addBtn.addEventListener("click", function(){
+function addSubmitBtn() {
 
     if(apTitle.value == ""){
         alert("제목을 입력해주세요.");
@@ -32,12 +31,12 @@ addBtn.addEventListener("click", function(){
     // 폼에 입력한 데이터를 서버로 전송
     addFrm.submit();
     
-});
+}
 
 
 // 취소 버튼
-cancleBtn.addEventListener("click", function(){
-	location.href = "/approval/formatList";
-})
+function cancleBtn() {
+	location.href = "/approval/draftList/"+username;
+}
 
 

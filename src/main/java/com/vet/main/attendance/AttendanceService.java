@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.vet.main.approval.ApprovalVO;
 import com.vet.main.commons.Pager;
 import com.vet.main.emp.EmpVO;
 
@@ -97,5 +98,6 @@ public class AttendanceService {
 	public Double getDayoffCount(String username) throws Exception {
 		return attendanceDAO.getDayoffCount(username);
 	}
+
 
 }

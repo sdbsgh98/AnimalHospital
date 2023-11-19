@@ -33,11 +33,11 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" style="align-items: center;">
                     <div class="card-body">
                     <div class="table-responsive">
                     
-                 	<table class="table">
+                 	<table class="table mt-4">
 	
 				    <tr>
 				        <th class="text-center" style="width: 100px;">제목</th>
@@ -48,8 +48,22 @@
 				        <th class="text-center" style="width: 100px;">작성일</th>
 				        <td>${approvalVO.apCDate}</td>
 				    </tr>
+				    
+				    <tr>
+				        <th class="text-center" style="width: 100px;">기안자</th>
+				        <td>${approvalVO.empName}</td>
+				    </tr>
 			 
 					</table>
+					
+				    <c:if test="${approvalVO.apRejection ne null}">
+						<table class="mt-3" border="1" style="width: 618px; height: 100px;">
+							<tr>
+						        <td class="text-center" style="width: 100px; border-right: 1px solid black; background: rgb(208, 206, 206);"><strong>반려 사유</strong></td>
+						        <td class="text-center">${approvalVO.apRejection}</td>
+						    </tr>
+						</table>
+					</c:if>
 					
 					<form action="" id="frm">
 						<input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
