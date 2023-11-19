@@ -40,7 +40,7 @@
 								</c:if>
 								<c:if test="${empty vo.fileVO}">
 									<div style="width: 300px; float: left;">
-											<img alt="" src="/resources/images/default.jpeg" class=" rounded-circle"
+											<img alt="" src="/resources/images/profile.jpg" class=" rounded-circle"
 											style="width: 250px; height: 250px; margin: 30px;">
 									</div>
 								</c:if>
