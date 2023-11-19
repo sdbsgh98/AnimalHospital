@@ -68,6 +68,7 @@
 									    <td>부서</td>
 									    <td>
 											<select class="form-control" name='deptNo' id="deptNo" style="height: 35px">
+											    	<option value="999">가발령</option>
 											    <c:forEach items="${dept}" var="dept">
 											        <option value="${dept.deptNo}" ${dept.deptNo eq vo.deptNo ? 'selected' : ''}>${dept.deptName}</option>
 											    </c:forEach>

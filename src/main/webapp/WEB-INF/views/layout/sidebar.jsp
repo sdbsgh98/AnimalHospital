@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
@@ -123,6 +124,8 @@
 <!--             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">ADMIN</span>
             </li> -->
+            
+         <c:if test="${user.positionNo == 1}">   
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <img src="/resources/images/menu/team.png">
@@ -148,25 +151,8 @@
               	&nbsp&nbsp&nbsp&nbsp&nbsp
                 <div data-i18n="Authentications">전자결재관리</div>
               </a>
-<!--               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic">Login</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic">Register</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic">Forgot Password</div>
-                  </a>
-                </li>
-              </ul> -->
             </li>
-            
+         </c:if>   
             <!-- Components -->
             <!-- <li class="menu-header small text-uppercase"><span class="menu-header-text">CATEGORY</span></li> -->
             <!-- User interface -->

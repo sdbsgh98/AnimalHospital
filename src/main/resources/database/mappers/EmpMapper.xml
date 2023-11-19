@@ -225,7 +225,8 @@
 			ORIGINALSIGNNAME = #{originalSignName}, 
 			ADDDATE = NOW()
 		ON DUPLICATE KEY UPDATE
-			SIGNNAME = #{signName}, 
+			SIGNNAME = #{signName},
+			ADDDATE = NOW(), 
 			UPLOADNAME = #{uploadName}, 
 			ORIGINALSIGNNAME = #{originalSignName}	
 	</insert>

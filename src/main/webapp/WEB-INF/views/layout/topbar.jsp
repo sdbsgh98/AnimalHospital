@@ -91,15 +91,9 @@
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="/dept/deptList">
                         <i class="bx bx-user me-2"></i>
-                        <span class="align-middle">Work</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Admin</span>
+                        <span class="align-middle">Worker</span>
                       </a>
                     </li>
                     <li>
