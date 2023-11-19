@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.vet.main.commons.DeptPager;
 import com.vet.main.commons.Pager;
 import com.vet.main.file.FileVO;
 
@@ -32,4 +33,7 @@ public interface NoticeDAO {
 	
 	public NoticeFileVO fileDetail(NoticeFileVO noticeFileVO)throws Exception;
 	
+	public Long getTotal2(DeptPager deptPager) throws Exception;
+	
+	public List<NoticeVO> getNoticeList2(DeptPager deptPager) throws Exception;
 }
