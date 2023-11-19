@@ -18,14 +18,7 @@ $(function(){
 		let nowDate = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
 		
 		
-		$('#closeBtn').on("click",function(){
-							$("#customerNo").val("");
-							$("#animalName").val("");
-							$("#username").val("");
-							$("#name").val("");    
-							$("#treatmentDate").val("");
-		});
-		
+	
 		
 		var calendar= new FullCalendar.Calendar(calendarEl, {
 			height:'600px',
@@ -43,8 +36,12 @@ $(function(){
        					dateElement.value = nowDate;
        					dateElement.setAttribute("min", nowDate);
        					
-						dateElement2.value = nowDate;
-       					dateElement2.setAttribute("min", nowDate);
+       					$("#surgeryStart").on("change",function(){
+							dateElement2.value = $("#surgeryStart").val();
+       						dateElement2.setAttribute("min", $("#surgeryStart").val());
+       						dateElement2.setAttribute("max", $("#surgeryStart").val());
+						})
+					
        					
        					//고객검색버튼 눌렀을때
 						$("#customerSearch").on("click", function(){
@@ -93,35 +90,7 @@ $(function(){
 							})						
 						})
        			
-						//등록버튼클릭시
-						$('#addBtn').on("click", function(){
-
-							var customerNo = $("#customerNo").val();
-							var userName = $("#username").val();
-							var surgeryRoom = $("#surgeryRoom").val();
-							var surgeryName = $("#surgeryName").val();
-							var surgeryStart = $("#surgeryStart").val();
-							var surgeryEnd = $("#surgeryEnd").val();
-							
-						
-			
-							var param = {"customerNo":customerNo, "userName":userName, "surgeryRoom":surgeryRoom,
-											"surgeryName":surgeryName, "surgeryStart":surgeryStart, "surgeryEnd":surgeryEnd};
-							
-							
-							$.ajax({
-								url:"/surgery/scheduleAdd",
-								data:JSON.stringify(param),
-								method:"POST",												
-								contentType: "application/json",
-								success : function(data){
-									console.log(data);
-									console.log("수술예약!!!");
-									location.href="/surgery/schedule";							
-								}
-							})
-
-						});				
+								
 					}
 				}
 			},
@@ -257,10 +226,54 @@ $(function(){
 
 		eventAdd:function(obj){
 			console.log(obj)
-		},
-		
-
+		},		
 		});
+		
+			//등록버튼클릭시
+						$('#addBtn').on("click", function(){
+
+							var customerNo = $("#customerNo").val();
+							var userName = $("#username").val();
+							var surgeryRoom = $("#surgeryRoom").val();
+							var surgeryName = $("#surgeryName").val();
+							var surgeryStart = $("#surgeryStart").val();
+							var surgeryEnd = $("#surgeryEnd").val();
+							
+						
+			
+							var param = {"customerNo":customerNo, "userName":userName, "surgeryRoom":surgeryRoom,
+											"surgeryName":surgeryName, "surgeryStart":surgeryStart, "surgeryEnd":surgeryEnd};
+							
+							
+							$.ajax({
+								url:"/surgery/scheduleAdd",
+								data:JSON.stringify(param),
+								method:"POST",												
+								contentType: "application/json",
+								success : function(data){
+									console.log(data);
+									console.log("수술예약!!!");
+									location.href="/surgery/schedule";							
+								}
+							})
+
+						});	
+		
+			$('#closeBtn').on("click",function(){
+							$("#customerNo").val("");
+							$("#animalName").val("");
+							$("#username").val("");
+							$("#surgeryRoom").val("");
+							$("#surgeryName").val("");
+							$("#surgeryStart").val("");
+							$("#surgeryEnd").val("");
+					
+		    });
+		
+		
+		
+		
+		
 		calendar.render();
 		});
 	

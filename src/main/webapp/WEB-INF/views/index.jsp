@@ -21,6 +21,10 @@
 	.fc-button{
 		color:#FE9A2E
 	}
+	
+	.treat{
+		background-color:#A9D0F5
+	}
 </style>
 </head>
 <body>
@@ -36,14 +40,21 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-					   <div class="card" style="width:40%" >				       
+					   <div class="card" style="width:45%; margin-left: auto;">	
+					 	
 					       <div class="card-content">
-					      	<div id="calendar" style="padding:30px"> 
+					       <div style="padding:10px">
 					      
-					      	</div>	                           
-					          </div>
-				          </div>
-					]
+					       		<button id="deptcal" class="btn btn-primary">부서출퇴근</button>
+						       	<button id="treatmentcal" class="btn treat">진료일정</button>
+						     	<img src="/resources/images/menu/pet2.png" style="width:50px; height:50px; text-align:right">
+					       	</div>					      
+					      	<div id="calendar" style="padding:30px"> 					      	
+					      	</div>	 
+					    
+					       </div>
+				       </div>
+				
 					<sec:authentication property="Principal" var="user"/>	
 						<sec:authorize access="isAuthenticated()">
 							<a href="/emp/logout" class="btn btn-danger" style="">로그아웃</a>	
@@ -54,6 +65,7 @@
 						<input type="hidden" id="username" name="username" value="${user.username}">
 						<input type="hidden" id="empName" name="empName" value="${user.empName}">
 						<input type="hidden" id="hireDate" name="hireDate" value="${user.hireDate}">
+						<input type="hidden" id="deptNo" value="${user.deptNo}">
 					
 						
 						<div>
@@ -103,7 +115,7 @@
 	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
 
 	<script src="/js/attendance/attendance.js"></script>
-
+	<script src="/js/main/schedule.js"></script>
 
 </body>
 </html>
