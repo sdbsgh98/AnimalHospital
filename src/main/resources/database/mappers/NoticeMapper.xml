@@ -34,6 +34,19 @@
 			ORDER BY IMPORTANT DESC, NOTICENO DESC
 			LIMIT #{startRow}, #{lastRow}
 	</select>
+	
+	<select id="getTotal2" parameterType="com.vet.main.commons.DeptPager" resultType="Long">
+		SELECT COUNT(NOTICENO) 
+		FROM NOTICE
+	</select>
+	
+	<select id="getNoticeList2" parameterType="com.vet.main.notice.NoticeVO">
+		SELECT * 
+			FROM NOTICE N INNER JOIN EMP E 
+			ON N.USERNAME = E.USERNAME
+				ORDER BY IMPORTANT DESC, NOTICENO DESC
+				LIMIT #{startRow}, #{lastRow}
+	</select>
 
 	<insert id="noticeAdd" parameterType="com.vet.main.notice.NoticeVO">
 	<selectKey keyProperty="noticeNo" resultType="Long" order="BEFORE">

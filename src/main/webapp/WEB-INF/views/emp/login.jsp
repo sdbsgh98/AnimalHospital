@@ -103,11 +103,9 @@ p {
 
 .flower {
     position: absolute;
-    width: 120px;
-    height: 120px;
-    top: 46%;
-    left: 29%;
-    opacity: .7;
+    width: 180px;
+    height: 140px;
+    left: 19%;
 }
 
 .smaller {
@@ -202,7 +200,7 @@ input[type=checkbox] {
 </style>
 
 <meta charset="UTF-8">
-<title>Bodeum Hospital</title>
+<title>Bodeum Animal Medical Center</title>
 </head>
 <body id="">
 
@@ -234,7 +232,7 @@ input[type=checkbox] {
 		</form>		
       </div>
       <div class="signin">
-        <h1>log in</h1>
+        <h1>Log in</h1>
 <%--   		<form action="login" method="post" class="more-padding" autocomplete="off"> --%>
 		<form:form modelAttribute="empVO" action="/emp/login" method="POST">
 			<input type="text" id="username2" name="username" placeholder="사원번호를 입력하세요." value=""/>					
@@ -243,11 +241,11 @@ input[type=checkbox] {
 			<div id="passwordError" style="font-size: 12px; color:red;"></div>
 			<div class="checkbox">
 				<input type="checkbox" class="form-check-input" id="remember-me" name="remember-me" checked="checked"/><label for="remember">remember me</label>
-			</div>	
-			<div>
-        	<spring:message code="${param.message}" var="msg"></spring:message>
-        		<p style="color: red;">${msg}</p>
-        	</div> 		
+			</div>			
+         			<div>
+        				<spring:message code="${param.message}" var="msg"></spring:message>
+        				<p style="color: red;">${msg}</p>
+        			</div> 
 			 <button type="submit" class="btn button" style="margin-top: 80px;" id="login">login</button>
 
 		</form:form>
@@ -256,8 +254,8 @@ input[type=checkbox] {
     </div>
     <div class="leftbox">
       <h2 class="title">보&nbsp;&nbsp;듬</h2>
-      <p class="desc">Animal Hospital</p>
-      <img class="flower smaller" src="/resources/images/foot.png" style="margin-right: 20px;">
+      <p class="desc">Animal Medical Center</p>
+      <img class="flower" src="/resources/images/loginLogo1.png" style="width: 200px;">
       <p class="account">Want to log in?</p>
       <button class="button" id="signin">login</button>
       
@@ -265,8 +263,8 @@ input[type=checkbox] {
     </div>
     <div class="rightbox">
       <h2 class="title">보&nbsp;&nbsp;듬</h2>
-      <p class="desc">Animal Hospital</p>
-      <img class="flower" src="/resources/images/logo1.png" style="margin-left: 10px;"/>
+      <p class="desc">Animal Medical Center</p>
+      <img class="flower" src="/resources/images/loginLogo1.png" style="width: 200px; margin-right: 50px;"/>
       <p class="account">Forgot your password?</p>
       <button class="button" id="signup" name="findUser"><!-- <a href="/emp/findUser" style="text-decoration: none; te">Find Password</a> -->find password</button>
     </div>

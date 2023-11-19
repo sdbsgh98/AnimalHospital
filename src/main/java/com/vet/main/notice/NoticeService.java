@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.vet.main.commons.DeptPager;
 import com.vet.main.commons.FileManager;
 import com.vet.main.commons.Pager;
 
@@ -27,6 +28,15 @@ public class NoticeService {
 	
 	@Value("${app.notice}")
 	private String username; 
+	
+	public List<NoticeVO> getNoticeList2(DeptPager deptPager) throws Exception {
+		deptPager.setPerPage(5L);
+		deptPager.makeRowNum();
+		Long totalCount = noticeDAO.getTotal2(deptPager);
+		deptPager.makePageNum(totalCount);
+		
+		return noticeDAO.getNoticeList2(deptPager);
+	}
 	
 	public List<NoticeVO> getNoticeList(Pager pager) throws Exception {
 		pager.setPerPage(10L); //10개씩
@@ -111,7 +121,7 @@ public class NoticeService {
 		return result;
 	}
 	
-	public NoticeFileVO noticeFileDown(NoticeFileVO noticeFileVO)throws Exception{
+	public NoticeFileVO noticeFileDetail(NoticeFileVO noticeFileVO)throws Exception{
 		return noticeDAO.fileDetail(noticeFileVO);
 	}
 	

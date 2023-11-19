@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vet.main.attendance.AttendanceService;
 import com.vet.main.attendance.AttendanceVO;
+import com.vet.main.commons.DeptPager;
 import com.vet.main.commons.Pager;
 import com.vet.main.emp.EmpService;
 import com.vet.main.emp.EmpVO;
@@ -51,7 +52,9 @@ public class HomeController {
 	private EmpService empService;
 	
 	@GetMapping("/")
-	public String index(AttendanceVO attendanceVO, Model model, NoticeVO noticeVO, Pager pager, EmpVO empVO) throws Exception {
+
+	public String index(AttendanceVO attendanceVO, Model model, NoticeVO noticeVO, Pager pager, DeptPager deptPager, EmpVO empVO) throws Exception {
+
 		// 현재 로그인한 사람의 username 정보 가져오기
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
@@ -67,9 +70,13 @@ public class HomeController {
 		model.addAttribute("dayoff", dayoffCount);
 		
 		//게시판내용가져오기
-		List<NoticeVO> ar = noticeService.getNoticeList(pager);
+//		List<NoticeVO> ar = noticeService.getNoticeList(pager);
+//		model.addAttribute("list", ar);
+//		model.addAttribute("pager", pager);
+		
+		List<NoticeVO> ar = noticeService.getNoticeList2(deptPager);
 		model.addAttribute("list", ar);
-		model.addAttribute("pager", pager);
+		model.addAttribute("pager", deptPager);
 		
 		//사원정보 
 //		empVO = empService.mypage(empVO);
