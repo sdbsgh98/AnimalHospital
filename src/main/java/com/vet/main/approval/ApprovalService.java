@@ -67,23 +67,21 @@ public class ApprovalService {
 	}
 	
 	// 지출결의서 작성폼
-	public int setApExpenseAdd(ApprovalVO approvalVO, MultipartFile[] files) throws Exception {
+	public int setApExpenseAdd(ApprovalVO approvalVO) throws Exception {
     	int result = approvalDAO.setApExpenseAdd(approvalVO);
     	
-		for(MultipartFile multipartFile : files) {
-		
-		if(multipartFile.isEmpty()) {
-			continue;
-		}
-		
-		ApprovalFileVO fileVO = new ApprovalFileVO();
-		String fileName = fileManager.save(this.uploadPath + this.apKind, multipartFile);
-		fileVO.setApNo(approvalVO.getApNo());
-		fileVO.setFileName(fileName);
-		fileVO.setOriginalFileName(multipartFile.getOriginalFilename());
-		
-		result = approvalDAO.setApFileAdd(fileVO);
-	}
+		/*
+		 * for(MultipartFile multipartFile : files) {
+		 * 
+		 * if(multipartFile.isEmpty()) { continue; }
+		 * 
+		 * ApprovalFileVO fileVO = new ApprovalFileVO(); String fileName =
+		 * fileManager.save(this.uploadPath + this.apKind, multipartFile);
+		 * fileVO.setApNo(approvalVO.getApNo()); fileVO.setFileName(fileName);
+		 * fileVO.setOriginalFileName(multipartFile.getOriginalFilename());
+		 * 
+		 * result = approvalDAO.setApFileAdd(fileVO); }
+		 */
 		return result;
 	}
 	
@@ -212,8 +210,8 @@ public class ApprovalService {
 		return approvalDAO.setApFileDelete(noticeFileVO);
 	}
 	
-	public int updateDayoff(EmpVO empVO) throws Exception {
-		return approvalDAO.updateDayoff(empVO);
+	public int updateDayoff(Double dayoff) throws Exception {
+		return approvalDAO.updateDayoff(dayoff);
 	}
 	
 	public List<ApprovalVO> getMainApprove(String username) throws Exception {
@@ -223,4 +221,9 @@ public class ApprovalService {
 	public List<ApprovalLineVO> getMainApLineInfo() throws Exception {
 		return approvalDAO.getMainApLineInfo();
 	}
+	
+	public Double getDayoffCount(String username) throws Exception {
+		return approvalDAO.getDayoffCount(username);
+	}
+
 }

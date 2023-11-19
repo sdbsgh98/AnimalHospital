@@ -333,9 +333,10 @@
 		SET APTITLE = #{apTitle},
 			DAYOFFSTARTDATE = #{dayoffStartDate},
 			DAYOFFENDDATE = #{dayoffEndDate},
+			APCONTENTS = #{apContents},
 			DAYOFFKIND = #{dayoffKind},
 			DAYOFFTIME = #{dayoffTime},
-			APCONTENTS = #{apContents}
+			DAYOFFSELECTDATE = #{dayoffSelectDate}
 		WHERE APNO = #{apNo}
 	</update>
 	
@@ -493,17 +494,22 @@
   		DELETE APFILE WHERE FILENO=#{fileNo}
   	</delete>
   	
-  	<update id="updateDayoff" parameterType="EmpVO">
+  	<update id="updateDayoff" parameterType="Double">
   		UPDATE EMP
   		SET
   		DAYOFFCOUNT = #{dayoffCount}
   	</update>
   	
+  	<select id="getDayoffCount" parameterType="String">
+  		SELECT DAYOFFSELECTDATE
+  		FROM APPROVAL
+  	</select>
+  	
   	<select id="getMainApprove" parameterType="String">
 		SELECT A.*, E.FILENAME
 		FROM APPROVAL A INNER JOIN EMP E
 		ON A.USERNAME = E.USERNAME
-		WHERE A.USERNAME = '2023089'
+		WHERE A.USERNAME = #{username}
 		ORDER BY A.APCDATE DESC
 		LIMIT 5;
   	</select>
