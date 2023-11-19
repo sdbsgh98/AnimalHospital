@@ -232,7 +232,7 @@ input[type=checkbox] {
 		</form>		
       </div>
       <div class="signin">
-        <h1>Log in</h1>
+        <h1>Login</h1>
 <%--   		<form action="login" method="post" class="more-padding" autocomplete="off"> --%>
 		<form:form modelAttribute="empVO" action="/emp/login" method="POST">
 			<input type="text" id="username2" name="username" placeholder="사원번호를 입력하세요." value=""/>					
