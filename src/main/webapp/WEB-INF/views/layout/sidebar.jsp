@@ -7,7 +7,7 @@
           <div class="app-brand demo">
             <a href="/" class="app-brand-link">
               <span class="app-brand-logo demo">
-              <img src="/resources/images/jisun3.png" alt="로고" style="width: 50px; height: 50px;">
+              
                <!--  <svg
                   width="25"
                   viewBox="0 0 25 42"
@@ -62,7 +62,9 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Animal<br>Hospital</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">
+              <img src="/resources/images/finallogo2.png" alt="로고" style="width: 250px; height: 110px;">
+              </span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
