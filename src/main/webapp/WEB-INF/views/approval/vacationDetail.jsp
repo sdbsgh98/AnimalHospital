@@ -37,6 +37,7 @@
                     <div class="card-body">
                     <div class="table-responsive">
                     
+                    
                  	<table class="table mt-4">
 	
 				    <tr>
@@ -53,8 +54,18 @@
 				        <th class="text-center" style="width: 100px;">기안자</th>
 				        <td>${approvalVO.empName}</td>
 				    </tr>
-			 
+				    
 					</table>
+			 
+				   
+				    <c:if test="${approvalVO.apRejection ne null}">
+						<table class="mt-3" border="1" style="width: 618px; height: 100px;">
+							<tr>
+						        <td class="text-center" style="width: 100px; border-right: 1px solid black; background: rgb(208, 206, 206);"><strong>반려 사유</strong></td>
+						        <td class="text-center">${approvalVO.apRejection}</td>
+						    </tr>
+						</table>
+					</c:if>
 					
 					<form action="" id="frm">
 						<input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
@@ -69,7 +80,7 @@
 						<input type="hidden" class="approve" name="approve${status.index}" id="approve${status.index}" value="${line.username}">
 					</c:forEach>
 					
-					<table class="mt-5" border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: none; width: 618px; height: 849px;" class="">
+					<table class="mt-4" border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: none; width: 618px; height: 849px;" class="">
 						<tbody>
 							<tr style="">
 								<td style="border: 1px solid black; padding: 0px 7px; height: 849px; width: 617px; vertical-align: top;">

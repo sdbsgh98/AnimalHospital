@@ -121,4 +121,9 @@ public interface ApprovalDAO {
 	public List<ApprovalLineVO> getMainApLineInfo() throws Exception;
 	
 	public Double getDayoffCount(String username) throws Exception;
+	
+	public List<ApprovalVO> apCountBtn01(String username) throws Exception;
+	public List<ApprovalVO> apCountBtn02(String username) throws Exception;
+	public List<ApprovalVO> apCountBtn03(String username) throws Exception;
+	public List<ApprovalVO> apCountBtn04(String username) throws Exception;
 }

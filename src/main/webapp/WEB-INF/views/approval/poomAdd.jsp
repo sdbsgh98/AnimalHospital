@@ -134,6 +134,7 @@
 
 								
 				    		</form>
+				</div>
 			    		</div>
 					</div>
 								<div class="row">
@@ -142,7 +143,6 @@
 										<button type="button" class="btn btn-primary" onclick="cancleBtn()">취소</button>
 									</div>
 			                    </div>
-				</div>
 					</div>
 					<!-- / Content -->
 					<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>

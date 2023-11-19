@@ -19,7 +19,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 15px;
     }
 
     .input-group {
@@ -51,59 +50,69 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<!-- DataTales Example -->
 						
-<!-- Existing card -->
-<div class="card shadow mb-4">
-    <div class="card-body">
-        <!-- ... Existing content ... -->
-
         <!-- New row for small square cards -->
-        <div class="row mt-4">
-            <!-- First small square card -->
+        <!-- <div class="row mt-4">
+            First small square card
             <div class="col-md-3 mb-4">
-                <div class="card">
+                <div class="card"> 
                     <div class="card-body">
-                        <!-- Content of the first small card -->
-                        Card 1
+                        <div class="text-muted" style="text-align: center;">
+                    	최근에 작성한 기안서
+                    	</div>
+                    	<div class="mt-1" style="font-size:30px; text-align: center;">
+                        3
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Second small square card -->
+            Second small square card
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <!-- Content of the second small card -->
-                        Card 2
+                        <div class="text-muted" style="text-align: center;">
+                    	반려된 기안서
+                    	</div>
+                    	<div class="mt-1" style="font-size:30px; text-align: center;">
+                        3
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Third small square card -->
+            Third small square card
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <!-- Content of the third small card -->
-                        Card 3
+                        <div class="text-muted" style="text-align: center;">
+                    	결재 진행 중인 기안서
+                    	</div>
+                    	<div class="mt-1" style="font-size:30px; text-align: center;">
+                        3
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Fourth small square card -->
+            Fourth small square card
             <div class="col-md-3 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <!-- Content of the fourth small card -->
-                        Card 4
+                        <div class="text-muted" style="text-align: center;">
+                    	수신된 기안서
+                    	</div>
+                    	<div class="mt-1" style="font-size:30px; text-align: center;">
+                        3
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+        </div> -->
+
 
 <!-- Existing card -->
 <div class="card shadow mb-4">
-    <div class="card-body" style="height:100px;">
+    <div class="card-body" style="">
         <!-- ... Existing content ... -->
 
         <!-- New row for small square cards -->
@@ -111,32 +120,41 @@
 			<div>
 				<!-- 검색 -->
 				<div class="input-group">
-					<form onsubmit="return validateForm()" action="../draftList/${user.username}" method="get" id="frm">
+					<form onsubmit="return validateForm()" style="width:100%;"
+					action="../draftList/${user.username}" method="get" id="frm">
+					<div style="
+					    display: flex;
+					    justify-content: center;
+					    gap:70px;
+					    width: 100%;
+					    text-align: center&nbsp;
+">
 							
 								<!-- Date Range Search -->
 						<div class="form-group">
-		                <label for="startDate">기간설정&nbsp;</label>
+		                <span class="mt-1"><strong>기간설정</strong></span>
 		                <input type="date" id="startDate" name="startDate" class="form-control" style="width: 200px;">
-		                <label for="endDate">&nbsp;&nbsp;~&nbsp;&nbsp;</label>
+		                <label for="endDate">&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;</label>
 		                <input type="date" id="endDate" name="endDate" class="form-control" style="width: 200px;">
 						</div>
 						
 						
-						<div class="form-group">
+						<div class="form-group" style="gap:10px;">
 							<div class="input-group">
 								<input type="hidden" value="${pager.page}" id="page" name="page">
 								<select name="kind" id="k" class="form-select"
-									data-kind="${pager.kind}" aria-label="Default select example" style="width:120px;">
+									data-kind="${pager.kind}" aria-label="Default select example" style="width:100px;">
 									<option class="kind" value="apTitle">제목</option>
 									<option class="kind" value="apContents">내용</option>
 									<option class="kind" value="apKind">기안종류</option>
 								</select>
 							</div> 
 							<input type="text" name="search" value="${pager.search}"
-								class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 150px;">
+								class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 250px;">
 	
-							<button type="submit" class="btn btn-primary" style="width:100px;">검색</button>
 						</div>	
+						</div>
+							<button type="submit" class="btn btn-primary" style="width:100px;white-space:nowrap;display:block;margin:15px auto 0;">검색</button>
 					</form>
 				</div>
 			</div>
@@ -190,11 +208,7 @@
 						        <!-- 전체 페이지 수 -->
 						        <input type="hidden" name="totalPage" id="totalPage" value="${pager.totalPage}">
 						        
-								<div class="d-flex justify-content-between mb-3">
-
-		    					<div>
-		    					
-
+								<div class="d-flex mt-4" style="justify-content:center;">
 		    						<!-- 페이징 -->
 									<nav aria-label="Page navigation example">
 										<ul class="pagination justify-content-center">
@@ -219,6 +233,10 @@
 										</ul>
 									</nav>
 		    					</div>
+
+		    					<div>
+		    					
+
 							</div>
 						        
 						        

@@ -40,35 +40,21 @@
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
 					
-				    <%-- <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
+				    <input type="hidden" class="form-control" id="username" name="username" value="${user.username}">
 				    
-					<select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example">
-			           	   <!-- <option value="300">전체</option>
-			           	   <option value="200">인사행정부</option>
-			               <option value="400">내과</option>
-			               <option value="500">외과</option>
-			               <option value="600">영상과</option> -->    
-			                  
-							<option value="100">대표원장</option>
-			           	   <option value="800">인사행정</option>
-			               <option value="999">가발령</option>
-			               <option value="700">간호과</option>
-			          </select>
 
-
-				    <div id="calendarBox">
-				        <div id="calendar"></div>
-				    </div> --%>
-				    
+		    
 	               <div class="row">
 	               <div class="col-md-10 col-md-offset-1">
 	              
 	               	<div style="padding: 0 0 10px" >
 		               <select name="deptNo" id="deptNo" class="form-select form-select-sm" aria-label="Small select example"> 	           	   
-							<option value="100">대표원장</option>
-			           	   <option value="800">인사행정</option>
-			               <option value="999">가발령</option>
+						   <option value="300">전체</option>
+						   <option value="400">내과</option>
+			           	   <option value="500">외과</option>
+			               <option value="600">영상과</option>
 			               <option value="700">간호과</option>     
+			               <option value="100">인사행정</option>     
 			          </select>
 			        </div>
 			        

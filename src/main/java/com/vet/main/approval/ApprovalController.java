@@ -677,5 +677,42 @@ public class ApprovalController {
 		return result;
 	}
 	
+	@GetMapping("apBtn01")
+	public List<ApprovalVO> setApCountBtn01(String username) throws Exception {
+		List<ApprovalVO> list = new ArrayList<ApprovalVO>();
+		list = approvalService.apCountBtn01(username);
+		return list;
+	}
 	
+	@GetMapping("apBtn02")
+	public List<ApprovalVO> setApCountBtn02(String username) throws Exception {
+		List<ApprovalVO> list = new ArrayList<ApprovalVO>();
+		list = approvalService.apCountBtn01(username);
+		return list;
+	}
+	
+	@GetMapping("apBtn03")
+	public List<ApprovalVO> setApCountBtn03(String username) throws Exception {
+		List<ApprovalVO> list = new ArrayList<ApprovalVO>();
+		list = approvalService.apCountBtn01(username);
+		return list;
+	}
+	
+	@GetMapping("apBtn04")
+	public List<ApprovalVO> setApCountBtn04(String username) throws Exception {
+		List<ApprovalVO> list = new ArrayList<ApprovalVO>();
+		list = approvalService.apCountBtn01(username);
+		return list;
+	}
+	
+//	@PostMapping("apLineSelect") // 결재선에서 부서클릭시 맞는 부서들 출력
+//	@ResponseBody
+//	public List<EmpVO> getEmpSelectList(String deptName) throws Exception { // 선택한 부서에 맞는 사원들 리스트로 반환
+//		
+//		List<EmpVO> selectList = new ArrayList<EmpVO>();
+//		selectList = approvalService.getEmpSelectList(deptName);
+//		
+//		log.info("############### 결재선 직원 목록 : {} ################", selectList);
+//		return selectList;
+//	}
 }

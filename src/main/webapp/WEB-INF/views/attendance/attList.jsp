@@ -17,6 +17,14 @@
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
+<style>
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+</style>
+
 </head>
 <body>
 	<!-- Layout wrapper -->
@@ -40,11 +48,29 @@
 						        <!-- 전체 페이지 수 -->
 						        <input type="hidden" name="totalPage" id="totalPage" value="${pager.totalPage}">
 						        
-								<div class="d-flex justify-content-between mb-3">
+								<div class="">
 									<div>
 										<!-- 검색 -->
 										<div class="input-group mb-3">
-											<form onsubmit="return validateForm()" action="./list" method="get" class="d-flex align-items-center" id="frm">
+											<form onsubmit="return validateForm()" action="../list" method="get" class="" id="frm"
+										style="width:100%;">
+										<div style="
+					    display: flex;
+					    justify-content: center;
+					    gap:70px;
+					    width: 100%;
+">
+											
+											<div class="form-group">
+													
+													<!-- Date Range Search -->
+									                <label for="startDate" class="ms-2 me-1">시작일:</label>
+									                <input type="date" id="startDate" name="startDate" class="form-control" style="width: 150px;">
+									                <label for="endDate" class="ms-2 me-1">종료일:</label>
+									                <input type="date" id="endDate" name="endDate" class="form-control" style="width: 150px;">
+							                </div>
+											
+											<div class="form-group" style="gap:10px;">
 												<div class="input-group" style="width: 120px;">
 													<input type="hidden" value="${pager.page}" id="page" name="page">
 													<select name="kind" id="k" class="form-select"
@@ -56,43 +82,16 @@
 												</div> 
 												<input type="text" name="search" value="${pager.search}"
 													class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 150px;">
-													
-													<!-- Date Range Search -->
-									                <label for="startDate" class="ms-2 me-1">시작일:</label>
-									                <input type="date" id="startDate" name="startDate" class="form-control" style="width: 150px;">
-									                <label for="endDate" class="ms-2 me-1">종료일:</label>
-									                <input type="date" id="endDate" name="endDate" class="form-control" style="width: 150px;">
+												
+											</div>
+							                
+					                	</div>
 									                
-													<button type="submit" class="btn btn-primary" style="width:100px;">검색</button>
+													<button type="submit" class="btn btn-primary" style="width:100px;display:block;margin:15px auto 0;">검색</button>
 													
 											</form>
 										</div>
 									</div>
-			    					<div>
-			    						<!-- 페이징 -->
-										<nav aria-label="Page navigation example">
-											<ul class="pagination justify-content-center">
-												<c:if test="${pager.pre}">
-												<li class="page-item ${pager.pre?'':'disabled'}"><a
-													class="page-link"
-													href="./attendance/list?page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}"
-													aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-												</a></li>
-												</c:if>
-												<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
-													var="i">
-													<li class="page-item"><a class="page-link"
-														href="./attendance/list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
-												</c:forEach>
-												<c:if test="${pager.next}">
-													<li class="page-item"><a class="page-link"
-														href="./attendance/list?page=${pager.startNum + 1}&kind=${pager.kind}&search=${pager.search}"
-														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-													</a></li>
-												</c:if>
-											</ul>
-										</nav>
-			    					</div>
 								</div>
 	                        </div>
 	                    </div>
@@ -129,6 +128,33 @@
 	                                    </tbody>
 	                                </table>  
 				    			</div>
+				    			
+				    			<div>
+			    						<!-- 페이징 -->
+										<nav class="mt-4" aria-label="Page navigation example">
+											<ul class="pagination justify-content-center">
+												<c:if test="${pager.pre}">
+												<li class="page-item ${pager.pre?'':'disabled'}"><a
+													class="page-link"
+													href="../attendance/list?page=${pager.startNum - 1}&kind=${pager.kind}&search=${pager.search}"
+													aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+												</a></li>
+												</c:if>
+												<c:forEach begin="${pager.startNum}" end="${pager.lastNum}"
+													var="i">
+													<li class="page-item"><a class="page-link"
+														href="../attendance/list?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+												</c:forEach>
+												<c:if test="${pager.next}">
+													<li class="page-item"><a class="page-link"
+														href="./attendance/list?page=${pager.startNum + 1}&kind=${pager.kind}&search=${pager.search}"
+														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+													</a></li>
+												</c:if>
+											</ul>
+										</nav>
+			    					</div>
+			    					
 	    					</div>
 	    				</div>
 					</div>

@@ -226,4 +226,19 @@ public class ApprovalService {
 		return approvalDAO.getDayoffCount(username);
 	}
 
+	public List<ApprovalVO> apCountBtn01(String username) throws Exception {
+		return approvalDAO.apCountBtn01(username);
+	}
+	
+	public List<ApprovalVO> apCountBtn02(String username) throws Exception {
+		return approvalDAO.apCountBtn02(username);
+	}
+	
+	public List<ApprovalVO> apCountBtn03(String username) throws Exception {
+		return approvalDAO.apCountBtn03(username);
+	}
+	
+	public List<ApprovalVO> apCountBtn04(String username) throws Exception {
+		return approvalDAO.apCountBtn04(username);
+	}
 }

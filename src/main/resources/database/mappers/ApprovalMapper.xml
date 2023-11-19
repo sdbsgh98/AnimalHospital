@@ -522,4 +522,47 @@
 		ON APL.USERNAME = E.USERNAME;
   	</select>
 
+
+	<!-- 기안함 & 결재함 카운트 메뉴 -->
+	<!-- 내가 작성한 결재 -->
+	<select id="apCountBtn01" parameterType="String">
+		SELECT *
+		FROM APPROVAL
+		WHERE USERNAME = #{username}
+		AND APCDATE BETWEEN DATE_SUB(CURDATE(), INTERVAL 5 DAY) AND CURDATE()
+		ORDER BY APCDATE DESC;
+	</select>
+	
+	<!-- 내게 수신된 결재 -->
+	<select id="apCountBtn02" parameterType="String">
+		SELECT APL.*, A.APNO, A.APCDATE
+		FROM APLINE APL INNER JOIN APPROVAL A
+		ON APL.APNO = A.APNO
+		WHERE APL.USERNAME = #{username}
+		AND APL.APLSTEP = '1'
+		AND APL.APCONFIRMSTATE = '0'
+		AND A.APCDATE BETWEEN DATE_SUB(CURDATE(), INTERVAL 5 DAY) AND CURDATE()
+		ORDER BY A.APCDATE DESC;
+	</select>
+	
+	<!-- 반려된 결재 -->
+	<select id="apCountBtn03" parameterType="String">
+		SELECT *
+		FROM APPROVAL
+		WHERE USERNAME = #{username}
+		AND APSTATE  = '반려'
+		AND APCDATE BETWEEN DATE_SUB(CURDATE(), INTERVAL 5 DAY) AND CURDATE()
+		ORDER BY APCDATE DESC;
+	</select>
+	
+	<!-- 내가 작성한 기안서 중에 결재진행중인 결재 -->
+	<select id="apCountBtn04" parameterType="String">
+		SELECT *
+		FROM APPROVAL
+		WHERE USERNAME = #{username}
+		AND APSTATE  = '결재진행중'
+		AND APCDATE BETWEEN DATE_SUB(CURDATE(), INTERVAL 5 DAY) AND CURDATE()
+		ORDER BY APCDATE DESC;
+	</select>
+
 </mapper>

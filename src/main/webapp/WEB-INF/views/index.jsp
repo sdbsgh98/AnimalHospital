@@ -107,13 +107,13 @@
 							                    </c:when>
 							                    <c:when test="${att.attState eq 1 and att.attOut eq null}">
 							                    	<div class="text-center">
-													<button type="button" class="btn btn-outline-primary" onclick="attIn()" style="width:100px;" disabled>출근</button><br>
+													<button type="button" class="btn btn-outline-primary mb-3" onclick="attIn()" style="width:100px;" disabled>출근</button><br>
 													<button type="button" class="btn btn-primary" onclick="attOut()" style="width:100px;">퇴근</button>
 													</div>
 								                </c:when>
 								                <c:otherwise>
 								                	<div class="text-center">
-													<button type="button" class="btn btn-outline-primary" onclick="attIn()" style="width:100px;" disabled>출근</button><br>
+													<button type="button" class="btn btn-outline-primary mb-3" onclick="attIn()" style="width:100px;" disabled>출근</button><br>
 													<button type="button" class="btn btn-outline-primary" onclick="attOut()" style="width:100px;" disabled>퇴근</button>
 													</div>
 								                </c:otherwise>
@@ -163,9 +163,8 @@
 
 										<br>
 										
-								<div style="display: flex;">
-   									 <div class="row">
-   									   <div class="col-md-8">
+
+   									 <div style="display: flex; justify-content:space-between; width:100%;">
 										<div class="card" style="width: 50rem;">
 											<div class="card-body">
 												<div class="row g-3">
@@ -213,13 +212,12 @@
 												</table>
 											</div>
 										</div>
-									</div>
 									
-									<div class="col-md-4">
-									<div class="card" style="width: 500px;">
+									<div class="" style="text-align: left;">
+									<div class="card" style="width: 550px;">
 						                <h5 class="card-header">결재대기함</h5>
 						                <div class="table-responsive text-nowrap">
-						                  <table class="table table-hover" id="mainApproveTbl">
+						                  <table class="table table-hover text-center" id="mainApproveTbl">
 						                    <thead>
 						                      <tr>
 						                        <th>기안서</th>
@@ -227,12 +225,12 @@
 						                        <th>결재상태</th>
 						                      </tr>
 						                    </thead>
-						                    <tbody class="table-border-bottom-0">
+						                    <tbody class="table-border-bottom-0 text-center">
 						                      <c:forEach items="${md}" var="md">
 							                      <tr>
 							                        <td><strong>${md.apTitle}</strong></td>
 							                        <td>
-							                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+							                          <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center" style="justify-content: center;">
 							                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="" data-bs-original-title="${md.empName}">
 							                              <img src="../files/emp/${md.fileName}" alt="Avatar" class="rounded-circle">
 							                            </li>
@@ -246,7 +244,21 @@
 							                          </ul>
 							                        </td>
 							                        <td>
-							                        <span class="badge bg-label-primary me-1">결재완료</span>
+							                        <c:choose>
+							                        	<c:when test="${md.apState eq '결재완료'}">
+							                        		<span class="badge bg-label-primary me-1">결재완료</span>
+							                        	</c:when>
+							                        	<c:when test="${md.apState eq '결재대기중'}">
+							                        		<span class="badge bg-label-secondary me-1">결재대기중</span>
+							                        	</c:when>
+							                        	<c:when test="${md.apState eq '결재진행중'}">
+							                        		<span class="badge bg-label-dark me-1">결재진행중</span>
+							                        	</c:when>
+							                        	<c:when test="${md.apState eq '반려'}">
+							                        		<span class="badge bg-label-warning me-1">반려</span>
+							                        	</c:when>
+	
+							                        </c:choose>
 							                        </td>
 							                      </tr>
 						                      </c:forEach>
@@ -256,7 +268,6 @@
 						              </div>
 						             </div>
 						            </div>	
-						        </div>
 								</div>
 								<!-- / Content -->
 								<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
