@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +22,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.vet.main.attendance.AttendanceDAO;
+import com.vet.main.attendance.AttendanceService;
 import com.vet.main.commons.FileManager;
 import com.vet.main.commons.Pager;
 import com.vet.main.dept.DeptVO;
@@ -52,6 +55,11 @@ public class EmpService implements UserDetailsService{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private AttendanceDAO attendanceDAO;
+	
+	@Autowired
+	private AttendanceService attendanceService;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -154,7 +162,7 @@ public class EmpService implements UserDetailsService{
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 		
 		simpleMailMessage.setTo(email);
-		simpleMailMessage.setSubject("[동물병원] 로그인 관련 안내입니다.");
+		simpleMailMessage.setSubject("[보듬 동물병원] 로그인 관련 안내입니다.");
 		simpleMailMessage.setText("안녕하세요. 사원번호는 " + username + "이며 비밀번호는 " + phone + "입니다.");
 		
 		javaMailSender.send(simpleMailMessage);
@@ -269,9 +277,6 @@ public class EmpService implements UserDetailsService{
 		
 		return result;
 	}
-	
-    public FindVO loginCheck(FindVO findVO) throws Exception{
-        return empDAO.loginCheck(findVO);
-    }
+
     
 }

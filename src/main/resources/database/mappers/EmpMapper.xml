@@ -75,8 +75,7 @@
 			<result column="ROLENAME" property="roleName"/>	
 		</collection>
 		
-	</resultMap>
-	
+	</resultMap>	
 
 	<select id="mypage" parameterType="com.vet.main.emp.EmpVO" resultMap="getDetailResult">
   		SELECT E.*, P.*, D.* 
@@ -123,7 +122,7 @@
 	        select NEXTVAL(emp_seq) from dual
 	</selectKey>
 		INSERT INTO EMP 
-		VALUES (#{username}, #{password}, #{empName}, #{email}, #{phone}, NOW(), NULL, NULL, 12, 999, '재직', #{birth}, 0, 10)
+		VALUES (#{username}, #{password}, #{empName}, #{email}, #{phone}, NOW(), NULL, NULL, 12, 999, '재직', #{birth}, 0, 10.0)
 	</insert>
 
 	<insert id="empRole" parameterType="java.util.Map">

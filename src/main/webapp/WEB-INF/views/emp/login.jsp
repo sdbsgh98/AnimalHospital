@@ -202,7 +202,7 @@ input[type=checkbox] {
 </style>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Bodeum Hospital</title>
 </head>
 <body id="">
 
@@ -234,11 +234,7 @@ input[type=checkbox] {
 		</form>		
       </div>
       <div class="signin">
-        <h1>sign in</h1>
-         			<div>
-        				<spring:message code="${param.message}" var="msg"></spring:message>
-        				<p style="color: red;">${msg}</p>
-        			</div> 
+        <h1>log in</h1>
 <%--   		<form action="login" method="post" class="more-padding" autocomplete="off"> --%>
 		<form:form modelAttribute="empVO" action="/emp/login" method="POST">
 			<input type="text" id="username2" name="username" placeholder="사원번호를 입력하세요." value=""/>					
@@ -247,7 +243,11 @@ input[type=checkbox] {
 			<div id="passwordError" style="font-size: 12px; color:red;"></div>
 			<div class="checkbox">
 				<input type="checkbox" class="form-check-input" id="remember-me" name="remember-me" checked="checked"/><label for="remember">remember me</label>
-			</div>			
+			</div>	
+			<div>
+        	<spring:message code="${param.message}" var="msg"></spring:message>
+        		<p style="color: red;">${msg}</p>
+        	</div> 		
 			 <button type="submit" class="btn button" style="margin-top: 80px;" id="login">login</button>
 
 		</form:form>
@@ -258,7 +258,7 @@ input[type=checkbox] {
       <h2 class="title">보&nbsp;&nbsp;듬</h2>
       <p class="desc">Animal Hospital</p>
       <img class="flower smaller" src="/resources/images/foot.png" style="margin-right: 20px;">
-      <p class="account">have an account?</p>
+      <p class="account">Want to log in?</p>
       <button class="button" id="signin">login</button>
       
       

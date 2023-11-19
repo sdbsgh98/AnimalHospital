@@ -6,8 +6,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -192,7 +191,7 @@ public class EmpController {
 			empService.sendMailAdd(empVO.getEmail(), empVO.getUsername(), empVO.getPhone());
 		}
 		
-		return "redirect:./empList";
+		return "success";
 		
 //		boolean check = empService.getEmpError(addVO, bindingResult);
 //		    

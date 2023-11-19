@@ -133,6 +133,7 @@
 					          <form:form modelAttribute="addVO" action="/emp/empList/empAdd" method="POST">
 								<input type="hidden" class="form-control" name="username" id="username">
 								<input type="hidden" class="form-control" name="password" id="password">
+								<input type="hidden" class="form-control" name="dayoffCount" id="dayoffCount">
 								   <div class="form-group">
 							            <label for="empName">이름</label>
 							            <input type="text" class="form-control" id="empName" name="empName" placeholder="ex) 홍길동" required="required">

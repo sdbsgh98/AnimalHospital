@@ -54,13 +54,35 @@
 						<input type="hidden" id="username" name="username" value="${user.username}">
 						<input type="hidden" id="empName" name="empName" value="${user.empName}">
 						<input type="hidden" id="hireDate" name="hireDate" value="${user.hireDate}">
-					
+				    <p>
+					<MARQUEE behavior="scroll" style="font-weight: bold;">${user.empName}님 좋은 하루되세요!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;오늘도 화이팅 o_<  </MARQUEE>
+				    </p>	
 						<br>
-						<div>
-							<div class="col-md-6 col-lg-2 mb-3">
-			                  <div class="card text-center">
-			                    <div class="card-header"></div>
-			                    <div class="card-body">
+				<div style="width: 70%;">
+				    <div class="row">
+				        <div class="col-md-5 mb-3">
+				            <div class="card text-center">
+				                <div class="card-body">
+                                    <c:choose>
+                                        <c:when test="${empty user.originalFileName}">
+                                            <img alt="" src="/resources/images/default.jpeg" class=" rounded-circle" style="width: 200px; height: 200px; margin: 10px;">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img alt="" src="../files/emp/${user.fileName}"  class=" rounded-circle" style="width: 200px; height: 200px; margin: 10px;">
+                                        </c:otherwise>
+                                    </c:choose>
+			                      <p class="card-text">[${user.empName}]님</p>
+			                      <h5 class="card-title" id="deptName">${user.deptName}</h5>
+			                      <h5 class="card-title" id="positionName">${user.positionName}</h5>
+				                </div>
+			                  </div>
+			                </div>
+						
+				
+				        <div class="col-md-4 mb-3">
+				            <div class="card text-center">
+				                <div class="card-header"></div>
+				                <div class="card-body">
 			                      <p class="card-text">[${user.empName}]님의 연차현황</p>
 			                      <h5 class="card-title" id="dayoffCount">무려 연차가 ${dayoff} 개</h5>
 				                      <div class="divider">
@@ -84,7 +106,7 @@
 			                  </div>
 			                </div>
 						</div>
-						
+				</div>	
 						<div class="card" style="width: 50rem;">
 						  <div class="card-body">
 						  <div class="d-grid gap-2 d-md-flex justify-content-md-end">

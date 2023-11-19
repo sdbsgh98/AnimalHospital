@@ -52,6 +52,5 @@ public interface EmpDAO {
 	
 	public int signAdd(EmpVO empVO) throws Exception;
 	
-	public FindVO loginCheck(FindVO findVO)throws Exception;
 	
 }
