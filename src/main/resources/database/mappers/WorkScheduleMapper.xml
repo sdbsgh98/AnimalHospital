@@ -75,5 +75,6 @@
 		FROM WORKSCHEDULE
 		WHERE WORKDATE = #{workDate}
 		AND USERNAME=#{username}
-	</select>
+	</select>	
+
 </mapper>

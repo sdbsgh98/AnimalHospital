@@ -225,7 +225,7 @@ $(function () {
 								var daterst = (treatdate >= nowDate)
 
 								console.log(daterst);
-								//if (daterst == true) {
+								if (daterst == true) {
 									$("#detailModal").modal("hide");
 									$("#updateModal").modal("show");
 									console.log(detail.username);
@@ -233,19 +233,18 @@ $(function () {
 									$("#updateName").val($("#getanimalName").val());
 									$("#updateusername").val($("#getusername").val());
 									$("#modifyDate").val($("#getdate").val());
-								
-
+									
+									let modify = document.getElementById('modifyDate');
+									modify.setAttribute("min",nowDate);
+								}
 							})
 
 						}
 					})
 
-
+					
 					//삭제버튼클릭시
 					$("#deleteBtn").on("click", function () {
-						if(!confirm('정말로 삭제하시겠습니까??')){
-          					 return false;
-       					}
 						
 						console.log(param);
 						$.ajax({
@@ -255,16 +254,16 @@ $(function () {
 							contentType: "application/json",
 							success: function (data) {
 								console.log("delete");
-								
-       							 
-   								
+									
 								$("#detailModal").modal("hide");
 
 								location.href = "/treatment/schedule";
 							}
 						})
+						$("#deleteBtn").off("click");
 					})
-
+					
+					
 
 
 
@@ -280,6 +279,12 @@ $(function () {
 						var username = $("#updateusername").val();
 
 						var treatmentDate = $("#modifyDate").val();
+						
+						
+						
+						
+						
+						
 
 						var param = { "treatmentNo": treatmentNo, "customerNo": customerNo, "username": username, "treatmentDate": treatmentDate }
 
@@ -576,12 +581,13 @@ $(function () {
 
 							//수정버튼클릭시
 							$("#modifyBtn").on("click", function () {
+								
 								var treatdate = $("#getdate").val();
 
 								var daterst = treatdate >= nowDate
 
 								console.log(daterst);
-								//if (daterst == true) {
+								if (daterst == true) {
 									$("#detailModal").modal("hide");
 									$("#updateModal").modal("show");
 									console.log(detail.username);
@@ -589,7 +595,7 @@ $(function () {
 									$("#updateName").val($("#getanimalName").val());
 									$("#updateusername").val($("#getusername").val());
 									$("#modifyDate").val($("#getdate").val());
-								
+								}
 
 							})
 
