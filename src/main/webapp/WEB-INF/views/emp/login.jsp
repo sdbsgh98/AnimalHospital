@@ -103,11 +103,9 @@ p {
 
 .flower {
     position: absolute;
-    width: 120px;
-    height: 120px;
-    top: 46%;
-    left: 29%;
-    opacity: .7;
+    width: 180px;
+    height: 140px;
+    left: 19%;
 }
 
 .smaller {
@@ -202,7 +200,7 @@ input[type=checkbox] {
 </style>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Bodeum Animal Medical Center</title>
 </head>
 <body id="">
 
@@ -256,17 +254,17 @@ input[type=checkbox] {
     </div>
     <div class="leftbox">
       <h2 class="title">보&nbsp;&nbsp;듬</h2>
-      <p class="desc">Animal Hospital</p>
-      <img class="flower smaller" src="/resources/images/foot.png" style="margin-right: 20px;">
-      <p class="account">have an account?</p>
+      <p class="desc">Animal Medical Center</p>
+      <img class="flower" src="/resources/images/loginLogo1.png" style="width: 200px;">
+      <p class="account">Go to log in?</p>
       <button class="button" id="signin">login</button>
       
       
     </div>
     <div class="rightbox">
       <h2 class="title">보&nbsp;&nbsp;듬</h2>
-      <p class="desc">Animal Hospital</p>
-      <img class="flower" src="/resources/images/logo1.png" style="margin-left: 10px;"/>
+      <p class="desc">Animal Medical Center</p>
+      <img class="flower" src="/resources/images/loginLogo1.png" style="width: 200px; margin-right: 50px;"/>
       <p class="account">Forgot your password?</p>
       <button class="button" id="signup" name="findUser"><!-- <a href="/emp/findUser" style="text-decoration: none; te">Find Password</a> -->find password</button>
     </div>
