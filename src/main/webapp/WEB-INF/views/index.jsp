@@ -93,23 +93,28 @@
 						  	<table class="table" style="text-align: center;">
 								<thead style="height: 70px;">
 									<tr>
-										<th>번호</th>
-										<th>제목</th>
-										<th>작성자</th>
-										<th>작성일</th>
-										<th>조회수</th>
+										<th style="width: 10%;">번호</th>
+										<th style="width: 10%;">분류</th>
+										<th style="width: 40%;">제목</th>
+										<th style="width: 15%">작성자</th>
+										<th style="width: 10%">작성일</th>
+										<th style="width: 15%">조회수</th>
 								</thead>
 								<tbody style="height: 35px;">
-									<c:forEach items="${list}" var="vo" end="4">
+									<c:forEach items="${list}" var="vo" end="7">
+										<c:if test="${vo.important eq '일반'}">
 											<tr>
 												<td>${vo.noticeNo}</td>
+												<td>${vo.important}</td>
 												<td><a href="notice/noticeDetail?noticeNo=${vo.noticeNo}" style="color: #697a8d;">${vo.title}</a></td>
 												<td>${vo.empName}</td>
 												<td>${vo.createDate}</td>
 												<td>${vo.hit}</td>
 											</tr>
+										</c:if>
 									</c:forEach>
 								</tbody>
+								
 							</table>
 						  </div>
 						</div>
