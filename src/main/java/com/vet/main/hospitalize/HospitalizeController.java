@@ -85,9 +85,9 @@ public class HospitalizeController {
 	@ResponseBody
 	public int setUpdate(Model model,HospitalizeVO hospitalizeVO)throws Exception {
 		log.info("$$$$VO확인$$$$$${}", hospitalizeVO);
-		
-		int result = hospitalizeService.searchReserved(hospitalizeVO);
 		int rst=0;
+		int result = hospitalizeService.searchReserved(hospitalizeVO);
+		
 		if(result ==0) {
 			rst= hospitalizeService.setUpdate(hospitalizeVO);
 		}else {

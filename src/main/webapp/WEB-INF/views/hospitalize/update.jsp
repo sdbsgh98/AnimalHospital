@@ -11,8 +11,7 @@
         <head>
           <c:import url="/WEB-INF/views/layout/headCSS.jsp"></c:import>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-          <link href='/fullcalendar/main.css' rel='stylesheet' />
-          <script src='/fullcalendar/main.js'></script>
+
 
           <meta charset="UTF-8">
           <title>Insert title here</title>
@@ -84,7 +83,7 @@
 
                         <tr>
                           <td class="align-middle text-center text-sm">
-                            <span class="text-secondary text-xs font-weight-bold">몸무게 </span>
+                            <span class="text-secondary text-xs font-weight-bold">몸무게: </span>
                           </td>
                           <td class="align-middle text-center text-sm">
                             <span class="text-secondary text-xs font-weight-bold">
@@ -110,11 +109,11 @@
 
                         <tr>
                           <td class="align-middle text-center text-sm">
-                            <span class="text-secondary text-xs font-weight-bold">입원기간 </span>
+                            <span class="text-secondary text-xs font-weight-bold">입원기간: </span>
                           </td>
                           <td class="align-middle text-center text-sm">
                             <span class="text-secondary text-xs font-weight-bold">
-                             입원시작일 <input type="date"  class="form-control" name="startDate" id="startDate" value=${vo.startDate}>
+                             입원시작일 <input type="date" readonly class="form-control" name="startDate" id="startDate" value=${vo.startDate}>
                             </span>
                             <span class="text-secondary text-xs font-weight-bold">
                              퇴원예정일 <input type="date"  class="form-control" name="lastDate" id="lastDate" value=${vo.lastDate}>
@@ -147,7 +146,7 @@
 
           <!-- / Layout wrapper -->
           <c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-         <script src="/js/hospitalize/hospitalize.js"></script>
+         <script src="/js/hospitalize/update.js"></script>
         </body>
 
         </html>

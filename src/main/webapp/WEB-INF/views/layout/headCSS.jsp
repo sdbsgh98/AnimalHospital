@@ -6,12 +6,12 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Animal Hospital</title>
+    <title>BODEUM MEDICAL CENTER</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/resources/images/jisun3.png" />
+    <link rel="icon" type="image/x-icon" href="/resources/images/favi.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

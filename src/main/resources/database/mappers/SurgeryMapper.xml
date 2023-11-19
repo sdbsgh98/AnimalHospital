@@ -34,7 +34,7 @@
 				         ON E.DEPTNO = D.DEPTNO 
 				 INNER JOIN POSITION P 
 				 		 ON E.POSITIONNO = P.POSITIONNO
-					  WHERE P.POSITIONNO BETWEEN 2 AND 6		       	
+					  WHERE E.DEPTNO IN (100,400,500)		       	
 	</select>	
 	
 	<select id="getDetail" resultType="SurgeryVO" parameterType="SurgeryVO">
