@@ -80,7 +80,7 @@ $("#treatmentcal").on("click", function(){
 			var calendarEl = document.getElementById('calendar');
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 
-				height: '500px',
+				height: '400px',
 				expandRows: true,
 				customButtons: {
 					myCustomButton: {
@@ -146,7 +146,7 @@ $("#deptcal").on("click", function () {
 			var calendarEl = document.getElementById('calendar');
 			var calendar = new FullCalendar.Calendar(calendarEl, {
 
-				height: '500px',
+				height: '400px',
 				expandRows: true,
 				customButtons: {
 					myCustomButton: {
