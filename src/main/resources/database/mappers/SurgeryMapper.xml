@@ -34,7 +34,8 @@
 				         ON E.DEPTNO = D.DEPTNO 
 				 INNER JOIN POSITION P 
 				 		 ON E.POSITIONNO = P.POSITIONNO
-					  WHERE E.DEPTNO IN (100,400,500)		       	
+					  WHERE P.POSITIONNAME LIKE '%원장'
+					  	OR P.POSITIONNAME='과장' AND D.DEPTNO IN(100,400,500)		       	
 	</select>	
 	
 	<select id="getDetail" resultType="SurgeryVO" parameterType="SurgeryVO">
