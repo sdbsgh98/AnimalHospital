@@ -222,10 +222,10 @@
                 </li>
                 <li class="menu-item">
                   <a href="/work/workList" class="menu-link">
-                    <div data-i18n="Text Divider">인사행정</div>
+                    <div data-i18n="Text Divider">근무일정</div>
                   </a>
                 </li>
-                 <li class="menu-item">
+                <!--  <li class="menu-item">
                   <a href="extended-ui-text-divider.html" class="menu-link">
                     <div data-i18n="Text Divider">내과</div>
                   </a>
@@ -244,7 +244,7 @@
                   <a href="extended-ui-text-divider.html" class="menu-link">
                     <div data-i18n="Text Divider">간호과</div>
                   </a>
-                </li>                                                           
+                </li>  -->                                                          
               </ul>
             </li>
             

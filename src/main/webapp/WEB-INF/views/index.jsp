@@ -215,7 +215,7 @@
 									
 									<div class="" style="text-align: left;">
 									<div class="card" style="width: 550px;">
-						                <h5 class="card-header">결재대기함</h5>
+						                <h5 class="card-header">나의 기안함</h5>
 						                <div class="table-responsive text-nowrap">
 						                  <table class="table table-hover text-center" id="mainApproveTbl">
 						                    <thead>
