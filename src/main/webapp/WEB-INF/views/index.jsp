@@ -61,7 +61,7 @@
 									<!-- 내용부분-->
 									<div class="container-xxl flex-grow-1 container-p-y">
 					    <p>
-						<MARQUEE behavior="scroll" style="font-weight: bold;">${user.empName}님 좋은 하루되세요!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;오늘도 화이팅 o_<  </MARQUEE>
+						<MARQUEE behavior="scroll" style="font-weight: bold;">대표님의&nbsp; 오늘의&nbsp; 말씀&nbsp; :&nbsp; ${user.empName}님 좋은 하루되세요!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;오늘도 화이팅 o_<  </MARQUEE>
 					    </p>
 
 						<div style="display: flex;">
