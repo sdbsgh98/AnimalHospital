@@ -48,10 +48,11 @@
 								var workStart = $("#workStart").val();
 								var workEnd = $("#workEnd").val();
 								
-								if (workStart.substring(0, 10) !== workEnd.substring(0, 10)) {
+								/*if (workStart.substring(0, 10) !== workEnd.substring(0, 10)) {
 							            alert("출근일정과 퇴근일정의 날짜가 동일하지 않습니다!!\n다시 확인하여주세요!!");
 							            return;
-						            } else if (workStart > workEnd) {
+						            } else*/
+						            if (workStart > workEnd) {
 							            alert("퇴근일자에 출근일자보다 이전의 시간이 올 수 없습니다!\n다시 확인해주세요!!");
 							            return;
 							        }
@@ -215,10 +216,11 @@
 								var workStart=$("#upWorkStart").val();
 								var workEnd=$("#upWorkEnd").val();
 								
-								if (workStart.substring(0, 10) !== workEnd.substring(0, 10)) {
+								/*if (workStart.substring(0, 10) !== workEnd.substring(0, 10)) {
 							            alert("출근일정과 퇴근일정의 날짜가 동일하지 않습니다!!\n다시 확인하여주세요!!");
 							            return;
-						            } else if (workStart > workEnd) {
+						            } else */
+						            if (workStart > workEnd) {
 							            alert("퇴근일자에 출근일자보다 이전의 시간이 올 수 없습니다!\n다시 확인해주세요!!");
 							            return;
 							        }
@@ -299,9 +301,10 @@
 	        var workStart = $("#workStart").val();
 	        var workEnd = $("#workEnd").val();
 	
-	        if (workStart.substring(0, 10) !== workEnd.substring(0, 10)) {
+	       /* if (workStart.substring(0, 10) !== workEnd.substring(0, 10)) {
 	            alert("출근일자과 퇴근일자의 날짜가 동일하지 않습니다!!\n다시 확인해주세요!!");
-	        } else if (workStart > workEnd) {
+	        } else */
+	        if (workStart > workEnd) {
 	            alert("퇴근일자에 출근일자보다 이전의 시간은 올 수 없습니다!\n다시 확인해주세요!!");
 	        }
 	    });
@@ -310,9 +313,10 @@
 	        var workStart = $("#upWorkStart").val();
 	        var workEnd = $("#upWorkEnd").val();
 	
-	        if (workStart.substring(0, 10) !== workEnd.substring(0, 10)) {
+	        /*if (workStart.substring(0, 10) !== workEnd.substring(0, 10)) {
 	            alert("출근일정과 퇴근일정의 날짜가 동일하지 않습니다!!\n다시 확인해주세요!!");
-	        } else if (workStart > workEnd) {
+	        } else */
+	        if (workStart > workEnd) {
 	            alert("퇴근일자에 출근일자보다 이전의 시간은 올 수 없습니다!\n다시 확인해주세요!!");
 	        }
 	    });
