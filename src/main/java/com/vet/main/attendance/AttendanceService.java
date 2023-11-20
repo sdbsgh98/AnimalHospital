@@ -61,8 +61,8 @@ public class AttendanceService {
 	}
 	
 	
-//	@Scheduled (cron="0 0 0 1 1 ?")
 //	@Scheduled (cron="10 * * * * *")
+	@Scheduled (cron="0 0 0 1 1 ?")
 	public void setDayoffCount() throws Exception {
 		List<EmpVO> list = attendanceDAO.getEmpList();
 		
