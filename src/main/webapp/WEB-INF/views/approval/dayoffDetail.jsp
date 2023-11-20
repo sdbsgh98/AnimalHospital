@@ -40,11 +40,11 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" style="align-items: center;">
                     <div class="card-body">
                     <div class="table-responsive">
                     
-                 	<table class="table">
+                 	<table class="table mt-4">
 	
 				    <tr>
 				        <th class="text-center" style="width: 100px;">제목</th>
@@ -55,8 +55,32 @@
 				        <th class="text-center" style="width: 100px;">작성일</th>
 				        <td>${approvalVO.apCDate}</td>
 				    </tr>
+				    
+				    <tr>
+				        <th class="text-center" style="width: 100px;">기안자</th>
+				        <td>${approvalVO.empName}</td>
+				    </tr>
 			 
 					</table>
+					
+<%-- 					<c:choose>
+					    <c:when test="${approvalVO.apRejection ne null}">
+							<table class="mt-3" border="1" style="width: 618px; height: 100px;">
+								<tr>
+							        <td class="text-center" style="width: 100px; border-right: 1px solid black; background: rgb(208, 206, 206);"><strong>반려 사유</strong></td>
+							        <td class="text-center">${approvalVO.apRejection}</td>
+							    </tr>
+							</table>
+						</c:when>
+						<c:when test="${approvalVO.apRejection not empty}">
+							<table class="mt-3" border="1" style="width: 618px; height: 100px;">
+								<tr>
+							        <td class="text-center" style="width: 100px; border-right: 1px solid black; background: rgb(208, 206, 206);"><strong>반려 사유</strong></td>
+							        <td class="text-center">${approvalVO.apRejection}</td>
+							    </tr>
+							</table>
+						</c:when>
+					</c:choose> --%>
 					
 					<form action="" id="frm">
 						<input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
@@ -74,7 +98,7 @@
 					<p align="center" style="margin: 0px 0px 10px;line-height: 107%;font-size:10pt;font-family:맑은 고딕;text-align:center">
 						<span style="font-family:나눔고딕">&nbsp;</span>
 					</p>
-					<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: none; width: 616px; height: 850px;" class="">
+					<table class="mt-5" border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: none; width: 616px; height: 850px;" class="">
 						<tbody>
 							<tr style="">
 								<td style="border: 1px solid black; padding: 0px 7px; height: 849px; width: 617px; vertical-align: top;">
@@ -363,7 +387,7 @@
 																${approvalVO.dayoffStartDate} [${approvalVO.dayoffTime}] &nbsp;&nbsp;총 0.5일
 															</c:when>
 															
-															<c:when test="${dayoffKind eq '연차' || '병가' || '경조사' || '기타'}">
+															<c:when test="${dayoffKind eq '연차' || dayoffKind eq '병가' || dayoffKind eq '경조사' || dayoffKind eq '기타'}">
 																<c:choose>
 																	<c:when test="${dayoffEndDate eq null}">
 																		${approvalVO.dayoffStartDate}&nbsp;&nbsp;총 1일

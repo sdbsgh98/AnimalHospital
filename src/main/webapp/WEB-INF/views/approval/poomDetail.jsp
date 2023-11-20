@@ -33,11 +33,12 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-4" style="align-items: center;">
                     <div class="card-body">
+                    <div class="row">
                     <div class="table-responsive">
                     
-                 	<table class="table">
+                 	<table class="table mt-4">
 	
 				    <tr>
 				        <th class="text-center" style="width: 100px;">제목</th>
@@ -48,8 +49,32 @@
 				        <th class="text-center" style="width: 100px;">작성일</th>
 				        <td>${approvalVO.apCDate}</td>
 				    </tr>
+				    
+				    <tr>
+				        <th class="text-center" style="width: 100px;">기안자</th>
+				        <td>${approvalVO.empName}</td>
+				    </tr>
 			 
 					</table>
+					
+<%-- 					<c:choose>
+					    <c:when test="${approvalVO.apRejection ne null}">
+							<table class="mt-3" border="1" style="width: 618px; height: 100px;">
+								<tr>
+							        <td class="text-center" style="width: 100px; border-right: 1px solid black; background: rgb(208, 206, 206);"><strong>반려 사유</strong></td>
+							        <td class="text-center">${approvalVO.apRejection}</td>
+							    </tr>
+							</table>
+						</c:when>
+						<c:when test="${approvalVO.apRejection not empty}">
+							<table class="mt-3" border="1" style="width: 618px; height: 100px;">
+								<tr>
+							        <td class="text-center" style="width: 100px; border-right: 1px solid black; background: rgb(208, 206, 206);"><strong>반려 사유</strong></td>
+							        <td class="text-center">${approvalVO.apRejection}</td>
+							    </tr>
+							</table>
+						</c:when>
+					</c:choose> --%>
 					
 					<form action="" id="frm">
 						<input type="hidden" id="apNo" name="apNo" value="${approvalVO.apNo}">
@@ -63,7 +88,7 @@
 						<input type="hidden" class="approve" name="approve${status.index}" id="approve${status.index}" value="${line.username}">
 					</c:forEach>
 					
-					<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: none; width: 618px; height: 849px;" class="">
+					<table class="mt-5" border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: none; width: 618px; height: 849px;" class="">
 						<tbody>
 							<tr style="">
 								<td style="border: 1px solid black; padding: 0px 7px; height: 849px; width: 617px; vertical-align: top;">
@@ -414,11 +439,15 @@
 						
 					</div>
 					</div>
-					</div>					
+					
+	                       	</div>
+	                       	
+	                       	</div>
+					<div>
 						<!-- 접속 아이디가 기안서 작성자와 같은 경우 -->
 						<c:if test="${user.username eq approvalVO.username}">
 							<div class="row" style="float:right;">
-								<div class="demo-inline-spacing">
+								<div class="demo-inline-spacing" style="text-align: right;">
 									<c:choose>
 										<c:when test="${approvalVO.apState eq '결재진행중' or approvalVO.apState eq '결재완료' or approvalVO.apState eq '반려'}">
 												<button type="button" class="btn btn-primary" id="draftListBtn">목록</button>
@@ -433,45 +462,21 @@
                        		</div>
 						</c:if>
 						
-						<!-- 접속 아이디가 결재자와 같은 경우 -->
-						<!-- foreach로 배열을 뿌리는 것 뿐만이 아니라 조회만해서 비교할 수 있다. -->
-						<c:forEach items="${line}" var="line">
-							<c:if test="${user.username eq line.username}">
-								<c:choose>
-									<c:when test="${line.apState eq '반려'}">
-										<div class="row" style="float:right;">
-											<div class="demo-inline-spacing">
-					                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
-											</div>
-			                        	</div>
-						            </c:when>
-						            <c:when test="${line.aplStep eq 1 and line.apConfirmState eq 0}">
-										<div class="row" style="float:right;">
-											<div class="demo-inline-spacing">
-												<button type="button" class="btn btn-primary" id="approveBtn">결재</button>
-												<button type="button" class="btn btn-warning" id="rejectBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">반려</button>
-					                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
-											</div>
-			                        	</div>
-						            </c:when>
-						            <c:when test="${line.aplStep eq 1 and line.apConfirmState eq 1}">
-										<div class="row" style="float:right;">
-											<div class="demo-inline-spacing">
-					                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
-											</div>
-			                        	</div>
-						            </c:when>
-						            <c:when test="${line.aplStep eq 2 and line.apConfirmState eq 0}">
-					                    <c:if test="${approvalVO.apState eq '결재대기중'}">
+						
+
+							<!-- 접속 아이디가 결재자와 같은 경우 -->
+							<!-- foreach로 배열을 뿌리는 것 뿐만이 아니라 조회만해서 비교할 수 있다. -->
+							<c:forEach items="${line}" var="line">
+								<c:if test="${user.username eq line.username}">
+									<c:choose>
+										<c:when test="${line.apState eq '반려'}">
 											<div class="row" style="float:right;">
-												<div class="demo-inline-spacing">
+												<div class="demo-inline-spacing ml-auto">
 						                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
 												</div>
 				                        	</div>
-					                    </c:if>
-						            </c:when>
-						            <c:when test="${line.aplStep eq 2 and line.apConfirmState eq 0}">
-					                    <c:if test="${approvalVO.apState eq '결재진행중'}">
+							            </c:when>
+							            <c:when test="${line.aplStep eq 1 and line.apConfirmState eq 0}">
 											<div class="row" style="float:right;">
 												<div class="demo-inline-spacing">
 													<button type="button" class="btn btn-primary" id="approveBtn">결재</button>
@@ -479,18 +484,46 @@
 						                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
 												</div>
 				                        	</div>
-					                    </c:if>
-						            </c:when>
-						            <c:when test="${line.aplStep eq 2 and line.apConfirmState eq 1}">
-										<div class="row" style="float:right;">
-											<div class="demo-inline-spacing">
-					                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
-											</div>
-			                        	</div>
-						            </c:when>
-						        </c:choose>
-                       		</c:if>
-                       	</c:forEach>
+							            </c:when>
+							            <c:when test="${line.aplStep eq 1 and line.apConfirmState eq 1}">
+											<div class="row" style="float:right;">
+												<div class="demo-inline-spacing">
+						                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+												</div>
+				                        	</div>
+							            </c:when>
+							            <c:when test="${line.aplStep eq 2 and line.apConfirmState eq 0}">
+						                    <c:if test="${approvalVO.apState eq '결재대기중'}">
+												<div class="row" style="float:right;">
+													<div class="demo-inline-spacing">
+							                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+													</div>
+					                        	</div>
+						                    </c:if>
+							            </c:when>
+							            <c:when test="${line.aplStep eq 2 and line.apConfirmState eq 0}">
+						                    <c:if test="${approvalVO.apState eq '결재진행중'}">
+												<div class="row" style="float:right;">
+													<div class="demo-inline-spacing">
+														<button type="button" class="btn btn-primary" id="approveBtn">결재</button>
+														<button type="button" class="btn btn-warning" id="rejectBtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">반려</button>
+							                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+													</div>
+					                        	</div>
+						                    </c:if>
+							            </c:when>
+							            <c:when test="${line.aplStep eq 2 and line.apConfirmState eq 1}">
+											<div class="row" style="float:right;">
+												<div class="demo-inline-spacing">
+						                       		<button type="button" class="btn btn-primary" id="approverListBtn">목록</button>
+												</div>
+				                        	</div>
+							            </c:when>
+							        </c:choose>
+	                       		</c:if>
+	                       	</c:forEach>
+	                       	</div>
+						</div>					
 					</div>
 					
 					<jsp:include page="/WEB-INF/views/approval/rejectModal.jsp"></jsp:include>

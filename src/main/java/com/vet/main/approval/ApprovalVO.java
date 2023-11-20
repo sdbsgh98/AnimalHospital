@@ -34,6 +34,8 @@ public class ApprovalVO {
 	private String deptName;
 	private String empName;
 	
+	private String fileName;
+	
 	// sign (도장)
 	private String signName;
 	private String uploadName;

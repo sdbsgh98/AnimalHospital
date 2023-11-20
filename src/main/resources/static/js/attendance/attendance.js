@@ -92,5 +92,3 @@ function checkDate() {
 		return false;
 	}
 }
-
-

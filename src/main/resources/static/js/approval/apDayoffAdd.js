@@ -5,7 +5,6 @@ let apContents = document.getElementById("apContents");		// 전자결재 양식 
 
 let addFrm = document.getElementById("addFrm");				// 작성폼
 let addBtn = document.getElementById("addBtn");				// 작성폼 제출 버튼
-let cancleBtn = document.getElementById("cancleBtn");		// 작성 취소 버튼
 
 
 $(document).ready(function() {
@@ -19,26 +18,26 @@ $(document).ready(function() {
 
        if (selectedValue === '반차') {
             // 반차 선택 시
-            $('#dateFields').append('<label for="dayoffStartDate">날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
+            $('#dateFields').append('<label class="me-2" for="dayoffStartDate">날짜</label>');
+            $('#dateFields').append('<input type="text" class="form-control me-2" id="dayoffStartDate" name="dayoffStartDate" style="width:200px;">');
             $('#dayoffStartDate').datepicker({
                 dateFormat: 'yy/mm/dd', // 날짜 형식 설정
                 minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
             });
 
-            $('#dateFields').append('<label for="dayoffTime">시간:</label>');
-            $('#dateFields').append('<select id="dayoffTime" name="dayoffTime"><option value="오전">오전</option><option value="오후">오후</option></select>');
+            $('#dateFields').append('<label for="dayoffTime"></label>');
+            $('#dateFields').append('<select class="form-select" id="dayoffTime" name="dayoffTime" style="width:100px;"><option value="오전">오전</option><option value="오후">오후</option></select>');
         } else if (selectedValue === '연차') {
             // 연차 선택 시
-            $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
+            $('#dateFields').append('<label for="dayoffStartDate" style="width:100px;">시작</label>');
+            $('#dateFields').append('<input type="text" class="form-control me-2" id="dayoffStartDate" name="dayoffStartDate">');
             $('#dayoffStartDate').datepicker({
                 dateFormat: 'yy/mm/dd', // 날짜 형식 설정
                 minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
             });
-
-            $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
+			
+            $('#dateFields').append('<label for="dayoffEndDate" style="width:100px;">종료</label>');
+            $('#dateFields').append('<input type="text" class="form-control me-2" id="dayoffEndDate" name="dayoffEndDate">');
             $('#dayoffEndDate').datepicker({
                 dateFormat: 'yy/mm/dd', // 날짜 형식 설정
                 minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
@@ -51,15 +50,15 @@ $(document).ready(function() {
             });
         } else if (selectedValue === '병가') {
             // 병가 선택 시
-            $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
+            $('#dateFields').append('<label for="dayoffStartDate" style="width:100px;">시작</label>');
+            $('#dateFields').append('<input type="text" class="form-control me-2" id="dayoffStartDate" name="dayoffStartDate">');
             $('#dayoffStartDate').datepicker({
                 dateFormat: 'yy/mm/dd', // 날짜 형식 설정
                 minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
             });
 
-            $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
+            $('#dateFields').append('<label for="dayoffEndDate" style="width:100px;">종료</label>');
+            $('#dateFields').append('<input type="text" class="form-control me-2" id="dayoffEndDate" name="dayoffEndDate">');
             $('#dayoffEndDate').datepicker({
                 dateFormat: 'yy/mm/dd', // 날짜 형식 설정
                 minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
@@ -72,15 +71,15 @@ $(document).ready(function() {
             });
         } else if (selectedValue === '경조사') {
             // 경조사 선택 시
-            $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
+            $('#dateFields').append('<label for="dayoffStartDate" style="width:100px;">시작</label>');
+            $('#dateFields').append('<input type="text" class="form-control me-2" id="dayoffStartDate" name="dayoffStartDate">');
             $('#dayoffStartDate').datepicker({
                 dateFormat: 'yy/mm/dd', // 날짜 형식 설정
                 minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
             });
 
-            $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
+            $('#dateFields').append('<label for="dayoffEndDate" style="width:100px;">종료</label>');
+            $('#dateFields').append('<input type="text" class="form-control me-2" id="dayoffEndDate" name="dayoffEndDate">');
             $('#dayoffEndDate').datepicker({
                 dateFormat: 'yy/mm/dd', // 날짜 형식 설정
                 minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
@@ -93,15 +92,15 @@ $(document).ready(function() {
             });
         } else if (selectedValue === '기타') {
             // 기타 선택 시
-            $('#dateFields').append('<label for="dayoffStartDate">시작 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffStartDate" name="dayoffStartDate">');
+            $('#dateFields').append('<label for="dayoffStartDate" style="width:100px;">시작</label>');
+            $('#dateFields').append('<input type="text" class="form-control me-2" id="dayoffStartDate" name="dayoffStartDate">');
             $('#dayoffStartDate').datepicker({
                 dateFormat: 'yy/mm/dd', // 날짜 형식 설정
                 minDate: currentDate // 현재 날짜 이전을 선택하지 못하도록 설정
             });
 
-            $('#dateFields').append('<label for="dayoffEndDate">종료 날짜:</label>');
-            $('#dateFields').append('<input type="text" id="dayoffEndDate" name="dayoffEndDate">');
+            $('#dateFields').append('<label for="dayoffEndDate" style="width:100px;">종료</label>');
+            $('#dateFields').append('<input type="text" class="form-control me-2" id="dayoffEndDate" name="dayoffEndDate">');
             $('#dayoffEndDate').datepicker({
                 dateFormat: 'yy/mm/dd', // 날짜 형식 설정
                 minDate: currentDate, // 현재 날짜 이전을 선택하지 못하도록 설정
@@ -201,9 +200,9 @@ function updateSubmitBtn() {
 
 
 // 취소 버튼
-cancleBtn.addEventListener("click", function(){
-	location.href = "/approval/draftList/" + username;
-})
+function cancleBtn() {
+	location.href = "/approval/draftList/"+username;
+}
 
 
 

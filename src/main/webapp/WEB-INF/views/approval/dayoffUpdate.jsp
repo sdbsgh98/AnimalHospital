@@ -54,7 +54,8 @@
 					<!-- Content -->
 					<!-- 내용부분-->
 					<div class="container-xxl flex-grow-1 container-p-y">
-					
+						<div class="card shadow mb-4">
+	                        <div class="card-body">
 						<div class="row">
 				    		<form action="update" id="updateFrm" method="post">
 				    		
@@ -153,12 +154,7 @@
 								  <textarea class="form-control" id="apContents" name="apContents" rows="3" placeholder="내용을 입력하세요">${approvalVO.apContents}</textarea>
 								</div>
 								
-					    		<div class="row">
-									<div class="demo-inline-spacing">
-										<button type="button" class="btn btn-primary" id="updateBtn" onclick="updateSubmitBtn()">작성</button>
-										<button type="button" class="btn btn-primary" id="cancleBtn">취소</button>
-									</div>
-	                            </div>
+
 								
 				    		</form>
 			    		</div>
@@ -167,6 +163,14 @@
 					<!-- / Content -->
 					<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
 					<div class="content-backdrop fade"></div>
+					</div>
+					</div>
+		    		<div class="row">
+						<div class="demo-inline-spacing">
+							<button type="button" class="btn btn-primary" onclick="updateSubmitBtn()">작성</button>
+							<button type="button" class="btn btn-primary" onclick="cancleBtn()">취소</button>
+						</div>
+                    </div>
 				</div>
 				<!-- Content wrapper -->
 			</div>
