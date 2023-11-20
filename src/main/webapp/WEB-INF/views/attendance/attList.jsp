@@ -52,7 +52,7 @@
 									<div>
 										<!-- 검색 -->
 										<div class="input-group mb-3">
-											<form onsubmit="return validateForm()" action="../list" method="get" class="" id="frm"
+											<form onsubmit="return validateForm()" action="./list" method="get" class="" id="frm"
 										style="width:100%;">
 										<div style="
 					    display: flex;
@@ -147,7 +147,7 @@
 												</c:forEach>
 												<c:if test="${pager.next}">
 													<li class="page-item"><a class="page-link"
-														href="./attendance/list?page=${pager.startNum + 1}&kind=${pager.kind}&search=${pager.search}"
+														href="../attendance/list?page=${pager.startNum + 1}&kind=${pager.kind}&search=${pager.search}"
 														aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 													</a></li>
 												</c:if>

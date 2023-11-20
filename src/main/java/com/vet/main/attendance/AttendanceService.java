@@ -61,7 +61,8 @@ public class AttendanceService {
 	}
 	
 	
-	@Scheduled (cron="0 0 0 1 1 ?")
+//	@Scheduled (cron="0 0 0 1 1 ?")
+//	@Scheduled (cron="10 * * * * *")
 	public void setDayoffCount() throws Exception {
 		List<EmpVO> list = attendanceDAO.getEmpList();
 		
@@ -97,6 +98,16 @@ public class AttendanceService {
 	
 	public Double getDayoffCount(String username) throws Exception {
 		return attendanceDAO.getDayoffCount(username);
+	}
+	
+	public Long getAttTotal(Pager pager) throws Exception {
+		pager.setPerPage(10L);
+		pager.makeRowNum();
+		Long totalCount = attendanceDAO.getAttTotal(pager);
+		pager.makePageNum(totalCount);
+//		pager.makeNum(totalCount);
+//		pager.makeStartRow();
+		return attendanceDAO.getAttTotal(pager);
 	}
 
 

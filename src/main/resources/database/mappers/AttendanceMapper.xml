@@ -79,6 +79,12 @@
 	    <if test="startDate != null and endDate != null">
 	        AND DATE(A.ATTDATE) BETWEEN #{startDate} AND #{endDate}
 	    </if>
+	    <!-- SELECT COUNT(ATTNO)
+		FROM ATTENDANCE
+	    WHERE <include refid="forPager"></include> LIKE #{pattern}
+	    <if test="startDate != null and endDate != null">
+	        AND DATE(ATTDATE) BETWEEN #{startDate} AND #{endDate}
+	    </if> -->
 	</select>
 	
 	<select id="getHireDate" parameterType="String">
