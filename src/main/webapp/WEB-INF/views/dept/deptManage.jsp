@@ -57,7 +57,7 @@
 														    <div class="addContainer">
 																<input type="hidden" class="positionNohidden2" value="${position.positionNo}">											
 														        <input type="text" class="form-control" id="positionNameList" name="positionName" value="${position.positionName}" readonly="readonly">
-														 		<a href="./positionDelete?positionNo=${position.positionNo}" type="button" class="btn btnRemove" style="width: 5%; float: right;">X</a>
+														 		<a href="./positionDelete?positionNo=${position.positionNo}&deptNo=${vo.deptNo}" type="button" class="btn btnRemove" style="width: 5%; float: right;">X</a>
 														    </div>
 													
 														</c:forEach>	

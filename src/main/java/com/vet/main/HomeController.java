@@ -30,6 +30,7 @@ import com.vet.main.commons.DeptPager;
 import com.vet.main.commons.Pager;
 import com.vet.main.emp.EmpService;
 import com.vet.main.emp.EmpVO;
+import com.vet.main.notice.NoticeFileVO;
 import com.vet.main.notice.NoticeService;
 import com.vet.main.notice.NoticeVO;
 import com.vet.main.reservation.treatment.TreatmentService;
@@ -62,6 +63,8 @@ public class HomeController {
 	
 	@Autowired
 	private EmpService empService;
+	
+
 	
 	@GetMapping("/")
 

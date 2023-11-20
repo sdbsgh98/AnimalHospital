@@ -42,7 +42,7 @@ public class NoticeFileDown extends AbstractView{
 		String fileName = noticeFileVO.getFileName();
 		
 		// 어떤 파일?
-		File file = new File(username+filePath+fileName);
+		File file = new File(filePath+username+"\\"+fileName);
 		
 		// 한글 처리
 		response.setCharacterEncoding("UTF-8");
