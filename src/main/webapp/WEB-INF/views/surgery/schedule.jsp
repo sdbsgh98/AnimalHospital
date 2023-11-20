@@ -15,7 +15,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link href='/fullcalendar/main.css' rel='stylesheet'/>
 <script src='/fullcalendar/main.js'></script>
-<script src="/js/reservation/surgery/schedule.js"></script>
+
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -397,6 +397,6 @@
 
    <!-- / Layout wrapper -->
    	<c:import url="/WEB-INF/views/layout/footjs.jsp"></c:import>
-  
+   	<script src="/js/reservation/surgery/schedule.js"></script>
 </body>
 </html>
