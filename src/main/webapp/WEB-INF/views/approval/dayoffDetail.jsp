@@ -413,7 +413,7 @@
 													</p>
 												</td>
 												<td colspan="3" style="border-top: none; border-left: none; border-bottom: 1px solid black; border-right: 1px solid black; padding: 0px 7px; height: 291px; width: 496px;">
-													<p align="center" style="margin: 0px 0px 0px;font-size:10pt;font-family:맑은 고딕;text-align:center;line-height: normal">
+													<p align="center" style="margin: 0px 0px 0px;font-size:13pt;font-family:맑은 고딕;text-align:center;line-height: normal">
 														<sub>
 															<span style="font-family:나눔고딕">&nbsp;</span>
 															${approvalVO.apContents}
