@@ -1,6 +1,6 @@
 <h2>보듬 동물병원 ERP <br> (Bodeum Animal Medical Center)</h2>
 <hr>
-📅 프로젝트 개요<br>
+📅 프로젝트 개요<br><br>
 프로젝트: 동물병원 ERP <br>
 기획 및 제작: 김세은, 송지선, 송윤호, 최혜령 <br>
 분류: Final Project<br>
