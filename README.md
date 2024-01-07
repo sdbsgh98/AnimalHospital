@@ -1,7 +1,7 @@
 # 🐶 보듬 동물병원 그룹웨어 🐱 <br> (Bodeum Animal Medical Center)
-<li> <a href="#project-outline">프로젝트 개요</a></li>
-<li> <a href="#development-configuration">개발 환경 및 도구</a></li>
-<li> <a href="#function-implementation">기능 구현</a></li>
+<li>프로젝트 개요</li>
+<li>개발 환경 및 도구</li>
+<li>기능 구현</li>
 <br>
 <details>
   
