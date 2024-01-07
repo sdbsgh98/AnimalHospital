@@ -23,7 +23,7 @@
 </details>
 
 ## 프로젝트 개요 
-![loginLogo1](https://github.com/kimseeun10/AnimalHospital/assets/137882823/95ba607a-641f-4df6-bab3-159b9f833cd4)
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/c8ec1f67-952a-4958-a88b-8c1fc42484ef" width="300px" height="200px"/><br>
 
 ><p><strong>프로젝트</strong>: 동물병원 그룹웨어</p>
 ><p><strong>기획 및 제작</strong>: 김세은, 송지선, 송윤호, 최혜령 </p>
@@ -51,12 +51,102 @@
 
 ![OTHER](https://img.shields.io/badge/OTHER-000000.svg?style=for-the-badge&logo=OTHER&logoColor=white) ![docker](https://img.shields.io/badge/docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white) ![slack](https://img.shields.io/badge/slack-4A154B.svg?style=for-the-badge&logo=slack&logoColor=white) ![github](https://img.shields.io/badge/github-181717.svg?style=for-the-badge&logo=github&logoColor=white)
 
-
 ## 기능 구현
 
+### 🔒 로그인
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/a0e83807-95df-4278-b104-9a676b398b52" width="700px" height="500px"/>
 
-<div align="right">
+**- 로그인 화면**
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fseobie&count_bg=%23FF8C8C&title_bg=%23555555&icon=react.svg&icon_color=%234AB3F7&title=console.log%28hits%29&edge_flat=false)](https://hits.seeyoufarm.com)
+사원번호와 비밀번호를 사용하여 로그인을 하며 사원번호가 존재하지 않는 경우, 비밀번호가 일치하지 않는 경우<br>
+JSP에 <spring:message>를 사용하여 메세지가 로그인 실패 문구로 나오도록 구현하였습니다.
 
-</div>
+<br>
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/c1473657-4ac5-4a5d-b1ef-998eb26295a2" width="700px" height="500px"/>
+
+**- 비밀번호 찾기 화면**
+
+DB에 입력한 정보와 일치하는 사원이 존재하는지 확인 후 이메일 인증을 통해 비밀번호 변경 페이지로 이동됩니다. <br> 발송된 인증번호와 입력한 인증번호가 일치하지 않으면 비밀번호 변경 페이지로 이동되지 않습니다.
+
+<br>
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/708b5621-2b0e-40eb-a5cc-d662f858754e" width="700px" height="500px"/>
+
+**- 마이페이지 화면**
+
+- 마이페이지에서 내 정보 수정, 비밀번호 변경, 전자서명 관리를 할 수 있습니다.
+- 마이페이지는 수정사항이 바로 적용되며 topbar의 프로필은 재로그인 후 반영됩니다.
+- 전자서명은 1개의 이미지 파일을 무조건 등록하여야 하기 때문에 DB에 전자서명 값이 존재하는지 확인 후 존재하지 않는다면 insert, 존재하는 값이 있다면 update처리할 수 있도록 “INSERT INTO ... ON DUPLICATE KEY UPDATE“를 사용한 sql문을 작성하였습니다.
+
+---
+
+### 👨‍💼 관리자 - 사원관리
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/c1b589f9-a5bc-4a46-af7a-954917854745" width="700px" height="500px"/>
+
+**사원추가 화면**
+
+- 오른쪽 하단 추가 버튼을 클릭하면 사원 등록 modal창이 나타나며 새로 등록할 사원의 정보를 정규식에 맞게 입력, 이메일 중복확인 후 사원을 추가할 수 있습니다.
+- modal창에서 추가 버튼을 클릭하면 신규 직원을 추가와 동시에 입력한 이메일로 사원번호와 초기 비밀번호를 안내하는 메일이 자동으로 발송됩니다.
+- 최초 로그인 시 비밀번호 변경을 필수로 진행해야하며 비밀번호 변경 시 변경 가능한 비밀번호라면(정규식에 부합한다면) 체크표시가 나옵니다.
+
+<br>
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/db36fe15-ff80-483b-82e9-72f239e227f9" width="700px" height="500px"/>
+
+**사원 목록, 상세, 수정, 검색 화면**
+
+- 사원 목록에서 사원번호 또는 사원의 이름을 클릭하면 해당 사원의 정보를 확인할 수 있습니다.
+- 신규 직원 등록 시 기본 프로필 이미지 및 가발령 상태이며 수정을 통해 부서와 직급 배정이 가능합니다.
+- 사원 상세에서 오른쪽 하단 수정버튼을 클릭하여 사원의 이름, 부서와 직급, 상태를 변경할 수 있으며 부서를 1차 선택하면 2차 선택값인 직급이 부서에 존재하는 직급만 나오도록 구현하였습니다.
+- 사원 목록에서 이름과 사원번호로 사원을 검색할 수 있습니다.
+
+<br>
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/480acd7b-94f5-4d5e-8398-62722c33b9e4" width="700px" height="500px"/>
+
+**직원상세페이지**
+
+직원이 마이페이지를 통해 수정한 사진 및 개인정보 확인이 가능하다.
+
+---
+
+### ⚙ 관리자 - 부서 및 직급 관리
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/1f5612a1-f216-4030-9c96-594594ecb54f" width="700px" height="500px"/>
+
+**부서 및 직급 화면**
+
+- 조직도는 JStree를 사용하여 상위부서와 하위부서를 한눈에 볼 수 있도록 구현하였습니다.
+- 조직도에서 특정 부서를 클릭하면 그 부서의 정보와 재직중인 사원의 목록을 확인 할 수 있으며 직급 확인 버튼을 클릭하여 부서에 존재하는 직급을 확인할 수 있습니다.
+
+<br>
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/97ed0a34-5dbb-409f-9bff-9c89055dc72c" width="700px" height="500px"/>
+
+**부서 및 직급 관리 화면**
+
+- 조직도 상단 부서등록 버튼을 클릭하여 부서명과 상위부서를 입력하여 신규 부서를 등록할 수 있습니다.
+- 부서 상세 페이지에서 수정버튼을 클릭하면 해당 부서를 수정할 수 있는 페이지로 이동합니다.
+- 부서 관리 페이지에서 직급을 추가, 삭제 할 수 있으며 부서명과 상위부서를 변경할 수 있습니다.
+- 부서 상세에서 새로 추가된 직급을 확인 할 수 있으며 부서 삭제 버튼을 클릭하여 삭제가 가능합니다. 
+
+---
+
+### 📢 공지사항 게시판
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/769cd669-34e9-42b6-9c1a-06711a0e8817" width="700px" height="500px"/>
+
+**공지사항 목록 화면**
+
+- 중요와 일반으로 분류하여 중요글이 공지사항 목록 상단에 위치합니다.
+- 제목과 내용으로 글을 검색할 수 있습니다.
+- 오른쪽 하단 등록 버튼을 클릭하여 새로운 글을 등록할 수 있습니다.
+  
+<br>
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/4781b42a-14be-4e42-9574-6a8a4103e85f" width="700px" height="500px"/>
+
+**공지사항 작성, 수정 화면**
+공지사항 게시글 등록 및 수정 시 summernote 에디터 사용하여 본문 내용 작성 및 수정이 가능하며 <br> FILES에 이미지가 아닌 다른 파일들을 추가로 업로드, 삭제 할 수 있습니다.
+  
+<br>
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/c47b0b01-bc4f-405c-b992-d745c1af9151" width="700px" height="500px"/>
+
+**공지사항 상세 화면**
+
+Files의 파일명을 클릭하면 파일 다운로드가 가능합니다. <br>
+공지사항 글 수정, 삭제가 가능합니다.
+
