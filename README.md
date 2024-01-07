@@ -21,18 +21,22 @@
 
 
 </details>
+<br>
 
-## 프로젝트 개요 
-<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/c8ec1f67-952a-4958-a88b-8c1fc42484ef" width="300px" height="200px"/><br>
+# 프로젝트 개요 <br>
+
+<img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/c8ec1f67-952a-4958-a88b-8c1fc42484ef" width="300px" height="200px"/> <br>
 
 ><p><strong>프로젝트</strong>: 동물병원 그룹웨어</p>
 ><p><strong>기획 및 제작</strong>: 김세은, 송지선, 송윤호, 최혜령 </p>
 ><p><strong>분류</strong>: 팀 프로젝트</p>
 ><p><strong>제작 기간</strong>: 2023.10.04 ~ 11.20</p>
 ><p><strong>배포일</strong>: 2023.11.20</p>
-><p><strong>사용 기술</strong>: SPRING BOOT</p>
+><p><strong>사용 기술</strong>: SPRING BOOT</p> 
+<br>
 
-## 개발 환경 및 도구
+# 개발 환경 및 도구 <br>
+
 ![FRAMEWORK](https://img.shields.io/badge/framework-000000.svg?style=for-the-badge&logo=framework1&logoColor=white) ![Spring Boot](https://img.shields.io/badge/springboot-6DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white) 
 
 ![LIBRARY](https://img.shields.io/badge/library-000000.svg?style=for-the-badge&logo=library&logoColor=white) ![JQuery](https://img.shields.io/badge/jquery-0769AD.svg?style=for-the-badge&logo=jquery&logoColor=white) ![Lombok](https://img.shields.io/badge/lombok-FF5722.svg?style=for-the-badge&logo=lombok&logoColor=white) 
@@ -51,7 +55,26 @@
 
 ![OTHER](https://img.shields.io/badge/OTHER-000000.svg?style=for-the-badge&logo=OTHER&logoColor=white) ![docker](https://img.shields.io/badge/docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=white) ![slack](https://img.shields.io/badge/slack-4A154B.svg?style=for-the-badge&logo=slack&logoColor=white) ![github](https://img.shields.io/badge/github-181717.svg?style=for-the-badge&logo=github&logoColor=white)
 
-## 기능 구현
+<br>
+
+# 내 담당 기능 <br>
+
+- Git 관리 담당
+- AWS 배포 담당
+- Spring Security를 사용한 로그인, 로그아웃 구현
+- 이메일 인증을 통한 비밀번호 찾기
+- 마이페이지와 전자 서명 관리
+- 사원 관리 페이지에서 사원 등록, 상세, 수정, 목록 페이징 처리 및 검색기능
+- 사원 등록 시 이메일로 생성된 사원번호와 비밀번호 전송
+- 부서 관리 페이지에서 부서 생성, 상세, 수정, 삭제
+- 부서 관리 페이지에서 직급 생성, 삭제
+- 부서 관리 페이지에서 해당 부서에 재직중인 사원 목록 출력, 페이징 처리
+- 공지사항 게시판 목록, 등록, 상세, 수정, 삭제
+- 공지사항 상세에서 첨부파일 다운로드, 조회수 업데이트
+
+<br>
+
+# 기능 구현 <br>
 
 ### 🔒 로그인
 <img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/a0e83807-95df-4278-b104-9a676b398b52" width="700px" height="500px"/>
