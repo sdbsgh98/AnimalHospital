@@ -23,7 +23,7 @@
 </details>
 
 ## 프로젝트 개요 
- ![logo-clear]()
+![loginLogo1](https://github.com/kimseeun10/AnimalHospital/assets/137882823/95ba607a-641f-4df6-bab3-159b9f833cd4)
 
 ><p><strong>프로젝트</strong>: 동물병원 그룹웨어</p>
 ><p><strong>기획 및 제작</strong>: 김세은, 송지선, 송윤호, 최혜령 </p>
