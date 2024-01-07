@@ -23,7 +23,7 @@
 </details>
 <br>
 
-# 프로젝트 개요 <br>
+# 📂 프로젝트 개요 <br>
 
 <img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/c8ec1f67-952a-4958-a88b-8c1fc42484ef" width="300px" height="200px"/> <br>
 
@@ -35,7 +35,7 @@
 ><p><strong>사용 기술</strong>: SPRING BOOT</p> 
 <br>
 
-# 개발 환경 및 도구 <br>
+# 🛠 개발 환경 및 도구 <br>
 
 ![FRAMEWORK](https://img.shields.io/badge/framework-000000.svg?style=for-the-badge&logo=framework1&logoColor=white) ![Spring Boot](https://img.shields.io/badge/springboot-6DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white) 
 
@@ -57,7 +57,7 @@
 
 <br>
 
-# 내 담당 기능 <br>
+# 💁‍♀️ 내 담당 기능 <br>
 
 - Git 관리 담당
 - AWS 배포 담당
@@ -74,7 +74,7 @@
 
 <br>
 
-# 기능 구현 <br>
+# 💻 기능 구현 <br>
 
 ### 🔒 로그인
 <img src="https://github.com/kimseeun10/AnimalHospital/assets/137882823/a0e83807-95df-4278-b104-9a676b398b52" width="700px" height="500px"/>
