@@ -1,4 +1,4 @@
-<h2>보듬 동물병원 ERP <br> (Bodeum Animal Medical Center)</h2>
+<h2>보듬 동물병원 그룹웨어 <br> (Bodeum Animal Medical Center)</h2>
 <hr>
 📅 프로젝트 개요<br><br>
 프로젝트: 동물병원 ERP <br>
